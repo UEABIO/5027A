@@ -1,34 +1,17 @@
 # Overview {.unnumbered}
 
-Welcome to the quarto textbook template. Customize your book setup by editing the following code. It will create a project at the specified path (e.g., the code below will create a new folder called "book" in your working directory), render the demo book in Quarto, open the book in a web browser, and open the project in a new RStudio window. 
+This course will introduce scientists and practitioners interested in applying statistical approaches in their daily routine using R as a working environment. Participants will be introduced into R and R Studio while learning how to perform common statistical analyses. After a short introduction on R and its principles, the focus will be on questions that could be addressed using common statistical analyses, both for descriptive statistics and for statistical inference.
 
-```{r, eval = FALSE}
-create_book(
-  path = "book",
-  title = "Book Template",
-  subtitle = "",
-  authors = "Me",
-  description = "Book Description",
-  output_dir = "docs",
-  license = "CC-BY",
-  google_analytics = "",
-  socials = list(),
-  downloads = c("pdf", "epub"),
-  sharing = c("twitter", "facebook", "linkedin"),
-  margin_header = "",
-  footer = paste0(license, " (",
-                  format(Sys.Date(), "%Y"),
-                  ") ", authors),
-  light_theme = "flatly",
-  dark_theme = "darkly",
-  css = stripes(),
-  df_print = "kable",
-  webexercises = TRUE,
-  open = rlang::is_interactive(),
-  render = TRUE
-)
-```
+## 0.1 Learning outcomes
 
-See @sec-instructions for details of how to further customize the book.
+- Understand how to read, interpret and write scripts in R.
+
+- Learn how to check and clean data 
+
+- Learn statistical tools to address common questions in research activities.
+
+- An introduction to efficient, readable and reproducible analyses
+
+- Being comfortable with using R when performing both descriptive and inferential statistics.
 
 

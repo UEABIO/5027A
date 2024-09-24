@@ -5,7 +5,11 @@
 
 .quarto-cover-image {
   display: block;
+  width: 200px;
+  height: auto;
 }
+
+
 
 /* named colours */
 :root {

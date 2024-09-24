@@ -242,11 +242,13 @@ Start with a built-in theme and then add any tweaks with the `theme()` function.
 ```{r}
 library(ggplot2)
 
+
 my_theme <- theme_minimal(base_size = 16) + 
-            theme(panel.background = element_rect(fill = "red", 
-                                                  color = "black", 
-                                                  size = 5),
-                  panel.grid = element_blank())
+  theme(
+    panel.grid = element_blank(),  # Removes gridlines
+    axis.line = element_line(color = "black")  # Adds x and y axis lines
+  )
+
 theme_set(my_theme)
 ```
 

@@ -37,6 +37,7 @@ book:
   page-footer: CC-BY (2024) Philip Leftwich
   chapters:
   - index.qmd
+  - 02-projects.qmd
   - instructions.qmd
   appendices:
   - webexercises.qmd
