@@ -1,10 +1,3 @@
-
-#  Project-oriented workflows {#sec-workflow}
-
-
-
-
-
 # Tidy data {#sec-tidy}
 
 ```{r, include = FALSE}
@@ -15,12 +8,25 @@ library(here)
 ```
 
 
-## What is tidy data?
+We are going to learn how to organise data using the *tidy* format^[(http://vita.had.co.nz/papers/tidy-data.pdf)]. This is because we are using the `tidyverse` packages @R-tidyverse. This is an opinionated, but highly effective method for generating reproducible analyses with a wide-range of data manipulation tools. Tidy data is an easy format for computers to read. It is also the required data structure for our **statistical tests** that we will work with later.
+
+Here 'tidy' refers to a specific structure that lets us manipulate and visualise data with ease. In a tidy dataset each *variable* is in one column and each row contains one *observation*. Each cell of the table/spreadsheet contains the *values*. One observation you might make about tidy data is it is quite long - it generates a lot of rows of data - you might remember then that *tidy* data can be referred to as *long*-format data (as opposed to *wide* data). 
+
+```{r, eval=TRUE, echo=FALSE, out.width="80%", fig.alt= "tidy data overview"}
+knitr::include_graphics("images/tidy-1.png")
+```
 
 
-While neither *wide* or *long* data is more correct than the other, we will work with *long* data as it is clearer how many distinct types of variables there are in our data *and* the tools we will be using from the `tidyverse` are designed to work with *long* data.
+## Why tidy data?
+
+- The data cleaning and analysis tools in R work best with data that is "tidy"
+
+- "Tidy" data has a clear and consistent structure, untidy data can be "messy" in lots of different ways
+
 
 ## Using `pivot` functions
+
+What do we do if the data we are working with in R isn't "tidy"?
 
 There are functions found as part of the `tidyverse` that can help us to reshape data. 
 
@@ -31,7 +37,7 @@ There are functions found as part of the `tidyverse` that can help us to reshape
 
 ```{r img-pivot-gif, echo=FALSE, fig.cap="Reshaping data with pivot"}
 
-knitr::include_graphics("images/tidyr_longer-wider.gif")
+knitr::include_graphics("images/tidyr-longer-wider.gif")
 
 ```
 
@@ -96,3 +102,7 @@ long_country_data <- pivot_longer(data = country_data,
              values_to = "metric")
 
 ```
+
+## Reading
+
+- [Tidy data](https://vita.had.co.nz/papers/tidy-data.pdf)

@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./instructions.html" rel="next">
+<link href="./03-tidy-data.html" rel="next">
 <link href="./index.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -150,8 +150,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./instructions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How to Use this Book</span></span></a>
+  <a href="./03-tidy-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tidy data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-penguin-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-dplyr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -164,12 +176,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./webexercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Webexercises</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
@@ -185,20 +191,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#setting-up-a-new-project" id="toc-setting-up-a-new-project" class="nav-link active" data-scroll-target="#setting-up-a-new-project"><span class="header-section-number">1.1</span> Setting up a new project</a></li>
-  <li>
-<a href="#avoiding-setwd-and-promoting-safe-file-paths" id="toc-avoiding-setwd-and-promoting-safe-file-paths" class="nav-link" data-scroll-target="#avoiding-setwd-and-promoting-safe-file-paths"><span class="header-section-number">1.2</span> Avoiding setwd() and Promoting Safe File Paths:</a>
+<li>
+<a href="#setting-up-a-new-project" id="toc-setting-up-a-new-project" class="nav-link active" data-scroll-target="#setting-up-a-new-project"><span class="header-section-number">1.1</span> Setting up a new project</a>
   <ul class="collapse">
-<li><a href="#absolute-vs.-relative-paths" id="toc-absolute-vs.-relative-paths" class="nav-link" data-scroll-target="#absolute-vs.-relative-paths"><span class="header-section-number">1.2.1</span> Absolute vs.&nbsp;Relative Paths:</a></li>
-  <li><a href="#organizing-projects" id="toc-organizing-projects" class="nav-link" data-scroll-target="#organizing-projects"><span class="header-section-number">1.2.2</span> Organizing Projects:</a></li>
-  <li><a href="#the-here-package" id="toc-the-here-package" class="nav-link" data-scroll-target="#the-here-package"><span class="header-section-number">1.2.3</span> The <code>here</code> Package:</a></li>
-  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">1.2.4</span> Reading</a></li>
+<li><a href="#absolute-vs.-relative-paths" id="toc-absolute-vs.-relative-paths" class="nav-link" data-scroll-target="#absolute-vs.-relative-paths"><span class="header-section-number">1.1.1</span> Absolute vs.&nbsp;Relative Paths:</a></li>
+  <li><a href="#organizing-projects" id="toc-organizing-projects" class="nav-link" data-scroll-target="#organizing-projects"><span class="header-section-number">1.1.2</span> Organizing Projects:</a></li>
+  <li><a href="#the-here-package" id="toc-the-here-package" class="nav-link" data-scroll-target="#the-here-package"><span class="header-section-number">1.1.3</span> The <code>here</code> Package:</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">1.1.4</span> Reading</a></li>
   </ul>
 </li>
   <li>
-<a href="#blank-slates" id="toc-blank-slates" class="nav-link" data-scroll-target="#blank-slates"><span class="header-section-number">1.3</span> Blank slates</a>
+<a href="#blank-slates" id="toc-blank-slates" class="nav-link" data-scroll-target="#blank-slates"><span class="header-section-number">1.2</span> Blank slates</a>
   <ul class="collapse">
-<li><a href="#restart-r-sessions" id="toc-restart-r-sessions" class="nav-link" data-scroll-target="#restart-r-sessions"><span class="header-section-number">1.3.1</span> Restart R sessions</a></li>
+<li><a href="#restart-r-sessions" id="toc-restart-r-sessions" class="nav-link" data-scroll-target="#restart-r-sessions"><span class="header-section-number">1.2.1</span> Restart R sessions</a></li>
   </ul>
 </li>
   <li>
@@ -216,7 +221,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#activity" id="toc-activity" class="nav-link" data-scroll-target="#activity"><span class="header-section-number">3.4</span> Activity</a></li>
   </ul>
 </li>
-  <li><a href="#naming-things" id="toc-naming-things" class="nav-link" data-scroll-target="#naming-things"><span class="header-section-number">4</span> Naming things</a></li>
+  <li>
+<a href="#naming-things" id="toc-naming-things" class="nav-link" data-scroll-target="#naming-things"><span class="header-section-number">4</span> Naming things</a>
+  <ul class="collapse">
+<li><a href="#reading-1" id="toc-reading-1" class="nav-link" data-scroll-target="#reading-1"><span class="header-section-number">4.1</span> Reading</a></li>
+  </ul>
+</li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -254,11 +264,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>The new project will be created with a .Rproj file. You can open it by double-clicking on this file or by using the “File” menu in RStudio.</p>
 <p>This will set up a dedicated workspace for your project, ensuring that the working directory and file paths are appropriately managed.</p>
-</section><section id="avoiding-setwd-and-promoting-safe-file-paths" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="avoiding-setwd-and-promoting-safe-file-paths">
-<span class="header-section-number">1.2</span> Avoiding setwd() and Promoting Safe File Paths:</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Avoiding setwd() and Promoting Safe File Paths:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>To maintain a clean and efficient workflow in R, it’s advisable to avoid using <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> at the beginning of each script. This practice promotes the use of safe file paths and is particularly important for projects with multiple collaborators or when working across different computers.</p>
-<section id="absolute-vs.-relative-paths" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="absolute-vs.-relative-paths">
-<span class="header-section-number">1.2.1</span> Absolute vs.&nbsp;Relative Paths:</h3>
+</div>
+</div>
+<section id="absolute-vs.-relative-paths" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="absolute-vs.-relative-paths">
+<span class="header-section-number">1.1.1</span> Absolute vs.&nbsp;Relative Paths:</h3>
 <p>While absolute file paths provide an explicit way to locate resources, they have significant drawbacks, such as incompatibility and reduced reproducibility. Relative file paths, on the other hand, are relative to the current working directory, making them shorter, more portable, and more reproducible.</p>
 <p>An <strong>Absolute file path</strong> is a path that contains the entire path to a file or directory starting from your Home directory and ending at the file or directory you wish to access e.g.</p>
 <pre><code>/home/your-username/project/data/penguins_raw.csv</code></pre>
@@ -271,12 +291,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When you use RStudio Projects, wherever the <code>.Rproj</code> file is located is set to the working directory. This means that if the <code>.Rproj</code> file is located in your project folder then the relative path to your data is:</p>
 <pre><code>data/penguins_raw.csv</code></pre>
 <p>This filepath is shorter and it means you could share your project with someone else and the script would run without any editing.</p>
-</section><section id="organizing-projects" class="level3" data-number="1.2.2"><h3 data-number="1.2.2" class="anchored" data-anchor-id="organizing-projects">
-<span class="header-section-number">1.2.2</span> Organizing Projects:</h3>
+</section><section id="organizing-projects" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="organizing-projects">
+<span class="header-section-number">1.1.2</span> Organizing Projects:</h3>
 <p>A key aspect of this workflow is organizing each logical project into a separate folder on your computer. This ensures that files and scripts are well-structured, making it easier to manage your work.</p>
-</section><section id="the-here-package" class="level3" data-number="1.2.3"><h3 data-number="1.2.3" class="anchored" data-anchor-id="the-here-package">
-<span class="header-section-number">1.2.3</span> The <code>here</code> Package:</h3>
-<p>To further enhance this organization and ensure that file paths are independent of specific working directories, the here package comes into play. The <code>here()</code> function provided by this package builds file paths relative to the top-level directory of your project.</p>
+</section><section id="the-here-package" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="the-here-package">
+<span class="header-section-number">1.1.3</span> The <code>here</code> Package:</h3>
+<p>To further enhance this organization and ensure that file paths are independent of specific working directories, the here package comes into play. The <code><a href="https://here.r-lib.org//reference/here.html">here::here()</a></code> function provided by this package builds file paths relative to the top-level directory of your project.</p>
 <pre><code>my_project.RProj/
     |- data/
     |   |- raw/
@@ -298,16 +318,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2"></a></span>
 <span id="cb5-3"><a href="#cb5-3"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"penguins.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="here-and-rmarkdown" class="level4" data-number="1.2.3.1"><h4 data-number="1.2.3.1" class="anchored" data-anchor-id="here-and-rmarkdown">
-<span class="header-section-number">1.2.3.1</span> here and Rmarkdown</h4>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+here and Rmarkdown
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>One quirk of working in a <code>.Rmd</code> Rmarkdown file is that when you “knit” all code is compiled with the working directory as the folder that .Rmd file lives in, but if you are working in a script <code>.R</code> or in a live session then the default working directory is the top level of the project file. This frustrating and confusing process can lead to errors when attempting to compile documents.</p>
 <p><strong>BUT</strong> if you use the <code>here</code> package then this default behaviour is overridden. The working directory when knitting will be the top-level .Rproj location again!</p>
-</section></section><section id="reading" class="level3" data-number="1.2.4"><h3 data-number="1.2.4" class="anchored" data-anchor-id="reading">
-<span class="header-section-number">1.2.4</span> Reading</h3>
+</div>
+</div>
+</section><section id="reading" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">1.1.4</span> Reading</h3>
 <p>https://github.com/jennybc/here_here</p>
 <p>https://cran.r-project.org/web/packages/here/index.html</p>
-</section></section><section id="blank-slates" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="blank-slates">
-<span class="header-section-number">1.3</span> Blank slates</h2>
+</section></section><section id="blank-slates" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="blank-slates">
+<span class="header-section-number">1.2</span> Blank slates</h2>
 <p>When working on data analysis and coding projects in R, it’s crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies.</p>
 <p>Hidden dependencies are elements in your R session that might not be immediately apparent but can significantly impact the reliability and predictability of your work.</p>
 <p>For example many data analysis scripts start with the command <code>rm(list = ls())</code>. While this command clears user-created objects from the workspace, it leaves hidden dependencies as it does not reset the R session, and can cause issues such as:</p>
@@ -316,8 +346,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Incomplete Reset:</strong> Package attachments made with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> persist, and customized options remain set.</p></li>
 <li><p><strong>Working Directory:</strong> The working directory is not affected, potentially causing path-related problems in future scripts.</p></li>
 </ul>
-<section id="restart-r-sessions" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="restart-r-sessions">
-<span class="header-section-number">1.3.1</span> Restart R sessions</h3>
+<section id="restart-r-sessions" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="restart-r-sessions">
+<span class="header-section-number">1.2.1</span> Restart R sessions</h3>
 <p>Restarting R sessions and using scripts as your history is a best practice for maintaining a clean, reproducible, and efficient workflow. It addresses the limitations of <code>rm(list = ls())</code> by ensuring a complete reset and minimizing hidden dependencies, enhancing code organization, and ensuring your analysis remains robust and predictable across sessions and when shared with others.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -548,10 +578,12 @@ Check your script
 </div>
 </div>
 <p>Taking these simple but effective steps can significantly enhance your workflow and help your colleagues as well. Remember, good file names are a small change that can make a big difference in your productivity.</p>
-<p>These examples from a great set of slides by R expert <a href="https://t.co/99waX8liuQ">Jenny Bryan</a></p>
+<section id="reading-1" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="reading-1">
+<span class="header-section-number">4.1</span> Reading</h2>
+<p><a href="https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989">Data Organisation in Spreadsheets</a></p>
 
 
-</section></main><!-- /main --><script>
+</section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -1352,8 +1384,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./instructions.html" class="pagination-link" aria-label="How to Use this Book">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How to Use this Book</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03-tidy-data.html" class="pagination-link" aria-label="Tidy data">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tidy data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

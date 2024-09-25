@@ -38,11 +38,14 @@ book:
   chapters:
   - index.qmd
   - 02-projects.qmd
-  - instructions.qmd
+  - 03-tidy-data.qmd
+  - 04-penguin-project.qmd
+  - 05-dplyr.qmd
   appendices:
-  - webexercises.qmd
   - references.qmd
-bibliography: include/references.bib
+bibliography:
+  - include/packages.bib
+  - include/references.bib
 csl: include/apa.csl
 format:
   html:
