@@ -182,7 +182,13 @@ Keep in mind that  `readr` is a separate package (part of tidyverse), requiring 
 Each of these packages and functions has the inverse "write" function to produce files in a variety of formats from R objects.
 
 
-# Scripts
+| Function         | Description                                          |
+|------------------|------------------------------------------------------|
+| `write_csv()`     | CSV file format                                      |
+| `write_tsv()`     | TSV (Tab-Separated Values) file format               |
+| `write_delim()`   | User-specified delimited files                       |
+
+## Scripts
 
 To ensure clarity and understanding, begin your script with a brief description of its purpose. This description will serve as a reference point for anyone who accesses your script. Even if you make updates later on, having this initial description will help maintain clarity and context, preventing confusion when revisiting the code in the future.
 
@@ -336,7 +342,7 @@ penguins_clean |>
 
 `r unhide()`
 
-# Naming things
+## Naming things
 
 So as we are reading things into and out of our environment we come to filenames. 
 
