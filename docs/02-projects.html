@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.53">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="description" content="Book Description">
-<title>1&nbsp; Project-oriented workflows – 5027A</title>
+<meta name="description" content="Statistical skills for Biologists">
+<title>1&nbsp; Project workflows – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-projects.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project-oriented workflows</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-projects.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-projects.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project-oriented workflows</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project workflows</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -197,7 +197,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#absolute-vs.-relative-paths" id="toc-absolute-vs.-relative-paths" class="nav-link" data-scroll-target="#absolute-vs.-relative-paths"><span class="header-section-number">1.1.1</span> Absolute vs.&nbsp;Relative Paths:</a></li>
   <li><a href="#organizing-projects" id="toc-organizing-projects" class="nav-link" data-scroll-target="#organizing-projects"><span class="header-section-number">1.1.2</span> Organizing Projects:</a></li>
   <li><a href="#the-here-package" id="toc-the-here-package" class="nav-link" data-scroll-target="#the-here-package"><span class="header-section-number">1.1.3</span> The <code>here</code> Package:</a></li>
-  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">1.1.4</span> Reading</a></li>
   </ul>
 </li>
   <li>
@@ -216,14 +215,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#separate-your-scripts" id="toc-separate-your-scripts" class="nav-link" data-scroll-target="#separate-your-scripts"><span class="header-section-number">2.5</span> Separate your scripts</a></li>
   <li><a href="#activity" id="toc-activity" class="nav-link" data-scroll-target="#activity"><span class="header-section-number">2.6</span> Activity</a></li>
   <li><a href="#naming-things" id="toc-naming-things" class="nav-link" data-scroll-target="#naming-things"><span class="header-section-number">2.7</span> Naming things</a></li>
-  <li><a href="#reading-1" id="toc-reading-1" class="nav-link" data-scroll-target="#reading-1"><span class="header-section-number">2.8</span> Reading</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">2.8</span> Reading</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-workflow" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project-oriented workflows</span></span></h1>
+<h1 class="title"><span id="sec-workflow" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project workflows</span></span></h1>
 </div>
 
 
@@ -324,10 +323,6 @@ here and Rmarkdown
 <p><strong>BUT</strong> if you use the <code>here</code> package then this default behaviour is overridden. The working directory when knitting will be the top-level .Rproj location again!</p>
 </div>
 </div>
-</section><section id="reading" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="reading">
-<span class="header-section-number">1.1.4</span> Reading</h3>
-<p>https://github.com/jennybc/here_here</p>
-<p>https://cran.r-project.org/web/packages/here/index.html</p>
 </section></section><section id="blank-slates" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="blank-slates">
 <span class="header-section-number">1.2</span> Blank slates</h2>
 <p>When working on data analysis and coding projects in R, it’s crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies.</p>
@@ -593,9 +588,12 @@ Check your script
 </div>
 </div>
 <p>Taking these simple but effective steps can significantly enhance your workflow and help your colleagues as well. Remember, good file names are a small change that can make a big difference in your productivity.</p>
-</section><section id="reading-1" class="level2" data-number="2.8"><h2 data-number="2.8" class="anchored" data-anchor-id="reading-1">
+</section><section id="reading" class="level2" data-number="2.8"><h2 data-number="2.8" class="anchored" data-anchor-id="reading">
 <span class="header-section-number">2.8</span> Reading</h2>
-<p><a href="https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989">Data Organisation in Spreadsheets</a></p>
+<ul>
+<li><p><a href="https://github.com/jennybc/here_here">Using the here package</a></p></li>
+<li><p><a href="https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989">Data Organisation in Spreadsheets</a></p></li>
+</ul>
 
 
 </section></section></main><!-- /main --><script>

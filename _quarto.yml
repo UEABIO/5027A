@@ -11,7 +11,7 @@ book:
   author: Philip Leftwich
   doi: ''
   license: CC-BY
-  description: Book Description
+  description: Statistical skills for Biologists
   cover-image: images/logos/logo.png
   image: images/logos/logo.png
   favicon: images/logos/logo.png
@@ -66,7 +66,7 @@ format:
     code-link: true
     code-fold: false
     code-line-numbers: true
-    code-overflow: wrap
+    code-overflow: scroll
     code-copy: hover
     highlight-style: a11y
     mainfont: ''

@@ -1,5 +1,5 @@
 
-#  Project-oriented workflows {#sec-workflow}
+#  Project workflows {#sec-workflow}
 
 
 ```{r, include = FALSE}
@@ -124,13 +124,6 @@ One quirk of working in a `.Rmd` Rmarkdown file is that when you "knit" all code
 
 **BUT** if you use the `here` package then this default behaviour is overridden. The working directory when knitting will be the top-level .Rproj location again!
 :::
-
-
-### Reading
-
-https://github.com/jennybc/here_here
-
-https://cran.r-project.org/web/packages/here/index.html
 
 
 ## Blank slates
@@ -384,4 +377,9 @@ Taking these simple but effective steps can significantly enhance your workflow 
 
 ## Reading
 
-[Data Organisation in Spreadsheets](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989)
+
+
+- [Using the here package](https://github.com/jennybc/here_here)
+
+
+- [Data Organisation in Spreadsheets](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989)

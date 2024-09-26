@@ -10,7 +10,7 @@ source("R/my_setup.R")
 penguins_raw <- read_csv(here("files", "penguins_raw.csv"))
 ```
 
-In this chapter you will learn how to use tidyverse functions to data clean and wrangle `r glossary("tidy data")` @sec-tidy 
+In this chapter you will learn how to use tidyverse functions to data clean and wrangle `r glossary("tidy data")` introduced in @sec-tidy 
 
 ## Introduction to dplyr
 
@@ -404,7 +404,7 @@ penguins_clean <- read_csv ("data/penguins_raw.csv",
 
 #### Rename columns (manually)
 
-The `clean_names` function quickly converts all variable names into snake case. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
+The `clean_names` function quickly converts all variable names into `r glossary("snake case")`. The N and C blood isotope ratio names are still quite long though, so let's clean those with `dplyr::rename()` where "new_name" = "old_name".
 
 
 ```{r, eval = T, warning = F, message = F}
@@ -453,7 +453,15 @@ penguins <- penguins |>
 ```
 
 
+::: {.callout-warning}
 
+Notice from here on out I am assigning the output of my code to the R object penguins, this means any new code "overwrites" the old penguins dataframe. This is because I ran out of new names I could think of, its also because my Environment is filling up with lots of data frame variants. 
+
+Be aware that when you run code in this way, it can cause errors if you try to run the same code twice e.g. in the example above once you have changed MALE to Male, running the code again could cause errors as MALE is no longer present! 
+
+If you make any mistakes running code in this way, re-start your R session and run the code from the start to where you went wrong.
+
+:::
 
 ```{block, type = "warning"}
 
@@ -484,14 +492,23 @@ penguins <- penguins_clean |>
 
 Alternatively we could decide we want simpler species names but that we would like to keep the latin name information, but in a separate column. To do this we are using [regex](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html). Regular expressions are a concise and flexible tool for describing patterns in strings
 
-```{r}
-
+```{r, eval = F}
 penguins_clean |> 
     separate(
         species,
         into = c("species", "full_latin_name"),
         sep = "(?=\\()"
     ) 
+```
+
+```{r, eval = T, echo = F}
+penguins_clean |> 
+    separate(
+        species,
+        into = c("species", "full_latin_name"),
+        sep = "(?=\\()"
+    ) |> 
+  head()
 ```
 
 
@@ -513,22 +530,34 @@ penguins |>
 ```
 Great! 
 
-If I did have duplications I could investigate further
+If I did have duplications I could investigate further and extract these exact rows: 
 
-```{r, eval = T}
+```{r, eval = F}
 
 # Inspect duplicated rows
 penguins |> 
     filter(duplicated(penguins))
 
 ```
+```
+A tibble:0 × 17
+0 rows | 1-8 of 17 columns
+```
 
-
-```{r, eval = T}
+```{r, eval = F}
 
 # Keep only unduplicated data
 penguins |> 
     filter(!duplicated(penguins))
+
+```
+
+```{r, eval = T, echo = F}
+
+# Keep only unduplicated data
+penguins |> 
+    filter(!duplicated(penguins)) |> 
+  head()
 
 ```
 
@@ -645,8 +674,6 @@ In R, factors are a class of data that allow for **ordered categories** with a f
 
 Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later). 
 
-Another common use of factors is to standardise the legends of plots so they do not fluctuate if certain values are temporarily absent from the data.
-
 Working with factors is easy with the `forcats` package:
 
 Using across - we can apply functions to columns based on selected criteria - here within mutate we are changing each column in the `.cols` argument and applying the function `forcats::as_factor()`
@@ -662,6 +689,12 @@ penguins |>
   glimpse()
 
 ```
+
+::: {.callout-important}
+
+Unless we assign the output of this code to an R object it will just print into the console, in the above I am demonstrating how to change variables to factors but we aren't "saving" this change.
+
+:::
 
 ### Setting factor levels
 
@@ -687,6 +720,7 @@ penguins |>
   geom_bar()
 
 ```
+
 
 To convert a character or numeric column to class factor, you can use any function from the `forcats` package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `forcats::fct_relevel()` lets you manually specify the level order. 
 
@@ -735,13 +769,14 @@ Factors will also be important when we build linear models a bit later. The refe
 
 
 
-## Workflow
+## Summary
 
-* Make sure you have **saved your script 💾**  and given it the filename "01_import_penguins_data.R" in the ["scripts" folder](#activity-1-organising-our-workspace).
+In this chapter we have successfully imported and checked our data for typos and small errors, we have also been introduce to some of the key functions in the `dplyr` package for data wrangling. Now that we have confidence in the format and integrity of our data, next time we will start to make insights and understand patterns. 
 
-* You have been playing with a lot of dplyr functions, think - what functions do I actually need to make sure I have a tidy and clean dataset with appropriate column names and formatted data?
+### Save scripts
 
-* We want : snake_case names, shorter isotope names, simpler species values and properly formatted date data with a new column for year.
+* Make sure you have **saved your script 💾**  and given it the filename `01_import_penguins_data.R` it should be saved in your **scripts folder**
+
 
 `r hide("Check your script")`
 
@@ -763,16 +798,23 @@ penguins_raw <- read_csv ("data/penguins_raw.csv")
 attributes(penguins_raw) # reads as tibble
 
 head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
-#__________________________----
+
 # CLEAN DATA ----
 
-# clean all variable names to snake_case using the clean_names function from the janitor package
-# note we are using assign <- to overwrite the old version of penguins with a version that has updated names
-# this changes the data in our R workspace but NOT the original csv file
+# clean all variable names to snake_case 
+# using the clean_names function from the janitor package
+# note we are using assign <- 
+# to overwrite the old version of penguins 
+# with a version that has updated names
+# this changes the data in our R workspace 
+# but NOT the original csv file
 
-penguins_clean <- janitor::clean_names(penguins_raw) # clean the column names
+# clean the column names
+# assign to new R object
+penguins_clean <- janitor::clean_names(penguins_raw) 
 
-colnames(penguins_clean) # quickly check the new variable names
+# quickly check the new variable names
+colnames(penguins_clean) 
 
 # shorten the variable names for N and C isotope blood samples
 
@@ -781,31 +823,52 @@ penguins <- rename(penguins_clean,
          "delta_13c"="delta_13_c_o_oo")
 
 # use mutate and case_when for a statement that conditionally changes the names of the values in a variable
-penguins <- penguins |> 
+penguins <- penguins_clean |> 
   mutate(species = case_when(species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
                              species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
                              species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
 
+# use mutate and if_else
+# for a statement that conditionally changes 
+# the names of the values in a variable
+penguins <- penguins |> 
+  mutate(sex = if_else(
+    sex == "MALE", "Male", "Female"
+  )
+  )
+
 # use lubridate to format date and extract the year
 penguins <- penguins |>
-  mutate(date_egg_proper = lubridate::dmy(date_egg))
+  mutate(date_egg = lubridate::dmy(date_egg))
+
+penguins |> 
+  mutate(year = lubridate::year(date_egg))
+
+# Set body mass ranges
+penguins <- penguins |> 
+  mutate(mass_range = case_when(
+    body_mass_g <= 3500 ~ "smol penguin",
+    body_mass_g >3500 & body_mass_g < 4500 ~ "mid penguin",
+    body_mass_g >= 4500 ~ "chonk penguin",
+    .default = NA)
+  )
+
+# Assign these to an ordered factor
 
 penguins <- penguins |> 
-  mutate(year = as.integer(lubridate::year(date_egg_proper)))
+  mutate(mass_range = fct_relevel(mass_range, 
+                                  "smol penguin", 
+                                  "mid penguin", 
+                                  "chonk penguin")
+         )
 
-# Export tidy dataframe for use in future sessions
-
-saveRDS(penguins, file = "outputs/2024_11_01_penguin_clean.RDS")
 
 ```
 
 `r unhide()`
 
 
-* Some parts of our script are *redundant* for the purposes of generating a clean dataframe, we need the `penguins` data in a tidy/rectangular format, checked for missing values, duplicated data and with clean column names. 
-
-
-* Does your workspace look like the below? 
+- Does your workspace look like the below? 
 
 ```{r, eval=TRUE, echo=FALSE, out.width="100%",  fig.cap="My neat project layout"}
 knitr::include_graphics("images/project_penguin.png")
@@ -815,10 +878,25 @@ knitr::include_graphics("images/project_penguin.png")
 knitr::include_graphics("images/r_script.png")
 ```
 
+- Does your script run from a `r glossary("blank slate")` blank slate without errors as described in {#sec-workflow}
 
-## Summary
+### Checklist for data checking
 
-In this chapter we have successfully imported and checked our data for typos and small errors, we have also been introduce to some of the key functions in the `dplyr` package for data wrangling. Now that we have confidence in the format and integrity of our data, next time we will start to make insights and understand patterns. 
+- Is our dataframe in a `r glossary("tidy data")` format?
+
+- Is each column assigned to the correct data type?
+    
+    - Are dates formatted correctly?
+    - Are factors set where needed, are the levels in the correct order?
+    
+- Are variables consistently named (e.g. using a naming convention such as snake_case)?
+
+- Are text values in an appropriate format?
+
+- Do we have any data duplication?
+
+- Are there any typos or mistakes in character strings?
+
 
 ## Activity: Test yourself
 

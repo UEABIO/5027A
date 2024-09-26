@@ -89,7 +89,7 @@ A Project will contain several files, possibly organised into sub-folders contai
 knitr::include_graphics("images/project.png")
 ```
 
-Within this project you will notice there is already one file *.Rproj*. This is an R project file, this is a very useful feature, it interacts with R to tell it you are working in a very specific place on the computer (in this case the cloud server we have dialed into). It means R will automatically treat the location of your project file as the 'working directory' and makes importing and exporting easier^[More on projects can be found in the R4DS book (https://r4ds.had.co.nz/workflow-projects.html)]. 
+Within this project you will notice there is already one file *.Rproj*. This is an R project file, this is a very useful feature, it interacts with R to tell it you are working in a very specific place on the computer (in this case the cloud server we have dialed into). It means R will automatically treat the location of your project file as the 'working directory' and makes importing and exporting easier. More on projects can be found in the [R4DS]((https://r4ds.had.co.nz/workflow-projects.html) book. 
 
 ```{block, type = "warning"}
 It is very important to NEVER to move the .Rproj file, this may prevent your workspace from opening properly. 
