@@ -37,11 +37,14 @@ book:
   page-footer: CC-BY (2024) Philip Leftwich
   chapters:
   - index.qmd
-  - 02-projects.qmd
-  - 03-tidy-data.qmd
   - 04-penguin-project.qmd
   - 05-dplyr.qmd
+  - 06-data-bias.qmd
+  - 07-data-insights.qmd
   appendices:
+  - r-basics.qmd
+  - projects.qmd
+  - tidy-data.qmd
   - references.qmd
 bibliography:
   - include/packages.bib

@@ -12,3 +12,5 @@ blank slate: |
    R projects are set not to store their .Rhistory file which means everything required to recreate your analysis is contained in your scripts
 snake case: |
   Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It's commonly used for variable and subroutine names, filenames, and database table and column names
+normal distribution: |
+  Also known as the "Gaussian distribution", it is a probability distribution that is symmetric about the mean, showing that data near the mean are more frequent in occurrence than data far from the mean. In graphical form, the normal distribution appears as a "bell curve".

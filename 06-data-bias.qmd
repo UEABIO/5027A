@@ -1,0 +1,310 @@
+# Data bias {#sec-bias}
+
+
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+library(janitor)
+library(here)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+source("sims.R")
+```
+
+
+## Sampling Bias
+
+### Explanation: 
+
+Sampling bias occurs when the data collected does not properly represent the population you are studying. This often happens if certain groups are over- or underrepresented. For example, if you survey only college students to understand a city's general population, your data will be biased because it doesn’t capture other demographics like older adults or people who do not attend college.
+
+### Why it matters: 
+
+Sampling bias leads to incorrect generalisations about the entire population, as conclusions are based on a skewed subset of data.
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+prob_obs_location <- population_data %>% 
+  group_by(Group) %>% 
+  summarise(n = n()) %>% 
+  mutate(prob_obs = n/sum(n))
+
+
+population_data %>% 
+  # set as factor and provide levels
+  ggplot()+
+  geom_bar(aes(x=Group),
+           fill="steelblue",
+           width=0.8)+
+  labs(x="",
+       y = "Number of observations")+
+  geom_text(data=prob_obs_location,
+            aes(y=(n+50),
+                x=Group,
+                label=scales::percent(prob_obs)))+
+  coord_flip()
+
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+population_data |>
+    group_by(Group) |>
+    summarise(mean = mean(Values),
+              sd = sd(Values))
+
+```
+
+```{r}
+prob_obs_location <- biased_sample_data %>% 
+  group_by(Group) %>% 
+  summarise(n = n()) %>% 
+  mutate(prob_obs = n/sum(n))
+
+
+biased_sample_data %>% 
+  # set as factor and provide levels
+  ggplot()+
+  geom_bar(aes(x=Group),
+           fill="steelblue",
+           width=0.8)+
+  labs(x="",
+       y = "Number of observations")+
+  geom_text(data=prob_obs_location,
+            aes(y=(n+50),
+                x=Group,
+                label=scales::percent(prob_obs)))+
+  coord_flip()
+
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
+ggplot(stats_comparison, aes(x = Type, y = mean, fill = Type)) +
+  geom_bar(stat = "identity", width = 0.6) +
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), width = 0.2) +
+  ggtitle("Comparison of Mean and Standard Error: Population vs. Biased Sample") +
+  ylab("Mean Value") +
+  theme(legend.position = "none")
+
+```
+
+## Missing Not at Random (MNAR) Bias
+
+### Explanation: 
+
+MNAR bias arises when data is systematically missing due to the value of the missing data itself. For instance, if people with extremely high incomes are less likely to report their income in a survey, this creates MNAR bias. The missing data is not random—it's directly related to the variable being measured.
+
+### Why it matters: 
+
+MNAR bias distorts conclusions because certain trends are hidden in the missing data. Ignoring this can lead to underestimating the variability or misunderstanding the true patterns in the data.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+weather_data |> 
+  filter(Record == "Temperature") |> 
+ggplot(aes(x = Day,
+          y = Temperature_Celsius,)
+       ) +
+  geom_line(
+            colour = "blue",
+            alpha = .4)+
+  ggtitle("Temperature Data") +
+  ylab("Temperature (°C)") +
+  
+  geom_smooth(method = "loess",
+              se = FALSE,
+              colour = "blue")
+
+```
+
+```{r}
+weather_data |>
+  filter(Record == "Temperature_Missing") |>
+ggplot(aes(x = Day,
+           y = Temperature_Celsius)) +
+  geom_line(aes(colour = Colour,
+                alpha = Colour,
+                group = 1))+
+  ggtitle("Temperature Data with and without Missing Data") +
+  ylab("Temperature (°C)") +
+  geom_smooth(method = "loess",
+              se = FALSE,
+              colour = "darkred")+
+  geom_smooth(data = weather_data |> filter(Record == "Temperature"),
+              method = "loess",
+              se = FALSE,
+              colour = "blue")+
+  scale_colour_identity()+
+  scale_alpha_manual(values = c(.4, .8))+
+  theme(legend.position = "none")
+
+```
+
+## Survivorship Bias
+
+### Explanation: 
+
+Survivorship bias occurs when you focus on the data points that survive a process and ignore those that did not. A famous example is from World War II, where analysts looked at the bullet holes on planes that returned from battle and suggested reinforcing areas where they saw damage. They overlooked the planes that didn’t return, which were hit in critical areas not visible on surviving planes.
+
+### Why it matters: 
+
+Focusing only on surviving or successful subjects can lead to false conclusions, as the failure cases (which provide crucial insights) are excluded from the analysis.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+  # Create a ggplot object with the image as a background
+  ggplot(plane_data) +
+    ggpubr::background_image(img)+
+    # Set x and y axis limits to fit the image and points properly
+    xlim(0, 1) +
+    ylim(0, 1) +
+    # Add a title to the plot
+    ggtitle("Survivorship Bias: Bullet Holes on WW2 Planes") +
+    theme_minimal() +
+    theme(panel.grid = element_blank(),
+          panel.border = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank())
+
+
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+  # Create a ggplot object with the image as a background
+  ggplot(plane_data) +
+    ggpubr::background_image(img)+
+    # Add bullet holes using geom_point (these represent areas where surviving planes had damage)
+    geom_jitter(aes(x = x,
+                   y = y),
+               width = .025,
+               height = .05,
+               color = "black", size = 2) +
+    # Set x and y axis limits to fit the image and points properly
+    xlim(0, 1) +
+    ylim(0, 1) +
+    # Add a title to the plot
+    ggtitle("Survivorship Bias: Bullet Holes on WW2 Planes") +
+    theme_minimal() +
+    theme(panel.grid = element_blank(),
+          panel.border = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank())
+
+
+```
+
+## Outlier Bias
+
+### Explanation: 
+
+Outlier bias happens when extreme values (outliers) unduly influence the results of an analysis. Outliers can occur due to data entry errors, measurement errors, or true but rare events. For example, if you're analyzing average income and a few extremely high incomes are present in the data, they can raise the average, making it seem like the typical person earns more than they actually do.
+
+### Why it matters: 
+
+Outliers can distort the results, especially when using statistical methods like the mean or regression. This can lead to misleading conclusions unless the outliers are properly handled.
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+  # Step 3: Plot the data without outliers and show the regression line
+  p1 <- ggplot(data, aes(x = x, y = y)) +
+    geom_point(color = "blue",
+               size = 2,
+               alpha = .1) +
+    geom_smooth(method = "lm", se = FALSE, color = "black",
+                linetype = "dotdash") +
+    ggtitle("Data Without Outliers") +
+    theme_minimal()+
+    scale_x_continuous(limits = c(0,110))+
+    scale_y_continuous(limits = c(50, 250))
+
+  # Step 4: Plot the data with outliers and show how the regression line changes
+  p2 <- ggplot(data_with_outliers, aes(x = x, y = y)) +
+    geom_point(color = "blue",
+               size = 2,
+               alpha = .1) +
+    geom_point(data = outliers, aes(x = x, y = y),
+               color = "red",
+               size = 3
+               ) +
+    geom_smooth(aes(linetype = "Data with outliers"), method = "lm", se = FALSE, color = "black") +
+    geom_smooth(data = data, method = "lm", se = FALSE, color = "black",
+                aes(linetype = "Data without outliers")) +
+    ggtitle("Data With Outliers (Red Points)") +
+    theme_minimal()+
+    scale_x_continuous(limits = c(0,110))+
+    scale_y_continuous(limits = c(50, 250))+
+    scale_linetype_manual(values = linetype)
+
+  # Combine the two plots side by side
+  library(patchwork)
+  p1+p2
+
+```
+
+### What to do about it
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+  ggplot(all_heights, aes(x = Height, y = 1)) +
+    # Density plot
+    ggridges::geom_density_ridges(alpha = 0.4, fill = "cyan", colour = "darkgrey") +
+
+    # Add points (raincloud-style) for each group
+#    geom_point(aes( color = Type), size = 3, alpha = 0.7, height = 0.02, width = 0.05) +
+
+    ggdist::stat_dots(aes(fill = Type),
+                      colour = "white",
+                      # put dots underneath
+                      side = "bottom",
+                      # move position down
+                      justification = 1,
+                      # size of dots
+                      dotsize = 4,
+
+                      # adjust bins (grouping) of dots
+                     binwidth = 1
+              )+
+    geom_boxplot(width =.01,
+                 outlier.shape = NA)+
+
+    # Vertical line for a plausible range (for reference, e.g., human heights)
+    geom_vline(xintercept = c(140, 200), linetype = "dashed", color = "black") +
+
+    # Title and theme adjustments
+    ggtitle("Density Plot with Raincloud Points: Plausible, Implausible, and Impossible Outliers") +
+    scale_color_manual(values = c("Plausible" = "cyan", "Implausible" = "darkorange", "Impossible" = "purple")) +
+    scale_fill_manual(values = c("Plausible" = "cyan", "Implausible" = "darkorange", "Impossible" = "purple")) +
+    theme_minimal() +
+    theme(legend.position = "top")+
+    coord_cartesian(ylim = c(.98,1.09))
+
+```
+
+## Omitted variable bias
+
+### Explanation: 
+
+Omitted variable bias occurs when a relevant variable is left out of an analysis, leading to incorrect conclusions. For example, a drug may appear ineffective if you don't account for gender differences, but including gender in the analysis may reveal that the drug works well for women but not for men.
+
+### Why it matters: 
+
+Ignoring important variables can mask the true relationships between variables, leading to faulty interpretations and conclusions.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+  drug_data |>
+    ggplot(aes(x = Intervention,
+               y = Effect))+
+    geom_boxplot()+
+    geom_jitter(width = .2)
+```
+
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+  drug_data |>
+    ggplot(aes(x = Intervention,
+               y = Effect,
+               colour = Gender))+
+    geom_boxplot()+
+    geom_point(position = position_jitterdodge(dodge.width = .8,
+                                               jitter.width = .2))
+
+```

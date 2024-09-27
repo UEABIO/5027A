@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>4&nbsp; Data cleaning – 5027A</title>
+<title>2&nbsp; Data cleaning – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./06-data-bias.html" rel="next">
 <link href="./04-penguin-project.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-dplyr.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-dplyr.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,26 +145,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-projects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project workflows</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03-tidy-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tidy data</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./04-penguin-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-dplyr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-data-bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data bias</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-data-insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data insights</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -177,6 +177,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">R Basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Project workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidy-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Tidy data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
@@ -193,56 +211,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#introduction-to-dplyr" id="toc-introduction-to-dplyr" class="nav-link active" data-scroll-target="#introduction-to-dplyr"><span class="header-section-number">4.1</span> Introduction to dplyr</a>
+<a href="#introduction-to-dplyr" id="toc-introduction-to-dplyr" class="nav-link active" data-scroll-target="#introduction-to-dplyr"><span class="header-section-number">2.1</span> Introduction to dplyr</a>
   <ul class="collapse">
-<li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="header-section-number">4.1.1</span> Select</a></li>
-  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">4.1.2</span> Filter</a></li>
-  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="header-section-number">4.1.3</span> Arrange</a></li>
-  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="header-section-number">4.1.4</span> Mutate</a></li>
+<li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="header-section-number">2.1.1</span> Select</a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">2.1.2</span> Filter</a></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="header-section-number">2.1.3</span> Arrange</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="header-section-number">2.1.4</span> Mutate</a></li>
   </ul>
 </li>
   <li>
-<a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes"><span class="header-section-number">4.2</span> Pipes</a>
+<a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes"><span class="header-section-number">2.2</span> Pipes</a>
   <ul class="collapse">
-<li><a href="#task" id="toc-task" class="nav-link" data-scroll-target="#task"><span class="header-section-number">4.2.1</span> Task</a></li>
+<li><a href="#task" id="toc-task" class="nav-link" data-scroll-target="#task"><span class="header-section-number">2.2.1</span> Task</a></li>
   </ul>
 </li>
   <li>
-<a href="#clean-the-penguin-data" id="toc-clean-the-penguin-data" class="nav-link" data-scroll-target="#clean-the-penguin-data"><span class="header-section-number">4.3</span> Clean the Penguin Data</a>
+<a href="#clean-the-penguin-data" id="toc-clean-the-penguin-data" class="nav-link" data-scroll-target="#clean-the-penguin-data"><span class="header-section-number">2.3</span> Clean the Penguin Data</a>
   <ul class="collapse">
-<li><a href="#activity-1-explore-data-structure" id="toc-activity-1-explore-data-structure" class="nav-link" data-scroll-target="#activity-1-explore-data-structure"><span class="header-section-number">4.3.1</span> Activity 1: Explore data structure</a></li>
-  <li><a href="#activity-2-clean-column-names" id="toc-activity-2-clean-column-names" class="nav-link" data-scroll-target="#activity-2-clean-column-names"><span class="header-section-number">4.3.2</span> Activity 2: Clean column names</a></li>
-  <li><a href="#activity-2-checking-for-duplications" id="toc-activity-2-checking-for-duplications" class="nav-link" data-scroll-target="#activity-2-checking-for-duplications"><span class="header-section-number">4.3.3</span> Activity 2: Checking for duplications</a></li>
-  <li><a href="#activity-3-checking-for-typos" id="toc-activity-3-checking-for-typos" class="nav-link" data-scroll-target="#activity-3-checking-for-typos"><span class="header-section-number">4.3.4</span> Activity 3: Checking for typos</a></li>
+<li><a href="#activity-1-explore-data-structure" id="toc-activity-1-explore-data-structure" class="nav-link" data-scroll-target="#activity-1-explore-data-structure"><span class="header-section-number">2.3.1</span> Activity 1: Explore data structure</a></li>
+  <li><a href="#activity-2-clean-column-names" id="toc-activity-2-clean-column-names" class="nav-link" data-scroll-target="#activity-2-clean-column-names"><span class="header-section-number">2.3.2</span> Activity 2: Clean column names</a></li>
+  <li><a href="#activity-2-checking-for-duplications" id="toc-activity-2-checking-for-duplications" class="nav-link" data-scroll-target="#activity-2-checking-for-duplications"><span class="header-section-number">2.3.3</span> Activity 2: Checking for duplications</a></li>
+  <li><a href="#activity-3-checking-for-typos" id="toc-activity-3-checking-for-typos" class="nav-link" data-scroll-target="#activity-3-checking-for-typos"><span class="header-section-number">2.3.4</span> Activity 3: Checking for typos</a></li>
   </ul>
 </li>
   <li>
-<a href="#working-with-dates" id="toc-working-with-dates" class="nav-link" data-scroll-target="#working-with-dates"><span class="header-section-number">4.4</span> Working with dates</a>
+<a href="#working-with-dates" id="toc-working-with-dates" class="nav-link" data-scroll-target="#working-with-dates"><span class="header-section-number">2.4</span> Working with dates</a>
   <ul class="collapse">
-<li><a href="#calculations-with-dates" id="toc-calculations-with-dates" class="nav-link" data-scroll-target="#calculations-with-dates"><span class="header-section-number">4.4.1</span> Calculations with dates</a></li>
+<li><a href="#calculations-with-dates" id="toc-calculations-with-dates" class="nav-link" data-scroll-target="#calculations-with-dates"><span class="header-section-number">2.4.1</span> Calculations with dates</a></li>
   </ul>
 </li>
   <li>
-<a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors"><span class="header-section-number">4.5</span> Factors</a>
+<a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors"><span class="header-section-number">2.5</span> Factors</a>
   <ul class="collapse">
-<li><a href="#setting-factor-levels" id="toc-setting-factor-levels" class="nav-link" data-scroll-target="#setting-factor-levels"><span class="header-section-number">4.5.1</span> Setting factor levels</a></li>
+<li><a href="#setting-factor-levels" id="toc-setting-factor-levels" class="nav-link" data-scroll-target="#setting-factor-levels"><span class="header-section-number">2.5.1</span> Setting factor levels</a></li>
   </ul>
 </li>
   <li>
-<a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.6</span> Summary</a>
+<a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.6</span> Summary</a>
   <ul class="collapse">
-<li><a href="#save-scripts" id="toc-save-scripts" class="nav-link" data-scroll-target="#save-scripts"><span class="header-section-number">4.6.1</span> Save scripts</a></li>
-  <li><a href="#checklist-for-data-checking" id="toc-checklist-for-data-checking" class="nav-link" data-scroll-target="#checklist-for-data-checking"><span class="header-section-number">4.6.2</span> Checklist for data checking</a></li>
+<li><a href="#save-scripts" id="toc-save-scripts" class="nav-link" data-scroll-target="#save-scripts"><span class="header-section-number">2.6.1</span> Save scripts</a></li>
+  <li><a href="#checklist-for-data-checking" id="toc-checklist-for-data-checking" class="nav-link" data-scroll-target="#checklist-for-data-checking"><span class="header-section-number">2.6.2</span> Checklist for data checking</a></li>
   </ul>
 </li>
-  <li><a href="#activity-test-yourself" id="toc-activity-test-yourself" class="nav-link" data-scroll-target="#activity-test-yourself"><span class="header-section-number">4.7</span> Activity: Test yourself</a></li>
-  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">4.8</span> Glossary</a></li>
-  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">4.9</span> Reading</a></li>
+  <li><a href="#activity-test-yourself" id="toc-activity-test-yourself" class="nav-link" data-scroll-target="#activity-test-yourself"><span class="header-section-number">2.7</span> Activity: Test yourself</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">2.8</span> Glossary</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">2.9</span> Reading</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-dplyr" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></h1>
+<h1 class="title"><span id="sec-dplyr" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></h1>
 </div>
 
 
@@ -256,17 +274,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>In this chapter you will learn how to use tidyverse functions to data clean and wrangle <a class="glossary">tidy data<span class="def">Tidy data refers to a specific format for organizing datasets that makes data easier to work with for analysis and visualization in R, especially using the tidyverse. The concept was popularized by Hadley Wickham in his paper “Tidy Data” and is an essential principle for effective data manipulation.</span></a> introduced in <a href="03-tidy-data.html" class="quarto-xref"><span>Chapter 2</span></a></p>
-<section id="introduction-to-dplyr" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="introduction-to-dplyr">
-<span class="header-section-number">4.1</span> Introduction to dplyr</h2>
+</header><p>In this chapter you will learn how to use tidyverse functions to data clean and wrangle <a class="glossary">tidy data<span class="def">Tidy data refers to a specific format for organizing datasets that makes data easier to work with for analysis and visualization in R, especially using the tidyverse. The concept was popularized by Hadley Wickham in his paper “Tidy Data” and is an essential principle for effective data manipulation.</span></a> introduced in <a href="tidy-data.html" class="quarto-xref"><span>Appendix C</span></a></p>
+<section id="introduction-to-dplyr" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="introduction-to-dplyr">
+<span class="header-section-number">2.1</span> Introduction to dplyr</h2>
 <p>In this section we will be introduced to some of the most commonly used data wrangling functions, these come from the <code>dplyr</code> package (part of the <code>tidyverse</code>). These are functions you are likely to become <em>very</em> familiar with.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -311,8 +329,8 @@ Tip
 </div>
 </div>
 </div>
-<section id="select" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="select">
-<span class="header-section-number">4.1.1</span> Select</h3>
+<section id="select" class="level3" data-number="2.1.1"><h3 data-number="2.1.1" class="anchored" data-anchor-id="select">
+<span class="header-section-number">2.1.1</span> Select</h3>
 <p>If we wanted to create a dataset that only includes certain variables, we can use the <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code> function from the <code>dplyr</code> package.</p>
 <p>For example I might wish to create a simplified dataset that only contains <code>species</code>, <code>sex</code>, <code>flipper_length_mm</code> and <code>body_mass_g</code>.</p>
 <p>Run the below code to select only those columns</p>
@@ -335,8 +353,8 @@ Tip
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> penguins_raw, </span>
 <span id="cb3-2"><a href="#cb3-2"></a>       <span class="st">`</span><span class="at">Species, </span><span class="st">`</span>Sex<span class="st">`</span><span class="at">, </span><span class="st">`</span>Flipper <span class="fu">Length</span> (mm)<span class="st">`</span><span class="at">, </span><span class="st">`</span>Body <span class="fu">Mass</span> (g)<span class="st">`</span><span class="at">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="filter" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="filter">
-<span class="header-section-number">4.1.2</span> Filter</h3>
+</section><section id="filter" class="level3" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="filter">
+<span class="header-section-number">2.1.2</span> Filter</h3>
 <p>Having previously used <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code> to select certain variables, we will now use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to select only certain rows or observations. For example only Adelie penguins.</p>
 <p>We can do this with the equivalence operator <code>==</code></p>
 <div class="cell" data-layout-align="center">
@@ -404,8 +422,8 @@ Tip
 <span id="cb7-2"><a href="#cb7-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>, </span>
 <span id="cb7-3"><a href="#cb7-3"></a>       <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="arrange" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="arrange">
-<span class="header-section-number">4.1.3</span> Arrange</h3>
+</section><section id="arrange" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="arrange">
+<span class="header-section-number">2.1.3</span> Arrange</h3>
 <p>The function <code>arrange()</code> sorts the rows in the table according to the columns supplied. For example</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins, </span>
@@ -424,8 +442,8 @@ Tip
 <span id="cb10-3"><a href="#cb10-3"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Species</span><span class="st">`</span>),</span>
 <span id="cb10-4"><a href="#cb10-4"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="mutate" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="mutate">
-<span class="header-section-number">4.1.4</span> Mutate</h3>
+</section><section id="mutate" class="level3" data-number="2.1.4"><h3 data-number="2.1.4" class="anchored" data-anchor-id="mutate">
+<span class="header-section-number">2.1.4</span> Mutate</h3>
 <p>Sometimes we need to create a new variable that doesn’t exist in our dataset. For example we might want to figure out what the flipper length is when factoring in body mass.</p>
 <p>To create new variables we use the function <code>mutate()</code>.</p>
 <p>Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the <code>new_penguins</code> data oject.</p>
@@ -433,8 +451,8 @@ Tip
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">mutate</span>(<span class="at">.data =</span> new_penguins,</span>
 <span id="cb11-2"><a href="#cb11-2"></a>                     <span class="at">body_mass_kg =</span> <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span><span class="sc">/</span><span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="pipes" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="pipes">
-<span class="header-section-number">4.2</span> Pipes</h2>
+</section></section><section id="pipes" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="pipes">
+<span class="header-section-number">2.2</span> Pipes</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -470,8 +488,8 @@ Tip
 <span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>)<span class="er">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The reason that this function is called a pipe is because it ‘pipes’ the data through to the next function. When you wrote the code previously, the first argument of each function was the dataset you wanted to work on. When you use pipes it will automatically take the data from the previous line of code so you don’t need to specify it again.</p>
-<section id="task" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="task">
-<span class="header-section-number">4.2.1</span> Task</h3>
+<section id="task" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="task">
+<span class="header-section-number">2.2.1</span> Task</h3>
 <p>Try and write out as plain English what the |&gt; above is doing? You can read the |&gt; as THEN</p>
 <div class="webex-solution">
 <button>
@@ -492,8 +510,8 @@ You may be familiar with the magrittr pipe or see it in other tutorials, and web
 </p>
 </div>
 </div>
-</section></section><section id="clean-the-penguin-data" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="clean-the-penguin-data">
-<span class="header-section-number">4.3</span> Clean the Penguin Data</h2>
+</section></section><section id="clean-the-penguin-data" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="clean-the-penguin-data">
+<span class="header-section-number">2.3</span> Clean the Penguin Data</h2>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -504,11 +522,11 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Re-open your <code>01_import_penguins_data.R</code> started in <a href="04-penguin-project.html" class="quarto-xref"><span>Chapter 3</span></a> and start to add these commands to your data importing and cleaning script:</p>
+<p>Re-open your <code>01_import_penguins_data.R</code> started in <a href="04-penguin-project.html" class="quarto-xref"><span>Chapter 1</span></a> and start to add these commands to your data importing and cleaning script:</p>
 </div>
 </div>
-<section id="activity-1-explore-data-structure" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="activity-1-explore-data-structure">
-<span class="header-section-number">4.3.1</span> Activity 1: Explore data structure</h3>
+<section id="activity-1-explore-data-structure" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="activity-1-explore-data-structure">
+<span class="header-section-number">2.3.1</span> Activity 1: Explore data structure</h3>
 <p>Before working with your data, it’s essential to understand its underlying structure and content. In this section, we’ll use powerful functions like <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code>head</code>()<code>,</code>tail()<code>and the add-on function</code>skimr::skim()` to thoroughly examine your dataset. These tools provide insights into data types, variable distributions, and sample records, helping you identify initial issues such as missing values or inconsistent data types. By gaining a clear understanding of your data’s structure, you’ll be better equipped to address any problems and proceed confidently with data cleaning and analysis.</p>
 <p>When we run <code>glimpse()</code> we get several lines of output. The number of observations “rows”, the number of variables “columns”. Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data.</p>
 <div class="cell" data-layout-align="center">
@@ -901,8 +919,8 @@ Explanation
 </button>
 <p>No, they are 2 missing data points for body measurements (culmen, flipper, body mass), 11 missing data points for sex, 13/14 missing data points for blood isotopes (Delta N/C) and 290 missing data points for comments</p>
 </div>
-</section><section id="activity-2-clean-column-names" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="activity-2-clean-column-names">
-<span class="header-section-number">4.3.2</span> Activity 2: Clean column names</h3>
+</section><section id="activity-2-clean-column-names" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="activity-2-clean-column-names">
+<span class="header-section-number">2.3.2</span> Activity 2: Clean column names</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># CHECK DATA----</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="co"># check the data</span></span>
@@ -934,8 +952,8 @@ Explanation
 <li><p><strong>Delta 15N</strong> : the ratio of stable Nitrogen isotopes 15N:14N from blood sample</p></li>
 <li><p><strong>Delta 13C</strong>: the ratio of stable Carbon isotopes 13C:12C from blood sample</p></li>
 </ul>
-<section id="clean-column-names" class="level4" data-number="4.3.2.1"><h4 data-number="4.3.2.1" class="anchored" data-anchor-id="clean-column-names">
-<span class="header-section-number">4.3.2.1</span> Clean column names</h4>
+<section id="clean-column-names" class="level4" data-number="2.3.2.1"><h4 data-number="2.3.2.1" class="anchored" data-anchor-id="clean-column-names">
+<span class="header-section-number">2.3.2.1</span> Clean column names</h4>
 <p>Often we might want to change the names of our variables. They might be non-intuitive, or too long. Our data has a couple of issues:</p>
 <ul>
 <li><p>Some of the names contain spaces</p></li>
@@ -979,8 +997,8 @@ Import and clean names
 <span id="cb24-2"><a href="#cb24-2"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section><section id="rename-columns-manually" class="level4" data-number="4.3.2.2"><h4 data-number="4.3.2.2" class="anchored" data-anchor-id="rename-columns-manually">
-<span class="header-section-number">4.3.2.2</span> Rename columns (manually)</h4>
+</section><section id="rename-columns-manually" class="level4" data-number="2.3.2.2"><h4 data-number="2.3.2.2" class="anchored" data-anchor-id="rename-columns-manually">
+<span class="header-section-number">2.3.2.2</span> Rename columns (manually)</h4>
 <p>The <code>clean_names</code> function quickly converts all variable names into <a class="glossary">snake case<span class="def">Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It’s commonly used for variable and subroutine names, filenames, and database table and column names</span></a>. The N and C blood isotope ratio names are still quite long though, so let’s clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where “new_name” = “old_name”.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># shorten the variable names for isotope blood samples</span></span>
@@ -989,8 +1007,8 @@ Import and clean names
 <span id="cb25-4"><a href="#cb25-4"></a>         <span class="st">"delta_15n"</span><span class="ot">=</span><span class="st">"delta_15_n_o_oo"</span>,  </span>
 <span id="cb25-5"><a href="#cb25-5"></a>         <span class="st">"delta_13c"</span><span class="ot">=</span><span class="st">"delta_13_c_o_oo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="rename-text-values-manually" class="level4" data-number="4.3.2.3"><h4 data-number="4.3.2.3" class="anchored" data-anchor-id="rename-text-values-manually">
-<span class="header-section-number">4.3.2.3</span> Rename text values manually</h4>
+</section><section id="rename-text-values-manually" class="level4" data-number="2.3.2.3"><h4 data-number="2.3.2.3" class="anchored" data-anchor-id="rename-text-values-manually">
+<span class="header-section-number">2.3.2.3</span> Rename text values manually</h4>
 <p>Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the <strong>values</strong> in our columns, not the column names.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># use mutate and case_when </span></span>
@@ -1037,8 +1055,8 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 </p>
 </div>
 </div>
-</section><section id="rename-text-values-with-stringr" class="level4" data-number="4.3.2.4"><h4 data-number="4.3.2.4" class="anchored" data-anchor-id="rename-text-values-with-stringr">
-<span class="header-section-number">4.3.2.4</span> Rename text values with stringr</h4>
+</section><section id="rename-text-values-with-stringr" class="level4" data-number="2.3.2.4"><h4 data-number="2.3.2.4" class="anchored" data-anchor-id="rename-text-values-with-stringr">
+<span class="header-section-number">2.3.2.4</span> Rename text values with stringr</h4>
 <p>Datasets often contain words, and we call these words “(character) strings”.</p>
 <p>Often these aren’t quite how we want them to be, but we can manipulate these as much as we like. Functions in the package <code>stringr</code>, are fantastic. And the number of different types of manipulations are endless!</p>
 <p>Below we repeat the outcomes above, but with string matching:</p>
@@ -1230,8 +1248,8 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 </div>
 </div>
 </div>
-</section></section><section id="activity-2-checking-for-duplications" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="activity-2-checking-for-duplications">
-<span class="header-section-number">4.3.3</span> Activity 2: Checking for duplications</h3>
+</section></section><section id="activity-2-checking-for-duplications" class="level3" data-number="2.3.3"><h3 data-number="2.3.3" class="anchored" data-anchor-id="activity-2-checking-for-duplications">
+<span class="header-section-number">2.3.3</span> Activity 2: Checking for duplications</h3>
 <p>It is very easy when inputting data to make mistakes, copy something in twice for example, or if someone did a lot of copy-pasting to assemble a spreadsheet (yikes!). We can check this pretty quickly</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># check for whole duplicate </span></span>
@@ -1417,8 +1435,8 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 </div>
 </div>
 </div>
-</section><section id="activity-3-checking-for-typos" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="activity-3-checking-for-typos">
-<span class="header-section-number">4.3.4</span> Activity 3: Checking for typos</h3>
+</section><section id="activity-3-checking-for-typos" class="level3" data-number="2.3.4"><h3 data-number="2.3.4" class="anchored" data-anchor-id="activity-3-checking-for-typos">
+<span class="header-section-number">2.3.4</span> Activity 3: Checking for typos</h3>
 <p>We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># Print only unique character strings in this variable</span></span>
@@ -1514,8 +1532,8 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 </div>
 </div>
 </div>
-</section></section><section id="working-with-dates" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="working-with-dates">
-<span class="header-section-number">4.4</span> Working with dates</h2>
+</section></section><section id="working-with-dates" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="working-with-dates">
+<span class="header-section-number">2.4</span> Working with dates</h2>
 <p>Working with dates can be tricky, treating date as strictly numeric is problematic, it won’t account for number of days in months or number of months in a year.</p>
 <p>Additionally there’s a lot of different ways to write the same date:</p>
 <ul>
@@ -1541,8 +1559,8 @@ Pay attention to warning and error messages
 <li>
 <strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_BGKBQXUHVU" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_BGKBQXUHVU" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_BGKBQXUHVU" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_BGKBQXUHVU" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_BGKBQXUHVU" value="answer"><span>dmy()</span></label>
+<div id="radio_NTYJDYZQQQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NTYJDYZQQQ" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_NTYJDYZQQQ" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_NTYJDYZQQQ" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_NTYJDYZQQQ" value="answer"><span>dmy()</span></label>
 </div>
 <div class="webex-solution">
 <button>
@@ -1555,8 +1573,8 @@ Solution
 </div>
 <p>Here we use the <code>mutate</code> function from <code>dplyr</code> to create a <em>new variable</em> called <code>date_egg_proper</code> based on the output of converting the characters in <code>date_egg</code> to date format. The original variable is left intact, if we had specified the “new” variable was also called <code>date_egg</code> then it would have overwritten the original variable.</p>
 <p>Once we have established our date data, we are able to perform calculations or extract information. Such as the date range across which our data was collected.</p>
-<section id="calculations-with-dates" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="calculations-with-dates">
-<span class="header-section-number">4.4.1</span> Calculations with dates</h3>
+<section id="calculations-with-dates" class="level3" data-number="2.4.1"><h3 data-number="2.4.1" class="anchored" data-anchor-id="calculations-with-dates">
+<span class="header-section-number">2.4.1</span> Calculations with dates</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">summarise</span>(<span class="at">min_date=</span><span class="fu">min</span>(date_egg_proper),</span>
@@ -1567,8 +1585,8 @@ Solution
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="factors" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="factors">
-<span class="header-section-number">4.5</span> Factors</h2>
+</section></section><section id="factors" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="factors">
+<span class="header-section-number">2.5</span> Factors</h2>
 <p>In R, factors are a class of data that allow for <strong>ordered categories</strong> with a fixed set of acceptable values.</p>
 <p>Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later).</p>
 <p>Working with factors is easy with the <code>forcats</code> package:</p>
@@ -1604,8 +1622,8 @@ Important
 <p>Unless we assign the output of this code to an R object it will just print into the console, in the above I am demonstrating how to change variables to factors but we aren’t “saving” this change.</p>
 </div>
 </div>
-<section id="setting-factor-levels" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="setting-factor-levels">
-<span class="header-section-number">4.5.1</span> Setting factor levels</h3>
+<section id="setting-factor-levels" class="level3" data-number="2.5.1"><h3 data-number="2.5.1" class="anchored" data-anchor-id="setting-factor-levels">
+<span class="header-section-number">2.5.1</span> Setting factor levels</h3>
 <p>If we want to specify the <em>correct</em> order for a factor we can use <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">forcats::fct_relevel</a></code></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
@@ -1676,11 +1694,11 @@ Factors will also be important when we build linear models a bit later. The refe
 </p>
 </div>
 </div>
-</section></section><section id="summary" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">4.6</span> Summary</h2>
+</section></section><section id="summary" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">2.6</span> Summary</h2>
 <p>In this chapter we have successfully imported and checked our data for typos and small errors, we have also been introduce to some of the key functions in the <code>dplyr</code> package for data wrangling. Now that we have confidence in the format and integrity of our data, next time we will start to make insights and understand patterns.</p>
-<section id="save-scripts" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="save-scripts">
-<span class="header-section-number">4.6.1</span> Save scripts</h3>
+<section id="save-scripts" class="level3" data-number="2.6.1"><h3 data-number="2.6.1" class="anchored" data-anchor-id="save-scripts">
+<span class="header-section-number">2.6.1</span> Save scripts</h3>
 <ul>
 <li>Make sure you have <strong>saved your script 💾</strong> and given it the filename <code>01_import_penguins_data.R</code> it should be saved in your <strong>scripts folder</strong>
 </li>
@@ -1750,7 +1768,7 @@ Check your script
 <span id="cb52-58"><a href="#cb52-58"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
 <span id="cb52-59"><a href="#cb52-59"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span>
 <span id="cb52-60"><a href="#cb52-60"></a></span>
-<span id="cb52-61"><a href="#cb52-61"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb52-61"><a href="#cb52-61"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
 <span id="cb52-62"><a href="#cb52-62"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span>
 <span id="cb52-63"><a href="#cb52-63"></a></span>
 <span id="cb52-64"><a href="#cb52-64"></a><span class="co"># Set body mass ranges</span></span>
@@ -1793,8 +1811,8 @@ Check your script
 </div>
 <ul>
 <li>Does your script run from a <a class="glossary">blank slate<span class="def">R projects are set not to store their .Rhistory file which means everything required to recreate your analysis is contained in your scripts</span></a> blank slate without errors as described in {#sec-workflow}</li>
-</ul></section><section id="checklist-for-data-checking" class="level3" data-number="4.6.2"><h3 data-number="4.6.2" class="anchored" data-anchor-id="checklist-for-data-checking">
-<span class="header-section-number">4.6.2</span> Checklist for data checking</h3>
+</ul></section><section id="checklist-for-data-checking" class="level3" data-number="2.6.2"><h3 data-number="2.6.2" class="anchored" data-anchor-id="checklist-for-data-checking">
+<span class="header-section-number">2.6.2</span> Checklist for data checking</h3>
 <ul>
 <li><p>Is our dataframe in a <a class="glossary">tidy data<span class="def">Tidy data refers to a specific format for organizing datasets that makes data easier to work with for analysis and visualization in R, especially using the tidyverse. The concept was popularized by Hadley Wickham in his paper “Tidy Data” and is an essential principle for effective data manipulation.</span></a> format?</p></li>
 <li>
@@ -1808,8 +1826,8 @@ Check your script
 <li><p>Are text values in an appropriate format?</p></li>
 <li><p>Do we have any data duplication?</p></li>
 <li><p>Are there any typos or mistakes in character strings?</p></li>
-</ul></section></section><section id="activity-test-yourself" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="activity-test-yourself">
-<span class="header-section-number">4.7</span> Activity: Test yourself</h2>
+</ul></section></section><section id="activity-test-yourself" class="level2" data-number="2.7"><h2 data-number="2.7" class="anchored" data-anchor-id="activity-test-yourself">
+<span class="header-section-number">2.7</span> Activity: Test yourself</h2>
 <p><strong>Question 1.</strong> In order to subset a data by <strong>rows</strong> I should use the function <select class="webex-select"><option value="blank"></option>
 <option value="">select()</option>
 <option value="answer">filter()</option>
@@ -1873,8 +1891,8 @@ Explain this answer
 <option value="">numerical</option>
 <option value="answer">alphabetical</option>
 <option value="">order in the dataframe</option></select></p>
-</section><section id="glossary" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="glossary">
-<span class="header-section-number">4.8</span> Glossary</h2>
+</section><section id="glossary" class="level2" data-number="2.8"><h2 data-number="2.8" class="anchored" data-anchor-id="glossary">
+<span class="header-section-number">2.8</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
@@ -1907,8 +1925,8 @@ Explain this answer
 </table>
 </div>
 </div>
-</section><section id="reading" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="reading">
-<span class="header-section-number">4.9</span> Reading</h2>
+</section><section id="reading" class="level2" data-number="2.9"><h2 data-number="2.9" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">2.9</span> Reading</h2>
 <ul>
 <li><p><a href="https://dplyr.tidyverse.org/index.html">Dplyr</a></p></li>
 <li><p><a href="https://lubridate.tidyverse.org/">Lubridate</a></p></li>
@@ -2713,12 +2731,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./04-penguin-project.html" class="pagination-link" aria-label="Meet the Penguins">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./06-data-bias.html" class="pagination-link" aria-label="Data bias">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data bias</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

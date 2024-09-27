@@ -9,6 +9,8 @@ if (requireNamespace("knitr", quietly = TRUE)) {
   # default knitr options ----
   knitr::opts_chunk$set(
     echo       = TRUE,
+    warning = FALSE,
+    message = FALSE,
     results    = "hold",
     out.width  = '100%',
     fig.width  = 8,
@@ -17,3 +19,13 @@ if (requireNamespace("knitr", quietly = TRUE)) {
     dpi = 96
   )
 }
+
+library(ggplot2)
+
+my_theme <- theme_minimal(base_size = 16) +
+  theme(
+    panel.grid = element_blank(),  # Removes gridlines
+    axis.line = element_line(color = "black")  # Adds x and y axis lines
+  )
+
+theme_set(my_theme)
