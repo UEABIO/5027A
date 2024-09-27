@@ -21,6 +21,9 @@ Sampling bias occurs when the data collected does not properly represent the pop
 
 Sampling bias leads to incorrect generalisations about the entire population, as conclusions are based on a skewed subset of data.
 
+### Example:
+
+There are three locations with native foxgloves *Digitalis purpurea* and about 1000 plants in each site.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 prob_obs_location <- population_data %>% 
@@ -40,10 +43,12 @@ population_data %>%
   geom_text(data=prob_obs_location,
             aes(y=(n+50),
                 x=Group,
-                label=scales::percent(prob_obs)))+
+                label=n))+
   coord_flip()
 
 ```
+
+If we measured every single plant in each site we might find there is a slightly different average height at each location: 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 population_data |>
@@ -52,6 +57,9 @@ population_data |>
               sd = sd(Values))
 
 ```
+### Sampling
+
+In a more likely scenario we will "sample", measuring a subset of individuals from each location - however if we do this in an unrepresentative way (e.g. not taking 1/3 of our samples from each location) then we may skew or bias our results:
 
 ```{r}
 prob_obs_location <- biased_sample_data %>% 
@@ -72,9 +80,12 @@ biased_sample_data %>%
             aes(y=(n+50),
                 x=Group,
                 label=scales::percent(prob_obs)))+
-  coord_flip()
+  coord_flip()+
+  ggtitle("Uneven sampling distribution")
 
 ```
+
+When we compare our results from an even sampling distribution to an uneven sampling distribution  you can see we have biased our findings - in Location 3 the plants are slightly taller, but they are underrepresented in our sampling and so we have a smaller estimate of plant height. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -89,6 +100,36 @@ ggplot(stats_comparison, aes(x = Type, y = mean, fill = Type)) +
 
 ## Missing Not at Random (MNAR) Bias
 
+### 1. Missing Completely at Random (MCAR):
+
+Definition: Missing values occur entirely by chance, with no relationship to any other data in the dataset.
+Example in Palmer Penguins: Imagine if a researcher accidentally forgot to record the flipper length of some penguins on random days. The missing data isn't related to the penguins’ species, size, or other characteristics. This is MCAR.
+
+Why it matters: If data is MCAR, the missing values are less of a problem because they are truly random and do not introduce bias into the analysis.
+
+### 2. Missing at Random (MAR):
+
+Definition: The missingness is related to other observed data, but not to the missing value itself.
+Example in Palmer Penguins: Suppose the flipper length is more likely to be missing for certain species or on specific islands, but within those groups, it's random. For example, maybe the flipper length is more often missing for penguins from the Adelie species. This would be MAR.
+
+Why it matters: While the missing values aren't completely random, they can be predicted based on other variables. If we know which variables are related to the missingness (e.g., species or island), we can handle it using imputation techniques.
+
+### 3. Missing Not at Random (MNAR):
+
+Definition: The missingness is related to the actual value of the missing data.
+
+Example in Palmer Penguins: Imagine if the flipper length is missing because the researcher only skipped recording measurements for penguins with very small or very large flippers. This is MNAR because the missing values depend on the value itself (in this case, extreme flipper lengths).
+
+### Why it matters: 
+
+This type of missingness is the hardest to deal with because the missing data is biased and not random. Special techniques or assumptions are required to handle it correctly.
+
+- MCAR: Missing by pure chance, unrelated to any data.
+
+- MAR: Missingness depends on other known variables (e.g., species).
+
+- MNAR: Missingness depends on the value that is missing (e.g., missing small flipper lengths).
+
 ### Explanation: 
 
 MNAR bias arises when data is systematically missing due to the value of the missing data itself. For instance, if people with extremely high incomes are less likely to report their income in a survey, this creates MNAR bias. The missing data is not random—it's directly related to the variable being measured.
@@ -96,6 +137,10 @@ MNAR bias arises when data is systematically missing due to the value of the mis
 ### Why it matters: 
 
 MNAR bias distorts conclusions because certain trends are hidden in the missing data. Ignoring this can lead to underestimating the variability or misunderstanding the true patterns in the data.
+
+### Example: 
+
+A weather monitoring station cuts out/fails to record at extreme high and low temperatures. This is a good example of MNAR, the missing value temperature, is the thing that causes recording failure. In the example below we have the original, incomplete measurements: 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 weather_data |> 
@@ -114,6 +159,8 @@ ggplot(aes(x = Day,
               colour = "blue")
 
 ```
+
+And here we see the difference when the missing data is included, our original trend line was too flat, because it missed some seasonal fluctuations of high and low temperatures - we would have concluded temperature is more stable across the year than it really is. 
 
 ```{r}
 weather_data |>
@@ -148,6 +195,13 @@ Survivorship bias occurs when you focus on the data points that survive a proces
 
 Focusing only on surviving or successful subjects can lead to false conclusions, as the failure cases (which provide crucial insights) are excluded from the analysis.
 
+### Example 
+
+During World War II, the military wanted to reinforce fighter planes to reduce the number of planes lost in combat. Engineers examined the planes that returned from battle and noted where the bullet holes were most concentrated. These planes had more damage in areas like the wings, tail, and fuselage, but relatively few bullet holes in the engine or cockpit areas.
+
+At first, it seemed logical to reinforce the parts of the planes that had the most bullet holes, because that’s where the damage was most common. However, this would have been a mistake.
+
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   # Create a ggplot object with the image as a background
   ggplot(plane_data) +
@@ -167,6 +221,11 @@ Focusing only on surviving or successful subjects can lead to false conclusions,
 
 ```
 
+
+The Realization (Correct Conclusion):
+
+The key insight came by realising they were only looking at planes that **survived and returned** from battle. The planes that had been shot in critical areas, such as the engine or cockpit, did not return — they were shot down. Therefore, the fact that the returning planes had little damage in those areas indicated that hits to these parts were fatal and led to planes being lost.
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   # Create a ggplot object with the image as a background
   ggplot(plane_data) +
@@ -181,7 +240,7 @@ Focusing only on surviving or successful subjects can lead to false conclusions,
     xlim(0, 1) +
     ylim(0, 1) +
     # Add a title to the plot
-    ggtitle("Survivorship Bias: Bullet Holes on WW2 Planes") +
+    ggtitle("The complete picture") +
     theme_minimal() +
     theme(panel.grid = element_blank(),
           panel.border = element_blank(),
@@ -202,6 +261,9 @@ Outlier bias happens when extreme values (outliers) unduly influence the results
 
 Outliers can distort the results, especially when using statistical methods like the mean or regression. This can lead to misleading conclusions unless the outliers are properly handled.
 
+### Example:
+
+In this trend line we can see how just a few extreme data points can alter the slope of association between two variables
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   # Step 3: Plot the data without outliers and show the regression line
@@ -242,6 +304,12 @@ Outliers can distort the results, especially when using statistical methods like
 
 ### What to do about it
 
+Dealing with outliers is difficult - what we should never do is drop them from the dataset without careful consideration. First we should attempt to determine if they are impossible or simply improbable.
+
+### Example:
+
+A measurement of human heights finds several values that are extremely large, more than 3 standard deviations from the mean or greater than 1.5X the IQR. This should prompt us to pay close attention to this data, but while it is extreme we should not discount it. However, by contrast a negative value or a height so large or small as to be impossible for a human being can be safely removed as an impossible value. 
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   ggplot(all_heights, aes(x = Height, y = 1)) +
     # Density plot
@@ -278,6 +346,8 @@ Outliers can distort the results, especially when using statistical methods like
 
 ```
 
+When we have excluded impossible values we should record this, implausible values will be kept for now until we know if they affect our analyses. 
+
 ## Omitted variable bias
 
 ### Explanation: 
@@ -288,6 +358,10 @@ Omitted variable bias occurs when a relevant variable is left out of an analysis
 
 Ignoring important variables can mask the true relationships between variables, leading to faulty interpretations and conclusions.
 
+### Example:
+
+A new drug is being tested in a clinical trial setting and initial analysis indicates little evidence of an effect
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   drug_data |>
     ggplot(aes(x = Intervention,
@@ -296,7 +370,7 @@ Ignoring important variables can mask the true relationships between variables, 
     geom_jitter(width = .2)
 ```
 
-
+But when separated into clinically relevant subgroups such as gender we see that the drug does produce strong responses, but they are positive for women and negative for men, not including other important control variables can lead to over or underestimating effects, depending on how they interact. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   drug_data |>
@@ -308,3 +382,7 @@ Ignoring important variables can mask the true relationships between variables, 
                                                jitter.width = .2))
 
 ```
+
+## Summary
+
+Understanding bias in data and analysis is crucial because it helps ensure that conclusions drawn from data are accurate and reliable. Bias can distort results, leading to incorrect interpretations, faulty decisions, and misleading insights. Whether it’s selection bias, survivorship bias, or other forms, failing to account for bias can cause analysts to overlook critical information or make assumptions that don’t reflect the full reality. Recognising and addressing bias is key to maintaining the integrity of analysis and making well-informed, data-driven decisions.

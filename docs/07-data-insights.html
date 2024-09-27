@@ -209,50 +209,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#data-checking" id="toc-data-checking" class="nav-link active" data-scroll-target="#data-checking"><span class="header-section-number">4.0.1</span> Data checking</a></li>
+<li><a href="#understanding-the-variables" id="toc-understanding-the-variables" class="nav-link active" data-scroll-target="#understanding-the-variables"><span class="header-section-number">4.1</span> Understanding the Variables</a></li>
   <li>
-<a href="#explore-the-distribution-of-categories" id="toc-explore-the-distribution-of-categories" class="nav-link" data-scroll-target="#explore-the-distribution-of-categories"><span class="header-section-number">4.1</span> Explore the distribution of categories</a>
+<a href="#what-should-we-consider-in-our-analysis" id="toc-what-should-we-consider-in-our-analysis" class="nav-link" data-scroll-target="#what-should-we-consider-in-our-analysis"><span class="header-section-number">4.2</span> What should we consider in our analysis?</a>
   <ul class="collapse">
-<li><a href="#frequency" id="toc-frequency" class="nav-link" data-scroll-target="#frequency"><span class="header-section-number">4.1.1</span> Frequency</a></li>
-  <li><a href="#relative-frequency" id="toc-relative-frequency" class="nav-link" data-scroll-target="#relative-frequency"><span class="header-section-number">4.1.2</span> Relative Frequency</a></li>
-  </ul>
-</li>
-  <li><a href="#two-or-more-categories" id="toc-two-or-more-categories" class="nav-link" data-scroll-target="#two-or-more-categories"><span class="header-section-number">4.2</span> Two or more categories</a></li>
-  <li>
-<a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">4.3</span> Missing data</a>
-  <ul class="collapse">
-<li><a href="#remove-na" id="toc-remove-na" class="nav-link" data-scroll-target="#remove-na"><span class="header-section-number">4.3.1</span> remove na</a></li>
+<li><a href="#distribution-of-data-types" id="toc-distribution-of-data-types" class="nav-link" data-scroll-target="#distribution-of-data-types"><span class="header-section-number">4.2.1</span> 1. Distribution of Data Types</a></li>
+  <li><a href="#central-tendency" id="toc-central-tendency" class="nav-link" data-scroll-target="#central-tendency"><span class="header-section-number">4.2.2</span> 2. Central Tendency</a></li>
+  <li><a href="#relationship-between-variables" id="toc-relationship-between-variables" class="nav-link" data-scroll-target="#relationship-between-variables"><span class="header-section-number">4.2.3</span> 3. Relationship Between Variables</a></li>
+  <li><a href="#confounding-variables" id="toc-confounding-variables" class="nav-link" data-scroll-target="#confounding-variables"><span class="header-section-number">4.2.4</span> 4. Confounding Variables</a></li>
+  <li><a href="#asking-new-questions" id="toc-asking-new-questions" class="nav-link" data-scroll-target="#asking-new-questions"><span class="header-section-number">4.2.5</span> Asking New Questions</a></li>
+  <li><a href="#data-checking" id="toc-data-checking" class="nav-link" data-scroll-target="#data-checking"><span class="header-section-number">4.2.6</span> Data checking</a></li>
   </ul>
 </li>
   <li>
-<a href="#continuous-distributions" id="toc-continuous-distributions" class="nav-link" data-scroll-target="#continuous-distributions"><span class="header-section-number">4.4</span> Continuous distributions</a>
+<a href="#explore-the-distribution-of-categories" id="toc-explore-the-distribution-of-categories" class="nav-link" data-scroll-target="#explore-the-distribution-of-categories"><span class="header-section-number">4.3</span> Explore the distribution of categories</a>
   <ul class="collapse">
-<li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms"><span class="header-section-number">4.4.1</span> Histograms</a></li>
-  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">4.4.2</span> Boxplots</a></li>
+<li><a href="#frequency" id="toc-frequency" class="nav-link" data-scroll-target="#frequency"><span class="header-section-number">4.3.1</span> Frequency</a></li>
+  <li><a href="#relative-frequency" id="toc-relative-frequency" class="nav-link" data-scroll-target="#relative-frequency"><span class="header-section-number">4.3.2</span> Relative Frequency</a></li>
+  </ul>
+</li>
+  <li><a href="#two-or-more-categories" id="toc-two-or-more-categories" class="nav-link" data-scroll-target="#two-or-more-categories"><span class="header-section-number">4.4</span> Two or more categories</a></li>
+  <li>
+<a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">4.5</span> Missing data</a>
+  <ul class="collapse">
+<li><a href="#remove-na" id="toc-remove-na" class="nav-link" data-scroll-target="#remove-na"><span class="header-section-number">4.5.1</span> remove na</a></li>
   </ul>
 </li>
   <li>
-<a href="#continuous-and-categorical" id="toc-continuous-and-categorical" class="nav-link" data-scroll-target="#continuous-and-categorical"><span class="header-section-number">4.5</span> Continuous and categorical</a>
+<a href="#continuous-distributions" id="toc-continuous-distributions" class="nav-link" data-scroll-target="#continuous-distributions"><span class="header-section-number">4.6</span> Continuous distributions</a>
   <ul class="collapse">
-<li><a href="#ggridges" id="toc-ggridges" class="nav-link" data-scroll-target="#ggridges"><span class="header-section-number">4.5.1</span> GGridges</a></li>
+<li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms"><span class="header-section-number">4.6.1</span> Histograms</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">4.6.2</span> Boxplots</a></li>
   </ul>
 </li>
   <li>
-<a href="#normality" id="toc-normality" class="nav-link" data-scroll-target="#normality"><span class="header-section-number">4.6</span> Normality</a>
+<a href="#continuous-and-categorical" id="toc-continuous-and-categorical" class="nav-link" data-scroll-target="#continuous-and-categorical"><span class="header-section-number">4.7</span> Continuous and categorical</a>
   <ul class="collapse">
-<li><a href="#qqplot" id="toc-qqplot" class="nav-link" data-scroll-target="#qqplot"><span class="header-section-number">4.6.1</span> QQplot</a></li>
+<li><a href="#density-plots" id="toc-density-plots" class="nav-link" data-scroll-target="#density-plots"><span class="header-section-number">4.7.1</span> Density plots</a></li>
+  <li><a href="#ggridges" id="toc-ggridges" class="nav-link" data-scroll-target="#ggridges"><span class="header-section-number">4.7.2</span> GGridges</a></li>
   </ul>
 </li>
   <li>
-<a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics"><span class="header-section-number">4.7</span> Summary statistics</a>
+<a href="#normality" id="toc-normality" class="nav-link" data-scroll-target="#normality"><span class="header-section-number">4.8</span> Normality</a>
   <ul class="collapse">
-<li><a href="#mean-and-standard-deviation" id="toc-mean-and-standard-deviation" class="nav-link" data-scroll-target="#mean-and-standard-deviation"><span class="header-section-number">4.7.1</span> Mean and standard deviation</a></li>
-  <li><a href="#median-and-quartiles" id="toc-median-and-quartiles" class="nav-link" data-scroll-target="#median-and-quartiles"><span class="header-section-number">4.7.2</span> Median and quartiles</a></li>
+<li><a href="#qqplot" id="toc-qqplot" class="nav-link" data-scroll-target="#qqplot"><span class="header-section-number">4.8.1</span> QQplot</a></li>
+  <li><a href="#shapiro-test" id="toc-shapiro-test" class="nav-link" data-scroll-target="#shapiro-test"><span class="header-section-number">4.8.2</span> Shapiro test</a></li>
+  <li><a href="#subgroups" id="toc-subgroups" class="nav-link" data-scroll-target="#subgroups"><span class="header-section-number">4.8.3</span> Subgroups</a></li>
   </ul>
 </li>
-  <li><a href="#collinearity" id="toc-collinearity" class="nav-link" data-scroll-target="#collinearity"><span class="header-section-number">4.8</span> Collinearity</a></li>
-  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">4.9</span> Correlation</a></li>
-  <li><a href="#important-variables" id="toc-important-variables" class="nav-link" data-scroll-target="#important-variables"><span class="header-section-number">4.10</span> Important variables</a></li>
+  <li>
+<a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics"><span class="header-section-number">4.9</span> Summary statistics</a>
+  <ul class="collapse">
+<li><a href="#mean-and-standard-deviation" id="toc-mean-and-standard-deviation" class="nav-link" data-scroll-target="#mean-and-standard-deviation"><span class="header-section-number">4.9.1</span> Mean and standard deviation</a></li>
+  <li><a href="#median-and-quartiles" id="toc-median-and-quartiles" class="nav-link" data-scroll-target="#median-and-quartiles"><span class="header-section-number">4.9.2</span> Median and quartiles</a></li>
+  </ul>
+</li>
+  <li><a href="#collinearity" id="toc-collinearity" class="nav-link" data-scroll-target="#collinearity"><span class="header-section-number">4.10</span> Collinearity</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">4.11</span> Correlation</a></li>
+  <li><a href="#important-variables" id="toc-important-variables" class="nav-link" data-scroll-target="#important-variables"><span class="header-section-number">4.12</span> Important variables</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">4.13</span> Glossary</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">4.14</span> Reading</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -271,30 +287,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>For this exercise we will propose that our task is to generate insights into the relationship between bill (culmen) length and bill (culmen) depth of our penguins, in order to answer the question</p>
-<p>In order to answer this question properly we should first understand our different variables and how they might relate to each other.</p>
+</header><p>For this exercise, we propose that our task is to generate insights into the relationship between <strong>bill (culmen) length</strong> and <strong>bill (culmen) depth</strong> in penguins. Our goal is to answer the question: <em>Is there a meaningful relationship between these two measurements?</em> Understanding this relationship can provide valuable insights into the physical characteristics of different penguin species and how they may vary.</p>
+<section id="understanding-the-variables" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="understanding-the-variables">
+<span class="header-section-number">4.1</span> Understanding the Variables</h2>
+<p>Before jumping into the analysis, it’s crucial to take a step back and first understand the variables we’re working with and how they might relate to each other. In this case, our key variables are:</p>
 <ul>
-<li><p>Distribution of data types</p></li>
-<li><p>Central tendency</p></li>
-<li><p>Relationship between variables</p></li>
-<li><p>Confounding variables</p></li>
+<li><p><strong>Culmen Length (bill length)</strong>: This measures the length of the penguin’s bill, an important feature related to feeding.</p></li>
+<li><p><strong>Culmen Depth (bill depth)</strong>: This measures the thickness of the penguin’s bill.</p></li>
+</ul></section><section id="what-should-we-consider-in-our-analysis" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="what-should-we-consider-in-our-analysis">
+<span class="header-section-number">4.2</span> What should we consider in our analysis?</h2>
+<section id="distribution-of-data-types" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="distribution-of-data-types">
+<span class="header-section-number">4.2.1</span> 1. Distribution of Data Types</h3>
+<p>Understanding the type of data we’re dealing with is the first step in any analysis. Both culmen length and depth are continuous numerical variables, meaning they can take a wide range of values. However, our dataset may also include categorical variables like species and island, which will help us group the data and see how these groups influence our measurements.</p>
+<p>Why this matters: Knowing whether a variable is numerical or categorical will influence how we visualize it and which statistical methods we use. For instance, numerical data might be plotted using histograms, while categorical data could be displayed using bar charts or boxplots.</p>
+</section><section id="central-tendency" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="central-tendency">
+<span class="header-section-number">4.2.2</span> 2. Central Tendency</h3>
+<p>Next, we’ll want to understand the central tendency of our data. Central tendency refers to the average or most common values in a dataset. The mean, median, and mode are common measures used to describe central tendency.</p>
+<ul>
+<li><p>Mean: The average value (sum of all values divided by the number of values).</p></li>
+<li><p>Median: The middle value when data is sorted from lowest to highest, which is especially useful if the data is skewed or contains outliers.</p></li>
+<li><p>Mode: The most frequently occurring value in the dataset (not always relevant for continuous data).</p></li>
 </ul>
-<p>This inevitably leads to more and a variety of questions. Each new question that you ask will expose you to a new aspect of your data.</p>
-<section id="data-checking" class="level3" data-number="4.0.1"><h3 data-number="4.0.1" class="anchored" data-anchor-id="data-checking">
-<span class="header-section-number">4.0.1</span> Data checking</h3>
-<p>Importantly you should have already generated an understanding of the variables contained within your dataset during the data wrangling steps. Including:</p>
+<p>Why this matters: Understanding the average bill length and depth helps us get a sense of what is “normal” for our penguins. Additionally, comparing these statistics across different species or islands could reveal differences in penguin populations.</p>
+</section><section id="relationship-between-variables" class="level3" data-number="4.2.3"><h3 data-number="4.2.3" class="anchored" data-anchor-id="relationship-between-variables">
+<span class="header-section-number">4.2.3</span> 3. Relationship Between Variables</h3>
+<p>Now, we dive into the heart of our analysis: exploring the relationship between culmen length and culmen depth. To investigate this, we can use visual tools like scatterplots, which allow us to plot one variable against the other and visually check for patterns or trends.</p>
+<p>We might also want to calculate a correlation coefficient to quantify the strength of the relationship between bill length and bill depth. If we find a strong correlation, we can say that these two measurements tend to move together — for example, as the bill length increases, so might the bill depth.</p>
+<p>Why this matters: Identifying the relationship between variables is critical to making meaningful conclusions. If bill length and depth are highly correlated, we can begin to explore why this might be the case — perhaps certain penguin species have distinct bill shapes that differ from others.</p>
+</section><section id="confounding-variables" class="level3" data-number="4.2.4"><h3 data-number="4.2.4" class="anchored" data-anchor-id="confounding-variables">
+<span class="header-section-number">4.2.4</span> 4. Confounding Variables</h3>
+<p>While exploring the relationship between bill length and depth, we must also be aware of the potential impact of confounding variables. A confounding variable is one that influences both the dependent and independent variables, potentially leading to a false conclusion about their relationship.</p>
+<p>In this dataset, potential confounders might include:</p>
 <ul>
-<li><p>The number of variables</p></li>
-<li><p>The data format of each variable</p></li>
-<li><p>Checked for missing data</p></li>
-<li><p>Checked for typos, duplications or other data errors</p></li>
-<li><p>Cleaned column or factor names</p></li>
-</ul></section><section id="explore-the-distribution-of-categories" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="explore-the-distribution-of-categories">
-<span class="header-section-number">4.1</span> Explore the distribution of categories</h2>
-<p>Understanding how your data is distributed across important grouping variables is essential for context. In this case, the Palmer Penguins dataset includes key groupings such as species, island, and year, which might have significant effects on the relationships we want to study (e.g., between bill length and bill depth). By summarizing and visualizing the distribution of these variables, we can ensure that our analyses account for group-level differences, leading to more robust insights.</p>
-<section id="frequency" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="frequency">
-<span class="header-section-number">4.1.1</span> Frequency</h3>
-<p>By grouping the data according to the species variable, it calculates the total count (n) of penguins within each species. This summary helps us understand the distribution of penguin species in the dataset, giving insights into the sample size available for each group, which is important for any further analysis or comparison between species.</p>
+<li><p>Species: Different species may naturally have different bill shapes, so the relationship between culmen length and depth could vary depending on the species.</p></li>
+<li><p>Island or Location: Penguins from different islands might experience different environmental pressures that could affect bill size and shape.</p></li>
+</ul>
+<p>To account for this, we can group or subset the data by species or island and re-examine the relationship between bill length and depth within those groups. This helps us determine if the observed relationship holds true across different groups, or if it is being influenced by these other variables.</p>
+<p>Why this matters: Ignoring confounding variables could lead us to incorrect conclusions. For instance, if we see a strong relationship between bill length and depth, it could simply be due to species differences, rather than a true relationship across all penguins.</p>
+</section><section id="asking-new-questions" class="level3" data-number="4.2.5"><h3 data-number="4.2.5" class="anchored" data-anchor-id="asking-new-questions">
+<span class="header-section-number">4.2.5</span> Asking New Questions</h3>
+<p>Every step of the analysis leads to new questions. This is a natural part of the data exploration process. For example:</p>
+<ul>
+<li><p>After looking at the distribution of culmen length and depth, we might wonder, do certain species have longer bills than others?</p></li>
+<li><p>After finding a relationship between the variables, we might ask, is this relationship consistent across different islands or years?</p></li>
+<li><p>If we spot outliers, we might ask, why are some penguins’ measurements so different from the rest?</p></li>
+</ul></section><section id="data-checking" class="level3" data-number="4.2.6"><h3 data-number="4.2.6" class="anchored" data-anchor-id="data-checking">
+<span class="header-section-number">4.2.6</span> Data checking</h3>
+<p>Before diving into analysis, it’s crucial to have a clear understanding of the structure and quality of your dataset. This step is part of the data wrangling process and ensures that your data is accurate, clean, and ready for exploration. Key tasks include:</p>
+<ul>
+<li><p>The number of variables: Know how many variables (columns) are present in the dataset. This helps in understanding the scope of the data and ensuring that all necessary information is available.</p></li>
+<li><p>The data format of each variable: Check whether each variable is in the correct format (e.g., numeric, categorical, date). Mistakes in data types, such as a numeric variable being stored as text, can cause errors during analysis.</p></li>
+<li><p>Checked for missing data: Identify any missing values and decide how to handle them. Ignoring missing data can skew results, so it’s important to either remove, impute, or investigate why data might be missing.</p></li>
+<li><p>Checked for typos, duplications, or other data errors: Manually inspect the data or use automated tools to detect any typos, duplicate entries, or inconsistencies that could impact your analysis. For example, species names should be consistent across all rows.</p></li>
+<li><p>Cleaned column or factor names: Ensure that all column names are properly labeled and easy to understand. This includes correcting any typos or formatting issues, such as spaces or special characters in names, which could cause problems when referencing them in code.</p></li>
+</ul>
+<p>These data checking steps provide a strong foundation for accurate and effective analysis, ensuring that your dataset is reliable and well-structured and luckily we carried this out in {#sec-dplyr}.</p>
+</section></section><section id="explore-the-distribution-of-categories" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="explore-the-distribution-of-categories">
+<span class="header-section-number">4.3</span> Explore the distribution of categories</h2>
+<p>Understanding how your data is distributed across important grouping variables is essential for context. In this case, the Palmer Penguins dataset includes key groupings such as <strong>species, island, and year</strong>, which might have significant effects on the relationships we want to study (e.g., between bill length and bill depth). By summarizing and visualizing the distribution of these variables, we can ensure that our analyses account for group-level differences, leading to more robust insights.</p>
+<section id="frequency" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="frequency">
+<span class="header-section-number">4.3.1</span> Frequency</h3>
+<p>By grouping the data according to the species variable, we can calculate the total count (n) of penguins within each species. This summary provides a clear understanding of how the penguins are distributed across the different species in the dataset. Knowing the sample size for each species is crucial because it informs us about the representation of each group, which affects the reliability of any comparisons or analyses we plan to perform. If one species has far fewer observations than others, for example, it may require special consideration when interpreting results, as smaller sample sizes can lead to less robust conclusions. Understanding this distribution is a foundational step for any further analysis or comparison between species.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="co"># calculations applied per species</span></span>
@@ -367,9 +420,9 @@ Explanation
 </div>
 <p>Now we can see that there are only 132 <em>different</em> Adelie penguins in our data</p>
 </div>
-</section><section id="relative-frequency" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="relative-frequency">
-<span class="header-section-number">4.1.2</span> Relative Frequency</h3>
-<p>It might be useful for us to make some quick data summaries here, like relative frequency</p>
+</section><section id="relative-frequency" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="relative-frequency">
+<span class="header-section-number">4.3.2</span> Relative Frequency</h3>
+<p>In addition to counting the total number of penguins in each species, calculating the relative frequency can be a useful summary. Relative frequency shows the proportion or percentage of observations in each category relative to the total number of observations. This helps us understand not only the absolute count but also how common each species is compared to the others.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>prob_obs_species <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
@@ -434,9 +487,9 @@ Explanation
 </div>
 </div>
 <p>This is an example of a figure we might use in a report or paper. Having cleaned up the theme, added some simple colour, made sure our labels are clear and descriptive, ordered our categories in ascending frequency order, and included some simple text of percentages to aid readability.</p>
-</section></section><section id="two-or-more-categories" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="two-or-more-categories">
-<span class="header-section-number">4.2</span> Two or more categories</h2>
-<p>Think about what might be a suitable confounding variable to investigate and graph here?</p>
+</section></section><section id="two-or-more-categories" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="two-or-more-categories">
+<span class="header-section-number">4.4</span> Two or more categories</h2>
+<p>When investigating the distribution of observations, it’s important to consider how other variables might influence this relationship.</p>
 <div class="webex-solution">
 <button>
 Solution
@@ -724,16 +777,18 @@ Solution
 </div>
 </div>
 </div>
-<p>By thinking about the way in which categories might interact we can consider interesting patterns or potential issues in data collection.</p>
+<p>By thinking about how categories might interact, we can identify interesting patterns or potential issues that could impact our analysis or data interpretation. Careful consideration of these interactions helps us ensure the validity of our findings. For instance:</p>
 <ul>
-<li><p>Looking at these patterns I am reassured that the number of males and females spotted is roughly equal across species and locations.</p></li>
-<li><p>There are different numbers of species on different islands, but this is consistent across years so hopefully represents true species distributions.</p></li>
-<li><p>The number of penguins is consistent across years</p></li>
-<li><p>There are some missing values for sex, but they are small and don’t fit a strong pattern.</p></li>
-</ul></section><section id="missing-data" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="missing-data">
-<span class="header-section-number">4.3</span> Missing data</h2>
-<p>In the previous section above we were able to characterise some missing data, but only a little and it appears to be fairly random. This means we can probably safely remove it from calculations or statistics without issue.</p>
-<p>But what about our variables of interest? Culmen length and depth? We previously used <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim</a></code> and <code>summary</code> to identify there were two missing values each for culmen length and depth. Although this is unlikely to cause any issues of bias in our data it might be nice to know where these missing values are located in our data?</p>
+<li><p>Sex Distribution: Looking at the patterns of male and female penguins, I’m reassured that the number of males and females observed is roughly equal across species and locations. This balance is important because unequal representation of sexes could bias our results, particularly in biological traits like bill length or body mass. Since there’s no imbalance, we can confidently proceed without worrying about gender skewing our insights.</p></li>
+<li><p>Species Distribution by Island: There are different numbers of species on different islands, but this variation remains consistent across years. This suggests that the observed species distributions likely reflect true ecological patterns, rather than inconsistencies in data collection. If this trend were erratic across years, we might suspect sampling issues, but the consistency provides confidence in the accuracy of species representation.</p></li>
+<li><p>Consistency Across Years: The number of penguins observed is consistent across years, meaning we don’t see major fluctuations in sample size. This consistency is important because significant changes could suggest variations in data collection methods or environmental factors affecting penguin populations. A steady count ensures that any trends or patterns we observe are less likely to be the result of sampling inconsistencies.</p></li>
+<li><p>Missing Data for Sex: While there are some missing values for the sex variable, these gaps are small and don’t fit any obvious pattern. This suggests that the missing data is likely random and not linked to a particular species, location, or time period. Since the missing values are few and do not show a clear bias, we can choose to ignore these gaps in the analysis with reasonable confidence that they won’t heavily skew our results.</p></li>
+</ul>
+<p>By reflecting on these patterns, we can be more confident in the integrity of the data and proceed with analysis, knowing that key variables are well-represented and that any missing data or inconsistencies are minimal and manageable.</p>
+</section><section id="missing-data" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="missing-data">
+<span class="header-section-number">4.5</span> Missing data</h2>
+<p>In the previous section, we identified some missing data, particularly for the sex variable, and noted that it was relatively small and likely random, meaning we could safely remove it from calculations without concern for bias. However, when it comes to our variables of interest, such as culmen length and culmen depth, it’s worth taking a closer look at the missing values to understand if they occur in any particular patterns or groupings.</p>
+<p>We previously used functions like <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to find that there are two missing values each for culmen length and depth. Although this small amount of missing data is unlikely to introduce significant bias, it’s still a good practice to investigate where these missing values are located in the dataset. Identifying patterns or specific groups (e.g., certain species or islands) associated with the missing values can help ensure that the missing data is not clustered in a way that could subtly affect our analysis.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="co"># Filter rows where culmen length is NA</span></span>
@@ -884,26 +939,32 @@ Solution
 </div>
 </div>
 <p>Again here we could safely drop these from our data and regard these as missing at random.</p>
-<section id="remove-na" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="remove-na">
-<span class="header-section-number">4.3.1</span> remove na</h3>
+<section id="remove-na" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="remove-na">
+<span class="header-section-number">4.5.1</span> remove na</h3>
 <p>There are a few different ways we can deal with missing data:</p>
+<section id="drop_na-on-everything-before-we-start." class="level4" data-number="4.5.1.1"><h4 data-number="4.5.1.1" class="anchored" data-anchor-id="drop_na-on-everything-before-we-start.">
+<span class="header-section-number">4.5.1.1</span> <code>drop_na()</code> on everything before we start.</h4>
+<p>Using drop_na() to remove rows that contain any missing values across all variables can be useful, but it also runs the risk of losing a large portion of the data.</p>
 <ul>
-<li>
-<code>drop_na()</code> on everything before we start.</li>
-</ul>
-<p>This runs the risk that we lose a lot of data as every row, with an NA in any column will be removed</p>
+<li><p>Pros: It’s a simple, all-in-one solution for datasets where missing values are widespread and problematic.</p></li>
+<li><p>Cons: This method may remove entire rows of data, even if the missing value is only in a single, unimportant column. This can lead to significant data loss if many rows have missing values in non-critical variables.</p></li>
+</ul></section><section id="drop_na-on-a-particular-variable." class="level4" data-number="4.5.1.2"><h4 data-number="4.5.1.2" class="anchored" data-anchor-id="drop_na-on-a-particular-variable.">
+<span class="header-section-number">4.5.1.2</span> <code>drop_na()</code> on a particular variable.</h4>
+<p>Another approach is to remove rows with missing data in a specific variable, such as <code>body_mass_g</code>. This is less drastic but still needs to be done thoughtfully, especially if you overwrite the original dataset with the modified version. It’s often better to drop <code>NA</code>s temporarily for specific analyses or calculations.</p>
 <ul>
-<li>
-<code>drop_na()</code> on a particular variable.</li>
-</ul>
-<p>This is fine, but we should approach this cautiously - if we do this in a way where we write this data into a new object e.g.&nbsp;<code>penguins &lt;- penguins |&gt;  drop_na(body_mass_g)</code> then we have removed this data forever - perhaps we only want to drop those rows for a specific calculation - again they might contain useful information in other variables.</p>
+<li><p>Pros: You retain more data because you only remove rows with missing values in the column that matters for your current analysis.</p></li>
+<li><p>Cons: You might still lose useful information from other columns. If you overwrite the dataset permanently (e.g., using <code>penguins &lt;- penguins |&gt; drop_na(body_mass_g))</code>, you can’t recover the dropped rows without reloading the data.</p></li>
+</ul></section><section id="use-arguments-inside-functions" class="level4" data-number="4.5.1.3"><h4 data-number="4.5.1.3" class="anchored" data-anchor-id="use-arguments-inside-functions">
+<span class="header-section-number">4.5.1.3</span> Use arguments inside functions</h4>
+<p>A more cautious approach is to handle missing data within summary or calculation functions, using the <code>na.rm = TRUE</code> argument. Many summary functions (like <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, or <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>) include this argument, which, when set to <code>TRUE</code>, excludes <code>NA</code> values from the calculation. This allows you to keep missing values in the dataset but ignore them only when performing calculations.</p>
 <ul>
-<li>Use arguments inside functions</li>
-</ul>
-<p><code>mean(x, na.rm = T)</code> Many summary functions have the argument to include or exclude missingness, by default <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> is set to <code>na.rm = F</code> and will produce an NA value if there is any missingness, once we have investigated this we could simply set <code>na.rm = T</code> and remove NA from the calculations</p>
-</section></section><section id="continuous-distributions" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="continuous-distributions">
-<span class="header-section-number">4.4</span> Continuous distributions</h2>
-<p>Variation is the tendency of the values of a variable to change from measurement to measurement. You can see variation easily in real life; if you measure any continuous variable twice, you will get two different results. This is true even if you measure quantities that are constant, like the speed of light. Each of your measurements will include a small amount of error that varies from measurement to measurement. Every variable has its own pattern of variation, which can reveal interesting information. The best way to understand that pattern is to visualise the distribution of the variable’s values.</p>
+<li><p>Pros: This is the least destructive option because it allows you to handle missing data without removing any rows from the dataset. You only exclude <code>NA</code> values during specific calculations.</p></li>
+<li><p>Cons: This doesn’t remove missing data, so you need to ensure that they won’t cause issues later in other analyses (e.g., regressions or visualizations).</p></li>
+</ul></section></section></section><section id="continuous-distributions" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="continuous-distributions">
+<span class="header-section-number">4.6</span> Continuous distributions</h2>
+<p>Variation refers to the natural tendency for the values of a variable to change from measurement to measurement. In real life, you can observe variation easily; for instance, if you measure any continuous variable multiple times, it is highly likely that each measurement will be slightly different from the others. Even with measurements of fixed quantities, such as the speed of light, there is always a small margin of error that introduces variation between measurements.</p>
+<p>This concept is critical in data analysis because every variable exhibits its own unique pattern of variation. Understanding these patterns can provide important insights into the data. For example, the variation in penguin body mass or bill length across different species may reveal ecological or biological differences that are crucial to your analysis.</p>
+<p>The best way to explore and understand the pattern of variation is by visualizing the distribution of the variable’s values. By plotting histograms, boxplots, or density plots, you can observe how the data is spread out, whether it is concentrated around a central value, or if there are any outliers. These visualizations allow you to quickly identify the extent of variation and gain insights into the behavior of the variable.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -917,8 +978,8 @@ Important
 <p>In the examples below I will look at the distributions of culmen length, you should modify and duplicate the code so that you check both culmen length and culmen depth.</p>
 </div>
 </div>
-<section id="histograms" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="histograms">
-<span class="header-section-number">4.4.1</span> Histograms</h3>
+<section id="histograms" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="histograms">
+<span class="header-section-number">4.6.1</span> Histograms</h3>
 <p>This is the script to plot a frequency distribution, we only specify an x variable, because we intend to plot a histogram, and the y variable is always the count of observations. Here we ask the data to be presented in 10 equally sized bins of data. In this case chopping the x axis range into 10 equal parts and counting the number of observations that fall within each one.</p>
 <p>Histograms are helpful because they show the distribution of a single numerical variable. They divide the data into “bins” (ranges of values) and count how many data points fall into each bin. This helps you:</p>
 <p>See the shape of the data: You can easily spot if the data is normally distributed, skewed, or has multiple peaks (modes). Identify data spread: Histograms help you understand the spread or range of your data values. Detect outliers: Unusually high or low values become more noticeable in a histogram.</p>
@@ -947,8 +1008,15 @@ Change the bin argument
 <p>Change the value specified to the bins argument and observe how the figure changes. It is usually a very good idea to try more than one set of bins in order to have better insights into the data</p>
 </div>
 </div>
-</section><section id="boxplots" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="boxplots">
-<span class="header-section-number">4.4.2</span> Boxplots</h3>
+</section><section id="boxplots" class="level3" data-number="4.6.2"><h3 data-number="4.6.2" class="anchored" data-anchor-id="boxplots">
+<span class="header-section-number">4.6.2</span> Boxplots</h3>
+<p>Boxplots are a powerful tool for visualizing the distribution of a numerical variable in a compact and easy-to-read format. They provide a wealth of information about the data, including its central tendency, spread, and presence of outliers, while also allowing for comparisons across different groups. Here’s why boxplots are particularly useful:</p>
+<ul>
+<li><p>Central Tendency: The middle line within the box represents the median value of the data. Unlike the mean, which can be influenced by extreme values, the median provides a robust measure of central tendency, especially for skewed data.</p></li>
+<li><p>Spread and Variability: The box itself shows the interquartile range (IQR), which represents the spread of the middle 50% of the data. A wider box means more variability in the data, while a narrower box indicates that the data is more tightly clustered around the median.</p></li>
+<li><p>Outliers: Boxplots are particularly useful for identifying outliers—data points that fall far outside the typical range of values. These are shown as individual points beyond the “whiskers” (the lines extending from the box), making it easy to spot extreme values that could affect your analysis.</p></li>
+<li><p>Comparison Between Groups: One of the greatest strengths of boxplots is their ability to compare distributions across different groups. By plotting multiple boxplots side by side (e.g., for different penguin species), you can easily see how a variable’s distribution changes between categories, helping to highlight differences or similarities between groups.</p></li>
+</ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
@@ -960,17 +1028,10 @@ Change the bin argument
 </div>
 </div>
 </div>
-<p>Boxplots are useful because they provide a summary of the distribution of a numerical variable in a compact visual form. They help you see:</p>
-<ul>
-<li><p>Central tendency: The middle line in the box shows the median (middle value) of the data.</p></li>
-<li><p>Spread and variability: The length of the box (interquartile range) shows how spread out the data is.</p></li>
-<li><p>Outliers: Boxplots clearly show outliers as points outside the “whiskers,” making them great for detecting extreme values.</p></li>
-<li><p>Comparison between groups: You can easily compare the distribution of a variable across different groups (e.g., species) by using multiple boxplots side by side.</p></li>
-</ul></section></section><section id="continuous-and-categorical" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="continuous-and-categorical">
-<span class="header-section-number">4.5</span> Continuous and categorical</h2>
-<p>It’s common to want to explore the distribution of a continuous variable broken down by a categorical variable.</p>
-<p>The best and simplest place to start exploring these possible relationships is by producing simple figures.</p>
-<p>Let’s start by looking at the distribution of culmen length by species</p>
+</section></section><section id="continuous-and-categorical" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="continuous-and-categorical">
+<span class="header-section-number">4.7</span> Continuous and categorical</h2>
+<p>When you have a continuous variable (like culmen length) and want to explore how its distribution varies across a categorical variable (like species), visualizing the data is the best place to start. Simple figures allow us to easily see potential patterns and relationships between the variables.</p>
+<p>To investigate how culmen length varies between different penguin species, we can create a simple boxplot that shows the distribution of culmen lengths for each species. This will help us quickly understand whether the different species tend to have different culmen lengths and whether any species has more variability or outliers than others.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> species,</span>
@@ -985,6 +1046,17 @@ Change the bin argument
 </div>
 </div>
 </div>
+<p>By subgrouping the data, such as looking at the distribution of culmen length by species, we can more easily identify outliers within each group. When we analyze all penguins together, outliers might be harder to spot or might seem more extreme. However, when we break the data down by species, we can see that what might have appeared as an outlier in the overall data may actually be a typical value within a specific group.</p>
+<p>This shows us that outliers are context-specific. A value that is unusually large or small for one species might fall well within the normal range for another species. Subgrouping helps us understand that outliers are not absolute—they depend on the context of the data and the groups being compared. This insight is crucial for accurate analysis, as it helps us avoid labeling a data point as unusual without considering its appropriate context.</p>
+<section id="density-plots" class="level3" data-number="4.7.1"><h3 data-number="4.7.1" class="anchored" data-anchor-id="density-plots">
+<span class="header-section-number">4.7.1</span> Density plots</h3>
+<p>Histograms and density plots are both useful tools for visualizing the distribution of a continuous variable, but they present the information in slightly different ways.</p>
+<ul>
+<li><p>Histograms divide the data into bins and count how many data points fall into each bin. This gives a blocky visual representation of the data’s distribution and is great for showing the frequency of data points within specific ranges. The choice of bin width can influence how smooth or rough the histogram looks, and it provides an easy way to understand how the data is spread out.</p></li>
+<li><p>Density plots, on the other hand, provide a smoothed estimate of the data distribution. Instead of counting data points in bins, a density plot estimates the probability density of the variable, giving a continuous curve that helps visualize the shape of the data. The area under the curve of a density plot sums to 1, making it particularly useful when comparing distributions between groups, as it normalizes the data regardless of sample size.</p></li>
+</ul>
+<p>In summary, histograms are useful for showing the exact count of data points in specific ranges, while density plots give a smoothed representation of the data’s distribution, helping to highlight the overall shape. Both are valuable tools, and the choice between them depends on the level of detail or smoothness you want to highlight.</p>
+<p>Below we have an example of a density plot, more useful when comparing groups of uneven sample sizes:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> species))<span class="sc">+</span></span>
@@ -998,8 +1070,8 @@ Change the bin argument
 </div>
 </div>
 </div>
-<section id="ggridges" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="ggridges">
-<span class="header-section-number">4.5.1</span> GGridges</h3>
+</section><section id="ggridges" class="level3" data-number="4.7.2"><h3 data-number="4.7.2" class="anchored" data-anchor-id="ggridges">
+<span class="header-section-number">4.7.2</span> GGridges</h3>
 <p>The package ggridges (Wilke (2021)) provides some excellent extra geoms to supplement ggplot. One if its most useful features is to to allow different groups to be mapped to the y axis, so that histograms are more easily viewed.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(ggridges)</span>
@@ -1013,6 +1085,10 @@ Change the bin argument
 </div>
 </div>
 </div>
+<p>When a density plot shows double peaks (also known as bimodal distribution), it often suggests that the data may contain two distinct groups or underlying patterns that are not immediately visible. In such cases, subgrouping the data can help clarify these peaks. By breaking the data down into categories—such as species, gender, or location—we can explore whether the peaks correspond to meaningful subgroups within the dataset.</p>
+<p>For example, in the Palmer Penguins dataset, a bimodal distribution of bill length might indicate that different species have distinct bill lengths, each contributing to one of the peaks. Subgrouping by species would allow us to visualize separate distributions for each species and better understand the source of the variation.</p>
+<p>Subgrouping helps us gain clarity by revealing if the apparent double peaks are caused by the presence of multiple groups, and it allows us to analyze these groups separately, leading to more accurate insights.</p>
+<p>Let’s see what happens when we account for sex:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
@@ -1026,13 +1102,21 @@ Change the bin argument
 </div>
 </div>
 </div>
-</section></section><section id="normality" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="normality">
-<span class="header-section-number">4.6</span> Normality</h2>
-<p>If our data follows a normal distribution, then we can predict the spread of our data, and the likelihood of observing a datapoint of any given value with only the mean and standard deviation.</p>
-<section id="qqplot" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="qqplot">
-<span class="header-section-number">4.6.1</span> QQplot</h3>
-<p>A QQ plot is a classic way of checking whether a sample distribution is the same as another (or theoretical distribution). They look a bit odd at first, but they are actually fairly easy to understand, and very useful! The qqplot distributes your data on the y-axis, and a theoretical normal distribution on the x-axis. If the residuals follow a normal distribution, they should meet to produce a perfect diagonal line across the plot.</p>
-<p>Watch this video to see QQ plots explained</p>
+<p>If we still see double peaks after subgrouping the data, it suggests that there may be additional underlying factors or patterns within each subgroup that we haven’t accounted for yet. These could be caused by other variables such as age, environmental conditions, or even measurement error, depending on the context of the data.</p>
+</section></section><section id="normality" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="normality">
+<span class="header-section-number">4.8</span> Normality</h2>
+<p>If our data follows a normal distribution, we can use just two key metrics—mean and standard deviation—to predict how the data is spread out and to calculate the probability of observing a specific value. The normal distribution is symmetric and bell-shaped, meaning most data points cluster around the mean, with fewer observations the farther we move from it.</p>
+<section id="qqplot" class="level3" data-number="4.8.1"><h3 data-number="4.8.1" class="anchored" data-anchor-id="qqplot">
+<span class="header-section-number">4.8.1</span> QQplot</h3>
+<p>A QQ plot is a useful tool for visually assessing whether a dataset follows a particular distribution, such as the normal distribution. At first glance, QQ plots may look unfamiliar, but they are simple and powerful once you understand the concept.</p>
+<p>In a QQ plot, your sample data is plotted on the y-axis, and the theoretical distribution (often a normal distribution) is plotted on the x-axis. If your data follows a normal distribution, the points in the QQ plot will align along a straight diagonal line. Any deviation from this line indicates that your data departs from the normal distribution, either through skewness, heavy tails, or other irregularities.</p>
+<p>How It Works:</p>
+<ul>
+<li><p>Data Points on the Y-Axis: These are the actual data values from your sample.</p></li>
+<li><p>Theoretical Distribution on the X-Axis: These represent what the data would look like if it perfectly followed a normal distribution.</p></li>
+</ul>
+<p>If the data aligns well with the theoretical distribution, it forms a straight line. If not, the data will curve away from the line, signaling potential departures from normality.</p>
+<p>Watch <a href="https://www.youtube.com/watch?v=okjYjClSjOg">this video to see QQ plots explained</a> in action and how they help in assessing the distribution of your data!</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(qqplotr)</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">sample =</span> culmen_length_mm))<span class="sc">+</span></span>
@@ -1046,6 +1130,10 @@ Change the bin argument
 </div>
 </div>
 </div>
+</section><section id="shapiro-test" class="level3" data-number="4.8.2"><h3 data-number="4.8.2" class="anchored" data-anchor-id="shapiro-test">
+<span class="header-section-number">4.8.2</span> Shapiro test</h3>
+<p>The Shapiro-Wilk test is a commonly used statistical test to check whether a dataset follows a normal distribution. It gives a p-value that helps determine if the data significantly deviates from normality. While useful, the Shapiro test has its limitations, especially when it comes to sample size</p>
+<p>Sensitivity to Sample Size: The Shapiro-Wilk test is sensitive to sample size. For large samples, even very small deviations from normality can result in significant p-values, leading to a rejection of normality even when the deviations are minor and practically insignificant.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(rstatix)</span>
 <span id="cb16-2"><a href="#cb16-2"></a></span>
@@ -1068,6 +1156,12 @@ Change the bin argument
 </div>
 </div>
 </div>
+<p>Unlike the Shapiro-Wilk test, a QQ plot provides a visual way to check for normality. It allows you to see exactly how the data deviates from a normal distribution. You can spot patterns such as skewness or heavy tails, which the Shapiro test cannot differentiate.</p>
+<p>QQ plots are also more flexible with sample size. They work well with both large and small datasets.</p>
+</section><section id="subgroups" class="level3" data-number="4.8.3"><h3 data-number="4.8.3" class="anchored" data-anchor-id="subgroups">
+<span class="header-section-number">4.8.3</span> Subgroups</h3>
+<p>When you analyze the entire dataset without subgrouping, you combine data from different groups, such as species, locations, or treatments. Each group may have its own unique distribution. For example, in the Palmer Penguins dataset, bill length and bill depth may differ significantly between penguin species. If you test for normality across the entire dataset, the mix of different distributions might lead to misleading results—either falsely showing non-normality or obscuring deviations that are present in specific groups.</p>
+<p>Subgrouping allows you to test for normality within each specific group and understand whether the deviations from normality are general or isolated to certain groups.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">library</span>(qqplotr)</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">sample =</span> culmen_length_mm))<span class="sc">+</span></span>
@@ -1119,10 +1213,11 @@ Change the bin argument
 </div>
 </div>
 </div>
-</section></section><section id="summary-statistics" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="summary-statistics">
-<span class="header-section-number">4.7</span> Summary statistics</h2>
-<section id="mean-and-standard-deviation" class="level3" data-number="4.7.1"><h3 data-number="4.7.1" class="anchored" data-anchor-id="mean-and-standard-deviation">
-<span class="header-section-number">4.7.1</span> Mean and standard deviation</h3>
+<p>Now we can see that when splitting into species subgroups - that the qqplots are much better. The Shapiro wilk test indicates that the Gentoo population deviates from a normal distribution for bill length, but our qqplot indicates this is very minor and we can still safely use descriptive statistics that rely on this assumption</p>
+</section></section><section id="summary-statistics" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="summary-statistics">
+<span class="header-section-number">4.9</span> Summary statistics</h2>
+<section id="mean-and-standard-deviation" class="level3" data-number="4.9.1"><h3 data-number="4.9.1" class="anchored" data-anchor-id="mean-and-standard-deviation">
+<span class="header-section-number">4.9.1</span> Mean and standard deviation</h3>
 <p>standard deviation (or s) is a measure of how dispersed the data is in relation to the mean. Low standard deviation means data are clustered around the mean, and high standard deviation indicates data are more spread out. As such it makes sense only to use this when the mean is a good measure of our central tendency.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>penguins <span class="sc">|&gt;</span> </span>
@@ -1197,8 +1292,8 @@ Solution
 </div>
 </div>
 </div>
-</section><section id="median-and-quartiles" class="level3" data-number="4.7.2"><h3 data-number="4.7.2" class="anchored" data-anchor-id="median-and-quartiles">
-<span class="header-section-number">4.7.2</span> Median and quartiles</h3>
+</section><section id="median-and-quartiles" class="level3" data-number="4.9.2"><h3 data-number="4.9.2" class="anchored" data-anchor-id="median-and-quartiles">
+<span class="header-section-number">4.9.2</span> Median and quartiles</h3>
 <p>When dealing with data that does not fit a normal distribution, using summary statistics like max, min, median, and interquartile range (IQR) provides a robust way to describe the data’s spread and central tendency. Unlike the mean and standard deviation, which are sensitive to outliers and skewed data, the median and IQR give a more accurate representation of the distribution’s center and spread in non-normal data.</p>
 <ul>
 <li><p>Median: This is the middle value and provides a better measure of central tendency than the mean when data is skewed. IQR (Interquartile Range): This measures the spread of the middle 50% of the data (between the 25th and 75th percentiles) and is less affected by extreme values.</p></li>
@@ -1301,8 +1396,8 @@ Solution
 </div>
 </div>
 </div>
-</section></section><section id="collinearity" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="collinearity">
-<span class="header-section-number">4.8</span> Collinearity</h2>
+</section></section><section id="collinearity" class="level2" data-number="4.10"><h2 data-number="4.10" class="anchored" data-anchor-id="collinearity">
+<span class="header-section-number">4.10</span> Collinearity</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">library</span>(GGally)</span>
 <span id="cb22-2"><a href="#cb22-2"></a></span>
@@ -1339,8 +1434,8 @@ Solution
 </div>
 </div>
 </div>
-</section><section id="correlation" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="correlation">
-<span class="header-section-number">4.9</span> Correlation</h2>
+</section><section id="correlation" class="level2" data-number="4.11"><h2 data-number="4.11" class="anchored" data-anchor-id="correlation">
+<span class="header-section-number">4.11</span> Correlation</h2>
 <p>A common measure of association between two numerical variables is the correlation coefficient. The correlation metric is a numerical measure of the strength of an association</p>
 <p>There are several measures of correlation including:</p>
 <p>Pearson’s correlation coefficient : good for describing linear associations</p>
@@ -1489,8 +1584,8 @@ Solution
 </div>
 </div>
 </div>
-</section><section id="important-variables" class="level2" data-number="4.10"><h2 data-number="4.10" class="anchored" data-anchor-id="important-variables">
-<span class="header-section-number">4.10</span> Important variables</h2>
+</section><section id="important-variables" class="level2" data-number="4.12"><h2 data-number="4.12" class="anchored" data-anchor-id="important-variables">
+<span class="header-section-number">4.12</span> Important variables</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>colours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cyan"</span>,</span>
 <span id="cb28-2"><a href="#cb28-2"></a>             <span class="st">"darkorange"</span>,</span>
@@ -1612,6 +1707,20 @@ Solution
 </div>
 </div>
 </div>
+</section><section id="glossary" class="level2" data-number="4.13"><h2 data-number="4.13" class="anchored" data-anchor-id="glossary">
+<span class="header-section-number">4.13</span> Glossary</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+
+</div>
+</div>
+</div>
+</section><section id="reading" class="level2" data-number="4.14"><h2 data-number="4.14" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">4.14</span> Reading</h2>
+<ul>
+<li><a href="https://doi.org/10.1111/j.2041-210X.2009.00001.x">A protocol for data exploration to avoid common statistical problems</a></li>
+</ul>
 
 
 </section></main><!-- /main --><script>
