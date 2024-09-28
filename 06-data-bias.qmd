@@ -10,6 +10,11 @@ source("R/my_setup.R")
 source("sims.R")
 ```
 
+Data analysis plays a critical role in driving decisions and generating insights, but the reliability of those conclusions depends heavily on the quality and integrity of the data. Bias in data, whether it’s introduced during collection, processing, or analysis, can significantly distort results and lead to misleading conclusions. Recognizing and mitigating common sources of bias is crucial for ensuring accurate and meaningful insights.
+
+In this chapter, we will explore some of the most frequent sources of bias encountered in data analysis. These include missing data, where incomplete information can skew averages or hide important trends; omitted variable bias, which occurs when key factors influencing relationships are left out of analysis; and survivor bias, where focusing only on "survivors" or successful cases overlooks crucial information about those that were excluded or failed.
+
+Understanding these biases helps data scientists, analysts, and researchers ensure that their models are robust and their interpretations are sound. By the end of this chapter, you'll be equipped with the knowledge to identify and mitigate these common pitfalls, making your analyses more reliable and actionable.
 
 ## Sampling Bias
 
@@ -57,11 +62,13 @@ population_data |>
               sd = sd(Values))
 
 ```
+
 ### Sampling
 
 In a more likely scenario we will "sample", measuring a subset of individuals from each location - however if we do this in an unrepresentative way (e.g. not taking 1/3 of our samples from each location) then we may skew or bias our results:
 
-```{r}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
 prob_obs_location <- biased_sample_data %>% 
   group_by(Group) %>% 
   summarise(n = n()) %>% 
@@ -162,7 +169,8 @@ ggplot(aes(x = Day,
 
 And here we see the difference when the missing data is included, our original trend line was too flat, because it missed some seasonal fluctuations of high and low temperatures - we would have concluded temperature is more stable across the year than it really is. 
 
-```{r}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
 weather_data |>
   filter(Record == "Temperature_Missing") |>
 ggplot(aes(x = Day,
@@ -360,7 +368,7 @@ Ignoring important variables can mask the true relationships between variables, 
 
 ### Example:
 
-A new drug is being tested in a clinical trial setting and initial analysis indicates little evidence of an effect
+A new drug is being tested in a clinical trial setting and initial analysis indicates a weak positive effect
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   drug_data |>
@@ -370,7 +378,7 @@ A new drug is being tested in a clinical trial setting and initial analysis indi
     geom_jitter(width = .2)
 ```
 
-But when separated into clinically relevant subgroups such as gender we see that the drug does produce strong responses, but they are positive for women and negative for men, not including other important control variables can lead to over or underestimating effects, depending on how they interact. 
+But when separated into clinically relevant subgroups such as gender we see that the drug does produce strong responses, but only in women, not including other important control variables can lead to over or underestimating effects, depending on how they interact. 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
   drug_data |>

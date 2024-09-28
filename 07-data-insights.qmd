@@ -12,6 +12,12 @@ penguins <- readRDS(here("files", "chapter5.RDS"))
 
 For this exercise, we propose that our task is to generate insights into the relationship between **bill (culmen) length** and **bill (culmen) depth** in penguins. Our goal is to answer the question: *Is there a meaningful relationship between these two measurements?* Understanding this relationship can provide valuable insights into the physical characteristics of different penguin species and how they may vary.
 
+:::{.callout-important}
+
+You should be working in the script you made in the last session check it contains everything contained in {@sec-save-script} and runs without causing errors
+
+:::
+
 ## Understanding the Variables
 
 Before jumping into the analysis, it’s crucial to take a step back and first understand the variables we’re working with and how they might relate to each other. In this case, our key variables are:
@@ -41,15 +47,15 @@ Why this matters: Understanding the average bill length and depth helps us get a
 
 ### 3. Relationship Between Variables
 
-Now, we dive into the heart of our analysis: exploring the relationship between culmen length and culmen depth. To investigate this, we can use visual tools like scatterplots, which allow us to plot one variable against the other and visually check for patterns or trends.
+Now, we dive into the heart of our analysis: exploring the relationship between culmen length and culmen depth. To investigate this, we can use visual tools like `r glossary("scatterplots")` , which allow us to plot one variable against the other and visually check for patterns or trends.
 
-We might also want to calculate a correlation coefficient to quantify the strength of the relationship between bill length and bill depth. If we find a strong correlation, we can say that these two measurements tend to move together — for example, as the bill length increases, so might the bill depth.
+We might also want to calculate a `r glossary("correlation coefficient")` to quantify the strength of the relationship between bill length and bill depth. If we find a strong correlation, we can say that these two measurements tend to move together — for example, as the bill length increases, so might the bill depth.
 
 Why this matters: Identifying the relationship between variables is critical to making meaningful conclusions. If bill length and depth are highly correlated, we can begin to explore why this might be the case — perhaps certain penguin species have distinct bill shapes that differ from others.
 
 ### 4. Confounding Variables
 
-While exploring the relationship between bill length and depth, we must also be aware of the potential impact of confounding variables. A confounding variable is one that influences both the dependent and independent variables, potentially leading to a false conclusion about their relationship.
+While exploring the relationship between bill length and depth, we must also be aware of the potential impact of `r glossary("confounding variable")` . A confounding variable is one that influences both the dependent and independent variables, potentially leading to a false conclusion about their relationship.
 
 In this dataset, potential confounders might include:
 
@@ -62,6 +68,7 @@ To account for this, we can group or subset the data by species or island and re
 Why this matters: Ignoring confounding variables could lead us to incorrect conclusions. For instance, if we see a strong relationship between bill length and depth, it could simply be due to species differences, rather than a true relationship across all penguins.
 
 ### Asking New Questions
+
 Every step of the analysis leads to new questions. This is a natural part of the data exploration process. For example:
 
 - After looking at the distribution of culmen length and depth, we might wonder, do certain species have longer bills than others?
@@ -168,7 +175,7 @@ This is an example of a figure we might use in a report or paper. Having cleaned
 
 ## Two or more categories
 
-When investigating the distribution of observations, it’s important to consider how other variables might influence this relationship. 
+When investigating the distribution of observations, it’s important to consider how other variables might influence this relationship, such as sex, species or observations across years.
 
 `r hide ("Solution")`
 
@@ -182,7 +189,7 @@ penguins |>
 ```
 
 
-```{r}
+```{r, fig.width = 10}
 
 penguins |> 
    ggplot(aes(x = species,
@@ -213,7 +220,7 @@ By reflecting on these patterns, we can be more confident in the integrity of th
 
 ## Missing data
 
-In the previous section, we identified some missing data, particularly for the sex variable, and noted that it was relatively small and likely random, meaning we could safely remove it from calculations without concern for bias. However, when it comes to our variables of interest, such as culmen length and culmen depth, it's worth taking a closer look at the missing values to understand if they occur in any particular patterns or groupings.
+In the previous section, we identified some missing data, particularly for the sex variable, and noted that it was relatively small and likely random, meaning we could safely remove it from calculations without concern for `r glossary("bias")` . However, when it comes to our variables of interest, such as culmen length and culmen depth, it's worth taking a closer look at the missing values to understand if they occur in any particular patterns or groupings.
 
 We previously used functions like `skimr::skim()` and `summary()` to find that there are two missing values each for culmen length and depth. Although this small amount of missing data is unlikely to introduce significant bias, it’s still a good practice to investigate where these missing values are located in the dataset. Identifying patterns or specific groups (e.g., certain species or islands) associated with the missing values can help ensure that the missing data is not clustered in a way that could subtly affect our analysis.
 
@@ -255,7 +262,7 @@ Again here we could safely drop these from our data and regard these as missing 
 
 ### remove na
 
-There are a few different ways we can deal with missing data:
+If we are confident that missing data is not causing bias, then there are a few different ways we can deal with missing data so that it doesn't affect our calculations:
 
 #### `drop_na()` on everything before we start. 
 
@@ -277,13 +284,39 @@ Another approach is to remove rows with missing data in a specific variable, suc
 
 A more cautious approach is to handle missing data within summary or calculation functions, using the `na.rm = TRUE` argument. Many summary functions (like `mean()`, `median()`, or `sum()`) include this argument, which, when set to `TRUE`, excludes `NA` values from the calculation. This allows you to keep missing values in the dataset but ignore them only when performing calculations.
 
+```{r, eval = F}
+penguins |> 
+  summarise(
+    mean_body_mass = mean(body_mass_g, na.rm = T)
+  )
+
+```
+
 - Pros: This is the least destructive option because it allows you to handle missing data without removing any rows from the dataset. You only exclude `NA` values during specific calculations.
 
 - Cons: This doesn’t remove missing data, so you need to ensure that they won’t cause issues later in other analyses (e.g., regressions or visualizations).
 
 ## Continuous distributions
 
-Variation refers to the natural tendency for the values of a variable to change from measurement to measurement. In real life, you can observe variation easily; for instance, if you measure any continuous variable multiple times, it is highly likely that each measurement will be slightly different from the others. Even with measurements of fixed quantities, such as the speed of light, there is always a small margin of error that introduces variation between measurements.
+A continuous variable is a type of numerical variable that can take an infinite number of values within a given range. Unlike categorical variables, which represent distinct groups or categories, continuous variables can represent quantities that can be measured with fine precision. Examples include height, weight, temperature, or in the case of the Palmer Penguins dataset, culmen length and culmen depth.
+
+### Summarizing a Continuous Variable
+
+To summarize a continuous variable, we typically focus on two key aspects:
+
+- `r glossary("central tendency")`  (such as the mean)
+
+- `r glossary("variation")`  (such as standard deviation)
+
+#### Mean (Central Tendency)
+
+The mean is the average value of a continuous variable. It is calculated by summing all the values and then dividing by the number of observations. The mean gives us a sense of the central location of the data, or where most of the data points cluster around.
+
+- Example: The mean culmen length of penguins gives us an average bill length, which represents the central value of the dataset.
+
+#### Variation (Spread)
+
+Variation describes how spread out the data points are around the mean.
 
 This concept is critical in data analysis because every variable exhibits its own unique pattern of variation. Understanding these patterns can provide important insights into the data. For example, the variation in penguin body mass or bill length across different species may reveal ecological or biological differences that are crucial to your analysis.
 
@@ -298,7 +331,7 @@ In the examples below I will look at the distributions of culmen length, you sho
 
 ### Histograms
 
-This is the script to plot a frequency distribution, we only specify an x variable, because we intend to plot a histogram, and the y variable is always the count of observations. Here we ask the data to be presented in 10 equally sized bins of data. In this case chopping the x axis range into 10 equal parts and counting the number of observations that fall within each one.
+This is the script to plot a frequency distribution, we only specify an x variable, because we intend to plot a `r glossary("histogram")` , and the y variable is always the count of observations. Here we ask the data to be presented in 10 equally sized bins of data. In this case chopping the x axis range into 10 equal parts and counting the number of observations that fall within each one.
 
 Histograms are helpful because they show the distribution of a single numerical variable. They divide the data into "bins" (ranges of values) and count how many data points fall into each bin. This helps you:
 
@@ -325,13 +358,13 @@ Change the value specified to the bins argument and observe how the figure chang
 
 ### Boxplots
 
-Boxplots are a powerful tool for visualizing the distribution of a numerical variable in a compact and easy-to-read format. They provide a wealth of information about the data, including its central tendency, spread, and presence of outliers, while also allowing for comparisons across different groups. Here’s why boxplots are particularly useful:
+A `r glossary("boxplot")` is a powerful tool for visualizing the distribution of a numerical variable in a compact and easy-to-read format. They provide a wealth of information about the data, including its central tendency, spread, and presence of outliers, while also allowing for comparisons across different groups. Here’s why boxplots are particularly useful:
 
 - Central Tendency: The middle line within the box represents the median value of the data. Unlike the mean, which can be influenced by extreme values, the median provides a robust measure of central tendency, especially for skewed data.
 
 - Spread and Variability: The box itself shows the interquartile range (IQR), which represents the spread of the middle 50% of the data. A wider box means more variability in the data, while a narrower box indicates that the data is more tightly clustered around the median.
 
-- Outliers: Boxplots are particularly useful for identifying outliers—data points that fall far outside the typical range of values. These are shown as individual points beyond the "whiskers" (the lines extending from the box), making it easy to spot extreme values that could affect your analysis.
+- Outliers: Boxplots are particularly useful for identifying `r glossary("outliers")`  — data points that fall far outside the typical range of values. These are shown as individual points beyond the "whiskers" (the lines extending from the box), making it easy to spot extreme values that could affect your analysis.
 
 - Comparison Between Groups: One of the greatest strengths of boxplots is their ability to compare distributions across different groups. By plotting multiple boxplots side by side (e.g., for different penguin species), you can easily see how a variable's distribution changes between categories, helping to highlight differences or similarities between groups.
 
@@ -367,7 +400,7 @@ This shows us that outliers are context-specific. A value that is unusually larg
 
 ### Density plots
 
-Histograms and density plots are both useful tools for visualizing the distribution of a continuous variable, but they present the information in slightly different ways.
+Histograms and `r glossary("density plots")` are both useful tools for visualizing the distribution of a continuous variable, but they present the information in slightly different ways.
 
 - Histograms divide the data into bins and count how many data points fall into each bin. This gives a blocky visual representation of the data's distribution and is great for showing the frequency of data points within specific ranges. The choice of bin width can influence how smooth or rough the histogram looks, and it provides an easy way to understand how the data is spread out.
 
@@ -399,6 +432,7 @@ ggplot(penguins, aes(x = culmen_length_mm,
   ggridges::geom_density_ridges()
 
 ```
+
 When a density plot shows double peaks (also known as bimodal distribution), it often suggests that the data may contain two distinct groups or underlying patterns that are not immediately visible. In such cases, subgrouping the data can help clarify these peaks. By breaking the data down into categories—such as species, gender, or location—we can explore whether the peaks correspond to meaningful subgroups within the dataset.
 
 For example, in the Palmer Penguins dataset, a bimodal distribution of bill length might indicate that different species have distinct bill lengths, each contributing to one of the peaks. Subgrouping by species would allow us to visualize separate distributions for each species and better understand the source of the variation.
@@ -416,13 +450,20 @@ ggplot(aes(x = culmen_length_mm,
 
 
 ```
+
 If we still see double peaks after subgrouping the data, it suggests that there may be additional underlying factors or patterns within each subgroup that we haven’t accounted for yet. These could be caused by other variables such as age, environmental conditions, or even measurement error, depending on the context of the data.
 
 ## Normality
 
-If our data follows a normal distribution, we can use just two key metrics—mean and standard deviation—to predict how the data is spread out and to calculate the probability of observing a specific value. The normal distribution is symmetric and bell-shaped, meaning most data points cluster around the mean, with fewer observations the farther we move from it.
+If our data follows a `r glossary("normal distribution")` , we can use just two key metrics — **mean** and **standard deviation** — to predict how the data is spread out and to calculate the probability of observing a specific value. The normal distribution is symmetric and bell-shaped, meaning most data points cluster around the mean, with fewer observations the farther we move from it.
 
-### QQplot
+### Why These Measures Matter:
+
+- The `r glossary("mean")`  gives us a general idea of the "average" value, but the `r glossary("standard deviation")`  tells us how reliable that mean is by showing how much the data varies around it.
+
+- Together, these two metrics help us understand the overall distribution of a continuous variable. For normally distributed data, roughly 68% of values lie within one standard deviation of the mean, which provides a good sense of the data's spread.
+
+### QQplots
 
 A QQ plot is a useful tool for visually assessing whether a dataset follows a particular distribution, such as the normal distribution. At first glance, QQ plots may look unfamiliar, but they are simple and powerful once you understand the concept.
 
@@ -468,7 +509,7 @@ Unlike the Shapiro-Wilk test, a QQ plot provides a visual way to check for norma
 
 QQ plots are also more flexible with sample size. They work well with both large and small datasets.
 
-### Subgroups
+### Normality in subgroups
 
 When you analyze the entire dataset without subgrouping, you combine data from different groups, such as species, locations, or treatments. Each group may have its own unique distribution. For example, in the Palmer Penguins dataset, bill length and bill depth may differ significantly between penguin species. If you test for normality across the entire dataset, the mix of different distributions might lead to misleading results—either falsely showing non-normality or obscuring deviations that are present in specific groups.
 
@@ -491,13 +532,13 @@ penguins %>%
 
 ```
 
-Now we can see that when splitting into species subgroups - that the qqplots are much better. The Shapiro wilk test indicates that the Gentoo population deviates from a normal distribution for bill length, but our qqplot indicates this is very minor and we can still safely use descriptive statistics that rely on this assumption
+Now we can see that when splitting into species subgroups - that the qqplots are much better. The Shapiro wilk test indicates that the Gentoo population deviates from a normal distribution for bill length, but our qqplot indicates this is very minor and we can still safely use descriptive statistics of mean and standard deviation that rely on this assumption.
 
 ## Summary statistics
 
-### Mean and standard deviation
+### Calculating mean and standard deviation
 
-standard deviation (or s) is a measure of how dispersed the data is in relation to the mean. Low standard deviation means data are clustered around the mean, and high standard deviation indicates data are more spread out. As such it makes sense only to use this when the mean is a good measure of our central tendency.
+standard deviation (or s) is a measure of how dispersed the data is in relation to the mean. Low standard deviation means data are clustered around the mean, and high standard deviation indicates data are more spread out. We can calculate these easily in R with `group_by()` and `summarise()`.
 
 ```{r}
 penguins |> 
@@ -520,7 +561,7 @@ penguins |>
 
 ### Median and quartiles
 
-When dealing with data that does not fit a normal distribution, using summary statistics like max, min, median, and interquartile range (IQR) provides a robust way to describe the data's spread and central tendency. Unlike the mean and standard deviation, which are sensitive to outliers and skewed data, the median and IQR give a more accurate representation of the distribution's center and spread in non-normal data.
+If we were dealing with variables that did not fit a normal distribution, using summary statistics like max, min, median, and interquartile range (IQR) provides a robust way to describe the data's spread and central tendency. Unlike the mean and standard deviation, which are sensitive to outliers and skewed data, the median and IQR give a more accurate representation of the distribution's center and spread in non-normal data.
 
 - Median: This is the middle value and provides a better measure of central tendency than the mean when data is skewed.
 IQR (Interquartile Range): This measures the spread of the middle 50% of the data (between the 25th and 75th percentiles) and is less affected by extreme values.
@@ -536,14 +577,43 @@ penguins |>
   summarise(median = median(culmen_length_mm, na.rm = T),
             quantile = quantile(culmen_length_mm, c(0.25, 0.5, 0.75), na.rm=TRUE),
             max = max(culmen_length_mm, na.rm = T),
-            min = min(culmen_length_mm), na.rm = T)
+            min = min(culmen_length_mm, na.rm = T)
+  )
 
 ```
 
+::: {.callout-warning}
+
+If you ran the command above you likely received a warning in your R console
+
+```
+Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+dplyr 1.1.0.
+ℹ Please use `reframe()` instead.
+```
+This is because `summary()` is supposed to only supply one row per group - by asking for the different quartiles from each group it forces it to print more rows. Try doing what R asks and see what happens
+
+[See here](https://dplyr.tidyverse.org/reference/reframe.html)
+
+:::
+
+
 ## Collinearity
 
+Collinearity occurs when two or more independent variables in a dataset are highly correlated with each other, meaning that they show a strong linear relationship. In simpler terms, it means that one variable can be almost perfectly predicted by another. Collinearity is particularly problematic in regression analysis, where you want each independent variable to provide unique information about the outcome (dependent variable).
 
-```{r}
+Imagine you’re studying penguin bill characteristics in the Palmer Penguins dataset. If you include both culmen length and flipper length are highly correlated, then collinearity may occur. This would make it difficult to determine whether changes in culmen depth are due to culmen length or flipper length, or a combination of both, as they provide overlapping information.
+
+### GGally
+
+The R package `GGally` helps us understand the relationships between variables, by producing a pairwise matric grid made of:
+
+- Scatterplots: The scatterplots in a pairwise matrix (created by ggpairs()) allow you to visually inspect the relationship between pairs of continuous variables. If two variables show a strong linear relationship (points forming a clear diagonal line), it suggests collinearity between those variables.
+
+- Correlation Coefficients: In the pairwise matrix, you can also display correlation coefficients. When these values are close to 1 (positive correlation) or -1 (negative correlation), it suggests that the variables are highly correlated and might indicate collinearity.
+
+```{r, fig.width = 12}
+
 library(GGally)
 
 penguins |> 
@@ -559,7 +629,13 @@ penguins |>
 
 ```
 
-```{r}
+From these pairwise plots we can see that there *is* a correlation between flipper length, body mass and the culmen length and depth variables. This is useful information to know when considering the relationship between variables for cause and effect, and will be important when build statistical models. 
+
+#### Applying Subgroups of Color in GGally (Using ggplot2)
+
+Since GGally builds on ggplot2, you can apply the same customisations that ggplot2 allows, including the use of color to represent different subgroups in your data. This is especially useful when exploring relationships between variables, as it helps highlight patterns or differences between categories (e.g., species, sex, or location).
+
+```{r, fig.width = 12}
 penguins |> 
   ggpairs(columns = c(
          "island", 
@@ -572,27 +648,30 @@ penguins |>
 
 ```
 
+
+Why is this useful? It means we can identify group-specific trends: Adding colour based on a categorical variable (like species) helps you quickly spot trends or patterns that may exist only within certain groups.
+
 ## Correlation
 
 A common measure of association between two numerical variables is the correlation coefficient. The correlation metric is a numerical measure of the strength of an association
 
 There are several measures of correlation including:
 
-Pearson's correlation coefficient : good for describing linear associations
+- Pearson's correlation coefficient : good for describing linear associations
 
-Spearman's rank correlation coefficient: a rank ordered correlation - good for when the assumptions for Pearson's correlation is not met.
+- Spearman's rank correlation coefficient: a rank ordered correlation - good for when the assumptions for Pearson's correlation is not met.
 
-Pearson's correlation coefficient r is designed to measure the strength of a linear (straight line) association. Pearson's takes a value between -1 and 1.
+Pearson's correlation coefficient `r` is designed to measure the strength of a linear (straight line) association. Pearson's takes a value between -1 and 1.
 
-A value of 0 means there is no linear association between the variables
+- A value of 0 means there is no linear association between the variables
 
-A value of 1 means there is a perfect positive association between the variables
+- A value of 1 means there is a perfect positive association between the variables
 
-A value of -1 means there is a perfect negative association between the variables
+- A value of -1 means there is a perfect negative association between the variables
 
 A perfect association is one where we can predict the value of one variable with complete accuracy, just by knowing the value of the other variable.
 
-We can use the cor function in R to calculate Pearson's correlation coefficient.
+We can use the `rstatix::cor_test()` function in R to calculate Pearson's correlation coefficient.
 
 ```{r}
 library(rstatix)
@@ -603,21 +682,35 @@ penguins %>%
 
 ```
 
-This tells us two features of the association. It's sign and magnitude. The coefficient is negative, so as bill length increases, bill depth decreases. The value -0.22 indicates that only about 22% of the variation in bill length can be explained by changes in bill depth (and vice-versa), suggesting that the variables are not closely related.
+This tells us two features of the association. It's sign and magnitude. The coefficient is negative, so as bill length increases, bill depth decreases. The value -0.24 indicates a weak negative relationship.
 
 Because Pearson's coefficient is designed to summarise the strength of a linear relationship, this can be misleading if the relationship is not linear e.g. curved or humped. This is why it's always a good idea to plot the relationship first (see above).
 
 Even when the relationship is linear, it doesn't tell us anything about the steepness of the association (see above). It only tells us how often a change in one variable can predict the change in the other not the value of that change.
 
+```{r, eval=TRUE, echo=FALSE, out.width="80%", fig.alt= "Correlation examples"}
+knitr::include_graphics("images/correlation_examples.png")
+```
+
 This can be difficult to understand at first, so carefully consider the figure above.
 
-The first row above shows differing levels of the strength of association. If we drew a perfect straight line between two variables, how closely do the data points fit around this line.
+- The first row above shows differing levels of the strength of association. If we drew a perfect straight line between two variables, how closely do the data points fit around this line.
 
-The second row shows a series of perfect linear relationships. We can accurately predict the value of one variable just by knowing the value of the other variable, but the steepness of the relationship in each example is very different. This is important because it means a perfect association can still have a small effect.
+- The second row shows a series of perfect linear relationships. We can accurately predict the value of one variable just by knowing the value of the other variable, but the steepness of the relationship in each example is very different. This is important because it means a perfect association can still have a small effect.
 
-The third row shows a series of associations where there is clearly a relationship between the two variables, but it is also not linear so would be inappropriate for a Pearson's correlation.
+- The third row shows a series of associations where there is clearly a relationship between the two variables, but it is also not linear so would be inappropriate for a Pearson's correlation.
 
-So what should we do if the relationship between our variables is non-linear or does not follow a normal distribution? Instead of using Pearson's correlation coefficient we can calculate something called a rank correlation.
+### Assumptions of Pearson's correlation
+
+- A linear relationship
+
+- Normal distribution of the variance
+
+In our case we have already looked at the relationship and the assumptions of normality and would conclude our data is basically fine for using Pearson's correlation.
+
+But what should we do if the relationship between our variables is non-linear or does not follow a normal distribution? Instead of using Pearson's correlation coefficient we can calculate something called a rank correlation.
+
+### Spearman's rank correlation
 
 Instead of working with the raw values of our two variables we can use rank ordering instead. The idea is pretty simple if we start with the lowest vaule in a variable and order it as '1', then assign labels '2', '3' etc. as we ascend in rank order. We can see a way that this could be applied manually with the function dense_rank from dplyr below:
 
@@ -631,9 +724,11 @@ penguins %>%
 
 ```
 
-Graphical summaries between numeric variables
+You can see that we get a similar *but not identical* estimate of the strength of association. Generally non-parametric tests are less powerful, but have fewer assumptions about the structure of our data.
 
-Correlation coefficients are a quick and simple way to attach a metric to the level of association between two variables. They are limited however in that a single number can never capture the every aspect of their relationship. This is why we visualise our data.
+### Graphical summaries between numeric variables
+
+Correlation coefficients are a quick and simple way to attach a metric to the level of association between two variables. They are limited however in that a single number can never capture the every aspect of their relationship. This is why we visualise our data, and the best way to do that for two continuous variables is to make a scatterplot
 
 ```{r}
 scatterplot <- ggplot(penguins, aes(x= culmen_length_mm, 
@@ -644,7 +739,13 @@ scatterplot
 
 ```
 
+#### Marginal plots
 
+Marginal plots are useful when you want to explore the distribution of individual variables alongside a scatterplot of the relationship between two variables. They add histograms, density plots, or boxplots to the margins of a scatterplot, providing extra information about the distribution of each variable separately. So we would could add any of the plots we used previously to look at variance in each of our variables `culmen_length_mm` and `culmen_depth_mm`
+
+#### How to Create Marginal Plots: Using patchwork in R
+
+`patchwork` is an R package that makes it easy to combine multiple ggplots into a single plot layout, including creating layouts for marginal plots. While ggplot2 doesn't natively support marginal plots, patchwork allows you to combine the scatterplot with additional histograms or density plots at the top and side, creating a custom marginal plot.
 
 ```{r}
 
@@ -665,19 +766,31 @@ layout <- "
 AA#
 BBC
 BBC"
+
 # layout is easiest to organise using a text distribution, where ABC equal the three plots in order, and the grid is how much space they take up. We could easily make the main plot bigger and marginals smaller with
 
 scatterplot <- scatterplot +
   geom_smooth(method = "lm",
               se = FALSE)
 
-bill_length_marginal+scatterplot+bill_depth_marginal+ # order of plots is important
-  plot_layout(design=layout) # uses the layout argument defined above to arrange the size and position of plots
+bill_length_marginal+
+  scatterplot+
+  bill_depth_marginal+ 
+  # order of plots is important
+  plot_layout(design=layout) 
+# uses the layout argument defined above to arrange the size and position of plots
 
 ```
 
+From this plot we would conclude that there is weak `r mcq(c("positive", answer = "negative"))` relationship between culmen length and culmen depth. 
 
 ## Important variables
+
+When analyzing the correlation between two variables, it’s essential to consider important categories or grouping variables (like species, gender, location, or time) to avoid misleading results and oversimplified interpretations. Ignoring relevant categories can result in omitted variable bias, which occurs when a key variable is left out of the analysis and its influence distorts the observed relationship between the variables of interest.
+
+Think about important categories or subgroups that should be included when considering the relationship between culment length and depth?
+
+`r hide("Solution")`
 
 ```{r}
 
@@ -725,10 +838,11 @@ bill_length_marginal_2+scatterplot_2+bill_depth_marginal_2+ # order of plots is 
   plot_layout(design=layout2) # uses the layout argument defined above to arrange the size and position of plots
 ```
 
-We now clearly see a striking reversal of our previous trend, that in fact within each species of penguin there is an overall positive association between bill length and depth.
+We now clearly see a striking **reversal** of our previous trend, that in fact within each species of penguin there is an overall positive association between bill length and depth.
+
+This is called **Simpson's Paradox** it is a classic example of omitted variable bias, where a trend observed in different groups reverses or disappears when the data is combined. This happens when a key variable (often categorical) is not included in the analysis, leading to misleading conclusions.
 
 This should prompt us to re-evaluate our correlation metrics:
-
 
 ```{r}
 penguins %>% 
@@ -738,6 +852,20 @@ penguins %>%
 
 
 ```
+
+We now see that all of our correlation coefficients are stronger and positive *within* each species. 
+
+`r unhide()`
+
+
+## Summary
+
+When analysing data, it’s important to start with simple visualizations like scatterplots, boxplots, or histograms to uncover basic patterns and distributions.
+Before continuing with simple visualisations of relationships and groupings. These tools help provide quick insights into your data, such as distribution, trends, or outliers.
+
+However, it’s equally important to think carefully about the context of your data. This includes considering grouping variables (like species, sex, or location) to avoid pitfalls like omitted variable bias or Simpson’s Paradox, where important patterns may be hidden or misrepresented if key variables are ignored.
+
+By incorporating relevant categories and ensuring you're accounting for potential confounding variables, you make sure your analysis is more accurate, insightful, and meaningful. Always take a moment to reflect on the broader context before drawing conclusions from simple data summaries
 
 ## Glossary
 

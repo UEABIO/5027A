@@ -203,7 +203,7 @@ ggplot(aes(x = Day,
   # After intervention: Drug works for women (increase) but not for men
   after_intervention <- if_else(gender == "Female",
                                before_intervention + rnorm(n, mean = 10, sd = .5),  # Women improve by ~5 units
-                               before_intervention + rnorm(n, mean = -10, sd = .5))  # Men show no improvement
+                               before_intervention + rnorm(n, mean = 0, sd = .5))  # Men show no improvement
 
   # Combine into a data frame
   drug_data <- data.frame(Gender = gender, Before = before_intervention, After = after_intervention) |>

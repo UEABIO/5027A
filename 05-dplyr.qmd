@@ -773,7 +773,7 @@ Factors will also be important when we build linear models a bit later. The refe
 
 In this chapter we have successfully imported and checked our data for typos and small errors, we have also been introduce to some of the key functions in the `dplyr` package for data wrangling. Now that we have confidence in the format and integrity of our data, next time we will start to make insights and understand patterns. 
 
-### Save scripts
+### Save scripts {#sec-save-script}
 
 * Make sure you have **saved your script 💾**  and given it the filename `01_import_penguins_data.R` it should be saved in your **scripts folder**
 
@@ -878,7 +878,7 @@ knitr::include_graphics("images/project_penguin.png")
 knitr::include_graphics("images/r_script.png")
 ```
 
-- Does your script run from a `r glossary("blank slate")` blank slate without errors as described in {#sec-workflow}
+- Does your script run from a `r glossary("blank slate")` without errors as described in {#sec-workflow}
 
 ### Checklist for data checking
 
