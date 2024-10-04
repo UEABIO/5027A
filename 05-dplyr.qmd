@@ -70,7 +70,7 @@ When you run this new code, you will not see anything in your console, but you w
 
 ```{r, eval = F}
 new_penguins <- select(.data = penguins_raw, 
-       `Species, `Sex`, `Flipper Length (mm)`, `Body Mass (g)`)
+       `Species`, `Sex`, `Flipper Length (mm)`, `Body Mass (g)`)
 ```
 
 ### Filter
@@ -655,14 +655,14 @@ Once we have established our date data, we are able to perform calculations or e
 
 ```{r, eval = F}
 penguins |> 
-  summarise(min_date=min(date_egg_proper),
-            max_date=max(date_egg_proper))
+  summarise(min_date=min(date_egg),
+            max_date=max(date_eggr))
 ```
 
 We can also extract and make new columns from our date column - such as a simple column of the year when each observation was made:
 
 ```{r, eval = F}
-penguins |> 
+penguins <- penguins |> 
   mutate(year = lubridate::year(date_egg))
 
 ```

@@ -91,7 +91,7 @@ Before diving into analysis, it's crucial to have a clear understanding of the s
 
 - Cleaned column or factor names: Ensure that all column names are properly labeled and easy to understand. This includes correcting any typos or formatting issues, such as spaces or special characters in names, which could cause problems when referencing them in code.
 
-These data checking steps provide a strong foundation for accurate and effective analysis, ensuring that your dataset is reliable and well-structured and luckily we carried this out in {#sec-dplyr}.
+These data checking steps provide a strong foundation for accurate and effective analysis, ensuring that your dataset is reliable and well-structured and luckily we carried this out in {@sec-dplyr}.
 
 ## Explore the distribution of categories
 

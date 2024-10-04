@@ -167,6 +167,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data insights</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-inferential-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inferential statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear models</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -351,7 +363,7 @@ Important
 <p>When you run this new code, you will not see anything in your console, but you will see a new object appear in your Environment pane.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> penguins_raw, </span>
-<span id="cb3-2"><a href="#cb3-2"></a>       <span class="st">`</span><span class="at">Species, </span><span class="st">`</span>Sex<span class="st">`</span><span class="at">, </span><span class="st">`</span>Flipper <span class="fu">Length</span> (mm)<span class="st">`</span><span class="at">, </span><span class="st">`</span>Body <span class="fu">Mass</span> (g)<span class="st">`</span><span class="at">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="filter" class="level3" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="filter">
 <span class="header-section-number">2.1.2</span> Filter</h3>
@@ -461,7 +473,7 @@ Important
 </div>
 </div>
 </div>
-<p>Pipes look like this: <code>|&gt;</code> , a <a class="glossary">pipe<span class="def">An operator that allows you to chain multiple functions together in a sequence</span></a> allows you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>|&gt;</code> to be the <strong>first</strong> argument of the function after <code>|&gt;</code>. As usual, it’s easier to show, rather than tell so let’s look at an example.</p>
+<p>Pipes look like this: <code>|&gt;</code> , a <a class="glossary">pipe<span class="def">An operator that allows you to chain multiple functions together in a sequence.</span></a> allows you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>|&gt;</code> to be the <strong>first</strong> argument of the function after <code>|&gt;</code>. As usual, it’s easier to show, rather than tell so let’s look at an example.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># this example uses brackets to nest and order functions</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">arrange</span>(<span class="at">.data =</span> <span class="fu">filter</span>(</span>
@@ -999,7 +1011,7 @@ Import and clean names
 </div>
 </section><section id="rename-columns-manually" class="level4" data-number="2.3.2.2"><h4 data-number="2.3.2.2" class="anchored" data-anchor-id="rename-columns-manually">
 <span class="header-section-number">2.3.2.2</span> Rename columns (manually)</h4>
-<p>The <code>clean_names</code> function quickly converts all variable names into <a class="glossary">snake case<span class="def">Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It’s commonly used for variable and subroutine names, filenames, and database table and column names</span></a>. The N and C blood isotope ratio names are still quite long though, so let’s clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where “new_name” = “old_name”.</p>
+<p>The <code>clean_names</code> function quickly converts all variable names into <a class="glossary">snake case<span class="def">Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It’s commonly used for variable names, filenames, and database table and column names.</span></a>. The N and C blood isotope ratio names are still quite long though, so let’s clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where “new_name” = “old_name”.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># shorten the variable names for isotope blood samples</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="co"># use rename from the dplyr package</span></span>
@@ -1559,8 +1571,8 @@ Pay attention to warning and error messages
 <li>
 <strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_UYGUDPAOTF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_UYGUDPAOTF" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_UYGUDPAOTF" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_UYGUDPAOTF" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_UYGUDPAOTF" value="answer"><span>dmy()</span></label>
+<div id="radio_EXFDJKQSUJ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_EXFDJKQSUJ" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_EXFDJKQSUJ" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_EXFDJKQSUJ" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_EXFDJKQSUJ" value="answer"><span>dmy()</span></label>
 </div>
 <div class="webex-solution">
 <button>
@@ -1577,12 +1589,12 @@ Solution
 <span class="header-section-number">2.4.1</span> Calculations with dates</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">summarise</span>(<span class="at">min_date=</span><span class="fu">min</span>(date_egg_proper),</span>
-<span id="cb40-3"><a href="#cb40-3"></a>            <span class="at">max_date=</span><span class="fu">max</span>(date_egg_proper))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">summarise</span>(<span class="at">min_date=</span><span class="fu">min</span>(date_egg),</span>
+<span id="cb40-3"><a href="#cb40-3"></a>            <span class="at">max_date=</span><span class="fu">max</span>(date_eggr))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also extract and make new columns from our date column - such as a simple column of the year when each observation was made:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
 <span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="factors" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="factors">
@@ -1810,7 +1822,7 @@ Check your script
 </div>
 </div>
 <ul>
-<li>Does your script run from a <a class="glossary">blank slate<span class="def">R projects are set not to store their .Rhistory file which means everything required to recreate your analysis is contained in your scripts</span></a> without errors as described in {#sec-workflow}</li>
+<li>Does your script run from a <a class="glossary">blank slate<span class="def">R projects are set not to store their .Rhistory file, which means everything required to recreate your analysis is contained in your scripts.</span></a> without errors as described in {#sec-workflow}</li>
 </ul></section><section id="checklist-for-data-checking" class="level3" data-number="2.6.2"><h3 data-number="2.6.2" class="anchored" data-anchor-id="checklist-for-data-checking">
 <span class="header-section-number">2.6.2</span> Checklist for data checking</h3>
 <ul>
@@ -1903,7 +1915,7 @@ Explain this answer
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">blank slate</td>
-<td style="text-align: left;">R projects are set not to store their .Rhistory file which means everything required to recreate your analysis is contained in your scripts</td>
+<td style="text-align: left;">R projects are set not to store their .Rhistory file, which means everything required to recreate your analysis is contained in your scripts.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">console</td>
@@ -1911,11 +1923,11 @@ Explain this answer
 </tr>
 <tr class="odd">
 <td style="text-align: left;">pipe</td>
-<td style="text-align: left;">An operator that allows you to chain multiple functions together in a sequence</td>
+<td style="text-align: left;">An operator that allows you to chain multiple functions together in a sequence.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">snake case</td>
-<td style="text-align: left;">Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It's commonly used for variable and subroutine names, filenames, and database table and column names</td>
+<td style="text-align: left;">Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It's commonly used for variable names, filenames, and database table and column names.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tidy data</td>

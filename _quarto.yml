@@ -41,6 +41,8 @@ book:
   - 05-dplyr.qmd
   - 06-data-bias.qmd
   - 07-data-insights.qmd
+  - 08-inferential-statistics.qmd
+  - 09-linear-models.qmd
   appendices:
   - r-basics.qmd
   - projects.qmd
