@@ -80,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./r-basics.html" rel="next">
+<link href="./10-paired-design.html" rel="next">
 <link href="./08-inferential-statistics.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -223,6 +223,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear models</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-paired-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Paired tests</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -267,7 +279,7 @@ window.Quarto = {
    
   <ul>
 <li><a href="#packages" id="toc-packages" class="nav-link active" data-scroll-target="#packages"><span class="header-section-number">6.0.1</span> Packages</a></li>
-  <li><a href="#a-linear-model-analysis-for-calculating-means" id="toc-a-linear-model-analysis-for-calculating-means" class="nav-link" data-scroll-target="#a-linear-model-analysis-for-calculating-means"><span class="header-section-number">6.1</span> A linear model analysis for calculating means</a></li>
+  <li><a href="#a-linear-model-analysis-for-calculating-means" id="toc-a-linear-model-analysis-for-calculating-means" class="nav-link" data-scroll-target="#a-linear-model-analysis-for-calculating-means"><span class="header-section-number">6.1</span> A linear |&gt; model analysis for calculating means</a></li>
   <li>
 <a href="#summaries-for-models" id="toc-summaries-for-models" class="nav-link" data-scroll-target="#summaries-for-models"><span class="header-section-number">6.2</span> Summaries for models</a>
   <ul class="collapse">
@@ -326,7 +338,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(broom.helpers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="a-linear-model-analysis-for-calculating-means" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="a-linear-model-analysis-for-calculating-means">
-<span class="header-section-number">6.1</span> A linear model analysis for calculating means</h2>
+<span class="header-section-number">6.1</span> A linear |&gt; model analysis for calculating means</h2>
 <p>R has a general function <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for fitting linear models, this is part of base R (does not require the tidyverse packages). We will run through a few different iterations of the linear model increasing in complexity. We will often want to fit several models to our data, so a common way to work is to fit a model and assign it to a named R object, so that we can extract data from when we need it.</p>
 <p>In the example below I have called the model <code>lsmodel0</code>, short for “least-squares model 0”, this is because the linear-model uses a technique called <a href="https://www.youtube.com/watch?v=PaFPbb66DxQ">least squares</a>.</p>
 <div class="cell" data-layout-align="center">
@@ -1730,8 +1742,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./r-basics.html" class="pagination-link" aria-label="R Basics">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10-paired-design.html" class="pagination-link" aria-label="Paired tests">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Paired tests</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

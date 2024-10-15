@@ -43,6 +43,8 @@ book:
   - 07-data-insights.qmd
   - 08-inferential-statistics.qmd
   - 09-linear-models.qmd
+  - 10-paired-design.qmd
+  - 11-regression.qmd
   appendices:
   - r-basics.qmd
   - projects.qmd

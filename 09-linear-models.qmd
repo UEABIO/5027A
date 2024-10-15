@@ -34,7 +34,7 @@ darwin <- read_csv(here("files", "darwin.csv"))
 
 ```
 
-## A linear model analysis for calculating means
+## A linear |> model analysis for calculating means
 
 R has a general function `lm()` for fitting linear models, this is part of base R (does not require the tidyverse packages). We will run through a few different iterations of the linear model increasing in complexity. We will often want to fit several models to our data, so a common way to work is to fit a model and assign it to a named R object, so that we can extract data from when we need it. 
 
@@ -199,10 +199,10 @@ colnames(t) <- degf
 
 combined <- cbind(values,t)
 
-combined %>% 
-    pivot_longer(cols=!x, names_to="distribution") %>% 
-    mutate(distribution=factor(distribution, levels=c("z_dist", "1", "3", "8", "30"))) %>%  
-  mutate(distribution=fct_recode(distribution, "z distribution" = "z_dist", "df = 1" = "1", "df = 3" = "3", "df = 8" = "8", "df = 30" = "30")) %>% 
+combined |> 
+    pivot_longer(cols=!x, names_to="distribution") |> 
+    mutate(distribution=factor(distribution, levels=c("z_dist", "1", "3", "8", "30"))) |>  
+  mutate(distribution=fct_recode(distribution, "z distribution" = "z_dist", "df = 1" = "1", "df = 3" = "3", "df = 8" = "8", "df = 30" = "30")) |> 
   ggplot(aes(x=x, y=value, colour=distribution))+
   geom_line(linetype="dashed")+
   theme_classic()
