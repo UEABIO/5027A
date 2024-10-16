@@ -273,7 +273,7 @@ Can you use your data wrangling skills to mean centre the density predictor and 
 janka_centered <-  janka |> 
   mutate(centered_dens = dens - mean(dens))
 
-centered_model <- lm(hardness ~ dens, data = janka_centered) 
+centered_model <- lm(hardness ~ centered_dens, data = janka_centered) 
 
 summary(centered_model)
 

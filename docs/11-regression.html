@@ -595,22 +595,22 @@ Solution
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>janka_centered <span class="ot">&lt;-</span>  janka <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">mutate</span>(<span class="at">centered_dens =</span> dens <span class="sc">-</span> <span class="fu">mean</span>(dens))</span>
 <span id="cb12-3"><a href="#cb12-3"></a></span>
-<span id="cb12-4"><a href="#cb12-4"></a>centered_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> dens, <span class="at">data =</span> janka_centered) </span>
+<span id="cb12-4"><a href="#cb12-4"></a>centered_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> centered_dens, <span class="at">data =</span> janka_centered) </span>
 <span id="cb12-5"><a href="#cb12-5"></a></span>
 <span id="cb12-6"><a href="#cb12-6"></a><span class="fu">summary</span>(centered_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = hardness ~ dens, data = janka_centered)
+lm(formula = hardness ~ centered_dens, data = janka_centered)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
 -338.40  -96.98  -15.71   92.71  625.06 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -1160.500    108.580  -10.69 2.07e-12 ***
-dens           57.507      2.279   25.24  &lt; 2e-16 ***
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   1469.472     30.510   48.16   &lt;2e-16 ***
+centered_dens   57.507      2.279   25.24   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
