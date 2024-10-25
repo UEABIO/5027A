@@ -150,14 +150,16 @@ The repeatability of results is a key part of the scientific method. Unfortunate
 
 Type 2 errors. Statistical tests provide you with the probability of making a Type 1 error (rejecting the null hypothesis incorrectly) in the form of *P*. But what about Type 2 errors? Keeping the null hypothesis, when we should be rejecting it? Or not finding an effect.
 
-The probability of making a Type 2 error is known as $1-\beta$, where $\beta$ refers to your statistical 'power'. Working out statistical power is is very straightforward for simple tests, and then becomes rapidly more diffcult as the complexity of your analysis increases... but it is an important concept to understand. 
+The probability of making a Type 2 error is known as $1-\beta$, where $\beta$ refers to your statistical 'power'. 
 
-On the other side of the coin is experimental *power* - this is strength of your experiment to detect a statistical effect *when there is one*. Power is expressed as 1-$\beta$. You want beta error typically to be less than 20%. So, you want a power of about 80%. That is you have an 80% chance of finding an effect **if it's there**. 
+Power is the strength of your experiment to detect a statistical effect *when there is one*. A common threshold for power is 80%. That is you have an 80% chance of finding an effect **if it's there**. Which means our Type 2 error risk would be 20%. 
+
+We cannot know the power of our experiments unless we conduct a *power analysis* - therefore for now we have to accept that finding a non-significant result does not mean we have evidence *against* a hypothesis, just that we don't have evidence *for* it.
 
 
-```{block, type = "info"}
+:::{.callout-info}
 All experiments/statistical analyses will become *statistically significant* if you make the sample size large enough. In this respect it shows how misleading a significant result can be. It is not that interesting if a result is statistically significant, but the effect size is tiny. 
-```
+:::
 
 
 

@@ -45,6 +45,7 @@ book:
   - 09-linear-models.qmd
   - 10-paired-design.qmd
   - 11-regression.qmd
+  - 12-ANOVA.qmd
   appendices:
   - r-basics.qmd
   - projects.qmd

@@ -1,6 +1,6 @@
 Frogspawn sample id,Temperature13,Temperature18,Temperature25
-1,24,,
-1,24,,
+1,26,,
+1,26,,
 2,,21,
 3,,,18
 4,26,,
@@ -13,7 +13,7 @@ Frogspawn sample id,Temperature13,Temperature18,Temperature25
 11,,21,
 12,,,15
 13,26,,
-14,,20,
+14,,21,
 15,,,16
 16,27,,
 17,,20,
@@ -30,7 +30,7 @@ Frogspawn sample id,Temperature13,Temperature18,Temperature25
 28,28,,
 29,,21,
 30,,,17
-31,24,,
+31,28,,
 32,,21,
 33,,,18
 34,26,,
@@ -60,6 +60,6 @@ Frogspawn sample id,Temperature13,Temperature18,Temperature25
 58,28,,
 59,,21,
 60,,,17
-61,24,,
+61,27,,
 62,,21,
 63,,,999
