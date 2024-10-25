@@ -243,7 +243,7 @@ You may be familiar with the magrittr pipe or see it in other tutorials, and web
 ```
 
 
-## Clean the Penguin Data
+## Clean the Penguin Data {#sec-data-cleaning}
 
 ::: {.callout-warning}
 
