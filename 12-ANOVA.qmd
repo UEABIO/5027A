@@ -550,7 +550,7 @@ The R squared shows that 94% of the variance in time to hatching is explained by
 
 
 
-## Checking the fit of a model
+## Checking the fit of a model {#sec-fit}
 
 After conducting a linear model analysis, we often find ourselves with results and inferences. However, before we can fully trust our analysis, it’s essential to check whether the model fits our data well. This is often described as whether our model meets certain "Assumptions" about the data. If our model deviates from these assumptions, the results are not to be trusted! More on this later
 
@@ -830,9 +830,10 @@ emmeans::emmeans(lsmodel_frogs1, specs = ~ temperature) %>%
 `r unhide()`
 
 
-```{task}
+#### Task
+
 Can you write a summary of the **Results**?
-```
+
 
 `r hide("Solution")`
 

@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./r-basics.html" rel="next">
+<link href="./13-interaction.html" rel="next">
 <link href="./11-regression.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -221,6 +221,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ANOVA</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-interaction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi factor ANOVA</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -288,7 +294,7 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#checking-the-fit-of-a-model" id="toc-checking-the-fit-of-a-model" class="nav-link" data-scroll-target="#checking-the-fit-of-a-model"><span class="header-section-number">9.6</span> Checking the fit of a model</a>
+<a href="#sec-fit" id="toc-sec-fit" class="nav-link" data-scroll-target="#sec-fit"><span class="header-section-number">9.6</span> Checking the fit of a model</a>
   <ul class="collapse">
 <li><a href="#assumption-1-normality-of-residuals" id="toc-assumption-1-normality-of-residuals" class="nav-link" data-scroll-target="#assumption-1-normality-of-residuals"><span class="header-section-number">9.6.1</span> Assumption 1: Normality of Residuals</a></li>
   <li><a href="#assumption-2-homogeneity-of-variance" id="toc-assumption-2-homogeneity-of-variance" class="nav-link" data-scroll-target="#assumption-2-homogeneity-of-variance"><span class="header-section-number">9.6.2</span> Assumption 2: Homogeneity of Variance</a></li>
@@ -751,7 +757,7 @@ F-statistic: 505.4 on 2 and 59 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The ANOVA shows that temperature does explain a significant amount of the variance in time to hatching <em>F</em><sub>2,59</sub> = 505.4, <em>P</em> &lt; 0.001</p>
 <p>The R squared shows that 94% of the variance in time to hatching is explained by temperature</p>
 </div>
-</section></section><section id="checking-the-fit-of-a-model" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="checking-the-fit-of-a-model">
+</section></section><section id="sec-fit" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="sec-fit">
 <span class="header-section-number">9.6</span> Checking the fit of a model</h2>
 <p>After conducting a linear model analysis, we often find ourselves with results and inferences. However, before we can fully trust our analysis, it’s essential to check whether the model fits our data well. This is often described as whether our model meets certain “Assumptions” about the data. If our model deviates from these assumptions, the results are not to be trusted! More on this later</p>
 <p>We can use base R commands like <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> or the <code>performance</code> package to inspect our models.</p>
@@ -1088,9 +1094,9 @@ Solution
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource task number-lines code-with-copy"><code class="sourceCode"><span id="cb31-1"><a href="#cb31-1"></a>Can you write a summary of the **Results**?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="task" class="level4" data-number="9.7.1.1"><h4 data-number="9.7.1.1" class="anchored" data-anchor-id="task">
+<span class="header-section-number">9.7.1.1</span> Task</h4>
+<p>Can you write a summary of the <strong>Results</strong>?</p>
 <div class="webex-solution">
 <button>
 Solution
@@ -1099,7 +1105,7 @@ Solution
 </div>
 
 
-</section></section></main><!-- /main --><script>
+</section></section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -1900,8 +1906,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./r-basics.html" class="pagination-link" aria-label="R Basics">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./13-interaction.html" class="pagination-link" aria-label="Multi factor ANOVA">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi factor ANOVA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

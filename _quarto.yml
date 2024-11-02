@@ -46,6 +46,7 @@ book:
   - 10-paired-design.qmd
   - 11-regression.qmd
   - 12-ANOVA.qmd
+  - 13-interaction.qmd
   appendices:
   - r-basics.qmd
   - projects.qmd
