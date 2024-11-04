@@ -32,7 +32,7 @@ So far we have worked almost exclusively with single explanatory variables eithe
 
 ```{r, eval = TRUE, echo = FALSE}
 downloadthis::download_link(
-  link = "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/biomass.csv",
+  link = "https://raw.githubusercontent.com/UEABIO/5027A/refs/heads/dev/files/biomass.csv",
   button_label = "Download biomass data as csv",
   button_type = "success",
   has_icon = TRUE,
@@ -422,7 +422,7 @@ The previous section looked at an interaction between two categorical variables,
 
 ```{r, eval = TRUE, echo = FALSE}
 downloadthis::download_link(
-  link = "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/pollution.csv",
+  link = "https://raw.githubusercontent.com/UEABIO/5027A/refs/heads/dev/files/pollution.csv",
   button_label = "Download pollution data as csv",
   button_type = "success",
   has_icon = TRUE,
