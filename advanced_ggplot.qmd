@@ -296,9 +296,6 @@ A bump chart, also known as a line chart or path chart, is a data visualization 
 library(ggbump)
 
 penguin_summary <- penguins |> 
-  mutate(date_egg = dmy(date_egg)) |> 
-  filter(clutch_completion == "Yes") |> 
-  mutate(year = year(date_egg)) |> 
   group_by(species, year) |> 
   summarise(n = n())
 
