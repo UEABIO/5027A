@@ -47,10 +47,17 @@ book:
   - 11-regression.qmd
   - 12-ANOVA.qmd
   - 13-interaction.qmd
+  - part: "Summary tables"
+    chapters:
+    - summary-table.qmd
+  - part: "Data Visualisation"
+    chapters:
+    - ggplot.qmd
   appendices:
   - r-basics.qmd
   - projects.qmd
   - tidy-data.qmd
+  - advanced_ggplot.qmd
   - references.qmd
 bibliography:
   - include/packages.bib
