@@ -11,6 +11,14 @@ source("R/clean_penguins.R")
 
 ```
 
+:::{.callout-important}
+
+You need to be in your penguins R project. You will need the cleaned dataset to work with. 
+
+If you set up a new script and run the function `source(scripts/01_import_penguins_data.R)` it will load the cleaned data into your workspace IF your script contains no errors
+
+:::
+
 
 ## Intro to grammar
 
@@ -539,7 +547,8 @@ penguins |>
   theme(
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
     axis.title = element_text(size = 12),
-    axis.text = element_text(size = 10)
+    axis.text = element_text(size = 10),
+    legend.position = "top"
   )
 
 ```
@@ -549,6 +558,8 @@ In this example, we apply `theme_minimal()` for a clean look and then customize 
 Center-align the title (`hjust = 0.5`), set the title size to `14`, and make it bold.
 
 Adjust axis title size to 12 and axis text size to 10 for readability.
+
+Put axis legend at the top of the figure
 
 
 ### Task: Take any plot you have made so far and improve it by refining the labels and theme to make it look better
@@ -672,7 +683,7 @@ bacteria_plot+
 
 ```
 
-#### Scales package
+### Pretty scales
 
 The `scales` package provides additional tools to customize log scales, letting you format labels as standard numbers instead of scientific notation, which improves readability, especially for general audiences.
 
@@ -686,6 +697,24 @@ bacteria_plot+
        y = "Log10 Colony Forming Units+1")
 
 ```
+
+You can use use the argument `cut_si()` for SI labels:
+
+```{r}
+
+penguins |>  
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour=species))+ ### now colour is set here it will be inherited by ALL layers
+  geom_point()+
+  geom_smooth(method="lm",    #add another layer of data representation.
+              se=FALSE)+
+  scale_x_continuous(labels = label_number(scale_cut = cut_si("mm")))+
+  scale_y_continuous(labels = label_number(scale_cut = cut_si("g")))
+
+
+```
+
 
 ## Axis ordering
 
@@ -1347,7 +1376,7 @@ This section covers the core principles of refining plots for publication standa
     This consistency makes figures easier to compare and keeps readers focused on the data.
 
 
-## Task: Take any plot you have worked on today and try and make it "publication standard"
+## Task: Take the unvoltine butterfly figure and make it publication ready by following the tips above
 
 - When you have made your best effort figure save it and submit it as this week's assignment.
 

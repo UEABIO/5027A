@@ -123,57 +123,8 @@ plot+
 ```
 
 
-## Saving
 
-One of the easiest ways to save a figure you have made is with the `ggsave()` function. By default it will save the last plot you made on the screen. 
-
-You should specify the output path to your **figures** folder, then provide a file name. Here I have decided to call my plot *plot* (imaginative!) and I want to save it as a .PNG image file. I can also specify the resolution (dpi 300 is good enough for most computer screens).
-
-```{r, eval = F}
-# OUTPUT FIGURE TO FILE
-
-ggsave("outputs/YYYYMMDD_ggplot_workshop_final_plot.png", dpi=300)
-
-```
-
-```{block, type = "try"}
-If you got this far and still have time why not try one of the following: 
-
-1. Making another type of figure using the penguins dataset, use the further reading below to use for inspiration.
-
-2. Use any of your own data
-
-```
-
-
-
-### What we learned
-
-You have learned
-
-* The anatomy of ggplots
-
-* How to add geoms on different layers
-
-* How to use colour, colour palettes, facets, labels and themes
-
-* Putting together multiple figures
-
-* How to save and export images
-
-
-## Further Reading, Guides and tips on data visualisation
-
-* [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
-
-* [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): this book tells you everything you need to know about presenting your figures for accessbility and clarity
-
-* [Beautiful Plotting in R](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/): an incredibly handy ggplot guide for how to build and improve your figures
-
-* [The ggplot2 book](https://ggplot2-book.org/): the original Hadley Wickham book on ggplot2
-
-
-# Extensions for ggplot2
+## Extensions for ggplot2
 
 
 
@@ -181,9 +132,9 @@ This tutorial has but scratched the surface of the visualisation options availab
 
 Check out https://exts.ggplot2.tidyverse.org/ for the full list of approved extensions for ggplot
 
-## ggdist
+### ggdist
 
-### Rainclouds
+#### Rainclouds
 
 Raincloud plots combine a density plot, boxplot, raw data points, and any desired summary statistics for a complete visualisation of the data. They are so called because the density plot plus raw data is reminiscent of a rain cloud.
 
@@ -250,7 +201,7 @@ penguins |>
 
 ```
 
-## Density
+### Density
 
 A density plot is a data visualization technique used to represent the distribution of a continuous numeric variable. It provides a smoothed estimate of the probability density function (PDF) of the data, showing where values are concentrated and where they are sparse. Density plots are particularly useful for visualizing the shape, central tendency, and spread of data.
 
@@ -268,7 +219,7 @@ penguins |>
 
 ```
 
-## ggridges
+### ggridges
 
 A ridge plot is a data visualization technique that is similar to a density plot but is designed for displaying multiple probability density distributions side by side, allowing for easier comparison between different groups or categories. Ridge plots are particularly useful when you want to visualize and compare the distribution of multiple continuous variables or data sets simultaneously.
 
@@ -287,7 +238,7 @@ penguins |>
 
 ```
 
-## Bump charts
+### Bump charts
 
 A bump chart, also known as a line chart or path chart, is a data visualization technique used to show the ranking and changes in ranking of entities (such as teams, players, or products) over time or across different categories. Bump charts are especially useful for visualizing the rise and fall of ranked items, making it easy to identify trends and compare changes in relative position.
 
@@ -322,7 +273,7 @@ penguin_summary |>
 ```
 
 
-## Dumbell charts
+### Dumbell charts
 
 A dumbbell chart is a data visualization technique that is used to compare two data points for multiple categories or entities. It is called a "dumbbell" chart because it often resembles a pair of dumbbells, with circles or dots representing the data points at the ends of a line connecting them. Dumbbell charts are useful for comparing before-and-after values, two different groups, or any two related data points for different categories or entities.
 
@@ -350,7 +301,7 @@ ggplot(summary_counts,
 
 ```
 
-## Heat maps
+### Heat maps
 
 Here’s an example of simulated biological data for a heatmap in R. This dataset represents monthly measurements of water quality in different lake locations, where measurements could include factors like pH, dissolved oxygen, or nutrient concentration. Each lake is sampled monthly over a year, giving us a grid of data points that can be visualized in a heatmap.
 
@@ -365,28 +316,26 @@ library(viridis)
 set.seed(123)
 
 # Simulate data
-data <- expand.grid(
+heat_data <- expand.grid(
   lake = paste("Lake", 1:5),          # 5 different lake locations
   month = factor(1:12, labels = month.abb)  # 12 months (Jan, Feb, ... Dec)
 )
 
 # Add simulated measurements for water quality
-data$ph <- round(rnorm(nrow(data), mean = 7, sd = 0.5), 2)        # pH levels around neutral, with some variability
-data$dissolved_oxygen <- round(rnorm(nrow(data), mean = 8, sd = 1), 1) # Dissolved oxygen levels in mg/L
-data$nutrients <- round(runif(nrow(data), min = 0, max = 1), 2)    # Nutrient concentration, scaled from 0 to 1
+heat_data$ph <- round(rnorm(nrow(heat_data), mean = 7, sd = 0.5), 2)        # pH levels around neutral, with some variability
+heat_data$dissolved_oxygen <- round(rnorm(nrow(heat_data), mean = 8, sd = 1), 1) # Dissolved oxygen levels in mg/L
+heat_data$nutrients <- round(runif(nrow(heat_data), min = 0, max = 1), 2)    # Nutrient concentration, scaled from 0 to 1
 
-# View a sample of the data
-head(data)
 
 # Heatmap for pH levels by lake and month
-ggplot(data, aes(x = month, y = lake, fill = ph)) +
+ggplot(heat_data, aes(x = month, y = lake, fill = ph)) +
     geom_tile(color = "white", linewidth =.7) +
     scale_fill_viridis(name = "pH Level") +
     labs(title = "Monthly pH Levels by Lake", x = "Month", y = "Lake") +
     theme_minimal()
 ```
 
-## Hexbins
+### Hexbins
 
 Hexbin plots are excellent for visualizing dense data without overplotting, as they use color intensity to represent areas with many overlapping points, revealing patterns and clusters effectively.
 
@@ -397,13 +346,13 @@ Hexbin plots are excellent for visualizing dense data without overplotting, as t
 set.seed(123)
 
 # Simulate data
-data <- data.frame(
+hex_data <- data.frame(
   body_size = rnorm(1000, mean = 50, sd = 15),       # Simulated body size in cm
   metabolic_rate = rnorm(1000, mean = 200, sd = 50)   # Simulated metabolic rate in arbitrary units
 )
 
 # Create hexbin plot
-ggplot(data, aes(x = body_size, y = metabolic_rate)) +
+ggplot(hex_data, aes(x = body_size, y = metabolic_rate)) +
   geom_hex() +
   scale_fill_viridis_c(name = "Density") +
   labs(
@@ -413,7 +362,7 @@ ggplot(data, aes(x = body_size, y = metabolic_rate)) +
   ) 
 ```
 
-## Facets
+### Facets
 
 The `facet_nested()` function in the `ggh4x` package is used for creating nested or hierarchical faceting in ggplot2 plots. Faceting is the process of breaking down a data visualization into multiple subplots or panels based on one or more categorical variables, allowing you to see how the data behaves within different categories. Nested faceting allows you to further subdivide these panels into smaller panels, creating a hierarchy of facets.
 
@@ -432,7 +381,7 @@ penguins |>
 
 ```
 
-## Highlighting
+### Highlighting
 
 Using plot highlighting, such as the gghighlight package in R, can be beneficial in data visualization for several reasons:
 
@@ -475,7 +424,28 @@ penguins |>
 
 ```
 
-## Text
+
+### Plotly
+
+`plotly` is a library for creating interactive plots that can be embedded in web applications or reports. It integrates seamlessly with `ggplot2` and allows users to turn static graphics into interactive ones.
+
+```{r}
+
+# Heatmap for pH levels by lake and month
+heatmap <- ggplot(heat_data, aes(x = month, y = lake, fill = ph)) +
+    geom_tile(color = "white", linewidth =.7) +
+    scale_fill_viridis(name = "pH Level") +
+    labs(title = "Monthly pH Levels by Lake", x = "Month", y = "Lake") +
+    theme_minimal()
+
+library(plotly)
+
+ggplotly(heatmap)
+
+```
+
+
+### Text
 
 Annotating a chart with text is a common and valuable practice in data visualization for several important reasons:
 
@@ -493,7 +463,7 @@ Annotating a chart with text is a common and valuable practice in data visualiza
 
 Below I provide some packages that help with text annotation:
 
-### ggforce
+#### ggforce
 
 ```{r, warning = F, message = F}
 
@@ -518,7 +488,7 @@ ggforce::geom_mark_ellipse(aes(
 
 ```
 
-### textpaths
+#### textpaths
 
 ```{r}
 
@@ -534,7 +504,7 @@ penguins |>
 
 ``` 
 
-### ggtext
+#### ggtext
 
 ```{r, warning = FALSE, message = FALSE, out.width = "80%"}
 
@@ -667,7 +637,7 @@ ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
 
 
 
-## Maps
+### Maps
 
 Working with maps can be tricky. The `sf` package provides functions that work with ggplot2, such as `geom_sf()`. The `rnaturalearth` package provides high-quality mapping coordinates.
 
@@ -701,7 +671,7 @@ ggplot() +
 
 ```
 
-## Layouts and compositions
+### Layouts and compositions
 
 Having control over layouts allow you to tailor the appearance of your plot to match your specific needs and preferences. You can control every aspect of the plot's design, including the arrangement of facets, legends, titles, and labels. When you need to create complex composite plots that combine multiple geoms and facets, custom layouts enable you to precisely position and arrange them. 
 
