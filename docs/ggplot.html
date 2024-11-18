@@ -80,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./r-basics.html" rel="next">
+<link href="./quarto.html" rel="next">
 <link href="./summary-table.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -259,12 +259,29 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Reproducible Reports</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-basics.html" class="sidebar-item-text sidebar-link">
@@ -433,7 +450,7 @@ Important
 </div>
 <div class="callout-body-container callout-body">
 <p>You need to be in your penguins R project. You will need the cleaned dataset to work with.</p>
-<p>If you set up a new script and run the function <code>source(scripts/01_import_penguins_data.R)</code> it will load the cleaned data into your workspace IF your script contains no errors</p>
+<p>If you set up a new script and run the function <code>source("scripts/01_import_penguins_data.R")</code> it will load the cleaned data into your workspace IF your script contains no errors</p>
 </div>
 </div>
 <section id="intro-to-grammar" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="intro-to-grammar">
@@ -752,8 +769,8 @@ Note that when specifying colour variables using <code>aes()</code> some geometr
 </div>
 </div>
 <p>Q. Why have I now included the argument outlier.shape = NA?</p>
-<div id="radio_RVBAVVJZNE" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_RVBAVVJZNE" value=""><span>To change the color of the outliers in geom_boxplot</span></label><label><input type="radio" autocomplete="off" name="radio_RVBAVVJZNE" value=""><span>To increase the size of the points displayed by geom_point</span></label><label><input type="radio" autocomplete="off" name="radio_RVBAVVJZNE" value="answer"><span>To prevent the box plot from displaying outliers, since geom_point already shows all individual data points.</span></label>
+<div id="radio_ICDDJZVKQQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ICDDJZVKQQ" value=""><span>To change the color of the outliers in geom_boxplot</span></label><label><input type="radio" autocomplete="off" name="radio_ICDDJZVKQQ" value=""><span>To increase the size of the points displayed by geom_point</span></label><label><input type="radio" autocomplete="off" name="radio_ICDDJZVKQQ" value="answer"><span>To prevent the box plot from displaying outliers, since geom_point already shows all individual data points.</span></label>
 </div>
 <section id="grouped-boxplot" class="level4" data-number="12.4.4.1"><h4 data-number="12.4.4.1" class="anchored" data-anchor-id="grouped-boxplot">
 <span class="header-section-number">12.4.4.1</span> Grouped boxplot</h4>
@@ -1751,8 +1768,8 @@ F-statistic: 47.59 on 3 and 54 DF,  p-value: 3.512e-15</code></pre>
 </div>
 </div>
 <p>Q. What is the issue with the above figure?</p>
-<div id="radio_GIDKEMDEZF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_GIDKEMDEZF" value=""><span>geom_smooth() assumes all predictors have an interaction effect by default, which skews the trend lines</span></label><label><input type="radio" autocomplete="off" name="radio_GIDKEMDEZF" value="answer"><span>geom_smooth() fits separate trend lines for each level of the categorical predictor, failing to account for the additive effects across groups without interaction</span></label><label><input type="radio" autocomplete="off" name="radio_GIDKEMDEZF" value=""><span>geom_smooth() only applies linear fits</span></label>
+<div id="radio_VLDPEBFDYK" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VLDPEBFDYK" value=""><span>geom_smooth() assumes all predictors have an interaction effect by default, which skews the trend lines</span></label><label><input type="radio" autocomplete="off" name="radio_VLDPEBFDYK" value="answer"><span>geom_smooth() fits separate trend lines for each level of the categorical predictor, failing to account for the additive effects across groups without interaction</span></label><label><input type="radio" autocomplete="off" name="radio_VLDPEBFDYK" value=""><span>geom_smooth() only applies linear fits</span></label>
 </div>
 </section></section><section id="understanding-emmeans-and-when-to-estimate-trends" class="level3" data-number="16.0.4"><h3 data-number="16.0.4" class="anchored" data-anchor-id="understanding-emmeans-and-when-to-estimate-trends">
 <span class="header-section-number">16.0.4</span> Understanding emmeans and When to Estimate Trends</h3>
@@ -2841,8 +2858,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./r-basics.html" class="pagination-link" aria-label="R Basics">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">R Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./quarto.html" class="pagination-link" aria-label="Quarto">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

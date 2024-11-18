@@ -15,7 +15,7 @@ source("R/clean_penguins.R")
 
 You need to be in your penguins R project. You will need the cleaned dataset to work with. 
 
-If you set up a new script and run the function `source(scripts/01_import_penguins_data.R)` it will load the cleaned data into your workspace IF your script contains no errors
+If you set up a new script and run the function `source("scripts/01_import_penguins_data.R")` it will load the cleaned data into your workspace IF your script contains no errors
 
 :::
 

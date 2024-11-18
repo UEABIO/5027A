@@ -53,6 +53,9 @@ book:
   - part: "Data Visualisation"
     chapters:
     - ggplot.qmd
+  - part: "Reproducible Reports"
+    chapters:
+    - quarto.qmd
   appendices:
   - r-basics.qmd
   - projects.qmd

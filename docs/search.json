@@ -1067,6 +1067,149 @@
     ]
   },
   {
+    "objectID": "quarto.html",
+    "href": "quarto.html",
+    "title": "13  Quarto",
+    "section": "",
+    "text": "13.1 Background\nQuarto is a widely-used tool for creating automated, reproducible, and share-worthy outputs, such as reports. It can generate static or interactive outputs, in Word, pdf, html, Powerpoint slides, and many other formats.\nA Quarto file combines R code (or other programming code) and text such that the script actually becomes your output document. You can create an entire formatted document, including narrative text (can be dynamic to change based on your data), tables, figures, bullets/numbers, bibliographies, etc.\nDocuments produced with Quarto, allow analyses to be included easily - and make the link between raw data, analysis & and a published report completely reproducible.\nWith Quarto we can make reproducible html, word, pdf, powerpoints or websites and dashboards1",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#how-it-works",
+    "href": "quarto.html#how-it-works",
+    "title": "13  Quarto",
+    "section": "How it works",
+    "text": "How it works\nStarting from version 2022.07.1, RStudio comes with Quarto already installed.\nTo check which version of RStudio you have, go to the top menu and click on RStudio &gt; About RStudio. If your version is older than 2022.07.1, you should update it by reinstalling RStudio. Instructions for updating RStudio can be found in Chapter 1. After updating, Quarto should be automatically installed.\nOnce Quarto is installed, you can create a new document by clicking File &gt; New File &gt; Quarto Document. This will bring up a menu similar to the one used to create an R Markdown document\nChoose a title, author, as well as your default output format (HTML, PDF, or Word). These values can be changed later. Click OK, and RStudio will create a Quarto document with some placeholder content.\n\n\n\n\n\n\n\n\nThis document contains several sections, each of which we will discuss below. First, though, let’s skip to the finish line by doing what’s called rendering our document. The Render button at the top of RStudio converts the Quarto document into whatever format we selected.\nTo make your document publish - hit the render button at the top of the doc",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#quarto-parts",
+    "href": "quarto.html#quarto-parts",
+    "title": "13  Quarto",
+    "section": "Quarto parts",
+    "text": "Quarto parts\nAs you can see, there are three basic components to any Quarto file:\n\nYAML\nMarkdown text\nR code chunks.\n\nYAML Metadata\nThe YAML section is the very beginning of an R Markdown document. The name YAML comes from the recursive acronym YAML ain’t markup language, whose meaning isn’t important for our purposes. Three dashes indicate its beginning and end, and the text inside of it contains metadata about the R Markdown document. Here is my YAML:\n\n---\ntitle: \"My Report\"\noutput: html_document\n---\n\n\nAs you can see, it provides the title, author, and output format. All elements of the YAML are given in key: value syntax, where each key is a label for a piece of metadata (for example, the title) followed by a value in quotes.\nIn the example above, because we clicked that our default output would be an html file, we can see that the YAML says output: html. However we can also change this to say pptx or docx or even pdf_document. (https://quarto.org/docs/output-formats/all-formats.html)\n\n13.1.1 TASK: Can you edit the YAML in the Rmarkdown file in the markdown folder to have your name as author? Try changing the output to a different file type.\nCode chunks\nQuarto documents have a different structure from the R script files you might be familiar with (those with the .R extension). R script files treat all content as code unless you comment out a line by putting a pound sign (#) in front of it. In the following code, the first line is a comment while the second line is code.\n\n```{r}\n# Import our data\ndata &lt;- read_csv(\"data.csv\")\n```\n\nIn Quarto, the situation is reversed. Everything after the YAML is treated as text unless we specify otherwise by creating what are known as code chunks. Each chunk is opened with a line that starts with three back-ticks, and curly brackets that contain parameters for the chunk { }. The chunk ends with three more back-ticks.\n\n```{r}\nlibrary(tidyverse)\n```\nQuarto treats anything in the code chunk as R code when we knit. For example, this code chunk will produce a histogram in the final document.\n\n```{r}\n\nhist(cars$speed)\n```\n\nSome notes about the contents of the curly brackets { }:\nThey start with ‘r’ to indicate that the language name within this chunk is R. It is possible to include other programming language chunks here such as SQL, Python or Bash.\nAfter the r you can optionally write a chunk “name” – these are not necessary but can help you organise your work. Note that if you name your chunks, you should ALWAYS use unique names or else R will complain when you try to render.\nAfter the language name and optional chunk name put a comma, then you can include other options too, written as tag=value, such as:\n\neval: false to not run the R code\necho: false to not print the chunk’s R source code in the output document\nwarning: false to not print warnings produced by the R code\nmessage: false to not print any messages produced by the R code\ninclude: true/false whether to include chunk outputs (e.g. plots) in the document\nout-width and out-height = size of output in final document e.g. out-width = “75%”\nfig-width and fig-height: relative size of figure\nfig-align = “center” adjust how a figure is aligned across the page\nfig-show=‘hold’ if your chunk prints multiple figures and you want them printed next to each other (pair with out-width = c(“33%”, “67%”).\n\n\nQuestion. If we wanted to see the R code, but not its output we need to select what combo of code chunk options? \necho = TRUE, eval = FALSE\necho = FALSE, eval = TRUE\necho = TRUE, eval = TRUE\necho = FALSE, eval = FALSE\nDefault options for showing code, charts, and other elements in the rendered versions of the document. In Quarto, these options are set in the execute field of the YAML. For example, the following would provide the outputs of code, but hide the code itself, as well as all warnings and messages, from the rendered document:\n---\ntitle: \"My Report\"\nformat: html\nexecute:\n  echo: false\n  warning: false\n  message: false\n---\nIn cases where you’re using Quarto to generate a report for a non-R user, you likely want to follow this setup of hiding the code, messages, and warnings but show the output (which would include any visualizations you generate).\nHowever, you can also override these global code chunk options on individual chunks. If I wanted my document to show both the plot itself and the code used to make it, I could set echo = TRUE for that code chunk only:\n\n```{r}\n#| echo = TRUE\nhist(cars$speed)\n```\nThe option is set within the code chunk itself. The characters #| (known as a hash pipe) at the start of a line indicate that you are setting options.\nText\nThis is the narrative of your document, including the titles and headings. It is written in the “markdown” language, which is used across many different software.\nBelow are the core ways to write this text. See more extensive documentation available on R Markdown “cheatsheets” at the RStudio website2.\nText emphasis\nSurround your normal text with these characters to change how it appears in the output.\nUnderscores (_text_) or single asterisk (*text*) to italicise\nDouble asterisks (**text**) for bold text\nBack-ticks (` text `) to display text as code\nThe actual appearance of the font can be set by using specific templates (specified in the YAML metadata).\nTitles and headings\nA hash symbol in a text portion of a R Markdown script creates a heading. This is different than in a chunk of R code in the script, in which a hash symbol is a mechanism to comment/annotate/de-activate, as in a normal R script.\nDifferent heading levels are established with different numbers of hash symbols at the start of a new line. One hash symbol is a title or primary heading. Two hash symbols are a second-level heading. Third- and fourth-level headings can be made with successively more hash symbols.\n\n# First-level heading / Title\n\n## Second level heading  \n\n### Third-level heading\n\nBullets and numbering\nUse asterisks (*) to created a bullets list. Finish the previous sentence, enter two spaces, Enter/Return twice, and then start your bullets. Include a space between the asterisk and your bullet text. After each bullet enter two spaces and then Enter/Return. Sub-bullets work the same way but are indented. Numbers work the same way but instead of an asterisk, write 1), 2), etc. Below is how your R Markdown script text might look.\nHere are my bullets (there are two spaces after this colon):\n* Bullet 1 (followed by two spaces and Enter/Return)  \n* Bullet 2 (followed by two spaces and Enter/Return)  \n  * Sub-bullet 1 (followed by two spaces and Enter/Return)  \n  * Sub-bullet 2 (followed by two spaces and Enter/Return)  \nIn-text code\nYou can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.\nThis book was printed on `r Sys.Date()`\nWhen typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:\nThis book was printed on 2024-11-18\nRunning code\nYou can run the code in an R Markdown document in two ways. The first way is by rendering the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.\nThe one downside to running code interactively is that you can sometimes make mistakes that cause your Quarto document to fail to knit. That is because, in order to render, a Quarto document must contain all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to knit your document. When working in R Markdown, always keep all code within a single document.\nThe code must also always appear in the right order.",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#self-contained-reports",
+    "href": "quarto.html#self-contained-reports",
+    "title": "13  Quarto",
+    "section": "\n13.2 Self contained Reports",
+    "text": "13.2 Self contained Reports\nFor a relatively simple report, you may elect to organize your R Markdown script such that it is “self-contained” and does not involve any external scripts.\nSet up your Rmd file to ‘read’ the penguins data file.\nEverything you need to run the R markdown is imported or created within the Rmd file, including all the code chunks and package loading. This “self-contained” approach is appropriate when you do not need to do much data processing (e.g. it brings in a clean or semi-clean data file) and the rendering of the R Markdown will not take too long.\nIn this scenario, one logical organization of the R Markdown script might be:\n\nSet global knitr options\nLoad packages\nImport data\nProcess data\nProduce outputs (tables, plots, etc.)\nSave outputs, if applicable (.csv, .png, etc.)\n\n\n13.2.1 TASK: Generate a self-contained report from data\nDelete this content and replace it with your own. As an example, let’s create a report about penguins. Add the following content to a Quarto doc:\n---\ntitle: \"Penguins Report\"\nauthor: \"Phil\"\noutput: html\nexecute:\n  echo: false\n  warning: false\n  message: false\n---\n\n```{r}\n\nlibrary(tidyverse)\n\n```\n\n```{r}\n\npenguins_raw &lt;- read_csv(here::here(\"files\", \"penguins_raw.csv\"))\n\n```\n\n# Introduction\n\nWe are writing a report about the **Palmer Penguins**. These penguins are *really* amazing. There are three species:\n\n- Adelie\n- Gentoo\n- Chinstrap\n\n## Bill Length\n\nWe can make a histogram to see the distribution of bill lengths.\n\n```{r}\npenguins_raw |&gt; \n  ggplot(aes(x = `Culmen Length (mm)`)) +\n  geom_histogram() +\n  theme_minimal()\n```\n\n```{r}\naverage_bill_length &lt;- penguins_raw |&gt; \n  summarize(avg_bill_length = mean(`Culmen Length (mm)`,\n                                   na.rm = TRUE)) |&gt; \n  pull(average_bill_length)\n```\n\nThe chart shows the distribution of bill lengths. The average bill length is `` `r average_bill_length` ``.",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#ggplot",
+    "href": "quarto.html#ggplot",
+    "title": "13  Quarto",
+    "section": "ggplot",
+    "text": "ggplot\nSize options for figures\n\nfig.width and fig.height enable to set width and height of R produced figures. The default value is set to 7 (inches). When I play with these options, I prefer using only one of them (fig.width).\nfig.asp sets the height-to-width ratio of the figure. It’s easier in my mind to play with this ratio than to give a width and a height separately. The default value of fig.asp is NULL but I often set it to (0.8), which often corresponds to the expected result.\n\nSize options of figures produced by R have consequences on relative sizes of elements in this figures. For a ggplot2 figure, these elements will remain to the size defined in the used theme, whatever the chosen size of the figure. Therefore a huge size can lead to a very small text and vice versa.\n\nThe base font size is 11 pts by default. You can change it with the base_size argument in the theme you’re using.\n\n\npenguin_colours &lt;- c(\"darkolivegreen4\", \"darkorchid3\", \"goldenrod1\")\n\nplot &lt;- penguins_raw |&gt; \n  ggplot(aes(x=`Flipper Length (mm)`, \n             y = `Body Mass (g)`))+\n  geom_point(aes(colour=`Species`))+\n  scale_color_manual(values=penguin_colours)+\n  theme_minimal(base_size = 11)\n\n```{r fig.asp = 0.8, fig.width = 3}\nplot\n# figure elements are too big\n```\n\n\n\n\n\n\n\n\n```{r fig.asp = 0.8, fig.width = 10}\nplot\n# figure elements are too small\n```\n\n\n\n\n\n\n\n\nTo find the result you like, you’ll need to combine sizes set in your theme and set in the chunk options. With my customised theme, the default size (7) looks good to me.\n```{r fig.asp = 0.8, fig.width = 7}\nplot\n```\n\n\n\n\n\n\n\n\nWhen texts axis are longer or when figures is overloaded, you can choose bigger size (8 or 9) to relatively reduce the figure elements. it’s worth noting that for the text sizes, you can also modify the base size in your theme to obtain similar figures.\n```{r fig.asp = 0.8, fig.width = 7}\nplot + theme(base_size = 14)\n# figure width stays the same, but modify the text size in ggplot\n```\n\n\n\n\n\n\n\n\nSize of final figure in document\nWith the previous examples, you could see the relative size of the elements within the figures was changed - but the area occupied by the figures remained the same. In order to change this I need out.width or out.height\nFigures made with R in a R Markdown document are exported (by default in png format) and then inserted into the final rendered document. Options out.width and out.height enable us to choose the size of the figure in the final document.\nIt is rare I need to re-scale height-to-width ratio after the figures were produced with R and this ratio is kept if you modify only one option therefore I only use out.width. i like to use percentage to define the size of output figures. For example hre with a size set to 50%\n```{r fig.asp = 0.8, fig.width = 7, out.width = \"50%\"}\nplot \n# The final rendered size of the image changes according to out.width\n```",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#static-images",
+    "href": "quarto.html#static-images",
+    "title": "13  Quarto",
+    "section": "Static images",
+    "text": "Static images\nYou can include images in your R Markdown:\n```{r setup, include=FALSE}\nknitr::include_graphics(\"path/to/image.png\")\n```",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#tables",
+    "href": "quarto.html#tables",
+    "title": "13  Quarto",
+    "section": "Tables",
+    "text": "Tables\nMarkdown tables\n| Syntax      | Description |\n| ----------- | ----------- |\n| Header      | Title       |\n| Paragraph   | Text        |\n\nWhich will render as this\n\n\nSyntax\nDescription\n\n\n\nHeader\nTitle\n\n\nParagraph\nText\n\n\ngt()\nThe gt Iannone et al. (2024) package is all about making it simple to produce nice-looking display tables. It has a lot of customisation options.\n\npenguins_raw |&gt;  \n    group_by(`Species`) |&gt;  \n    summarise(`Body Mass (g)`= mean(`Body Mass (g)`, na.rm = T),\n              `Flipper Length (mm)`= mean(`Flipper Length (mm)`, na.rm = T)) |&gt;  \n  gt::gt()\n\n\n\n\n\nSpecies\nBody Mass (g)\nFlipper Length (mm)\n\n\n\nAdelie Penguin (Pygoscelis adeliae)\n3700.662\n189.9536\n\n\nChinstrap penguin (Pygoscelis antarctica)\n3733.088\n195.8235\n\n\nGentoo penguin (Pygoscelis papua)\n5076.016\n217.1870\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou won’t be able to see these tables unless you try re-rendering your .qmd file.",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#source-files",
+    "href": "quarto.html#source-files",
+    "title": "13  Quarto",
+    "section": "Source files",
+    "text": "Source files\nOne variation of the “self-contained” approach is to have Quarto “source” (run) other R scripts.\nThis can make your Quarto file less cluttered, simpler, and easier to organize. It can also help if you want to display final figures at the beginning of the report.\nIn this approach, the final Quarto doc simply combines pre-processed outputs into a document. We already used the source() function to feed R objects from one script to another, now we can do the same thing to our report.\nThe advantage is all the data cleaning and organising happens “elsewhere” and we don’t need to repeat our code. If you make any changes in your analysis scripts, these will be reflected by changes in your report the next time you compile (knit) it.\nsource(\"scripts/your-script.R\")",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#connecting-scripts-and-reports",
+    "href": "quarto.html#connecting-scripts-and-reports",
+    "title": "13  Quarto",
+    "section": "Connecting scripts and reports",
+    "text": "Connecting scripts and reports\n\n13.2.2 TASK: Create a separate R script for data import and quick cleaning save this and then source this into a new .qmd file.\n\nCreate a new Quarto doc.\nSave this (without changes) to the same folder as your .Rproj file and call it linked_report_penguins.qmd.\nWe will now source pre-written scripts for data loading and wrangling in your R project, just use the source command to read in this script.\nIf you were making ggplot figures last session - you could source that script to put figures into your report\nYou will need to include a R chunk to print the figures - either by copying the code into a chunk, or assigning the plot to a named object in your R script and retrieving the name in your report R chunk.\n\n```{r read-data}\n#|include: false\n# READ DATA ----\n\n# Example replace with a script used for making ggplot figures if you have one\nsource(\"scripts/01_import_penguins_data.R\")\n\n```\n```{r read-data}\n#|echo: false\n\nplot\n\n```\nUseful tips\n\nThe working directory for .qmd files is a little different to working with scripts.\nWith a .qmd file, the working directory is wherever the qmd file itself is saved.\nFor example if you have your .qmd file in a subfolder ~/outputfiles/markdown.qmd the code for read_csv(“data/data.csv”) within the markdown will look for a .csv file in a subfolder called data inside the ‘markdown’ folder and not the root project folder where the .RProj file lives.\nSo we have two options when using .qmd files\n\nDon’t put the .qmd file in a subfolder and make sure it lives in the same directory as your .RProj file - that way relative filepaths are the same between R scripts and quarto files\nUse the here package to describe file locations\n\n\nHeuristic file paths with here()\n\nThe package here Müller (2020) and its function here() (here::here()), make it easy to tell R where to find and to save your files - in essence, it builds file paths. It becomes especially useful for dealing with the alternate filepaths generated by .qmd files, but can be used for exporting/importing any scripts, functions or data.\nThis is how here() works within an R project:\n\nWhen the here package is first loaded within the R project, it places a small file called “.here” in the root folder of your R project as a “benchmark” or “anchor”\nIn your scripts, to reference a file in the R project’s sub-folders, you use the function here() to build the file path in relation to that anchor\nTo build the file path, write the names of folders beyond the root, within quotes, separated by commas, finally ending with the file name and file extension as shown below\nhere() file paths can be used for both importing and exporting\n\nSo when you use here() wrapped inside other functions for importing/exporting (like read_csv() or ggsave()) if you include here() you can still use the RProject location as the root directory when rendering Quarto files, even if your markdown is tidied away into a separate sub-folder.\nThis means your previous relative filepaths should be replaced with:\n```{r, include=FALSE}\n# PACKAGES ----\nlibrary(tidyverse)\nlibrary(here)\n\n```\n```{r}\n#| include: false\n# READ DATA ----\n\npenguins &lt;- read_csv(here(\"data\", \"penguins_raw.csv\"))\n\nhead(penguins)\n\n```\n\n\n\n\n\n\nWarning\n\n\n\nYou might want start using the here() from now on to read in and export data from scripts. Make sure you are consistent in whether you use here() heuristic file paths or relative file paths across all .R and .qmd files in a project - otherwise you might encounter errors.\n\n\nHygiene tips\nI recommend having three chunks at the top of any document\n\nGlobal chunk options\nAll packages\nReading data\n\n\n```{r setup , include=FALSE}\nknitr::opts_chunk$set(echo = TRUE, \n                      fig.align = \"center\",\n                      fig.width = 6,\n                      fig.asp = 0.8,\n                      out.width = \"80%\n                      )\n                      \n```\n\n```{r library}\nlibrary(tidyverse)\n```\n\n```{r read-data}\nsource(\"scripts/02_visualisation_penguins.R\")\n```",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#common-knit-issues",
+    "href": "quarto.html#common-knit-issues",
+    "title": "13  Quarto",
+    "section": "Common knit issues",
+    "text": "Common knit issues\nAny of these issues will cause the qmd document to fail to knit in its entirety. A failed knit is usually an easy fix, but needs you to READ the error message, and do a little detective work.\nDuplication\n\n```{r title-one}\n```\n\n```{r title-one}\n```\nNot the right order\nplot(my_table)\n\nmy_table &lt;- table(mtcars$cyl)\nForgotten trails\n: Missing “,”, or “(”, “}”, or “’”\nPath not taken\nThe qmd document is in a different location the .Rproj file causing issues with relative filepaths\nSpolling\n\nIncorrectly labelled chunk options\nIncorrectly evaluated R code",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#visual-editor",
+    "href": "quarto.html#visual-editor",
+    "title": "13  Quarto",
+    "section": "Visual editor",
+    "text": "Visual editor\nRStudio comes with a pretty nifty Visual Markdown Editor which includes:\n\nSpellcheck\nEasy table & equation insertion\nEasy citations and reference list building\n\nYou can switch between modes with a button push, try it out!",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#further-reading-guides-and-tips",
+    "href": "quarto.html#further-reading-guides-and-tips",
+    "title": "13  Quarto",
+    "section": "Further Reading, Guides and tips",
+    "text": "Further Reading, Guides and tips\n\nhttps://quarto.org/docs/reference/\nhttps://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/\nhttps://www.njtierney.com/post/2022/04/11/rmd-to-qmd/\nhttps://www.jumpingrivers.com/blog/quarto-rmarkdown-comparison/\n\n\n\n\n\nIannone, R., Cheng, J., Schloerke, B., Hughes, E., Lauer, A., Seo, J., Brevoort, K., & Roy, O. (2024). Gt: Easily create presentation-ready display tables. https://gt.rstudio.com\n\n\nMüller, K. (2020). Here: A simpler way to find your files. https://here.r-lib.org/",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "quarto.html#footnotes",
+    "href": "quarto.html#footnotes",
+    "title": "13  Quarto",
+    "section": "",
+    "text": "(https://quarto.org/docs/gallery/)↩︎\n(https://www.rstudio.com/resources/cheatsheets/)↩︎",
+    "crumbs": [
+      "Reproducible Reports",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Quarto</span>"
+    ]
+  },
+  {
     "objectID": "r-basics.html",
     "href": "r-basics.html",
     "title": "Appendix A — R Basics",
@@ -1588,7 +1731,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Gorman, K., Williams, T., & Fraser, W. (2014). Ecological sexual\ndimorphism and environmental variability within a community of antarctic\npenguins (genus pygoscelis). PLos One, 9(3), e90081.\nhttps://doi.org/10.1371/journal.pone.0090081\n\n\nHorst, A., Hill, A., & Gorman, K. (2022). Palmerpenguins: Palmer\narchipelago (antarctica) penguin data. https://allisonhorst.github.io/palmerpenguins/\n\n\nRobinson, D., Hayes, A., & Couch, S. (2024). Broom: Convert\nstatistical objects into tidy tibbles. https://broom.tidymodels.org/\n\n\nWickham, H. (2023). Tidyverse: Easily install and load the\ntidyverse. https://tidyverse.tidyverse.org\n\n\nWickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K.,\nWilke, C., Woo, K., Yutani, H., Dunnington, D., & van den Brand, T.\n(2024). ggplot2: Create elegant data visualisations using the\ngrammar of graphics. https://ggplot2.tidyverse.org",
+    "text": "Gorman, K., Williams, T., & Fraser, W. (2014). Ecological sexual\ndimorphism and environmental variability within a community of antarctic\npenguins (genus pygoscelis). PLos One, 9(3), e90081.\nhttps://doi.org/10.1371/journal.pone.0090081\n\n\nHorst, A., Hill, A., & Gorman, K. (2022). Palmerpenguins: Palmer\narchipelago (antarctica) penguin data. https://allisonhorst.github.io/palmerpenguins/\n\n\nIannone, R., Cheng, J., Schloerke, B., Hughes, E., Lauer, A., Seo, J.,\nBrevoort, K., & Roy, O. (2024). Gt: Easily create\npresentation-ready display tables. https://gt.rstudio.com\n\n\nMüller, K. (2020). Here: A simpler way to find your files. https://here.r-lib.org/\n\n\nRobinson, D., Hayes, A., & Couch, S. (2024). Broom: Convert\nstatistical objects into tidy tibbles. https://broom.tidymodels.org/\n\n\nWickham, H. (2023). Tidyverse: Easily install and load the\ntidyverse. https://tidyverse.tidyverse.org\n\n\nWickham, H., Chang, W., Henry, L., Pedersen, T. L., Takahashi, K.,\nWilke, C., Woo, K., Yutani, H., Dunnington, D., & van den Brand, T.\n(2024). ggplot2: Create elegant data visualisations using the\ngrammar of graphics. https://ggplot2.tidyverse.org",
     "crumbs": [
       "Appendices",
       "References"
