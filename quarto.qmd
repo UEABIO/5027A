@@ -333,7 +333,7 @@ average_bill_length <- penguins_raw |>
   pull(average_bill_length)
 ```
 
-The chart shows the distribution of bill lengths. The average bill length is `` `r "\u0060r average_bill_length\u0060"` ``.
+The chart shows the distribution of bill lengths. The average bill length is `r "\u0060r average_bill_length\u0060"`.
 
 ````
 

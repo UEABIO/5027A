@@ -537,7 +537,7 @@ execute:
 <p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
 <p>This book was printed on <code>`r Sys.Date()`</code></p>
 <p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
-<p>This book was printed on 2024-11-18</p>
+<p>This book was printed on 2024-11-19</p>
 </section><section id="running-code" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="running-code">Running code</h3>
 <p>You can run the code in an R Markdown document in two ways. The first way is by rendering the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.</p>
 <p>The one downside to running code interactively is that you can sometimes make mistakes that cause your Quarto document to fail to knit. That is because, in order to render, a Quarto document must <em>contain</em> all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to knit your document. When working in R Markdown, always keep all code within a single document.</p>
@@ -607,7 +607,7 @@ execute:
 <span id="cb9-46"><a href="#cb9-46"></a><span class="in">  pull(average_bill_length)</span></span>
 <span id="cb9-47"><a href="#cb9-47"></a><span class="in">```</span></span>
 <span id="cb9-48"><a href="#cb9-48"></a></span>
-<span id="cb9-49"><a href="#cb9-49"></a>The chart shows the distribution of bill lengths. The average bill length is `<span class="in">` `</span>r average_bill_length` ``.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-49"><a href="#cb9-49"></a>The chart shows the distribution of bill lengths. The average bill length is <span class="in">`r average_bill_length`</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section><section id="ggplot" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="ggplot">ggplot</h2>
 <section id="size-options-for-figures" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="size-options-for-figures">Size options for figures</h3>
 <ul>
@@ -730,23 +730,23 @@ execute:
 <span id="cb18-4"><a href="#cb18-4"></a>              <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span>  </span>
 <span id="cb18-5"><a href="#cb18-5"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="oxibbkdpvq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#oxibbkdpvq table {
+<div id="endfeivqcu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#endfeivqcu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#oxibbkdpvq thead, #oxibbkdpvq tbody, #oxibbkdpvq tfoot, #oxibbkdpvq tr, #oxibbkdpvq td, #oxibbkdpvq th {
+#endfeivqcu thead, #endfeivqcu tbody, #endfeivqcu tfoot, #endfeivqcu tr, #endfeivqcu td, #endfeivqcu th {
   border-style: none;
 }
 
-#oxibbkdpvq p {
+#endfeivqcu p {
   margin: 0;
   padding: 0;
 }
 
-#oxibbkdpvq .gt_table {
+#endfeivqcu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -772,12 +772,12 @@ execute:
   border-left-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_caption {
+#endfeivqcu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#oxibbkdpvq .gt_title {
+#endfeivqcu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -789,7 +789,7 @@ execute:
   border-bottom-width: 0;
 }
 
-#oxibbkdpvq .gt_subtitle {
+#endfeivqcu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -801,7 +801,7 @@ execute:
   border-top-width: 0;
 }
 
-#oxibbkdpvq .gt_heading {
+#endfeivqcu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -813,13 +813,13 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_bottom_border {
+#endfeivqcu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_col_headings {
+#endfeivqcu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -834,7 +834,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_col_heading {
+#endfeivqcu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -854,7 +854,7 @@ execute:
   overflow-x: hidden;
 }
 
-#oxibbkdpvq .gt_column_spanner_outer {
+#endfeivqcu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -866,15 +866,15 @@ execute:
   padding-right: 4px;
 }
 
-#oxibbkdpvq .gt_column_spanner_outer:first-child {
+#endfeivqcu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#oxibbkdpvq .gt_column_spanner_outer:last-child {
+#endfeivqcu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#oxibbkdpvq .gt_column_spanner {
+#endfeivqcu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -886,11 +886,11 @@ execute:
   width: 100%;
 }
 
-#oxibbkdpvq .gt_spanner_row {
+#endfeivqcu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#oxibbkdpvq .gt_group_heading {
+#endfeivqcu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -916,7 +916,7 @@ execute:
   text-align: left;
 }
 
-#oxibbkdpvq .gt_empty_group_heading {
+#endfeivqcu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -931,15 +931,15 @@ execute:
   vertical-align: middle;
 }
 
-#oxibbkdpvq .gt_from_md > :first-child {
+#endfeivqcu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#oxibbkdpvq .gt_from_md > :last-child {
+#endfeivqcu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#oxibbkdpvq .gt_row {
+#endfeivqcu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -958,7 +958,7 @@ execute:
   overflow-x: hidden;
 }
 
-#oxibbkdpvq .gt_stub {
+#endfeivqcu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -971,7 +971,7 @@ execute:
   padding-right: 5px;
 }
 
-#oxibbkdpvq .gt_stub_row_group {
+#endfeivqcu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -985,15 +985,15 @@ execute:
   vertical-align: top;
 }
 
-#oxibbkdpvq .gt_row_group_first td {
+#endfeivqcu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#oxibbkdpvq .gt_row_group_first th {
+#endfeivqcu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#oxibbkdpvq .gt_summary_row {
+#endfeivqcu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1003,16 +1003,16 @@ execute:
   padding-right: 5px;
 }
 
-#oxibbkdpvq .gt_first_summary_row {
+#endfeivqcu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_first_summary_row.thick {
+#endfeivqcu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#oxibbkdpvq .gt_last_summary_row {
+#endfeivqcu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1022,7 +1022,7 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_grand_summary_row {
+#endfeivqcu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1032,7 +1032,7 @@ execute:
   padding-right: 5px;
 }
 
-#oxibbkdpvq .gt_first_grand_summary_row {
+#endfeivqcu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1042,7 +1042,7 @@ execute:
   border-top-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_last_grand_summary_row_top {
+#endfeivqcu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,11 +1052,11 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_striped {
+#endfeivqcu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#oxibbkdpvq .gt_table_body {
+#endfeivqcu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1065,7 +1065,7 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_footnotes {
+#endfeivqcu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1079,7 +1079,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_footnote {
+#endfeivqcu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1088,7 +1088,7 @@ execute:
   padding-right: 5px;
 }
 
-#oxibbkdpvq .gt_sourcenotes {
+#endfeivqcu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1102,7 +1102,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#oxibbkdpvq .gt_sourcenote {
+#endfeivqcu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1110,72 +1110,72 @@ execute:
   padding-right: 5px;
 }
 
-#oxibbkdpvq .gt_left {
+#endfeivqcu .gt_left {
   text-align: left;
 }
 
-#oxibbkdpvq .gt_center {
+#endfeivqcu .gt_center {
   text-align: center;
 }
 
-#oxibbkdpvq .gt_right {
+#endfeivqcu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#oxibbkdpvq .gt_font_normal {
+#endfeivqcu .gt_font_normal {
   font-weight: normal;
 }
 
-#oxibbkdpvq .gt_font_bold {
+#endfeivqcu .gt_font_bold {
   font-weight: bold;
 }
 
-#oxibbkdpvq .gt_font_italic {
+#endfeivqcu .gt_font_italic {
   font-style: italic;
 }
 
-#oxibbkdpvq .gt_super {
+#endfeivqcu .gt_super {
   font-size: 65%;
 }
 
-#oxibbkdpvq .gt_footnote_marks {
+#endfeivqcu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#oxibbkdpvq .gt_asterisk {
+#endfeivqcu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#oxibbkdpvq .gt_indent_1 {
+#endfeivqcu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#oxibbkdpvq .gt_indent_2 {
+#endfeivqcu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#oxibbkdpvq .gt_indent_3 {
+#endfeivqcu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#oxibbkdpvq .gt_indent_4 {
+#endfeivqcu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#oxibbkdpvq .gt_indent_5 {
+#endfeivqcu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#oxibbkdpvq .katex-display {
+#endfeivqcu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#oxibbkdpvq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#endfeivqcu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
