@@ -430,6 +430,19 @@ div.csl-indent {
 <p>This document contains several sections, each of which we will discuss below. First, though, let’s skip to the finish line by doing what’s called <em>rendering</em> our document. The <strong>Render</strong> button at the top of RStudio converts the Quarto document into whatever format we selected.</p>
 <p><strong>To make your document publish - hit the render button at the top of the doc</strong></p>
 </section><section id="quarto-parts" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="quarto-parts">Quarto parts</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rstudio lets you view your Quarto document in visual (partially rendered) or source (all plain text) mode. The code and explanations below work best if you are viewing in source</p>
+</div>
+</div>
 <p>As you can see, there are three basic components to any Quarto file:</p>
 <ul>
 <li><p>YAML</p></li>
@@ -486,10 +499,10 @@ data &lt;- read_csv("data.csv")
 </ul>
 </div>
 <p><strong>Question.</strong> If we wanted to see the R code, but <strong>not</strong> its output we need to select what combo of code chunk options? <select class="webex-select"><option value="blank"></option>
-<option value="answer">echo = TRUE, eval = FALSE</option>
+<option value="">echo = FALSE, eval = FALSE</option>
 <option value="">echo = FALSE, eval = TRUE</option>
 <option value="">echo = TRUE, eval = TRUE</option>
-<option value="">echo = FALSE, eval = FALSE</option></select></p>
+<option value="answer">echo = TRUE, eval = FALSE</option></select></p>
 <p>Default options for showing code, charts, and other elements in the rendered versions of the document. In Quarto, these options are set in the execute field of the YAML. For example, the following would provide the outputs of code, but hide the code itself, as well as all warnings and messages, from the rendered document:</p>
 <pre><code>---
 title: "My Report"
@@ -537,7 +550,7 @@ execute:
 <p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
 <p>This book was printed on <code>`r Sys.Date()`</code></p>
 <p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
-<p>This book was printed on 2024-11-19</p>
+<p>This book was printed on 2024-11-20</p>
 </section><section id="running-code" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="running-code">Running code</h3>
 <p>You can run the code in an R Markdown document in two ways. The first way is by rendering the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.</p>
 <p>The one downside to running code interactively is that you can sometimes make mistakes that cause your Quarto document to fail to knit. That is because, in order to render, a Quarto document must <em>contain</em> all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to knit your document. When working in R Markdown, always keep all code within a single document.</p>
@@ -604,7 +617,7 @@ execute:
 <span id="cb9-43"><a href="#cb9-43"></a><span class="in">average_bill_length &lt;- penguins_raw |&gt; </span></span>
 <span id="cb9-44"><a href="#cb9-44"></a><span class="in">  summarize(avg_bill_length = mean(`Culmen Length (mm)`,</span></span>
 <span id="cb9-45"><a href="#cb9-45"></a><span class="in">                                   na.rm = TRUE)) |&gt; </span></span>
-<span id="cb9-46"><a href="#cb9-46"></a><span class="in">  pull(average_bill_length)</span></span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="in">  pull(avg_bill_length)</span></span>
 <span id="cb9-47"><a href="#cb9-47"></a><span class="in">```</span></span>
 <span id="cb9-48"><a href="#cb9-48"></a></span>
 <span id="cb9-49"><a href="#cb9-49"></a>The chart shows the distribution of bill lengths. The average bill length is <span class="in">`r average_bill_length`</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -730,23 +743,23 @@ execute:
 <span id="cb18-4"><a href="#cb18-4"></a>              <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span>  </span>
 <span id="cb18-5"><a href="#cb18-5"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="endfeivqcu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#endfeivqcu table {
+<div id="whmraqwrfv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#whmraqwrfv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#endfeivqcu thead, #endfeivqcu tbody, #endfeivqcu tfoot, #endfeivqcu tr, #endfeivqcu td, #endfeivqcu th {
+#whmraqwrfv thead, #whmraqwrfv tbody, #whmraqwrfv tfoot, #whmraqwrfv tr, #whmraqwrfv td, #whmraqwrfv th {
   border-style: none;
 }
 
-#endfeivqcu p {
+#whmraqwrfv p {
   margin: 0;
   padding: 0;
 }
 
-#endfeivqcu .gt_table {
+#whmraqwrfv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -772,12 +785,12 @@ execute:
   border-left-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_caption {
+#whmraqwrfv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#endfeivqcu .gt_title {
+#whmraqwrfv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -789,7 +802,7 @@ execute:
   border-bottom-width: 0;
 }
 
-#endfeivqcu .gt_subtitle {
+#whmraqwrfv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -801,7 +814,7 @@ execute:
   border-top-width: 0;
 }
 
-#endfeivqcu .gt_heading {
+#whmraqwrfv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -813,13 +826,13 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_bottom_border {
+#whmraqwrfv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_col_headings {
+#whmraqwrfv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -834,7 +847,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_col_heading {
+#whmraqwrfv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -854,7 +867,7 @@ execute:
   overflow-x: hidden;
 }
 
-#endfeivqcu .gt_column_spanner_outer {
+#whmraqwrfv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -866,15 +879,15 @@ execute:
   padding-right: 4px;
 }
 
-#endfeivqcu .gt_column_spanner_outer:first-child {
+#whmraqwrfv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#endfeivqcu .gt_column_spanner_outer:last-child {
+#whmraqwrfv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#endfeivqcu .gt_column_spanner {
+#whmraqwrfv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -886,11 +899,11 @@ execute:
   width: 100%;
 }
 
-#endfeivqcu .gt_spanner_row {
+#whmraqwrfv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#endfeivqcu .gt_group_heading {
+#whmraqwrfv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -916,7 +929,7 @@ execute:
   text-align: left;
 }
 
-#endfeivqcu .gt_empty_group_heading {
+#whmraqwrfv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -931,15 +944,15 @@ execute:
   vertical-align: middle;
 }
 
-#endfeivqcu .gt_from_md > :first-child {
+#whmraqwrfv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#endfeivqcu .gt_from_md > :last-child {
+#whmraqwrfv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#endfeivqcu .gt_row {
+#whmraqwrfv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -958,7 +971,7 @@ execute:
   overflow-x: hidden;
 }
 
-#endfeivqcu .gt_stub {
+#whmraqwrfv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -971,7 +984,7 @@ execute:
   padding-right: 5px;
 }
 
-#endfeivqcu .gt_stub_row_group {
+#whmraqwrfv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -985,15 +998,15 @@ execute:
   vertical-align: top;
 }
 
-#endfeivqcu .gt_row_group_first td {
+#whmraqwrfv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#endfeivqcu .gt_row_group_first th {
+#whmraqwrfv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#endfeivqcu .gt_summary_row {
+#whmraqwrfv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1003,16 +1016,16 @@ execute:
   padding-right: 5px;
 }
 
-#endfeivqcu .gt_first_summary_row {
+#whmraqwrfv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_first_summary_row.thick {
+#whmraqwrfv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#endfeivqcu .gt_last_summary_row {
+#whmraqwrfv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1022,7 +1035,7 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_grand_summary_row {
+#whmraqwrfv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1032,7 +1045,7 @@ execute:
   padding-right: 5px;
 }
 
-#endfeivqcu .gt_first_grand_summary_row {
+#whmraqwrfv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1042,7 +1055,7 @@ execute:
   border-top-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_last_grand_summary_row_top {
+#whmraqwrfv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,11 +1065,11 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_striped {
+#whmraqwrfv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#endfeivqcu .gt_table_body {
+#whmraqwrfv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1065,7 +1078,7 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_footnotes {
+#whmraqwrfv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1079,7 +1092,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_footnote {
+#whmraqwrfv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1088,7 +1101,7 @@ execute:
   padding-right: 5px;
 }
 
-#endfeivqcu .gt_sourcenotes {
+#whmraqwrfv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1102,7 +1115,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#endfeivqcu .gt_sourcenote {
+#whmraqwrfv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1110,72 +1123,72 @@ execute:
   padding-right: 5px;
 }
 
-#endfeivqcu .gt_left {
+#whmraqwrfv .gt_left {
   text-align: left;
 }
 
-#endfeivqcu .gt_center {
+#whmraqwrfv .gt_center {
   text-align: center;
 }
 
-#endfeivqcu .gt_right {
+#whmraqwrfv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#endfeivqcu .gt_font_normal {
+#whmraqwrfv .gt_font_normal {
   font-weight: normal;
 }
 
-#endfeivqcu .gt_font_bold {
+#whmraqwrfv .gt_font_bold {
   font-weight: bold;
 }
 
-#endfeivqcu .gt_font_italic {
+#whmraqwrfv .gt_font_italic {
   font-style: italic;
 }
 
-#endfeivqcu .gt_super {
+#whmraqwrfv .gt_super {
   font-size: 65%;
 }
 
-#endfeivqcu .gt_footnote_marks {
+#whmraqwrfv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#endfeivqcu .gt_asterisk {
+#whmraqwrfv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#endfeivqcu .gt_indent_1 {
+#whmraqwrfv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#endfeivqcu .gt_indent_2 {
+#whmraqwrfv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#endfeivqcu .gt_indent_3 {
+#whmraqwrfv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#endfeivqcu .gt_indent_4 {
+#whmraqwrfv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#endfeivqcu .gt_indent_5 {
+#whmraqwrfv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#endfeivqcu .katex-display {
+#whmraqwrfv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#endfeivqcu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#whmraqwrfv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

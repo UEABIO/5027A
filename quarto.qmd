@@ -57,6 +57,12 @@ This document contains several sections, each of which we will discuss below. Fi
 
 ## Quarto parts {-}
 
+:::{.callout-tip}
+
+Rstudio lets you view your Quarto document in visual (partially rendered) or source (all plain text) mode. The code and explanations below work best if you are viewing in source
+
+:::
+
 As you can see, there are three basic components to any Quarto file: 
 
 * YAML
@@ -330,7 +336,7 @@ penguins_raw |>
 average_bill_length <- penguins_raw |> 
   summarize(avg_bill_length = mean(`Culmen Length (mm)`,
                                    na.rm = TRUE)) |> 
-  pull(average_bill_length)
+  pull(avg_bill_length)
 ```
 
 The chart shows the distribution of bill lengths. The average bill length is `r "\u0060r average_bill_length\u0060"`.
