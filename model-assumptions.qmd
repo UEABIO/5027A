@@ -96,7 +96,7 @@ performance::check_model(bp_model,
 
 **What are the issues with these model residuals?**
 
-```{r}
+```{r, echo = F}
 opts_p <- c(
    answer = "non-normality of residuals",
    "Heteroscedasticity of variance",
@@ -283,7 +283,7 @@ box %>%
 
 **What is the optimal transformation for our dependent variable according to the Box-Cox transformation**
 
-```{r}
+```{r, echo =F}
 opts_p <- c(
     "Identitity/No transformation",
    "Square root",
@@ -401,7 +401,7 @@ check_normality(plant_model)
 
 **What are the issues with these model residuals?**
 
-```{r}
+```{r, echo =F}
 opts_p <- c(
    "non-normality of residuals",
    answer = "Heteroscedasticity of variance",
@@ -427,7 +427,7 @@ car::boxCox(plant_model)
 
 **Why does the Box-Cox transformation throw an error when the dependent variable contains non-positive values (zero or negative)?**
 
-```{r}
+```{r, echo = F}
 opts_p <- c(answer = "The transformation involves logarithms, which are undefined for non-positive values.", "The dependent variable must be normally distributed before applying Box-Cox.", "Box-Cox transformations cannot handle decimals or fractions in the dependent variable.", "Non-positive values violate the assumption of homoscedasticity required for Box-Cox."
 )
 ```
@@ -683,7 +683,7 @@ car::boxCox(janka_ls1)
 
 `r unhide()`
 
-```{r}
+```{r, echo = F}
 opts_p <- c(
    "Identity",
    "square root",

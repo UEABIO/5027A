@@ -472,16 +472,8 @@ F-statistic: 83.54 on 2 and 17 DF,  p-value: 1.607e-09</code></pre>
 </div>
 </div>
 <p><strong>What are the issues with these model residuals?</strong></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>opts_p <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb5-2"><a href="#cb5-2"></a>   <span class="at">answer =</span> <span class="st">"non-normality of residuals"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>   <span class="st">"Heteroscedasticity of variance"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>   <span class="at">answer =</span> <span class="st">"Non-linearity"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>   <span class="st">"Outliers"</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="radio_TQSEWFVKUH" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_TQSEWFVKUH" value="answer"><span>non-normality of residuals</span></label><label><input type="radio" autocomplete="off" name="radio_TQSEWFVKUH" value=""><span>Heteroscedasticity of variance</span></label><label><input type="radio" autocomplete="off" name="radio_TQSEWFVKUH" value="answer"><span>Non-linearity</span></label><label><input type="radio" autocomplete="off" name="radio_TQSEWFVKUH" value=""><span>Outliers</span></label>
+<div id="radio_RLCHPKYFZZ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RLCHPKYFZZ" value="answer"><span>non-normality of residuals</span></label><label><input type="radio" autocomplete="off" name="radio_RLCHPKYFZZ" value=""><span>Heteroscedasticity of variance</span></label><label><input type="radio" autocomplete="off" name="radio_RLCHPKYFZZ" value="answer"><span>Non-linearity</span></label><label><input type="radio" autocomplete="off" name="radio_RLCHPKYFZZ" value=""><span>Outliers</span></label>
 </div>
 <div class="webex-solution">
 <button>
@@ -497,10 +489,10 @@ Solution
 Solution
 </button>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>bp_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BP <span class="sc">~</span> Weight <span class="sc">+</span> Albumin <span class="sc">+</span> Age, <span class="at">data =</span>bp)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(bp_model2,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>                         <span class="at">detrend =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>bp_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BP <span class="sc">~</span> Weight <span class="sc">+</span> Albumin <span class="sc">+</span> Age, <span class="at">data =</span>bp)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(bp_model2,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>                         <span class="at">detrend =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -512,7 +504,7 @@ Solution
 <p>From this we can learn that before we attempt any radical data transformations, we should check whether our model would fit the data better with the inclusion of an omitted variable.</p>
 <p>When we do this, not only does our model fit the data better, but our understanding of the importance of our predictor variables changes as well. Previously we would have dismised Albumin levels as unimportant, now we see that when account for Age as a predictor of blood pressure, albumin levels are also a significant predictor.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">summary</span>(bp_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">summary</span>(bp_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -549,11 +541,11 @@ F-statistic: 971.9 on 3 and 16 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="example" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="example">
 <span class="header-section-number">11.3.1</span> Example</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Model and diagnostics</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>bacteria_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Growth_Rate <span class="sc">~</span> Temperature, <span class="at">data =</span> bacteria_growth_data)</span>
-<span id="cb9-3"><a href="#cb9-3"></a></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">check_model</span>(bacteria_model,</span>
-<span id="cb9-5"><a href="#cb9-5"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Model and diagnostics</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>bacteria_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Growth_Rate <span class="sc">~</span> Temperature, <span class="at">data =</span> bacteria_growth_data)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">check_model</span>(bacteria_model,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -568,9 +560,9 @@ Solution
 </button>
 <p>If we look at the residuals we see there are obvious issues with linearity, and heteroscedasticity and normality of the residuals - all of these criteria <em>might</em> be improved with the right data transformation</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">check_normality</span>(bacteria_model)</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">check_heteroscedasticity</span>(bacteria_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">check_normality</span>(bacteria_model)</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">check_heteroscedasticity</span>(bacteria_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Non-normality of residuals detected (p &lt; .001).
 Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
@@ -591,7 +583,7 @@ Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001)
 <p>Why Not Use 𝜆 Directly? The optimal 𝜆is often not a simple value like 0, 0.5, or 1. Using a fractional 𝜆(e.g., 0.27) creates a less interpretable transformation. Instead of applying the exact 𝜆 it’s better to choose a nearby, familiar transformation (e.g., log or square root) for ease of interpretation while still improving the model.</p>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(bacteria_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(bacteria_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -629,36 +621,28 @@ Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001)
 </div>
 </div>
 <p><strong>What is the optimal transformation for our dependent variable according to the Box-Cox transformation</strong></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>opts_p <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb13-2"><a href="#cb13-2"></a>    <span class="st">"Identitity/No transformation"</span>,</span>
-<span id="cb13-3"><a href="#cb13-3"></a>   <span class="st">"Square root"</span>,</span>
-<span id="cb13-4"><a href="#cb13-4"></a>   <span class="at">answer =</span> <span class="st">"Logarithm"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5"></a>   <span class="st">"Inverse"</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="radio_SOIYDWBKJP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_SOIYDWBKJP" value=""><span>Identitity/No transformation</span></label><label><input type="radio" autocomplete="off" name="radio_SOIYDWBKJP" value=""><span>Square root</span></label><label><input type="radio" autocomplete="off" name="radio_SOIYDWBKJP" value="answer"><span>Logarithm</span></label><label><input type="radio" autocomplete="off" name="radio_SOIYDWBKJP" value=""><span>Inverse</span></label>
+<div id="radio_LNNJFHUEZO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LNNJFHUEZO" value=""><span>Identitity/No transformation</span></label><label><input type="radio" autocomplete="off" name="radio_LNNJFHUEZO" value=""><span>Square root</span></label><label><input type="radio" autocomplete="off" name="radio_LNNJFHUEZO" value="answer"><span>Logarithm</span></label><label><input type="radio" autocomplete="off" name="radio_LNNJFHUEZO" value=""><span>Inverse</span></label>
 </div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Model and diagnostics</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>log_bacteria_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Growth_Rate) <span class="sc">~</span> Temperature, <span class="at">data =</span> bacteria_growth_data)</span>
-<span id="cb14-3"><a href="#cb14-3"></a></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="fu">check_model</span>(log_bacteria_model,</span>
-<span id="cb14-5"><a href="#cb14-5"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Model and diagnostics</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>log_bacteria_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Growth_Rate) <span class="sc">~</span> Temperature, <span class="at">data =</span> bacteria_growth_data)</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">check_model</span>(log_bacteria_model,</span>
+<span id="cb12-5"><a href="#cb12-5"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">check_normality</span>(log_bacteria_model)</span>
-<span id="cb15-2"><a href="#cb15-2"></a></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="fu">check_heteroscedasticity</span>(log_bacteria_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">check_normality</span>(log_bacteria_model)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">check_heteroscedasticity</span>(log_bacteria_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Non-normality of residuals detected (p &lt; .001).
 Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
@@ -689,33 +673,25 @@ Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001)
 <span class="header-section-number">11.4.0.1</span> Why Does This Matter?</h4>
 <p>Misleading Inference: Heteroscedasticity doesn’t bias the coefficients of the model, but it affects the calculation of standard errors, leading to incorrect p-values and confidence intervals.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Model and diagnostics</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>plant_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(plant_growth <span class="sc">~</span> sunlight <span class="sc">+</span> water, <span class="at">data =</span> plant_data)</span>
-<span id="cb17-3"><a href="#cb17-3"></a></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="fu">check_model</span>(plant_model,</span>
-<span id="cb17-5"><a href="#cb17-5"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Model and diagnostics</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>plant_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(plant_growth <span class="sc">~</span> sunlight <span class="sc">+</span> water, <span class="at">data =</span> plant_data)</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">check_model</span>(plant_model,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">check_heteroscedasticity</span>(plant_model)</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">check_normality</span>(plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">check_heteroscedasticity</span>(plant_model)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">check_normality</span>(plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).
 OK: residuals appear as normally distributed (p = 0.199).</code></pre>
 </div>
 </div>
 <p><strong>What are the issues with these model residuals?</strong></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>opts_p <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb20-2"><a href="#cb20-2"></a>   <span class="st">"non-normality of residuals"</span>,</span>
-<span id="cb20-3"><a href="#cb20-3"></a>   <span class="at">answer =</span> <span class="st">"Heteroscedasticity of variance"</span>,</span>
-<span id="cb20-4"><a href="#cb20-4"></a>   <span class="st">"Non-linearity"</span>,</span>
-<span id="cb20-5"><a href="#cb20-5"></a>   <span class="st">"Outliers"</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div id="radio_PMSGDPDHMW" class="webex-radiogroup">
 <label><input type="radio" autocomplete="off" name="radio_PMSGDPDHMW" value=""><span>non-normality of residuals</span></label><label><input type="radio" autocomplete="off" name="radio_PMSGDPDHMW" value="answer"><span>Heteroscedasticity of variance</span></label><label><input type="radio" autocomplete="off" name="radio_PMSGDPDHMW" value=""><span>Non-linearity</span></label><label><input type="radio" autocomplete="off" name="radio_PMSGDPDHMW" value=""><span>Outliers</span></label>
 </div>
@@ -724,13 +700,9 @@ OK: residuals appear as normally distributed (p = 0.199).</code></pre>
 <p>Unlike the previous example we have heteroscedasticity of variance, without non-linearity or non-normal residuals. So what happens when we attempt a dependent variable transformation?</p>
 <p>First let’s see what a box-cox transformation suggests?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Why does the Box-Cox transformation throw an error when the dependent variable contains non-positive values (zero or negative)?</strong></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>opts_p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">answer =</span> <span class="st">"The transformation involves logarithms, which are undefined for non-positive values."</span>, <span class="st">"The dependent variable must be normally distributed before applying Box-Cox."</span>, <span class="st">"Box-Cox transformations cannot handle decimals or fractions in the dependent variable."</span>, <span class="st">"Non-positive values violate the assumption of homoscedasticity required for Box-Cox."</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div id="radio_IBZGCYHJZU" class="webex-radiogroup">
 <label><input type="radio" autocomplete="off" name="radio_IBZGCYHJZU" value="answer"><span>The transformation involves logarithms, which are undefined for non-positive values.</span></label><label><input type="radio" autocomplete="off" name="radio_IBZGCYHJZU" value=""><span>The dependent variable must be normally distributed before applying Box-Cox.</span></label><label><input type="radio" autocomplete="off" name="radio_IBZGCYHJZU" value=""><span>Box-Cox transformations cannot handle decimals or fractions in the dependent variable.</span></label><label><input type="radio" autocomplete="off" name="radio_IBZGCYHJZU" value=""><span>Non-positive values violate the assumption of homoscedasticity required for Box-Cox.</span></label>
 </div>
@@ -740,9 +712,9 @@ Solution
 </button>
 <p>If we add a <strong>constant</strong> to the dependent variable (enough to make all values positive), the relationship between dependent and independent variables is preserved but the all values are now non-negative.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>plant_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(plant_growth<span class="sc">+</span><span class="dv">1</span> <span class="sc">~</span> sunlight <span class="sc">+</span> water, <span class="at">data =</span> plant_data)</span>
-<span id="cb23-2"><a href="#cb23-2"></a></span>
-<span id="cb23-3"><a href="#cb23-3"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>plant_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(plant_growth<span class="sc">+</span><span class="dv">1</span> <span class="sc">~</span> sunlight <span class="sc">+</span> water, <span class="at">data =</span> plant_data)</span>
+<span id="cb19-2"><a href="#cb19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -752,18 +724,18 @@ Solution
 </div>
 <p>This indicates a square root transformation could be applied to the model</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>sqrt_plant_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(plant_growth<span class="sc">+</span><span class="dv">1</span>) <span class="sc">~</span> sunlight <span class="sc">+</span> water, <span class="at">data =</span> plant_data)</span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">check_model</span>(sqrt_plant_model,</span>
-<span id="cb24-4"><a href="#cb24-4"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>sqrt_plant_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(plant_growth<span class="sc">+</span><span class="dv">1</span>) <span class="sc">~</span> sunlight <span class="sc">+</span> water, <span class="at">data =</span> plant_data)</span>
+<span id="cb20-2"><a href="#cb20-2"></a></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">check_model</span>(sqrt_plant_model,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>            <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">check_heteroscedasticity</span>(sqrt_plant_model)</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">check_normality</span>(sqrt_plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">check_heteroscedasticity</span>(sqrt_plant_model)</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">check_normality</span>(sqrt_plant_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).
 Warning: Non-normality of residuals detected (p = 0.002).</code></pre>
@@ -779,8 +751,8 @@ Warning: Non-normality of residuals detected (p = 0.002).</code></pre>
 <p>Imagine you’re analysing data where some observations have more variability than others. Ordinary linear models assume all residuals have the same variance, so they might underestimate (or overestimate) the uncertainty of your coefficients. Robust errors correct this by accounting for the uneven variance, giving you more reliable p-values and confidence intervals.</p>
 <p>In R we can use the package <span class="citation" data-cites="R-sandwich">Zeileis &amp; Lumley (<a href="references.html#ref-R-sandwich" role="doc-biblioref">2024</a>)</span> to help provide robust errors:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">coeftest</span>(plant_model, </span>
-<span id="cb27-2"><a href="#cb27-2"></a>         <span class="at">vcov =</span> <span class="fu">vcovHC</span>(plant_model, <span class="at">type =</span> <span class="st">"HC1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">coeftest</span>(plant_model, </span>
+<span id="cb23-2"><a href="#cb23-2"></a>         <span class="at">vcov =</span> <span class="fu">vcovHC</span>(plant_model, <span class="at">type =</span> <span class="st">"HC1"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -796,15 +768,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="{callout-warning}">
 <p>The emmeans package doesn’t support the sandwich model outputs directy, but we can supply the same adjustments when running the emmeans function</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Get robust covariance matrix</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>robust_vcov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(plant_model, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="co"># Use emmeans with robust covariance</span></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="co"># specify lists to get predictions for continuous variables</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a>emmeans<span class="sc">::</span><span class="fu">emmeans</span>(plant_model, <span class="at">specs =</span> <span class="sc">~</span> sunlight <span class="sc">+</span> water, </span>
-<span id="cb29-7"><a href="#cb29-7"></a>                 <span class="at">at =</span> <span class="fu">list</span>(<span class="at">sunlight =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb29-8"><a href="#cb29-8"></a>                           <span class="at">water =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>),</span>
-<span id="cb29-9"><a href="#cb29-9"></a>                 <span class="at">vcov. =</span> robust_vcov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Get robust covariance matrix</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>robust_vcov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(plant_model, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="co"># Use emmeans with robust covariance</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="co"># specify lists to get predictions for continuous variables</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>emmeans<span class="sc">::</span><span class="fu">emmeans</span>(plant_model, <span class="at">specs =</span> <span class="sc">~</span> sunlight <span class="sc">+</span> water, </span>
+<span id="cb25-7"><a href="#cb25-7"></a>                 <span class="at">at =</span> <span class="fu">list</span>(<span class="at">sunlight =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb25-8"><a href="#cb25-8"></a>                           <span class="at">water =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>),</span>
+<span id="cb25-9"><a href="#cb25-9"></a>                 <span class="at">vcov. =</span> robust_vcov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section><section id="bootstrapping" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="bootstrapping">
@@ -872,9 +844,9 @@ Tip
 <li><p>If the estimates change only negligibly (e.g., within 1–2%), you have likely run enough iterations.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>parameters<span class="sc">::</span><span class="fu">bootstrap_parameters</span>(plant_model, <span class="at">iterations =</span> <span class="dv">1000</span>)</span>
-<span id="cb30-2"><a href="#cb30-2"></a></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="co"># parameters::bootstrap_parameters(plant_model, iterations = 3000)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>parameters<span class="sc">::</span><span class="fu">bootstrap_parameters</span>(plant_model, <span class="at">iterations =</span> <span class="dv">1000</span>)</span>
+<span id="cb26-2"><a href="#cb26-2"></a></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co"># parameters::bootstrap_parameters(plant_model, iterations = 3000)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -914,13 +886,13 @@ Tip
 </div>
 <p>Because bootstrapping is inherently random, you can get slightly different results each time it is run, for that reason we often use the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function - this function is used to create reproducible results when writing code that involves random number generation.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb31-2"><a href="#cb31-2"></a></span>
-<span id="cb31-3"><a href="#cb31-3"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">500</span>,<span class="dv">1000</span>,<span class="dv">3000</span>,<span class="dv">5000</span>, <span class="dv">10000</span>)</span>
-<span id="cb31-4"><a href="#cb31-4"></a></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="co"># This code iterates the bootstrapping over increasing iterations</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a>times <span class="sc">|&gt;</span> </span>
-<span id="cb31-7"><a href="#cb31-7"></a>  <span class="fu">map</span>(<span class="sc">~</span> <span class="fu">bootstrap_parameters</span>(<span class="at">model =</span> plant_model, <span class="at">iterations =</span> .x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">500</span>,<span class="dv">1000</span>,<span class="dv">3000</span>,<span class="dv">5000</span>, <span class="dv">10000</span>)</span>
+<span id="cb27-4"><a href="#cb27-4"></a></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="co"># This code iterates the bootstrapping over increasing iterations</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a>times <span class="sc">|&gt;</span> </span>
+<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">map</span>(<span class="sc">~</span> <span class="fu">bootstrap_parameters</span>(<span class="at">model =</span> plant_model, <span class="at">iterations =</span> .x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>[[1]]
 # Fixed Effects
@@ -973,9 +945,9 @@ water       |   -7.96e-03 | [-0.86,  0.86] | 0.986
 <p>Let’s revisit the janka data from our introductory regression chapter</p>
 <p>We originally fitted a simple regression model of wood density as a predictor of timber hardness:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>janka_ls1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> dens, <span class="at">data =</span> janka) </span>
-<span id="cb33-2"><a href="#cb33-2"></a></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">summary</span>(janka_ls1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>janka_ls1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> dens, <span class="at">data =</span> janka) </span>
+<span id="cb29-2"><a href="#cb29-2"></a></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="fu">summary</span>(janka_ls1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -999,7 +971,7 @@ F-statistic:   637 on 1 and 34 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>If we inspect this model we can see there are issues with non-linearity, heteroscedasticity and non-normality:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_ls1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_ls1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1015,7 +987,7 @@ F-statistic:   637 on 1 and 34 DF,  p-value: &lt; 2.2e-16</code></pre>
 Solution
 </button>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(janka_ls1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>car<span class="sc">::</span><span class="fu">boxCox</span>(janka_ls1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1024,25 +996,17 @@ Solution
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>opts_p <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb37-2"><a href="#cb37-2"></a>   <span class="st">"Identity"</span>,</span>
-<span id="cb37-3"><a href="#cb37-3"></a>   <span class="st">"square root"</span>,</span>
-<span id="cb37-4"><a href="#cb37-4"></a>   <span class="at">answer =</span> <span class="st">"log"</span>,</span>
-<span id="cb37-5"><a href="#cb37-5"></a>   <span class="st">"inverse"</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div id="radio_WAOWYIRGMJ" class="webex-radiogroup">
 <label><input type="radio" autocomplete="off" name="radio_WAOWYIRGMJ" value=""><span>Identity</span></label><label><input type="radio" autocomplete="off" name="radio_WAOWYIRGMJ" value=""><span>square root</span></label><label><input type="radio" autocomplete="off" name="radio_WAOWYIRGMJ" value="answer"><span>log</span></label><label><input type="radio" autocomplete="off" name="radio_WAOWYIRGMJ" value=""><span>inverse</span></label>
 </div>
 <p>We can fit both a sqrt and log transformed model and compare them:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>janka_sqrt <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(hardness) <span class="sc">~</span> dens, <span class="at">data =</span> janka)</span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a>janka_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(hardness) <span class="sc">~</span> dens, <span class="at">data =</span> janka)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>janka_sqrt <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(hardness) <span class="sc">~</span> dens, <span class="at">data =</span> janka)</span>
+<span id="cb33-2"><a href="#cb33-2"></a></span>
+<span id="cb33-3"><a href="#cb33-3"></a>janka_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(hardness) <span class="sc">~</span> dens, <span class="at">data =</span> janka)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_sqrt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_sqrt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1052,7 +1016,7 @@ Solution
 </div>
 <p>This model does not significantly improve the normality or heterogeneity of the residuals, but does improve linearity</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1089,11 +1053,11 @@ Solution
 <span class="header-section-number">11.6.2.3</span> Janka data</h4>
 <p>In our example the slight curvature in the model could be addressed with a quadratic term:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>janka_poly<span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> <span class="fu">poly</span>(dens,<span class="dv">2</span>), <span class="at">data =</span> janka)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>janka_poly<span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> <span class="fu">poly</span>(dens,<span class="dv">2</span>), <span class="at">data =</span> janka)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>But we can see this does not address the issues of heteroscedasticity or non-normality of residuals.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1103,10 +1067,10 @@ Solution
 </div>
 <p>We know that the log transformed dependent variable did address this, but introduced unwarranted curvature - we could address this with a polynomial:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>janka_polylog<span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(hardness) <span class="sc">~</span> <span class="fu">poly</span>(dens,<span class="dv">2</span>), <span class="at">data =</span> janka)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>janka_polylog<span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(hardness) <span class="sc">~</span> <span class="fu">poly</span>(dens,<span class="dv">2</span>), <span class="at">data =</span> janka)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_polylog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_polylog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1116,7 +1080,7 @@ Solution
 </div>
 <p>This produces a much better fitting model - but what about interpretation?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">summary</span>(janka_polylog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">summary</span>(janka_polylog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1173,9 +1137,9 @@ F-statistic: 578.9 on 2 and 33 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span class="header-section-number">11.7.3</span> Example</h3>
 <p>The Mammals dataset includes information about various mammal species, focusing on their physical characteristics and ecoogicial traits.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">library</span>(openintro)</span>
-<span id="cb47-2"><a href="#cb47-2"></a></span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="fu">data</span>(<span class="st">"mammals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">library</span>(openintro)</span>
+<span id="cb42-2"><a href="#cb42-2"></a></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="fu">data</span>(<span class="st">"mammals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will look at the follwing traits:</p>
 <ol type="1">
@@ -1210,10 +1174,10 @@ F-statistic: 578.9 on 2 and 33 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span class="header-section-number">11.7.3.1</span> Correlations</h4>
 <p>We can get a good idea of which variables might produce multicollinearity by first seeing which are highly correlated:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>mammals <span class="sc">|&gt;</span> </span>
-<span id="cb48-2"><a href="#cb48-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(total_sleep, life_span, gestation, brain_wt,</span>
-<span id="cb48-3"><a href="#cb48-3"></a>               body_wt, predation, exposure, danger) <span class="sc">|&gt;</span> </span>
-<span id="cb48-4"><a href="#cb48-4"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>mammals <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(total_sleep, life_span, gestation, brain_wt,</span>
+<span id="cb43-3"><a href="#cb43-3"></a>               body_wt, predation, exposure, danger) <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1235,10 +1199,10 @@ Solution
 <span class="header-section-number">11.7.4</span> Fitting a model</h3>
 <p>I am fitting a model to establish the behavioural and physiological characteristics that predict sleep:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>mammal_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_sleep <span class="sc">~</span> life_span <span class="sc">+</span> gestation <span class="sc">+</span> brain_wt <span class="sc">+</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>               body_wt <span class="sc">+</span> predation <span class="sc">+</span> exposure <span class="sc">+</span> danger, <span class="at">data=</span>mammals)</span>
-<span id="cb49-3"><a href="#cb49-3"></a></span>
-<span id="cb49-4"><a href="#cb49-4"></a><span class="fu">summary</span>(mammal_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>mammal_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_sleep <span class="sc">~</span> life_span <span class="sc">+</span> gestation <span class="sc">+</span> brain_wt <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>               body_wt <span class="sc">+</span> predation <span class="sc">+</span> exposure <span class="sc">+</span> danger, <span class="at">data=</span>mammals)</span>
+<span id="cb44-3"><a href="#cb44-3"></a></span>
+<span id="cb44-4"><a href="#cb44-4"></a><span class="fu">summary</span>(mammal_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1271,7 +1235,7 @@ F-statistic: 13.17 on 7 and 43 DF,  p-value: 6.364e-09</code></pre>
 <p>The model summary suggests that “danger” and “predation” are the most likely predictors of sleep duration</p>
 <p>The model residual checks indicate this is an excellent model fit but with high multicollinearity:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(mammal_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(mammal_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1286,10 +1250,10 @@ F-statistic: 13.17 on 7 and 43 DF,  p-value: 6.364e-09</code></pre>
 <p>In this instance I should remove one of predation/danger and one of brain_wt/body_wt.</p>
 <p>I have decided that overall danger and brain_wt are the most important variables so will retain these:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>mammal_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_sleep <span class="sc">~</span> life_span <span class="sc">+</span> gestation <span class="sc">+</span> brain_wt <span class="sc">+</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a>                   danger <span class="sc">+</span> exposure, <span class="at">data=</span>mammals)</span>
-<span id="cb52-3"><a href="#cb52-3"></a></span>
-<span id="cb52-4"><a href="#cb52-4"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(mammal_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>mammal_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_sleep <span class="sc">~</span> life_span <span class="sc">+</span> gestation <span class="sc">+</span> brain_wt <span class="sc">+</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>                   danger <span class="sc">+</span> exposure, <span class="at">data=</span>mammals)</span>
+<span id="cb47-3"><a href="#cb47-3"></a></span>
+<span id="cb47-4"><a href="#cb47-4"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(mammal_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1300,7 +1264,7 @@ F-statistic: 13.17 on 7 and 43 DF,  p-value: 6.364e-09</code></pre>
 <p>I can see that my multicollinearity has gone AND my model is still a good fit.</p>
 <p>Importantly if I compare the summaries of my old and new models, I can see that my <strong>adjusted R squared</strong> has only dropped slightly and that gestation period now appears to be a significant predictor of sleep duration - previously this relationship was masked!</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">summary</span>(mammal_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">summary</span>(mammal_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1337,9 +1301,9 @@ F-statistic: 15.51 on 5 and 45 DF,  p-value: 7.363e-09</code></pre>
 <p>Outliers have been left to last because they should be dealt with last. Outliers can be the result of a poor model fit, non-linearity or non-normal residuals. As such they may be resolved when attempting to fix other issues with a model.</p>
 <p>Cope’s rule refers to the tendency of animal body sizes to increase in time with increasing age of the lineage. De Souza and Santucci (2014) tested this using a set of data from the dinosaur clade called the Titanosaurs. This is a group of sauropods that included some of the largest animals known in the history of the Earth (e.g.&nbsp;Argentinosaurus) and which were widespread and diverse during the Cretaceous period. Most Titanosaurs are known from only a few bones, and the massive limb bones are particularly common: In this dataset we wish to see whether there is a significant relationship between two sets of bones, so that if we only have access to the Humerus we can predict the size of the Femur and the overall size of the dinsosaur:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>titanosaur_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Femur <span class="sc">~</span> Humerus, <span class="at">data =</span> titanosaurs)</span>
-<span id="cb55-2"><a href="#cb55-2"></a></span>
-<span id="cb55-3"><a href="#cb55-3"></a><span class="fu">summary</span>(titanosaur_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>titanosaur_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Femur <span class="sc">~</span> Humerus, <span class="at">data =</span> titanosaurs)</span>
+<span id="cb50-2"><a href="#cb50-2"></a></span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="fu">summary</span>(titanosaur_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1362,8 +1326,8 @@ F-statistic: 96.61 on 1 and 18 DF,  p-value: 1.164e-08</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(titanosaur_model,</span>
-<span id="cb57-2"><a href="#cb57-2"></a>                         <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(titanosaur_model,</span>
+<span id="cb52-2"><a href="#cb52-2"></a>                         <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1376,13 +1340,13 @@ F-statistic: 96.61 on 1 and 18 DF,  p-value: 1.164e-08</code></pre>
 <p>The diagnostic plot indicates that the data is from <strong>row 1</strong></p>
 <p>The easiest way to address this is to use co-ordinates:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># removes row 1 [row, column]</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>titanosaurs2 <span class="ot">&lt;-</span> titanosaurs[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>), ]</span>
-<span id="cb58-3"><a href="#cb58-3"></a></span>
-<span id="cb58-4"><a href="#cb58-4"></a><span class="co">#refit model</span></span>
-<span id="cb58-5"><a href="#cb58-5"></a>titanosaur_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Femur <span class="sc">~</span> Humerus, <span class="at">data =</span> titanosaurs2)</span>
-<span id="cb58-6"><a href="#cb58-6"></a></span>
-<span id="cb58-7"><a href="#cb58-7"></a><span class="fu">summary</span>(titanosaur_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># removes row 1 [row, column]</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a>titanosaurs2 <span class="ot">&lt;-</span> titanosaurs[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>), ]</span>
+<span id="cb53-3"><a href="#cb53-3"></a></span>
+<span id="cb53-4"><a href="#cb53-4"></a><span class="co">#refit model</span></span>
+<span id="cb53-5"><a href="#cb53-5"></a>titanosaur_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Femur <span class="sc">~</span> Humerus, <span class="at">data =</span> titanosaurs2)</span>
+<span id="cb53-6"><a href="#cb53-6"></a></span>
+<span id="cb53-7"><a href="#cb53-7"></a><span class="fu">summary</span>(titanosaur_model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1406,8 +1370,8 @@ F-statistic: 93.85 on 1 and 17 DF,  p-value: 2.46e-08</code></pre>
 </div>
 <p>Importantly the model estimate <strong>has</strong>changed, but it is still a significant predictor, and there are no further outliers:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(titanosaur_model2,</span>
-<span id="cb60-2"><a href="#cb60-2"></a>                         <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(titanosaur_model2,</span>
+<span id="cb55-2"><a href="#cb55-2"></a>                         <span class="at">detrend =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="model-assumptions_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
