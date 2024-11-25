@@ -47,6 +47,7 @@ book:
   - 11-regression.qmd
   - 12-ANOVA.qmd
   - 13-interaction.qmd
+  - model-assumptions.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd
