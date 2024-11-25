@@ -505,10 +505,10 @@ data &lt;- read_csv("data.csv")
 </ul>
 </div>
 <p><strong>Question.</strong> If we wanted to see the R code, but <strong>not</strong> its output we need to select what combo of code chunk options? <select class="webex-select"><option value="blank"></option>
-<option value="">echo = FALSE, eval = FALSE</option>
 <option value="">echo = FALSE, eval = TRUE</option>
+<option value="answer">echo = TRUE, eval = FALSE</option>
 <option value="">echo = TRUE, eval = TRUE</option>
-<option value="answer">echo = TRUE, eval = FALSE</option></select></p>
+<option value="">echo = FALSE, eval = FALSE</option></select></p>
 <p>Default options for showing code, charts, and other elements in the rendered versions of the document. In Quarto, these options are set in the execute field of the YAML. For example, the following would provide the outputs of code, but hide the code itself, as well as all warnings and messages, from the rendered document:</p>
 <pre><code>---
 title: "My Report"
@@ -556,7 +556,7 @@ execute:
 <p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
 <p>This book was printed on <code>`r Sys.Date()`</code></p>
 <p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
-<p>This book was printed on 2024-11-20</p>
+<p>This book was printed on 2024-11-25</p>
 </section><section id="running-code" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="running-code">Running code</h3>
 <p>You can run the code in an R Markdown document in two ways. The first way is by rendering the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.</p>
 <p>The one downside to running code interactively is that you can sometimes make mistakes that cause your Quarto document to fail to knit. That is because, in order to render, a Quarto document must <em>contain</em> all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to knit your document. When working in R Markdown, always keep all code within a single document.</p>
@@ -749,23 +749,23 @@ execute:
 <span id="cb18-4"><a href="#cb18-4"></a>              <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span><span class="ot">=</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span>  </span>
 <span id="cb18-5"><a href="#cb18-5"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="whmraqwrfv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#whmraqwrfv table {
+<div id="isbbyxdhzw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#isbbyxdhzw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#whmraqwrfv thead, #whmraqwrfv tbody, #whmraqwrfv tfoot, #whmraqwrfv tr, #whmraqwrfv td, #whmraqwrfv th {
+#isbbyxdhzw thead, #isbbyxdhzw tbody, #isbbyxdhzw tfoot, #isbbyxdhzw tr, #isbbyxdhzw td, #isbbyxdhzw th {
   border-style: none;
 }
 
-#whmraqwrfv p {
+#isbbyxdhzw p {
   margin: 0;
   padding: 0;
 }
 
-#whmraqwrfv .gt_table {
+#isbbyxdhzw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -791,12 +791,12 @@ execute:
   border-left-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_caption {
+#isbbyxdhzw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#whmraqwrfv .gt_title {
+#isbbyxdhzw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -808,7 +808,7 @@ execute:
   border-bottom-width: 0;
 }
 
-#whmraqwrfv .gt_subtitle {
+#isbbyxdhzw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -820,7 +820,7 @@ execute:
   border-top-width: 0;
 }
 
-#whmraqwrfv .gt_heading {
+#isbbyxdhzw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -832,13 +832,13 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_bottom_border {
+#isbbyxdhzw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_col_headings {
+#isbbyxdhzw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -853,7 +853,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_col_heading {
+#isbbyxdhzw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -873,7 +873,7 @@ execute:
   overflow-x: hidden;
 }
 
-#whmraqwrfv .gt_column_spanner_outer {
+#isbbyxdhzw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -885,15 +885,15 @@ execute:
   padding-right: 4px;
 }
 
-#whmraqwrfv .gt_column_spanner_outer:first-child {
+#isbbyxdhzw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#whmraqwrfv .gt_column_spanner_outer:last-child {
+#isbbyxdhzw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#whmraqwrfv .gt_column_spanner {
+#isbbyxdhzw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -905,11 +905,11 @@ execute:
   width: 100%;
 }
 
-#whmraqwrfv .gt_spanner_row {
+#isbbyxdhzw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#whmraqwrfv .gt_group_heading {
+#isbbyxdhzw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -935,7 +935,7 @@ execute:
   text-align: left;
 }
 
-#whmraqwrfv .gt_empty_group_heading {
+#isbbyxdhzw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -950,15 +950,15 @@ execute:
   vertical-align: middle;
 }
 
-#whmraqwrfv .gt_from_md > :first-child {
+#isbbyxdhzw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#whmraqwrfv .gt_from_md > :last-child {
+#isbbyxdhzw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#whmraqwrfv .gt_row {
+#isbbyxdhzw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -977,7 +977,7 @@ execute:
   overflow-x: hidden;
 }
 
-#whmraqwrfv .gt_stub {
+#isbbyxdhzw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -990,7 +990,7 @@ execute:
   padding-right: 5px;
 }
 
-#whmraqwrfv .gt_stub_row_group {
+#isbbyxdhzw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1004,15 +1004,15 @@ execute:
   vertical-align: top;
 }
 
-#whmraqwrfv .gt_row_group_first td {
+#isbbyxdhzw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#whmraqwrfv .gt_row_group_first th {
+#isbbyxdhzw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#whmraqwrfv .gt_summary_row {
+#isbbyxdhzw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1022,16 +1022,16 @@ execute:
   padding-right: 5px;
 }
 
-#whmraqwrfv .gt_first_summary_row {
+#isbbyxdhzw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_first_summary_row.thick {
+#isbbyxdhzw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#whmraqwrfv .gt_last_summary_row {
+#isbbyxdhzw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1041,7 +1041,7 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_grand_summary_row {
+#isbbyxdhzw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1051,7 +1051,7 @@ execute:
   padding-right: 5px;
 }
 
-#whmraqwrfv .gt_first_grand_summary_row {
+#isbbyxdhzw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1061,7 +1061,7 @@ execute:
   border-top-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_last_grand_summary_row_top {
+#isbbyxdhzw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1071,11 +1071,11 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_striped {
+#isbbyxdhzw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#whmraqwrfv .gt_table_body {
+#isbbyxdhzw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1084,7 +1084,7 @@ execute:
   border-bottom-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_footnotes {
+#isbbyxdhzw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1098,7 +1098,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_footnote {
+#isbbyxdhzw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1107,7 +1107,7 @@ execute:
   padding-right: 5px;
 }
 
-#whmraqwrfv .gt_sourcenotes {
+#isbbyxdhzw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1121,7 +1121,7 @@ execute:
   border-right-color: #D3D3D3;
 }
 
-#whmraqwrfv .gt_sourcenote {
+#isbbyxdhzw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1129,72 +1129,72 @@ execute:
   padding-right: 5px;
 }
 
-#whmraqwrfv .gt_left {
+#isbbyxdhzw .gt_left {
   text-align: left;
 }
 
-#whmraqwrfv .gt_center {
+#isbbyxdhzw .gt_center {
   text-align: center;
 }
 
-#whmraqwrfv .gt_right {
+#isbbyxdhzw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#whmraqwrfv .gt_font_normal {
+#isbbyxdhzw .gt_font_normal {
   font-weight: normal;
 }
 
-#whmraqwrfv .gt_font_bold {
+#isbbyxdhzw .gt_font_bold {
   font-weight: bold;
 }
 
-#whmraqwrfv .gt_font_italic {
+#isbbyxdhzw .gt_font_italic {
   font-style: italic;
 }
 
-#whmraqwrfv .gt_super {
+#isbbyxdhzw .gt_super {
   font-size: 65%;
 }
 
-#whmraqwrfv .gt_footnote_marks {
+#isbbyxdhzw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#whmraqwrfv .gt_asterisk {
+#isbbyxdhzw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#whmraqwrfv .gt_indent_1 {
+#isbbyxdhzw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#whmraqwrfv .gt_indent_2 {
+#isbbyxdhzw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#whmraqwrfv .gt_indent_3 {
+#isbbyxdhzw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#whmraqwrfv .gt_indent_4 {
+#isbbyxdhzw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#whmraqwrfv .gt_indent_5 {
+#isbbyxdhzw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#whmraqwrfv .katex-display {
+#isbbyxdhzw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#whmraqwrfv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#isbbyxdhzw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1269,7 +1269,16 @@ Tip
 <span id="cb21-5"><a href="#cb21-5"></a></span>
 <span id="cb21-6"><a href="#cb21-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="useful-tips" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="useful-tips">Useful tips</h3>
-<div class="callout-info">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The working directory for .qmd files is a little different to working with scripts.</p>
 <p>With a .qmd file, the <strong>working directory is wherever the qmd file itself is saved</strong>.</p>
 <p>For example if you have your .qmd file in a subfolder ~/outputfiles/markdown.qmd the code for read_csv(“data/data.csv”) within the markdown will look for a <code>.csv</code> file in a subfolder called data <em>inside</em> the ‘markdown’ folder and not the root project folder where the <code>.RProj</code> file lives.</p>
@@ -1278,6 +1287,7 @@ Tip
 <li><p>Don’t put the .qmd file in a subfolder and make sure it lives in the same directory as your .RProj file - that way relative filepaths are the same between R scripts and quarto files</p></li>
 <li><p>Use the <code>here</code> package to describe file locations</p></li>
 </ol>
+</div>
 </div>
 </section><section id="heuristic-file-paths-with-here" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="heuristic-file-paths-with-here">Heuristic file paths with <code>here()</code>
 </h3>

@@ -367,6 +367,7 @@ plant_growth <- 30 + 3 * sunlight + .2*water + errors
 # Combine into a data frame
 plant_data <- data.frame(
   sunlight = sunlight,
+  water = water,
   plant_growth = plant_growth
 )
 
@@ -374,7 +375,7 @@ plant_data <- data.frame(
 head(data)
 
 # Optionally save or visualize
-# write.csv(data, "files/sunlight_water_data.csv", row.names = FALSE)
+# write.csv(plant_data, "files/sunlight_water_data.csv", row.names = FALSE)
 ```
 
 

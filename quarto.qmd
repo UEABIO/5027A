@@ -555,7 +555,7 @@ plot
 
 ### Useful tips {-}
  
-:::{.callout-info}
+:::{.callout-tip}
 
 The working directory for .qmd files is a little different to working with scripts. 
 
