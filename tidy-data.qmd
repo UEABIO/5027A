@@ -53,6 +53,7 @@ country_data
 ```
 
 
+### Pivot longer
 
 ```{r pivot-data, eval = F}
 
@@ -98,8 +99,23 @@ country_data <- pivot_longer(data = country_data,
 long_country_data <- pivot_longer(data = country_data,
              cols = yr1960:yr2010,
              names_to = "year",
-             names_prefix = "yr",
+             names_prefix = "yr", # optional
              values_to = "metric")
+
+```
+
+
+### Pivot wider
+
+Let's use the long country data we have just generated as an example of how we *could* use the `pivot_wider()` function and reverse the process:
+
+```{r, eval = F}
+
+pivot_wider(data = long_country_data,
+            names_from = year,
+            names_prefix = "yr",
+            values_from = "metric")
+
 
 ```
 

@@ -332,8 +332,10 @@ div.csl-indent {
   <li>
 <a href="#using-pivot-functions" id="toc-using-pivot-functions" class="nav-link" data-scroll-target="#using-pivot-functions"><span class="header-section-number">C.2</span> Using <code>pivot</code> functions</a>
   <ul class="collapse">
-<li><a href="#overwrite-the-original-object" id="toc-overwrite-the-original-object" class="nav-link" data-scroll-target="#overwrite-the-original-object"><span class="header-section-number">C.2.1</span> Overwrite the original object</a></li>
-  <li><a href="#create-a-new-r-object" id="toc-create-a-new-r-object" class="nav-link" data-scroll-target="#create-a-new-r-object"><span class="header-section-number">C.2.2</span> Create a new r object</a></li>
+<li><a href="#pivot-longer" id="toc-pivot-longer" class="nav-link" data-scroll-target="#pivot-longer"><span class="header-section-number">C.2.1</span> Pivot longer</a></li>
+  <li><a href="#overwrite-the-original-object" id="toc-overwrite-the-original-object" class="nav-link" data-scroll-target="#overwrite-the-original-object"><span class="header-section-number">C.2.2</span> Overwrite the original object</a></li>
+  <li><a href="#create-a-new-r-object" id="toc-create-a-new-r-object" class="nav-link" data-scroll-target="#create-a-new-r-object"><span class="header-section-number">C.2.3</span> Create a new r object</a></li>
+  <li><a href="#pivot-wider" id="toc-pivot-wider" class="nav-link" data-scroll-target="#pivot-wider"><span class="header-section-number">C.2.4</span> Pivot wider</a></li>
   </ul>
 </li>
   <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">C.3</span> Reading</a></li>
@@ -427,6 +429,8 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<section id="pivot-longer" class="level3" data-number="C.2.1"><h3 data-number="C.2.1" class="anchored" data-anchor-id="pivot-longer">
+<span class="header-section-number">C.2.1</span> Pivot longer</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
 <span id="cb2-2"><a href="#cb2-2"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
@@ -448,8 +452,8 @@ div.csl-indent {
 <li><p>Use a <em>new</em> name for the reformatted data both R objects will exist in your Environment</p></li>
 </ul>
 <p>Neither is more <em>correct</em> than the other but be aware of what you are doing.</p>
-<section id="overwrite-the-original-object" class="level3" data-number="C.2.1"><h3 data-number="C.2.1" class="anchored" data-anchor-id="overwrite-the-original-object">
-<span class="header-section-number">C.2.1</span> Overwrite the original object</h3>
+</section><section id="overwrite-the-original-object" class="level3" data-number="C.2.2"><h3 data-number="C.2.2" class="anchored" data-anchor-id="overwrite-the-original-object">
+<span class="header-section-number">C.2.2</span> Overwrite the original object</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>country_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
 <span id="cb3-2"><a href="#cb3-2"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
@@ -457,14 +461,23 @@ div.csl-indent {
 <span id="cb3-4"><a href="#cb3-4"></a>             <span class="at">names_prefix =</span> <span class="st">"yr"</span>,</span>
 <span id="cb3-5"><a href="#cb3-5"></a>             <span class="at">values_to =</span> <span class="st">"metric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="create-a-new-r-object" class="level3" data-number="C.2.2"><h3 data-number="C.2.2" class="anchored" data-anchor-id="create-a-new-r-object">
-<span class="header-section-number">C.2.2</span> Create a new r object</h3>
+</section><section id="create-a-new-r-object" class="level3" data-number="C.2.3"><h3 data-number="C.2.3" class="anchored" data-anchor-id="create-a-new-r-object">
+<span class="header-section-number">C.2.3</span> Create a new r object</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>long_country_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(<span class="at">data =</span> country_data,</span>
 <span id="cb4-2"><a href="#cb4-2"></a>             <span class="at">cols =</span> yr1960<span class="sc">:</span>yr2010,</span>
 <span id="cb4-3"><a href="#cb4-3"></a>             <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>             <span class="at">names_prefix =</span> <span class="st">"yr"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>             <span class="at">names_prefix =</span> <span class="st">"yr"</span>, <span class="co"># optional</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a>             <span class="at">values_to =</span> <span class="st">"metric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="pivot-wider" class="level3" data-number="C.2.4"><h3 data-number="C.2.4" class="anchored" data-anchor-id="pivot-wider">
+<span class="header-section-number">C.2.4</span> Pivot wider</h3>
+<p>Let’s use the long country data we have just generated as an example of how we <em>could</em> use the <code>pivot_wider()</code> function and reverse the process:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">pivot_wider</span>(<span class="at">data =</span> long_country_data,</span>
+<span id="cb5-2"><a href="#cb5-2"></a>            <span class="at">names_from =</span> year,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>            <span class="at">names_prefix =</span> <span class="st">"yr"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>            <span class="at">values_from =</span> <span class="st">"metric"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="reading" class="level2" data-number="C.3"><h2 data-number="C.3" class="anchored" data-anchor-id="reading">
 <span class="header-section-number">C.3</span> Reading</h2>
