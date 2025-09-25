@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.8.24">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
 <title>2&nbsp; Data cleaning – 5027A</title>
@@ -19,8 +19,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -31,7 +32,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,20 +61,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./06-data-bias.html" rel="next">
+<link href="./summary-table.html" rel="next">
 <link href="./04-penguin-project.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f54fa83ccd8f86fe7238c9291c42d766.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8f4e3aabaa80e3e650ae20f2c24f966b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-f54fa83ccd8f86fe7238c9291c42d766.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-e0a43ceb7c9e63dd117097429fd00833.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d7d11905500e7839d0ae783f44cd34c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e0a43ceb7c9e63dd117097429fd00833.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,14 +111,176 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="include/glossary.css">
 <link rel="stylesheet" href="include/style.css">
 </head>
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-dplyr.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./05-dplyr.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -122,7 +289,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">5027A</a> 
         <div class="sidebar-tools-main">
@@ -137,82 +306,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04-penguin-project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05-dplyr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./06-data-bias.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data bias</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-data-insights.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data insights</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-inferential-statistics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inferential statistics</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Linear models</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-paired-design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Paired tests</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./12-ANOVA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ANOVA</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./13-interaction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multi factor ANOVA</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./model-assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Model diagnostics</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
+<li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Summary tables</span></a>
+ <span class="menu-text">Weekly Sessions</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -220,8 +317,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary-table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary tables</span></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-penguin-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-dplyr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
   </div>
 </li>
       </ul>
@@ -229,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Data Visualisation</span></a>
+ <span class="menu-text">Summary tables</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -237,8 +346,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
+  <a href="./summary-table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary tables</span></span></a>
   </div>
 </li>
       </ul>
@@ -246,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Reproducible Reports</span></a>
+ <span class="menu-text">Data Visualisation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -254,8 +363,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  <a href="./ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced_ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ggplot extras</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,12 +378,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Reproducible Reports</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quarto quick reference</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-basics.html" class="sidebar-item-text sidebar-link">
@@ -285,12 +423,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./tidy-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Tidy data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./advanced_ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">ggplot extras</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -348,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li>
 <a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.6</span> Summary</a>
   <ul class="collapse">
-<li><a href="#sec-save-script" id="toc-sec-save-script" class="nav-link" data-scroll-target="#sec-save-script"><span class="header-section-number">2.6.1</span> Save scripts</a></li>
+<li><a href="#sec-save-script" id="toc-sec-save-script" class="nav-link" data-scroll-target="#sec-save-script"><span class="header-section-number">2.6.1</span> Save scripts &amp; data</a></li>
   <li><a href="#checklist-for-data-checking" id="toc-checklist-for-data-checking" class="nav-link" data-scroll-target="#checklist-for-data-checking"><span class="header-section-number">2.6.2</span> Checklist for data checking</a></li>
   </ul>
 </li>
@@ -358,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./05-dplyr.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-dplyr" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></h1>
 </div>
 
@@ -434,36 +566,52 @@ Important
 <p>For example I might wish to create a simplified dataset that only contains <code>species</code>, <code>sex</code>, <code>flipper_length_mm</code> and <code>body_mass_g</code>.</p>
 <p>Run the below code to select only those columns</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">select</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">select</span>(</span>
 <span id="cb1-2"><a href="#cb1-2"></a>   <span class="co"># the data object</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">.data =</span> penguins_raw,</span>
 <span id="cb1-4"><a href="#cb1-4"></a>   <span class="co"># the variables you want to select</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Alternatively you could tell R the columns you <strong>don’t</strong> want e.g.&nbsp;</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">select</span>(<span class="at">.data =</span> penguins_raw,</span>
-<span id="cb2-2"><a href="#cb2-2"></a>       <span class="sc">-</span><span class="st">`</span><span class="at">studyName</span><span class="st">`</span>, <span class="sc">-</span><span class="st">`</span><span class="at">Sample Number</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">select</span>(<span class="at">.data =</span> penguins_raw,</span>
+<span id="cb2-2"><a href="#cb2-2"></a>       <span class="sc">-</span><span class="st">`</span><span class="at">studyName</span><span class="st">`</span>, <span class="sc">-</span><span class="st">`</span><span class="at">Sample Number</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note that <code>select()</code> does <strong>not</strong> change the original <code>penguins</code> tibble. It spits out the new tibble directly into your console.</p>
 <p>If you don’t <strong>save</strong> this new tibble, it won’t be stored. If you want to keep it, then you must create a new object.</p>
 <p>When you run this new code, you will not see anything in your console, but you will see a new object appear in your Environment pane.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> penguins_raw, </span>
-<span id="cb3-2"><a href="#cb3-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> penguins_raw, </span>
+<span id="cb3-2"><a href="#cb3-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="filter" class="level3" data-number="2.1.2"><h3 data-number="2.1.2" class="anchored" data-anchor-id="filter">
 <span class="header-section-number">2.1.2</span> Filter</h3>
 <p>Having previously used <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code> to select certain variables, we will now use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to select only certain rows or observations. For example only Adelie penguins.</p>
 <p>We can do this with the equivalence operator <code>==</code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
-<span id="cb4-2"><a href="#cb4-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
+<span id="cb4-2"><a href="#cb4-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Operator confusion
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Don’t confuse “=” which assigns a value with “==” which checks if two things are ‘equivalent’. See <span class="quarto-unresolved-ref">?sec-operators</span> for more.</p>
+</div>
+</div>
 </div>
 <p>We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table caption-top table-sm table-striped small">
 <caption>Boolean expressions</caption>
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Operator</th>
@@ -504,42 +652,42 @@ Important
 </div>
 <p>If you wanted to select all the Penguin species except Adelies, you use ‘not equals’.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
-<span id="cb5-2"><a href="#cb5-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
+<span id="cb5-2"><a href="#cb5-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This is the same as</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
 <span id="cb6-2"><a href="#cb6-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span>,</span>
 <span id="cb6-3"><a href="#cb6-3"></a>                      <span class="st">"Gentoo penguin (Pygoscelis papua)"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4"></a>       )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can include multiple expressions within <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> and it will pull out only those rows that evaluate to <code>TRUE</code> for all of your conditions.</p>
 <p>For example the below code will pull out only those observations of Adelie penguins where flipper length was measured as greater than 190mm.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> new_penguins, </span>
 <span id="cb7-2"><a href="#cb7-2"></a>       <span class="st">`</span><span class="at">Species</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span>, </span>
-<span id="cb7-3"><a href="#cb7-3"></a>       <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3"></a>       <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">190</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="arrange" class="level3" data-number="2.1.3"><h3 data-number="2.1.3" class="anchored" data-anchor-id="arrange">
 <span class="header-section-number">2.1.3</span> Arrange</h3>
 <p>The function <code>arrange()</code> sorts the rows in the table according to the columns supplied. For example</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins, </span>
-<span id="cb8-2"><a href="#cb8-2"></a>        <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins, </span>
+<span id="cb8-2"><a href="#cb8-2"></a>        <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The data is now arranged in alphabetical order by sex. So all of the observations of female penguins are listed before males.</p>
 <p>You can also reverse this with <code>desc()</code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins, </span>
-<span id="cb9-2"><a href="#cb9-2"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Sex</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins, </span>
+<span id="cb9-2"><a href="#cb9-2"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Sex</span><span class="st">`</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can also sort by more than one column, what do you think the code below does?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">arrange</span>(<span class="at">.data =</span> new_penguins,</span>
 <span id="cb10-2"><a href="#cb10-2"></a>        <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>,</span>
 <span id="cb10-3"><a href="#cb10-3"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Species</span><span class="st">`</span>),</span>
-<span id="cb10-4"><a href="#cb10-4"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a href="#cb10-4"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="mutate" class="level3" data-number="2.1.4"><h3 data-number="2.1.4" class="anchored" data-anchor-id="mutate">
 <span class="header-section-number">2.1.4</span> Mutate</h3>
@@ -547,8 +695,8 @@ Important
 <p>To create new variables we use the function <code>mutate()</code>.</p>
 <p>Note that as before, if you want to save your new column you must save it as an object. Here we are mutating a new column and attaching it to the <code>new_penguins</code> data oject.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">mutate</span>(<span class="at">.data =</span> new_penguins,</span>
-<span id="cb11-2"><a href="#cb11-2"></a>                     <span class="at">body_mass_kg =</span> <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span><span class="sc">/</span><span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>new_penguins <span class="ot">&lt;-</span> <span class="fu">mutate</span>(<span class="at">.data =</span> new_penguins,</span>
+<span id="cb11-2"><a href="#cb11-2"></a>                     <span class="at">body_mass_kg =</span> <span class="st">`</span><span class="at">Body Mass (g)</span><span class="st">`</span><span class="sc">/</span><span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section><section id="pipes" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="pipes">
 <span class="header-section-number">2.2</span> Pipes</h2>
@@ -562,29 +710,29 @@ Important
 </div>
 <p>Pipes look like this: <code>|&gt;</code> , a <a class="glossary">pipe<span class="def">An operator that allows you to chain multiple functions together in a sequence.</span></a> allows you to send the output from one function straight into another function. Specifically, they send the result of the function before <code>|&gt;</code> to be the <strong>first</strong> argument of the function after <code>|&gt;</code>. As usual, it’s easier to show, rather than tell so let’s look at an example.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># this example uses brackets to nest and order functions</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># this example uses brackets to nest and order functions</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">arrange</span>(<span class="at">.data =</span> <span class="fu">filter</span>(</span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="at">.data =</span> <span class="fu">select</span>(</span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="at">.data =</span> penguins_raw, </span>
 <span id="cb12-5"><a href="#cb12-5"></a>  species, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>), </span>
 <span id="cb12-6"><a href="#cb12-6"></a>  <span class="st">`</span><span class="at">Sex</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"MALE"</span>), </span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># this example uses sequential R objects </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># this example uses sequential R objects </span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>object_1 <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> penguins_raw, </span>
 <span id="cb13-3"><a href="#cb13-3"></a>                   <span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>)</span>
 <span id="cb13-4"><a href="#cb13-4"></a>object_2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(<span class="at">.data =</span> object_1, </span>
 <span id="cb13-5"><a href="#cb13-5"></a>                   <span class="st">`</span><span class="at">Sex</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"MALE"</span>)</span>
 <span id="cb13-6"><a href="#cb13-6"></a><span class="fu">arrange</span>(object_2, </span>
-<span id="cb13-7"><a href="#cb13-7"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-7"><a href="#cb13-7"></a>        <span class="fu">desc</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># this example is human readable without intermediate objects</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># this example is human readable without intermediate objects</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>penguins_raw <span class="sc">|&gt;</span>  </span>
 <span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Species</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sex</span><span class="st">`</span>, <span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>) <span class="sc">|&gt;</span>  </span>
 <span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Sex</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"MALE"</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>)<span class="er">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">Flipper Length (mm)</span><span class="st">`</span>)<span class="er">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The reason that this function is called a pipe is because it ‘pipes’ the data through to the next function. When you wrote the code previously, the first argument of each function was the dataset you wanted to work on. When you use pipes it will automatically take the data from the previous line of code so you don’t need to specify it again.</p>
 <section id="task" class="level3" data-number="2.2.1"><h3 data-number="2.2.1" class="anchored" data-anchor-id="task">
@@ -626,10 +774,10 @@ Warning
 </div>
 <section id="activity-1-explore-data-structure" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="activity-1-explore-data-structure">
 <span class="header-section-number">2.3.1</span> Activity 1: Explore data structure</h3>
-<p>Before working with your data, it’s essential to understand its underlying structure and content. In this section, we’ll use powerful functions like <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code>head</code>()<code>,</code>tail()<code>and the add-on function</code>skimr::skim()` to thoroughly examine your dataset. These tools provide insights into data types, variable distributions, and sample records, helping you identify initial issues such as missing values or inconsistent data types. By gaining a clear understanding of your data’s structure, you’ll be better equipped to address any problems and proceed confidently with data cleaning and analysis.</p>
+<p>Before working with your data, it’s essential to understand its underlying structure and content. In this section, we’ll use powerful functions like <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>, <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> and the add-on function <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code> to thoroughly examine your dataset. These tools provide insights into data types, variable distributions, and sample records, helping you identify initial issues such as missing values or inconsistent data types. By gaining a clear understanding of your data’s structure, you’ll be better equipped to address any problems and proceed confidently with data cleaning and analysis.</p>
 <p>When we run <code>glimpse()</code> we get several lines of output. The number of observations “rows”, the number of variables “columns”. Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">glimpse</span>(penguins_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">glimpse</span>(penguins_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 344
 Columns: 17
@@ -659,7 +807,7 @@ $ Comments              &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, "A
 </ul>
 <p>When we run <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> we get similar information, in addition for any numerical values we get summary statistics such as mean, median, min, max, quartile ranges and any missing (<code>NA</code>) values</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">summary</span>(penguins_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">summary</span>(penguins_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studyName         Sample Number      Species             Region         
  Length:344         Min.   :  1.00   Length:344         Length:344        
@@ -705,8 +853,8 @@ $ Comments              &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, "A
 </div>
 <p>Finally the add-on package <code>skimr</code> provides the function <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code> provides an easy to view set of summaries including column types, completion rate, number of unique variables in each column and similar statistical summaries along with a small histogram for each numeric variable.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">skim</span>(penguins_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">skim</span>(penguins_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -1008,6 +1156,8 @@ Explanation
 </button>
 <p>Although some columns like date might not be correctly treated as character variables, they are not strictly numeric either, all other columns appear correct</p>
 </div>
+<section id="missing-data" class="level4" data-number="2.3.1.1"><h4 data-number="2.3.1.1" class="anchored" data-anchor-id="missing-data">
+<span class="header-section-number">2.3.1.1</span> Missing Data</h4>
 <p><strong>Q Based on our summary functions do we have complete data for all variables?</strong></p>
 <p><select class="webex-select"><option value="blank"></option>
 <option value="">Yes</option>
@@ -1018,13 +1168,14 @@ Explanation
 </button>
 <p>No, they are 2 missing data points for body measurements (culmen, flipper, body mass), 11 missing data points for sex, 13/14 missing data points for blood isotopes (Delta N/C) and 290 missing data points for comments</p>
 </div>
-</section><section id="activity-2-clean-column-names" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="activity-2-clean-column-names">
+<p>Sometimes we want to <strong>remove rows</strong> where values are missing, this will be covered later - for now we just want to be aware of where we do not have complete records.</p>
+</section></section><section id="activity-2-clean-column-names" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="activity-2-clean-column-names">
 <span class="header-section-number">2.3.2</span> Activity 2: Clean column names</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># CHECK DATA----</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># CHECK DATA----</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="co"># check the data</span></span>
 <span id="cb20-3"><a href="#cb20-3"></a><span class="fu">colnames</span>(penguins_raw)</span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#__________________________----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="co">#__________________________----</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "studyName"           "Sample Number"       "Species"            
  [4] "Region"              "Island"              "Stage"              
@@ -1061,7 +1212,7 @@ Explanation
 </ul>
 <p>R is case-sensitive and also doesn’t like spaces or brackets in variable names, because of this we have been forced to use backticks `Sample Number` to prevent errors when using these column names</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># CLEAN DATA ----</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># CLEAN DATA ----</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a></span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="co"># clean all variable names to snake_case </span></span>
 <span id="cb22-4"><a href="#cb22-4"></a><span class="co"># using the clean_names function from the janitor package</span></span>
@@ -1076,7 +1227,7 @@ Explanation
 <span id="cb22-13"><a href="#cb22-13"></a>penguins_clean <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(penguins_raw) </span>
 <span id="cb22-14"><a href="#cb22-14"></a></span>
 <span id="cb22-15"><a href="#cb22-15"></a><span class="co"># quickly check the new variable names</span></span>
-<span id="cb22-16"><a href="#cb22-16"></a><span class="fu">colnames</span>(penguins_clean) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="fu">colnames</span>(penguins_clean) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "study_name"        "sample_number"     "species"          
  [4] "region"            "island"            "stage"            
@@ -1092,25 +1243,25 @@ Import and clean names
 </button>
 <p>We can combine data import and name repair in a single step if we want to:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"data/penguins_raw.csv"</span>,</span>
-<span id="cb24-2"><a href="#cb24-2"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"data/penguins_raw.csv"</span>,</span>
+<span id="cb24-2"><a href="#cb24-2"></a>                      <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section><section id="rename-columns-manually" class="level4" data-number="2.3.2.2"><h4 data-number="2.3.2.2" class="anchored" data-anchor-id="rename-columns-manually">
 <span class="header-section-number">2.3.2.2</span> Rename columns (manually)</h4>
 <p>The <code>clean_names</code> function quickly converts all variable names into <a class="glossary">snake case<span class="def">Snake case is a naming convention in computing that uses underscores to replace spaces between words, and writes words in lowercase. It’s commonly used for variable names, filenames, and database table and column names.</span></a>. The N and C blood isotope ratio names are still quite long though, so let’s clean those with <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code> where “new_name” = “old_name”.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># shorten the variable names for isotope blood samples</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># shorten the variable names for isotope blood samples</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="co"># use rename from the dplyr package</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">rename</span>(penguins_clean,</span>
 <span id="cb25-4"><a href="#cb25-4"></a>         <span class="st">"delta_15n"</span><span class="ot">=</span><span class="st">"delta_15_n_o_oo"</span>,  </span>
-<span id="cb25-5"><a href="#cb25-5"></a>         <span class="st">"delta_13c"</span><span class="ot">=</span><span class="st">"delta_13_c_o_oo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-5"><a href="#cb25-5"></a>         <span class="st">"delta_13c"</span><span class="ot">=</span><span class="st">"delta_13_c_o_oo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="rename-text-values-manually" class="level4" data-number="2.3.2.3"><h4 data-number="2.3.2.3" class="anchored" data-anchor-id="rename-text-values-manually">
 <span class="header-section-number">2.3.2.3</span> Rename text values manually</h4>
 <p>Sometimes we may want to rename the values in our variables in order to make a shorthand that is easier to follow. This is changing the <strong>values</strong> in our columns, not the column names.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># use mutate and case_when </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># use mutate and case_when </span></span>
 <span id="cb26-2"><a href="#cb26-2"></a><span class="co"># for a statement that conditionally changes </span></span>
 <span id="cb26-3"><a href="#cb26-3"></a><span class="co"># the names of the values in a variable</span></span>
 <span id="cb26-4"><a href="#cb26-4"></a>penguins <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span> </span>
@@ -1120,17 +1271,17 @@ Import and clean names
 <span id="cb26-8"><a href="#cb26-8"></a>  species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="sc">~</span> <span class="st">"Chinstrap"</span>,</span>
 <span id="cb26-9"><a href="#cb26-9"></a>  <span class="at">.default =</span> <span class="fu">as.character</span>(species)</span>
 <span id="cb26-10"><a href="#cb26-10"></a>  )</span>
-<span id="cb26-11"><a href="#cb26-11"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-11"><a href="#cb26-11"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># use mutate and if_else</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># use mutate and if_else</span></span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="co"># for a statement that conditionally changes </span></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="co"># the names of the values in a variable</span></span>
 <span id="cb27-4"><a href="#cb27-4"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
 <span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">if_else</span>(</span>
 <span id="cb27-6"><a href="#cb27-6"></a>    sex <span class="sc">==</span> <span class="st">"MALE"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span></span>
 <span id="cb27-7"><a href="#cb27-7"></a>  )</span>
-<span id="cb27-8"><a href="#cb27-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-8"><a href="#cb27-8"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1160,22 +1311,22 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 <p>Often these aren’t quite how we want them to be, but we can manipulate these as much as we like. Functions in the package <code>stringr</code>, are fantastic. And the number of different types of manipulations are endless!</p>
 <p>Below we repeat the outcomes above, but with string matching:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># use mutate and case_when </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># use mutate and case_when </span></span>
 <span id="cb28-2"><a href="#cb28-2"></a><span class="co"># for a statement that conditionally changes </span></span>
 <span id="cb28-3"><a href="#cb28-3"></a><span class="co"># the names of the values in a variable</span></span>
 <span id="cb28-4"><a href="#cb28-4"></a>penguins <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span> </span>
 <span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> stringr<span class="sc">::</span><span class="fu">word</span>(species, <span class="dv">1</span>)</span>
 <span id="cb28-6"><a href="#cb28-6"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> stringr<span class="sc">::</span><span class="fu">str_to_title</span>(sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> stringr<span class="sc">::</span><span class="fu">str_to_title</span>(sex))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Alternatively we could decide we want simpler species names but that we would like to keep the latin name information, but in a separate column. To do this we are using <a href="https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html">regex</a>. Regular expressions are a concise and flexible tool for describing patterns in strings</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>penguins_clean <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>penguins_clean <span class="sc">|&gt;</span> </span>
 <span id="cb29-2"><a href="#cb29-2"></a>    <span class="fu">separate</span>(</span>
 <span id="cb29-3"><a href="#cb29-3"></a>        species,</span>
 <span id="cb29-4"><a href="#cb29-4"></a>        <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"full_latin_name"</span>),</span>
 <span id="cb29-5"><a href="#cb29-5"></a>        <span class="at">sep =</span> <span class="st">"(?=</span><span class="sc">\\</span><span class="st">()"</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-6"><a href="#cb29-6"></a>    ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1351,26 +1502,26 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 <span class="header-section-number">2.3.3</span> Activity 2: Checking for duplications</h3>
 <p>It is very easy when inputting data to make mistakes, copy something in twice for example, or if someone did a lot of copy-pasting to assemble a spreadsheet (yikes!). We can check this pretty quickly</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># check for whole duplicate </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># check for whole duplicate </span></span>
 <span id="cb30-2"><a href="#cb30-2"></a><span class="co"># rows in the data</span></span>
 <span id="cb30-3"><a href="#cb30-3"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">duplicated</span>() <span class="sc">|&gt;</span>  </span>
-<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">sum</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">sum</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>[1] 0</code></pre>
 <p>Great!</p>
 <p>If I did have duplications I could investigate further and extract these exact rows:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Inspect duplicated rows</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Inspect duplicated rows</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb32-3"><a href="#cb32-3"></a>    <span class="fu">filter</span>(<span class="fu">duplicated</span>(penguins))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-3"><a href="#cb32-3"></a>    <span class="fu">filter</span>(<span class="fu">duplicated</span>(penguins))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>A tibble:0 × 17
 0 rows | 1-8 of 17 columns</code></pre>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Keep only unduplicated data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Keep only unduplicated data</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb34-3"><a href="#cb34-3"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(penguins))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-3"><a href="#cb34-3"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(penguins))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1538,9 +1689,9 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 <span class="header-section-number">2.3.4</span> Activity 3: Checking for typos</h3>
 <p>We can also look for typos by asking R to produce all of the distinct values in a variable. This is more useful for categorical data, where we expect there to be only a few distinct categories</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># Print only unique character strings in this variable</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># Print only unique character strings in this variable</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a>penguins <span class="sc">|&gt;</span>  </span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">distinct</span>(sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">distinct</span>(sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1565,8 +1716,8 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 <p>Here if someone had mistyped e.g.&nbsp;‘FMALE’ it would be obvious. We could do the same thing (and probably should have before we changed the names) for species.</p>
 <p>We can also trim leading or trailing empty spaces with <code><a href="https://stringr.tidyverse.org/reference/str_trim.html">stringr::str_trim</a></code>. These are often problematic and difficult to spot e.g.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">label=</span><span class="fu">c</span>(<span class="st">"penguin"</span>, <span class="st">" penguin"</span>, <span class="st">"penguin "</span>)) </span>
-<span id="cb36-2"><a href="#cb36-2"></a>df2 <span class="co"># make a test dataframe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">label=</span><span class="fu">c</span>(<span class="st">"penguin"</span>, <span class="st">" penguin"</span>, <span class="st">"penguin "</span>)) </span>
+<span id="cb36-2"><a href="#cb36-2"></a>df2 <span class="co"># make a test dataframe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1590,8 +1741,8 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 </div>
 <p>We can easily imagine a scenario where data is manually input, and trailing or leading spaces are left in. These are difficult to spot by eye - but problematic because as far as R is concerned these are different values. We can use the function <code>distinct</code> to return the names of all the different levels it can find in this dataframe.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df2 <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df2 <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1615,9 +1766,9 @@ Have you checked that the above code block worked? Inspect your new tibble and c
 </div>
 <p>If we pipe the data throught the <code>str_trim</code> function to remove any gaps, then pipe this on to <code>distinct</code> again - by removing the whitespace, R now recognises just one level to this data.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df2 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df2 <span class="sc">|&gt;</span> </span>
 <span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">mutate</span>(<span class="at">label=</span><span class="fu">str_trim</span>(label, <span class="at">side=</span><span class="st">"both"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1658,16 +1809,17 @@ Pay attention to warning and error messages
 <li>
 <strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_JVCYRCAHJC" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JVCYRCAHJC" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_JVCYRCAHJC" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_JVCYRCAHJC" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_JVCYRCAHJC" value="answer"><span>dmy()</span></label>
+<div id="radio_DCOLOVHVKW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value="answer"><span>dmy()</span></label>
 </div>
 <div class="webex-solution">
 <button>
 Solution
 </button>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="co"># Dates have been provided in day/month/year</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>Here we use the <code>mutate</code> function from <code>dplyr</code> to create a <em>new variable</em> called <code>date_egg_proper</code> based on the output of converting the characters in <code>date_egg</code> to date format. The original variable is left intact, if we had specified the “new” variable was also called <code>date_egg</code> then it would have overwritten the original variable.</p>
@@ -1675,29 +1827,58 @@ Solution
 <section id="calculations-with-dates" class="level3" data-number="2.4.1"><h3 data-number="2.4.1" class="anchored" data-anchor-id="calculations-with-dates">
 <span class="header-section-number">2.4.1</span> Calculations with dates</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">summarise</span>(<span class="at">min_date=</span><span class="fu">min</span>(date_egg),</span>
-<span id="cb40-3"><a href="#cb40-3"></a>            <span class="at">max_date=</span><span class="fu">max</span>(date_eggr))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-3"><a href="#cb40-3"></a>            <span class="at">max_date=</span><span class="fu">max</span>(date_egg))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Check your outputs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check that this code is producing sensible outputs - it will not work if you have skipped making the necessary column for dates <code>date_egg</code></p>
+</div>
 </div>
 <p>We can also extract and make new columns from our date column - such as a simple column of the year when each observation was made:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section><section id="factors" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="factors">
 <span class="header-section-number">2.5</span> Factors</h2>
 <p>In R, factors are a class of data that allow for <strong>ordered categories</strong> with a fixed set of acceptable values.</p>
-<p>Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later).</p>
+<p>Typically, you would convert a column from character to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>When to apply factors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Factors provide order to categorical data - you should <strong>not</strong> assign factors to numeric data - the exception might be if you wanted to <em>bin</em> data into groups (see below)</p>
+</div>
+</div>
+</div>
 <p>Working with factors is easy with the <code>forcats</code> package:</p>
-<p>Using across - we can apply functions to columns based on selected criteria - here within mutate we are changing each column in the <code>.cols</code> argument and applying the function <code><a href="https://forcats.tidyverse.org/reference/as_factor.html">forcats::as_factor()</a></code></p>
+<p>Using <code><a href="https://dplyr.tidyverse.org/reference/across.html">dplyr::across()</a></code> - we can apply functions to columns based on selected criteria - here within mutate we are changing each column in the <code>.cols</code> argument and applying the function <code><a href="https://forcats.tidyverse.org/reference/as_factor.html">forcats::as_factor()</a></code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb42-3"><a href="#cb42-3"></a>    <span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"region"</span>, <span class="st">"island"</span>, <span class="st">"stage"</span>, <span class="st">"sex"</span>),</span>
 <span id="cb42-4"><a href="#cb42-4"></a>           <span class="at">.fns =</span> forcats<span class="sc">::</span>as_factor)</span>
 <span id="cb42-5"><a href="#cb42-5"></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.factor)) <span class="sc">|&gt;</span> </span>
-<span id="cb42-7"><a href="#cb42-7"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-7"><a href="#cb42-7"></a>  <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 344
 Columns: 5
@@ -1723,22 +1904,23 @@ Important
 </div>
 <section id="setting-factor-levels" class="level3" data-number="2.5.1"><h3 data-number="2.5.1" class="anchored" data-anchor-id="setting-factor-levels">
 <span class="header-section-number">2.5.1</span> Setting factor levels</h3>
-<p>If we want to specify the <em>correct</em> order for a factor we can use <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">forcats::fct_relevel</a></code></p>
+<p>If we want to specify the <em>correct</em> order for a factor we can use <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">forcats::fct_relevel</a></code>.</p>
+<p>In this example we have decided to categorise our penguins into groups - “smol”, “mid” and “chonk” based on mass (g), first we need to create a new column (mass range).</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
 <span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">case_when</span>(</span>
 <span id="cb44-3"><a href="#cb44-3"></a>    body_mass_g <span class="sc">&lt;=</span> <span class="dv">3500</span> <span class="sc">~</span> <span class="st">"smol penguin"</span>,</span>
 <span id="cb44-4"><a href="#cb44-4"></a>    body_mass_g <span class="sc">&gt;</span><span class="dv">3500</span> <span class="sc">&amp;</span> body_mass_g <span class="sc">&lt;</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"mid penguin"</span>,</span>
 <span id="cb44-5"><a href="#cb44-5"></a>    body_mass_g <span class="sc">&gt;=</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"chonk penguin"</span>,</span>
 <span id="cb44-6"><a href="#cb44-6"></a>    <span class="at">.default =</span> <span class="cn">NA</span>)</span>
-<span id="cb44-7"><a href="#cb44-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-7"><a href="#cb44-7"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If we make a barplot, the order of the values on the x axis will typically be in alphabetical order for any character data</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">drop_na</span>(mass_range) <span class="sc">|&gt;</span> </span>
 <span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mass_range))<span class="sc">+</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="05-dplyr_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1749,18 +1931,18 @@ Important
 <p>To convert a character or numeric column to class factor, you can use any function from the <code>forcats</code> package. They will convert to class factor and then also perform or allow certain ordering of the levels - for example using <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">forcats::fct_relevel()</a></code> lets you manually specify the level order.</p>
 <p>The function <code>as_factor()</code> simply converts the class without any further capabilities.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">as_factor</span>(mass_range))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">as_factor</span>(mass_range))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>mass_range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>mass_range)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "mid penguin"   "smol penguin"  "chonk penguin"</code></pre>
 </div>
 </div>
 <p>Below we use <code>mutate()</code> and <code>as_factor()</code> to convert the column flipper_range from class character to class factor.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># Correct the code in your script with this version</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># Correct the code in your script with this version</span></span>
 <span id="cb49-2"><a href="#cb49-2"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
 <span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">fct_relevel</span>(mass_range, </span>
 <span id="cb49-4"><a href="#cb49-4"></a>                                  <span class="st">"smol penguin"</span>, </span>
@@ -1768,17 +1950,17 @@ Important
 <span id="cb49-6"><a href="#cb49-6"></a>                                  <span class="st">"chonk penguin"</span>)</span>
 <span id="cb49-7"><a href="#cb49-7"></a>         )</span>
 <span id="cb49-8"><a href="#cb49-8"></a></span>
-<span id="cb49-9"><a href="#cb49-9"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>mass_range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-9"><a href="#cb49-9"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>mass_range)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "smol penguin"  "mid penguin"   "chonk penguin"</code></pre>
 </div>
 </div>
 <p>Now when we call a plot, we can see that the x axis categories match the intrinsic order we have specified with our factor levels.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>penguins <span class="sc">|&gt;</span> </span>
 <span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">drop_na</span>(mass_range) <span class="sc">|&gt;</span>  </span>
 <span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mass_range))<span class="sc">+</span></span>
-<span id="cb51-4"><a href="#cb51-4"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-4"><a href="#cb51-4"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="05-dplyr_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1797,96 +1979,128 @@ Factors will also be important when we build linear models a bit later. The refe
 <span class="header-section-number">2.6</span> Summary</h2>
 <p>In this chapter we have successfully imported and checked our data for typos and small errors, we have also been introduce to some of the key functions in the <code>dplyr</code> package for data wrangling. Now that we have confidence in the format and integrity of our data, next time we will start to make insights and understand patterns.</p>
 <section id="sec-save-script" class="level3" data-number="2.6.1"><h3 data-number="2.6.1" class="anchored" data-anchor-id="sec-save-script">
-<span class="header-section-number">2.6.1</span> Save scripts</h3>
+<span class="header-section-number">2.6.1</span> Save scripts &amp; data</h3>
 <ul>
-<li>Make sure you have <strong>saved your script 💾</strong> and given it the filename <code>01_import_penguins_data.R</code> it should be saved in your <strong>scripts folder</strong>
-</li>
+<li>Having produced a handy cleaned penguins dataset, we could choose to save it - this will reduce computation in the future as we have a tidied dataset we can work with directly. To do this we can use the <code><a href="https://readr.tidyverse.org/reference/write_delim.html">readr::write_csv()</a></code> function:</li>
 </ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># Write our cleaned dataframe to the processed data subfolder</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="fu">write_csv</span>(penguins,</span>
+<span id="cb52-3"><a href="#cb52-3"></a>          <span class="st">"data/processed/penguins_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Make sure you have <strong>saved your script 💾</strong> and given it the filename <code>01_import_penguins_data.R</code> it should be saved in your <strong>scripts folder</strong>.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Organised scripts
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Don’t just check the content of your script is the same as the example below. Check that layouts are clear and comments have been included.</p>
+</div>
+</div>
+</div>
 <div class="webex-solution">
 <button>
 Check your script
 </button>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co">#___________________________----</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a><span class="co"># SET UP ----</span></span>
-<span id="cb52-3"><a href="#cb52-3"></a><span class="do">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
-<span id="cb52-4"><a href="#cb52-4"></a></span>
-<span id="cb52-5"><a href="#cb52-5"></a><span class="do">### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----</span></span>
-<span id="cb52-6"><a href="#cb52-6"></a><span class="co">#__________________________----</span></span>
-<span id="cb52-7"><a href="#cb52-7"></a></span>
-<span id="cb52-8"><a href="#cb52-8"></a><span class="co"># PACKAGES ----</span></span>
-<span id="cb52-9"><a href="#cb52-9"></a><span class="fu">library</span>(tidyverse) <span class="co"># tidy data packages</span></span>
-<span id="cb52-10"><a href="#cb52-10"></a><span class="fu">library</span>(janitor) <span class="co"># cleans variable names</span></span>
-<span id="cb52-11"><a href="#cb52-11"></a><span class="co">#__________________________----</span></span>
-<span id="cb52-12"><a href="#cb52-12"></a><span class="co"># IMPORT DATA ----</span></span>
-<span id="cb52-13"><a href="#cb52-13"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"data/penguins_raw.csv"</span>)</span>
-<span id="cb52-14"><a href="#cb52-14"></a></span>
-<span id="cb52-15"><a href="#cb52-15"></a><span class="fu">attributes</span>(penguins_raw) <span class="co"># reads as tibble</span></span>
-<span id="cb52-16"><a href="#cb52-16"></a></span>
-<span id="cb52-17"><a href="#cb52-17"></a><span class="fu">head</span>(penguins_raw) <span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span>
-<span id="cb52-18"><a href="#cb52-18"></a></span>
-<span id="cb52-19"><a href="#cb52-19"></a><span class="co"># CLEAN DATA ----</span></span>
-<span id="cb52-20"><a href="#cb52-20"></a></span>
-<span id="cb52-21"><a href="#cb52-21"></a><span class="co"># clean all variable names to snake_case </span></span>
-<span id="cb52-22"><a href="#cb52-22"></a><span class="co"># using the clean_names function from the janitor package</span></span>
-<span id="cb52-23"><a href="#cb52-23"></a><span class="co"># note we are using assign &lt;- </span></span>
-<span id="cb52-24"><a href="#cb52-24"></a><span class="co"># to overwrite the old version of penguins </span></span>
-<span id="cb52-25"><a href="#cb52-25"></a><span class="co"># with a version that has updated names</span></span>
-<span id="cb52-26"><a href="#cb52-26"></a><span class="co"># this changes the data in our R workspace </span></span>
-<span id="cb52-27"><a href="#cb52-27"></a><span class="co"># but NOT the original csv file</span></span>
-<span id="cb52-28"><a href="#cb52-28"></a></span>
-<span id="cb52-29"><a href="#cb52-29"></a><span class="co"># clean the column names</span></span>
-<span id="cb52-30"><a href="#cb52-30"></a><span class="co"># assign to new R object</span></span>
-<span id="cb52-31"><a href="#cb52-31"></a>penguins_clean <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(penguins_raw) </span>
-<span id="cb52-32"><a href="#cb52-32"></a></span>
-<span id="cb52-33"><a href="#cb52-33"></a><span class="co"># quickly check the new variable names</span></span>
-<span id="cb52-34"><a href="#cb52-34"></a><span class="fu">colnames</span>(penguins_clean) </span>
-<span id="cb52-35"><a href="#cb52-35"></a></span>
-<span id="cb52-36"><a href="#cb52-36"></a><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
-<span id="cb52-37"><a href="#cb52-37"></a></span>
-<span id="cb52-38"><a href="#cb52-38"></a>penguins <span class="ot">&lt;-</span> <span class="fu">rename</span>(penguins_clean,</span>
-<span id="cb52-39"><a href="#cb52-39"></a>         <span class="st">"delta_15n"</span><span class="ot">=</span><span class="st">"delta_15_n_o_oo"</span>,  <span class="co"># use rename from the dplyr package</span></span>
-<span id="cb52-40"><a href="#cb52-40"></a>         <span class="st">"delta_13c"</span><span class="ot">=</span><span class="st">"delta_13_c_o_oo"</span>)</span>
-<span id="cb52-41"><a href="#cb52-41"></a></span>
-<span id="cb52-42"><a href="#cb52-42"></a><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
-<span id="cb52-43"><a href="#cb52-43"></a>penguins <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span> </span>
-<span id="cb52-44"><a href="#cb52-44"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">case_when</span>(species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="sc">~</span> <span class="st">"Adelie"</span>,</span>
-<span id="cb52-45"><a href="#cb52-45"></a>                             species <span class="sc">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="sc">~</span> <span class="st">"Gentoo"</span>,</span>
-<span id="cb52-46"><a href="#cb52-46"></a>                             species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="sc">~</span> <span class="st">"Chinstrap"</span>))</span>
-<span id="cb52-47"><a href="#cb52-47"></a></span>
-<span id="cb52-48"><a href="#cb52-48"></a><span class="co"># use mutate and if_else</span></span>
-<span id="cb52-49"><a href="#cb52-49"></a><span class="co"># for a statement that conditionally changes </span></span>
-<span id="cb52-50"><a href="#cb52-50"></a><span class="co"># the names of the values in a variable</span></span>
-<span id="cb52-51"><a href="#cb52-51"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb52-52"><a href="#cb52-52"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">if_else</span>(</span>
-<span id="cb52-53"><a href="#cb52-53"></a>    sex <span class="sc">==</span> <span class="st">"MALE"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span></span>
-<span id="cb52-54"><a href="#cb52-54"></a>  )</span>
-<span id="cb52-55"><a href="#cb52-55"></a>  )</span>
-<span id="cb52-56"><a href="#cb52-56"></a></span>
-<span id="cb52-57"><a href="#cb52-57"></a><span class="co"># use lubridate to format date and extract the year</span></span>
-<span id="cb52-58"><a href="#cb52-58"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb52-59"><a href="#cb52-59"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span>
-<span id="cb52-60"><a href="#cb52-60"></a></span>
-<span id="cb52-61"><a href="#cb52-61"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb52-62"><a href="#cb52-62"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span>
-<span id="cb52-63"><a href="#cb52-63"></a></span>
-<span id="cb52-64"><a href="#cb52-64"></a><span class="co"># Set body mass ranges</span></span>
-<span id="cb52-65"><a href="#cb52-65"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb52-66"><a href="#cb52-66"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">case_when</span>(</span>
-<span id="cb52-67"><a href="#cb52-67"></a>    body_mass_g <span class="sc">&lt;=</span> <span class="dv">3500</span> <span class="sc">~</span> <span class="st">"smol penguin"</span>,</span>
-<span id="cb52-68"><a href="#cb52-68"></a>    body_mass_g <span class="sc">&gt;</span><span class="dv">3500</span> <span class="sc">&amp;</span> body_mass_g <span class="sc">&lt;</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"mid penguin"</span>,</span>
-<span id="cb52-69"><a href="#cb52-69"></a>    body_mass_g <span class="sc">&gt;=</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"chonk penguin"</span>,</span>
-<span id="cb52-70"><a href="#cb52-70"></a>    <span class="at">.default =</span> <span class="cn">NA</span>)</span>
-<span id="cb52-71"><a href="#cb52-71"></a>  )</span>
-<span id="cb52-72"><a href="#cb52-72"></a></span>
-<span id="cb52-73"><a href="#cb52-73"></a><span class="co"># Assign these to an ordered factor</span></span>
-<span id="cb52-74"><a href="#cb52-74"></a></span>
-<span id="cb52-75"><a href="#cb52-75"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb52-76"><a href="#cb52-76"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">fct_relevel</span>(mass_range, </span>
-<span id="cb52-77"><a href="#cb52-77"></a>                                  <span class="st">"smol penguin"</span>, </span>
-<span id="cb52-78"><a href="#cb52-78"></a>                                  <span class="st">"mid penguin"</span>, </span>
-<span id="cb52-79"><a href="#cb52-79"></a>                                  <span class="st">"chonk penguin"</span>)</span>
-<span id="cb52-80"><a href="#cb52-80"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># ___________________________----</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="co"># SET UP ----</span></span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="do">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
+<span id="cb53-4"><a href="#cb53-4"></a></span>
+<span id="cb53-5"><a href="#cb53-5"></a><span class="do">### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----</span></span>
+<span id="cb53-6"><a href="#cb53-6"></a><span class="co"># __________________________----</span></span>
+<span id="cb53-7"><a href="#cb53-7"></a></span>
+<span id="cb53-8"><a href="#cb53-8"></a><span class="co"># PACKAGES ----</span></span>
+<span id="cb53-9"><a href="#cb53-9"></a><span class="fu">library</span>(tidyverse) <span class="co"># tidy data packages</span></span>
+<span id="cb53-10"><a href="#cb53-10"></a><span class="fu">library</span>(janitor) <span class="co"># cleans variable names</span></span>
+<span id="cb53-11"><a href="#cb53-11"></a><span class="co"># __________________________----</span></span>
+<span id="cb53-12"><a href="#cb53-12"></a><span class="co"># IMPORT DATA ----</span></span>
+<span id="cb53-13"><a href="#cb53-13"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/penguins_raw.csv"</span>)</span>
+<span id="cb53-14"><a href="#cb53-14"></a></span>
+<span id="cb53-15"><a href="#cb53-15"></a><span class="fu">attributes</span>(penguins_raw) <span class="co"># reads as tibble</span></span>
+<span id="cb53-16"><a href="#cb53-16"></a></span>
+<span id="cb53-17"><a href="#cb53-17"></a>penguins_raw <span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span>
+<span id="cb53-18"><a href="#cb53-18"></a></span>
+<span id="cb53-19"><a href="#cb53-19"></a><span class="co"># CLEAN DATA ----</span></span>
+<span id="cb53-20"><a href="#cb53-20"></a></span>
+<span id="cb53-21"><a href="#cb53-21"></a><span class="co"># clean all variable names to snake_case</span></span>
+<span id="cb53-22"><a href="#cb53-22"></a><span class="co"># using the clean_names function from the janitor package</span></span>
+<span id="cb53-23"><a href="#cb53-23"></a><span class="co"># note we are using assign &lt;-</span></span>
+<span id="cb53-24"><a href="#cb53-24"></a><span class="co"># to overwrite the old version of penguins</span></span>
+<span id="cb53-25"><a href="#cb53-25"></a><span class="co"># with a version that has updated names</span></span>
+<span id="cb53-26"><a href="#cb53-26"></a><span class="co"># this changes the data in our R workspace</span></span>
+<span id="cb53-27"><a href="#cb53-27"></a><span class="co"># but NOT the original csv file</span></span>
+<span id="cb53-28"><a href="#cb53-28"></a></span>
+<span id="cb53-29"><a href="#cb53-29"></a><span class="co"># clean the column names</span></span>
+<span id="cb53-30"><a href="#cb53-30"></a><span class="co"># assign to new R object</span></span>
+<span id="cb53-31"><a href="#cb53-31"></a>penguins_clean <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(penguins_raw)</span>
+<span id="cb53-32"><a href="#cb53-32"></a></span>
+<span id="cb53-33"><a href="#cb53-33"></a><span class="co"># quickly check the new variable names</span></span>
+<span id="cb53-34"><a href="#cb53-34"></a><span class="fu">colnames</span>(penguins_clean)</span>
+<span id="cb53-35"><a href="#cb53-35"></a></span>
+<span id="cb53-36"><a href="#cb53-36"></a><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
+<span id="cb53-37"><a href="#cb53-37"></a></span>
+<span id="cb53-38"><a href="#cb53-38"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">rename</span>(penguins_clean,</span>
+<span id="cb53-39"><a href="#cb53-39"></a>  <span class="st">"delta_15n"</span> <span class="ot">=</span> <span class="st">"delta_15_n_o_oo"</span>, <span class="co"># use rename from the dplyr package</span></span>
+<span id="cb53-40"><a href="#cb53-40"></a>  <span class="st">"delta_13c"</span> <span class="ot">=</span> <span class="st">"delta_13_c_o_oo"</span></span>
+<span id="cb53-41"><a href="#cb53-41"></a>)</span>
+<span id="cb53-42"><a href="#cb53-42"></a></span>
+<span id="cb53-43"><a href="#cb53-43"></a><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
+<span id="cb53-44"><a href="#cb53-44"></a>penguins <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span></span>
+<span id="cb53-45"><a href="#cb53-45"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-46"><a href="#cb53-46"></a>    species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="sc">~</span> <span class="st">"Adelie"</span>,</span>
+<span id="cb53-47"><a href="#cb53-47"></a>    species <span class="sc">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="sc">~</span> <span class="st">"Gentoo"</span>,</span>
+<span id="cb53-48"><a href="#cb53-48"></a>    species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="sc">~</span> <span class="st">"Chinstrap"</span></span>
+<span id="cb53-49"><a href="#cb53-49"></a>  ))</span>
+<span id="cb53-50"><a href="#cb53-50"></a></span>
+<span id="cb53-51"><a href="#cb53-51"></a><span class="co"># use mutate and if_else</span></span>
+<span id="cb53-52"><a href="#cb53-52"></a><span class="co"># for a statement that conditionally changes</span></span>
+<span id="cb53-53"><a href="#cb53-53"></a><span class="co"># the names of the values in a variable</span></span>
+<span id="cb53-54"><a href="#cb53-54"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-55"><a href="#cb53-55"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">if_else</span>(</span>
+<span id="cb53-56"><a href="#cb53-56"></a>    sex <span class="sc">==</span> <span class="st">"MALE"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span></span>
+<span id="cb53-57"><a href="#cb53-57"></a>  ))</span>
+<span id="cb53-58"><a href="#cb53-58"></a></span>
+<span id="cb53-59"><a href="#cb53-59"></a><span class="co"># use lubridate to format date and extract the year</span></span>
+<span id="cb53-60"><a href="#cb53-60"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-61"><a href="#cb53-61"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span>
+<span id="cb53-62"><a href="#cb53-62"></a></span>
+<span id="cb53-63"><a href="#cb53-63"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-64"><a href="#cb53-64"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span>
+<span id="cb53-65"><a href="#cb53-65"></a></span>
+<span id="cb53-66"><a href="#cb53-66"></a><span class="co"># Set body mass ranges</span></span>
+<span id="cb53-67"><a href="#cb53-67"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-68"><a href="#cb53-68"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-69"><a href="#cb53-69"></a>    body_mass_g <span class="sc">&lt;=</span> <span class="dv">3500</span> <span class="sc">~</span> <span class="st">"smol penguin"</span>,</span>
+<span id="cb53-70"><a href="#cb53-70"></a>    body_mass_g <span class="sc">&gt;</span> <span class="dv">3500</span> <span class="sc">&amp;</span> body_mass_g <span class="sc">&lt;</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"mid penguin"</span>,</span>
+<span id="cb53-71"><a href="#cb53-71"></a>    body_mass_g <span class="sc">&gt;=</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"chonk penguin"</span>,</span>
+<span id="cb53-72"><a href="#cb53-72"></a>    <span class="at">.default =</span> <span class="cn">NA</span></span>
+<span id="cb53-73"><a href="#cb53-73"></a>  ))</span>
+<span id="cb53-74"><a href="#cb53-74"></a></span>
+<span id="cb53-75"><a href="#cb53-75"></a><span class="co"># Assign these to an ordered factor</span></span>
+<span id="cb53-76"><a href="#cb53-76"></a></span>
+<span id="cb53-77"><a href="#cb53-77"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-78"><a href="#cb53-78"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">fct_relevel</span>(</span>
+<span id="cb53-79"><a href="#cb53-79"></a>    mass_range,</span>
+<span id="cb53-80"><a href="#cb53-80"></a>    <span class="st">"smol penguin"</span>,</span>
+<span id="cb53-81"><a href="#cb53-81"></a>    <span class="st">"mid penguin"</span>,</span>
+<span id="cb53-82"><a href="#cb53-82"></a>    <span class="st">"chonk penguin"</span></span>
+<span id="cb53-83"><a href="#cb53-83"></a>  ))</span>
+<span id="cb53-84"><a href="#cb53-84"></a></span>
+<span id="cb53-85"><a href="#cb53-85"></a><span class="co"># Write our cleaned dataframe to the processed data subfolder</span></span>
+<span id="cb53-86"><a href="#cb53-86"></a><span class="fu">write_csv</span>(</span>
+<span id="cb53-87"><a href="#cb53-87"></a>  penguins,</span>
+<span id="cb53-88"><a href="#cb53-88"></a>  <span class="st">"data/processed/penguins_clean.csv"</span></span>
+<span id="cb53-89"><a href="#cb53-89"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -1909,8 +2123,35 @@ Check your script
 </div>
 </div>
 <ul>
-<li>Does your script run from a <a class="glossary">blank slate<span class="def">R projects are set not to store their .Rhistory file, which means everything required to recreate your analysis is contained in your scripts.</span></a> without errors as described in {#sec-workflow}</li>
-</ul></section><section id="checklist-for-data-checking" class="level3" data-number="2.6.2"><h3 data-number="2.6.2" class="anchored" data-anchor-id="checklist-for-data-checking">
+<li>Does your script run from a <a class="glossary">blank slate<span class="def">R projects are set not to store their .Rhistory file, which means everything required to recreate your analysis is contained in your scripts.</span></a> without errors as described in <a href="projects.html" class="quarto-xref"><span>Appendix B</span></a>
+</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Check your script runs without error
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The best way to make sure your script contains no errors is to run it! - <strong>First</strong> restart R and make sure that your <em>Environment</em> is empty</p>
+<ul>
+<li>Then in your <strong>console</strong> type the following command</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">source</span>(<span class="st">"scripts/01_import_penguins_data.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Check your console for errors</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="checklist-for-data-checking" class="level3" data-number="2.6.2"><h3 data-number="2.6.2" class="anchored" data-anchor-id="checklist-for-data-checking">
 <span class="header-section-number">2.6.2</span> Checklist for data checking</h3>
 <ul>
 <li><p>Is our dataframe in a <a class="glossary">tidy data<span class="def">Tidy data refers to a specific format for organizing datasets that makes data easier to work with for analysis and visualization in R, especially using the tidyverse. The concept was popularized by Hadley Wickham in his paper “Tidy Data” and is an essential principle for effective data manipulation.</span></a> format?</p></li>
@@ -1924,6 +2165,7 @@ Check your script
 <li><p>Are variables consistently named (e.g.&nbsp;using a naming convention such as snake_case)?</p></li>
 <li><p>Are text values in an appropriate format?</p></li>
 <li><p>Do we have any data duplication?</p></li>
+<li><p>Do we have any missing data?</p></li>
 <li><p>Are there any typos or mistakes in character strings?</p></li>
 </ul></section></section><section id="activity-test-yourself" class="level2" data-number="2.7"><h2 data-number="2.7" class="anchored" data-anchor-id="activity-test-yourself">
 <span class="header-section-number">2.7</span> Activity: Test yourself</h2>
@@ -1947,8 +2189,8 @@ Check your script
 <option value="">%in%</option></select></p>
 <p><strong>Question 5.</strong> What will be the outcome of the following line of code?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>penguins <span class="sc">|&gt;</span> </span>
-<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><select class="webex-select"><option value="blank"></option>
 <option value="">The penguins dataframe object is reduced to include only Adelie penguins from now on</option>
@@ -1959,8 +2201,8 @@ Explain this answer
 </button>
 <p>Unless the output of a series of functions is “assigned” to an object using <code>&lt;-</code> it will not be saved, the results will be immediately printed. This code would have to be modified to the below in order to create a new filtered object <code>penguins_filtered</code></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
-<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>penguins_filtered <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p><br></p>
@@ -1994,7 +2236,7 @@ Explain this answer
 <span class="header-section-number">2.8</span> Glossary</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table caption-top table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
@@ -2266,383 +2508,256 @@ function move_sidebar() {
 move_sidebar();
 window.onresize = move_sidebar;
 </script><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
       return false;
     }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2650,192 +2765,168 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./04-penguin-project.html" class="pagination-link" aria-label="Meet the Penguins">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./06-data-bias.html" class="pagination-link" aria-label="Data bias">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data bias</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary-table.html" class="pagination-link" aria-label="Summary tables">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary tables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -2845,7 +2936,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CC-BY (2024) Philip Leftwich</p>
+<p>CC-BY (2025) Philip Leftwich</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

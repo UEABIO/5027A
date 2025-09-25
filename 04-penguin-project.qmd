@@ -48,8 +48,9 @@ Before we can begin working with the data, we need to do some set-up.
 
 * Create the following folders using the + New Folder button in the Files tab
 
-  * data
-  * outputs
+  * data/raw
+  * data/processed
+  * results
   * scripts
   
 
@@ -60,22 +61,34 @@ R is case-sensitive so type everything EXACTLY as printed here
 
 ```{r, eval = F}
 
-dir.create("data",
-           showWarnings = FALSE)
+dir.create("data/raw",
+           recursive = TRUE)
 
-dir.create("outputs",
-           showWarnings = FALSE)
+dir.create("data/processed",
+           recursive = TRUE)
 
-dir.create("scripts",
-           showWarnings = FALSE)
+dir.create("results")
 
-# or this can be run using apply
-lapply(c("data", "outputs", "scripts"), function(dir_name) {
-  dir.create(dir_name, showWarnings = FALSE)
-})
+dir.create("scripts")
+
+```
+
+
+:::{.callout-info collapse = "true"}
+# Check your directory structure
+```
+my_project.RProj/
+    |- data/
+    |   |- raw/
+    |       |- penguins_raw.csv
+    |   |- processed/
+    |- scripts/
+    |- results/
 
 
 ```
+:::
+
 
 Having these separate subfolders within our project helps keep things tidy, means it's harder to lose things, and lets you easily tell R exactly where to go to retrieve data.  
 
@@ -84,6 +97,8 @@ The next step of our workflow is to have a well organised project space. RStudio
 We will define a project as a series of linked questions that uses one (or sometimes several) datasets. For example a coursework assignment for a particular module would be its own project, a series of linked experiments or particular research project might be its own project.
 
 A Project will contain several files, possibly organised into sub-folders containing data, R scripts and final outputs. You might want to keep any information (wider reading) you have gathered that is relevant to your project.
+
+Check out @sec-workflow for more information on filepaths and data management.
 
 ```{r, eval=TRUE, echo=FALSE, out.width="80%", fig.cap = "An example of a typical R project set-up"}
 knitr::include_graphics("images/project.png")
@@ -137,16 +152,6 @@ knitr::include_graphics("images/upload.png")
 ```
 
 
-### Read data from a url
-
-It is also possible to use a url as a filepath
-
-```{r, eval = F}
-url <- "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv"
-read_csv(url)
-
-```
-
 ## Activity 4: Make a script
 
 Let's now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures. Use the `File > New Script` menu item and select an R Script. 
@@ -169,18 +174,32 @@ Add the following:
 
 ```
 
-Then load the following add-on package to the R script, just underneath these comments. Tidyverse isn't actually one package, but a bundle of many different packages that play well together - for example it *includes* `ggplot2` a package for making figures.
+:::{.callout-tip collapse = "true"}
+# Organising a script
+
+Why do we need scripts to be organised?
+
+Scripts are a human readable record of our analysis - we need them to be organised, consistent, and well-documented. See @sec-scripts for general tips on how to do this. 
+
+Well organised scripts are useful in that provide a reference for what you did - think of them as the analysis equivalent of a lab notebook. The more detail provided in the form of comments, the more context we have. The more organised they are, the easier it is to find the sections we need to review. Just like a lab notebook they should be written as though someone else will be reading them. 
+
+:::
+
+Next load the following add-on package to the R script, just underneath these comments. Tidyverse isn't actually one package, but a bundle of many different packages that play well together - for example it *includes* `ggplot2` a package for making figures (@R-tidyverse).
 
 Add the following to your script:
+
+> Note you may need to run `install.packages()` to download and set up packages the first time you make a new project.
 
 ```{r, eval = F}
 # PACKAGES ----
 library(tidyverse) # tidy data packages
+library(here) # organised file paths
 library(janitor) # cleans variable names
 #__________________________----
 ```
 
-Save this file inside the scripts folder and call it `01_import_penguins_data.R`
+Save this file inside the **scripts** folder and call it `01_import_penguins_data.R`
 
 ```{block, type = "try"}
 Click on the document outline button (top right of script pane). This will show you how the use of the visual outline
@@ -191,33 +210,31 @@ Allows us to build a series of headers and subheaders, this is very useful when 
 
 ## Activity 5: Read in data
 
-Now we can read in the data. To do this we will use the function `readr::read_csv()` that allows us to read in .csv files. There are also functions that allow you to read in .xlsx files and other formats, however in this course we will only use .csv files.
+Now we can read in the data. To do this we will use the function `readr::read_csv()` that allows us to read in .csv files. There are also functions that allow you to read in .xlsx files and other formats like .json, however in this course we will only use .csv files.
 
-* First, we will create an object called `penguins_data` that contains the data in the `penguins_raw.csv` file. 
+We are also using `here::here()`, @R-here. The here package helps you load and save files in your project without worrying about changing your working directory, by always starting from the project’s main folder. 
+
+* First, we will create an object called `penguins_raw` that contains the data in the `penguins_raw.csv` file. 
 
 * Add the following to your script, and check the document outline:
 
 
-
 ```{r, eval = F}
 # IMPORT DATA ----
-penguins_raw <- read_csv ("data/penguins_raw.csv")
 
-# penguins_raw <- read_csv(here("data", "penguins_raw.csv"))
+penguins_raw <- read_csv(here("data", "raw", "penguins_raw.csv"))
 
 # check the data has loaded
-head(penguins_raw)
+penguins_raw
 #__________________________----
 ```
 
 ```{r, echo = FALSE}
 
 # check the data has loaded
-head(penguins_raw)
+penguins_raw
 
 ```
-
-
 
 
 ```{block, type = "danger"}
@@ -245,19 +262,16 @@ Note the differences between `read.csv()` and `read_csv`. We covered this in dif
 #__________________________----
 
 # PACKAGES ----
-# tidy data packages
-library(tidyverse) 
-# cleans variable names
-library(janitor) 
-# make sure dates are processed properly
-library(lubridate) 
+library(tidyverse) # tidy data packages
+library(here) # organised file paths
+library(janitor) # cleans variable names
 #__________________________----
 
 # IMPORT DATA ----
-penguins_raw <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv(here("data", "raw", "penguins_raw.csv"))
 
 # check the data has loaded, prints first 10 rows of dataframe
-head(penguins_raw) 
+penguins_raw
 #__________________________----
 
 ```

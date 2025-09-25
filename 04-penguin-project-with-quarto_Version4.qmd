@@ -1,0 +1,381 @@
+
+# Meet the Penguins {#sec-penguins}
+
+## In-class assignment
+
+```{r, include = FALSE}
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(here)
+penguins_raw <- read_csv(here("files", "penguins_raw.csv"))
+```
+
+
+## Session plan and goals
+
+Work in pairs where possible; prioritise running code from a clean R session.
+
+- 0–10 min: Preflight (project structure)
+- 10–30 min: Task 1 — Create ONE canonical import script and save a reusable dataset
+- 30–45 min: Task 2 — Create an analysis script that reuses the saved dataset
+- 45–65 min: Task 3 — Create a Quarto report that reuses the saved dataset
+- 65–80 min: Task 4 — Debugging drills (paths, objects, columns, hidden state)
+- 80–95 min: Task 5 — Extend analysis and export a summary
+- 95–115 min: Responsible AI — warnings, vibe coding, prompting, reflection
+- 115–120 min: Wrap-up checklist
+
+Deliverables today:
+- scripts/00_import_penguins.R creates data/processed/penguins_clean.rds and .csv
+- scripts/01_penguins_analysis.R loads the processed data and runs
+- 04_penguin_report.qmd renders using the processed data (or sources 00_import_penguins.R)
+
+Success criteria:
+- After Session > Restart R, analysis script and report run end-to-end without setwd() or manual Console objects.
+- Summary CSV written to data/processed and verified with file.exists().
+
+Note: Quarto background is adapted from [quarto.qmd](https://github.com/UEABIO/5027A/blob/main/quarto.qmd).
+
+# Quarto background (brief)
+
+Quarto combines narrative text (Markdown), code (R/Python/etc.), and results in one reproducible file (.qmd). Rendering runs code top-to-bottom in a fresh R session, so your file must include every library, import, and object creation it uses.
+
+Create a doc in RStudio: File > New File > Quarto Document (title/author/output can be changed in YAML).
+
+Three parts:
+- YAML (between --- at top)
+- Markdown text
+- Code chunks, e.g.:
+
+````
+
+```{r}`r ''`
+# Import our data
+data <- read_csv("data.csv")
+```
+
+````
+
+
+Useful chunk options: echo, eval, warning, message, fig-width/height, out-width, fig-align. You can set defaults in YAML (execute: …) and override per-chunk with hash pipe lines:
+
+
+
+Paths: Prefer here::here() for robust project-root-relative paths across scripts and .qmd.
+
+Common knit issues: object not found (dependence on Console), file not found (bad paths), duplicate chunk labels, typos/missing punctuation.
+
+Micro-task:
+- Do: Add to YAML:
+  ```
+  format:
+    html:
+      toc: true
+      code-overflow: wrap
+  ```
+  Check: Re-render and confirm TOC and wrapping.
+
+# Preflight (5–10 min)
+
+Ensure directories exist:
+
+```{r, eval = FALSE}
+dir.create(here::here("data","raw"),       recursive = TRUE, showWarnings = FALSE)
+dir.create(here::here("data","processed"), recursive = TRUE, showWarnings = FALSE)
+dir.create(here::here("scripts"),          recursive = TRUE, showWarnings = FALSE)
+dir.create(here::here("results"),          recursive = TRUE, showWarnings = FALSE)
+
+cat("Project root:", here::here(), "\n")
+```
+
+
+Callout:
+- R is case-sensitive. Paths must match exactly.
+- Predict: What does here::here("data","raw","penguins_raw.csv") resolve to on your machine?
+
+# Task 1 — ONE canonical import script (20 min)
+
+Goal: Keep all import + minimal cleaning in ONE place. Save a reusable dataset to data/processed. All other scripts and .qmd files will load the saved data (or source this script).
+
+1) Create: scripts/00_import_penguins.R
+2) Add and run:
+
+```{r, eval = FALSE}
+# Title: Canonical import for penguins
+# Purpose: Import raw data and save a cleaned dataset for reuse.
+# Author: <Your Name> | Date: <Today>
+
+# Packages ----
+library(tidyverse)
+library(here)
+library(readr)
+library(janitor)
+
+# Import raw ----
+raw_path <- here::here("data","raw","penguins_raw.csv")
+
+# If you don't have the raw file yet, run ONCE to create from palmerpenguins:
+# install.packages(c("palmerpenguins","janitor"))
+# readr::write_csv(
+#   janitor::clean_names(palmerpenguins::penguins_raw),
+#   here::here("data","raw","penguins_raw.csv")
+# )
+
+stopifnot(file.exists(raw_path))
+penguins_raw <- readr::read_csv(raw_path, show_col_types = FALSE)
+
+# Minimal clean ----
+penguins_clean <- penguins_raw |>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    culmen_ratio = culmen_length_mm / culmen_depth_mm
+  )
+
+# Save reusable dataset ----
+processed_csv <- here::here("data","processed","penguins_clean.csv")
+processed_rds <- here::here("data","processed","penguins_clean.rds")
+readr::write_csv(penguins_clean, processed_csv)
+saveRDS(penguins_clean, processed_rds)
+
+```
+
+3) Do → Check
+- Do: Source the script or run line-by-line.
+- Check: Both penguins_clean.csv and penguins_clean.rds exist in data/processed.
+
+# Task 2 — Analysis script that REUSES the saved data (10–15 min)
+
+Create: scripts/01_penguins_analysis.R
+
+```{r, eval = FALSE}
+# Title: Penguins analysis
+# Purpose: Explore and summarise morphometrics
+# Author: <Your Name> | Date: <Today>
+# ----------------------------- ----
+# Packages ----
+library(tidyverse); library(here); library(readr)
+
+# Data (REUSE the saved dataset) ----
+penguins_clean <- readRDS(here::here("data","processed","penguins_clean.rds"))
+# Alternative:
+# penguins_clean <- readr::read_csv(here::here("data","processed","penguins_clean.csv"))
+
+# Analysis ----
+# Add at least one grouped summary
+
+# Plot ----
+# Add at least one ggplot
+```
+
+
+Do → Check
+- Do: Session > Restart R, then run this script.
+- Check: No setwd(); no object not found; summary/plot appear.
+
+# Task 3 — Quarto report that REUSES the saved data (20 min)
+
+Create at the PROJECT ROOT: 04_penguin_report.qmd
+
+```
+---
+title: "Penguin report"
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+---
+```
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(here)
+library(readr)
+```
+
+## Load saved dataset
+
+```{r, eval = FALSE}
+# Preferred: load the saved dataset created by scripts/00_import_penguins.R
+penguins_clean <- readRDS(here::here("data","processed","penguins_clean.rds"))
+# Alternative:
+# penguins_clean <- readr::read_csv(here::here("data","processed","penguins_clean.csv"))
+```
+
+## Summary
+
+```{r, eval = FALSE}
+penguins_summary <- penguins_clean |>
+  dplyr::select(species, island, culmen_length_mm, culmen_depth_mm, flipper_length_mm, culmen_ratio) |>
+  tidyr::drop_na(culmen_length_mm, culmen_depth_mm, flipper_length_mm) |>
+  dplyr::group_by(species, island) |>
+  dplyr::summarise(
+    mean_flipper_length = mean(flipper_length_mm),
+    mean_culmen_ratio   = mean(culmen_ratio),
+    .groups = "drop"
+  )
+penguins_summary
+```
+
+## Plot
+
+```{r, eval = FALSE}
+library(viridis) # install first if needed
+ggplot(penguins_clean,
+       aes(culmen_length_mm, culmen_depth_mm, color = species, shape = species)) +
+  geom_point(na.rm = TRUE, alpha = 0.8, size = 2.2) +
+  scale_color_viridis_d(option = "D", end = 0.92) +
+  labs(x = "Culmen length (mm)", y = "Culmen depth (mm)",
+       color = "Species", shape = "Species",
+       caption = "Source: palmerpenguins (cleaned)") +
+  theme_minimal(base_size = 12)
+```
+
+
+Quarto micro‑tasks:
+- Change the title and add a figure caption with `#| fig-cap: "Culmen vs depth by species"`.
+- Set `#| echo: false` in the plot chunk to hide code.
+
+Do → Check:
+- Re-render; confirm TOC, table, plot, and caption display; code is hidden in plot chunk.
+
+# Task 4 — Debugging drills (10–15 min)
+
+Fix each and add a short comment on the bug:
+
+```{r, eval = FALSE}
+# A) Path bug
+peng <- readr::read_csv("data\\raw\\penguins_raw.csv")
+
+# B) Object name bug
+penguins_clean <- janitor::clean_names(penguin_raw)
+
+# C) Hidden-state bug
+setwd("/cloud/project/data/raw")
+peng <- readr::read_csv("penguins_raw.csv")
+
+# D) Column bug
+penguins_clean |>
+  dplyr::mutate(culmen_ratio = culmen_length / culmen_depth)
+```
+
+
+# Task 5 — Extend analysis and export (15–20 min)
+
+Finish in scripts/01_penguins_analysis.R:
+
+```{r, eval = FALSE}
+# Summaries ----
+penguins_culmen_ratio <- penguins_clean |>
+  dplyr::group_by(species, island) |>
+  dplyr::summarise(
+    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    mean_culmen_ratio   = mean(culmen_ratio, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Export ----
+readr::write_csv(penguins_culmen_ratio,
+                 here::here("data","processed","penguins_summary.csv"))
+
+file.exists(here::here("data","processed","penguins_summary.csv"))
+```
+
+
+# Responsible AI: warnings, “vibe coding,” and prompting (15–20 min)
+
+Definition — “Vibe coding”:
+- Generating/accepting code because it “looks right,” without understanding or testing.
+- Signs: overly verbose pipelines, unused objects, magic numbers, ignoring warnings/errors, piling tweaks until it runs “by luck.”
+
+Risks to watch:
+- Hallucinations: invented functions/arguments; wrong package names.
+- Out‑of‑date training: advice for old APIs or options.
+- Over‑verbosity: unnecessary mutate/select/filter steps that obscure logic.
+
+How to avoid vibe coding:
+- Ask for minimal diffs: “Propose the smallest change to fix this and explain why it works.”
+- Specify constraints: “R 4.x, tidyverse only, readr IO, no setwd(), use here::here().”
+- Verify against docs: `?function`, help pages, package sites.
+- Test immediately; keep a clean script; avoid adding packages without need.
+
+Prompting tips (R + tidyverse):
+- Provide the smallest reproducible context: error message, a few rows/column names, target outcome.
+- State preferences: “Use dplyr verbs; concise, idiomatic code; no data.table.”
+- Ask to cite function/argument names you can verify in tidyverse docs.
+- Example prompt:
+  - “In R 4.3 with tidyverse: This errors `mutate(culmen_ratio = culmen_length / culmen_depth)`. My columns are `culmen_length_mm`, `culmen_depth_mm`. Propose the smallest fix; no new packages; add one-line NA-safe check.”
+
+Good uses:
+- Debugging typos/arguments quickly
+- Explaining code you don’t recognise
+- Generating comments and section headers
+- Suggesting small, readable refactors
+
+Reflection (add a short comment in your script or .qmd):
+- What did you ask AI? What change did you accept and how did you verify it?
+- Did AI propose anything wrong/outdated? How did you detect and correct it?
+
+# Wrap-up checklist (5 min)
+
+- scripts/00_import_penguins.R saves penguins_clean.rds/csv to data/processed.
+- scripts/01_penguins_analysis.R runs after Restart R, loading the saved dataset (no setwd()).
+- 04_penguin_report.qmd renders and reuses the saved dataset (or sources 00_import_penguins.R).
+- data/processed/penguins_summary.csv exists and `file.exists()` is TRUE.
+- Plot uses color + shape for accessibility.
+- AI usage is documented briefly, including how you verified suggestions.
+
+# Appendix Solutions (collapsed)
+
+Debugging drills — one set of fixes:
+
+```{r, eval = FALSE}
+
+# A) Path bug: prefer here()
+peng <- readr::read_csv(here::here("data","raw","penguins_raw.csv"))
+
+# B) Object name bug: correct object name
+penguins_clean <- janitor::clean_names(penguins_raw)
+
+# C) Hidden-state bug: remove setwd(), use here()
+# setwd("/cloud/project/data/raw")  # REMOVE
+peng <- readr::read_csv(here::here("data","raw","penguins_raw.csv"))
+
+# D) Column bug: use correct column names with _mm
+penguins_clean |>
+  dplyr::mutate(culmen_ratio = culmen_length_mm / culmen_depth_mm)
+
+```
+
+
+Minimal script that runs after Restart R:
+
+```{r, eval = FALSE}
+# Packages ----
+library(tidyverse); library(here); library(readr); library(janitor); library(viridis)
+
+# Data ----
+penguins_clean <- readRDS(here::here("data","processed","penguins_clean.rds"))
+# Alternative:
+# penguins_clean <- readr::read_csv(here::here("data","processed","penguins_clean.csv"))
+
+# Analysis ----
+penguins_culmen_ratio <- penguins_clean |>
+  dplyr::group_by(species, island) |>
+  dplyr::summarise(
+    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    mean_culmen_ratio   = mean(culmen_ratio, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Plot ----
+ggplot(penguins_clean,
+       aes(culmen_length_mm, culmen_depth_mm, color = species, shape = species)) +
+  geom_point(alpha = 0.8, size = 2.2) +
+  scale_color_viridis_d(end = 0.92) +
+  theme_minimal()
+
+# Export ----
+readr::write_csv(penguins_culmen_ratio,
+                 here::here("data","processed","penguins_summary.csv"))
+```
+

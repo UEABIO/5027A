@@ -168,7 +168,15 @@ Keep in mind that  `readr` is a separate package (part of tidyverse), requiring 
 | `read_tsv()`     | TSV (Tab-Separated Values) file format               |
 | `read_delim()`   | User-specified delimited files                       |
 
+### Read data from a url
 
+It is also possible to use a url as a filepath
+
+```{r, eval = F}
+url <- "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv"
+read_csv(url)
+
+```
 
 ## Export
 
@@ -183,9 +191,9 @@ Each of these packages and functions has the inverse "write" function to produce
 
 ## Scripts
 
-To ensure clarity and understanding, begin your script with a brief description of its purpose. This description will serve as a reference point for anyone who accesses your script. Even if you make updates later on, having this initial description will help maintain clarity and context, preventing confusion when revisiting the code in the future.
+To ensure clarity and understanding, **begin your script with a brief description of its purpose**. This description will serve as a reference point for anyone who accesses your script. Even if you make updates later on, having this initial description will help maintain clarity and context, preventing confusion when revisiting the code in the future.
 
-## Organised scripts
+## Organised scripts{#sec-scripts}
 
 Load all necessary packages at the beginning of your script.
 It's common to start with basic packages and then add more specialized libraries as your analysis progresses. However, it's crucial to load all required packages at the beginning of your script. This practice ensures that when you or someone else needs to run the script again, all necessary libraries are readily available, preventing issues in the middle of execution due to unrecognized functions. Small coding details matter.

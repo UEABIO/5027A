@@ -1,6 +1,5 @@
 # Data cleaning {#sec-dplyr}
 
-
 ```{r, echo = F, warning = F, message = F}
 library(tidyverse)
 library(janitor)
@@ -84,6 +83,12 @@ filter(.data = new_penguins,
        `Species` == "Adelie Penguin (Pygoscelis adeliae)")
 
 ```
+
+:::{.callout-tip collapse = "true"}
+# Operator confusion
+Don't confuse "=" which assigns a value with "==" which checks if two things are 'equivalent'. See @sec-operators for more.
+
+:::
 
 We can use several different operators to assess the way in which we should filter our data that work the same in tidyverse or base R.
 
@@ -253,7 +258,7 @@ Re-open your `01_import_penguins_data.R` started in @sec-penguins and start to a
 
 ### Activity 1: Explore data structure
 
-Before working with your data, it's essential to understand its underlying structure and content. In this section, we'll use powerful functions like `glimpse()`, `str()`, `summary()`, `head`()`, `tail()` and the add-on function `skimr::skim()` to thoroughly examine your dataset. These tools provide insights into data types, variable distributions, and sample records, helping you identify initial issues such as missing values or inconsistent data types. By gaining a clear understanding of your data's structure, you'll be better equipped to address any problems and proceed confidently with data cleaning and analysis.
+Before working with your data, it's essential to understand its underlying structure and content. In this section, we'll use powerful functions like `glimpse()`, `str()`, `summary()`, `head()`, `tail()` and the add-on function `skimr::skim()` to thoroughly examine your dataset. These tools provide insights into data types, variable distributions, and sample records, helping you identify initial issues such as missing values or inconsistent data types. By gaining a clear understanding of your data's structure, you'll be better equipped to address any problems and proceed confidently with data cleaning and analysis.
 
 When we run `glimpse()` we get several lines of output. The number of observations "rows", the number of variables "columns". Check this against the csv file you have - they should be the same. In the next lines we see variable names and the type of data. 
 
@@ -300,6 +305,7 @@ Although some columns like date might not be correctly treated as character vari
 
 `r unhide()`
 
+#### Missing Data
 
 **Q Based on our summary functions do we have complete data for all variables?**
 
@@ -311,6 +317,8 @@ Although some columns like date might not be correctly treated as character vari
 No, they are 2 missing data points for body measurements (culmen, flipper, body mass), 11 missing data points for sex, 13/14 missing data points for blood isotopes (Delta N/C) and 290 missing data points for comments
 
 `r unhide()`
+
+Sometimes we want to **remove rows** where values are missing, this will be covered later - for now we just want to be aware of where we do not have complete records.
 
 
 ### Activity 2: Clean column names
@@ -477,7 +485,6 @@ Often these aren't quite how we want them to be, but we can manipulate these as 
 
 Below we repeat the outcomes above, but with string matching: 
 
-
 ```{r, eval = T, warning = F, message = F}
 # use mutate and case_when 
 # for a statement that conditionally changes 
@@ -629,7 +636,6 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 
 * **Question** What is the appropriate function from the above to use on the `date_egg` variable?
 
-
 `r longmcq(c("ymd()", "ydm()", "mdy()", answer="dmy()"))`
 
 
@@ -640,14 +646,13 @@ Depending on how we interpret the date ordering in a file, we can use `ymd()`, `
 
 penguins <- penguins |>
   mutate(date_egg = lubridate::dmy(date_egg))
-
+# Dates have been provided in day/month/year
 ```
 
 `r unhide()`
 
 
 Here we use the `mutate` function from `dplyr` to create a *new variable* called `date_egg_proper` based on the output of converting the characters in `date_egg` to date format. The original variable is left intact, if we had specified the "new" variable was also called `date_egg` then it would have overwritten the original variable. 
-
 
 Once we have established our date data, we are able to perform calculations or extract information. Such as the date range across which our data was collected.  
 
@@ -656,8 +661,14 @@ Once we have established our date data, we are able to perform calculations or e
 ```{r, eval = F}
 penguins |> 
   summarise(min_date=min(date_egg),
-            max_date=max(date_eggr))
+            max_date=max(date_egg))
 ```
+
+:::{.callout-important}
+# Check your outputs
+Check that this code is producing sensible outputs - it will not work if you have skipped making the necessary column for dates `date_egg`
+
+:::
 
 We can also extract and make new columns from our date column - such as a simple column of the year when each observation was made:
 
@@ -672,11 +683,17 @@ penguins <- penguins |>
 
 In R, factors are a class of data that allow for **ordered categories** with a fixed set of acceptable values. 
 
-Typically, you would convert a column from character or numeric class to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later). 
+Typically, you would convert a column from character to a factor if you want to set an intrinsic order to the values (“levels”) so they can be displayed non-alphabetically in plots and tables, or for use in linear model analyses (more on this later). 
+
+:::{.callout-important collapse = "true"}
+# When to apply factors
+Factors provide order to categorical data - you should **not** assign factors to numeric data - the exception might be if you wanted to *bin* data into groups (see below)
+
+:::
 
 Working with factors is easy with the `forcats` package:
 
-Using across - we can apply functions to columns based on selected criteria - here within mutate we are changing each column in the `.cols` argument and applying the function `forcats::as_factor()`
+Using `dplyr::across()` - we can apply functions to columns based on selected criteria - here within mutate we are changing each column in the `.cols` argument and applying the function `forcats::as_factor()`
 
 ```{r}
 
@@ -698,8 +715,9 @@ Unless we assign the output of this code to an R object it will just print into 
 
 ### Setting factor levels
 
-If we want to specify the *correct* order for a factor we can use `forcats::fct_relevel`
+If we want to specify the *correct* order for a factor we can use `forcats::fct_relevel`. 
 
+In this example we have decided to categorise our penguins into groups - "smol", "mid" and "chonk" based on mass (g), first we need to create a new column (mass range).
 
 ```{r, eval = T, warning = F, message = F}
 penguins <- penguins |> 
@@ -773,95 +791,117 @@ Factors will also be important when we build linear models a bit later. The refe
 
 In this chapter we have successfully imported and checked our data for typos and small errors, we have also been introduce to some of the key functions in the `dplyr` package for data wrangling. Now that we have confidence in the format and integrity of our data, next time we will start to make insights and understand patterns. 
 
-### Save scripts {#sec-save-script}
+### Save scripts & data {#sec-save-script}
 
-* Make sure you have **saved your script 💾**  and given it the filename `01_import_penguins_data.R` it should be saved in your **scripts folder**
+* Having produced a handy cleaned penguins dataset, we could choose to save it - this will reduce computation in the future as we have a tidied dataset we can work with directly. To do this we can use the `readr::write_csv()` function:
 
+```{r, eval = FALSE}
+# Write our cleaned dataframe to the processed data subfolder
+write_csv(penguins,
+          "data/processed/penguins_clean.csv")
+```
+
+* Make sure you have **saved your script 💾**  and given it the filename `01_import_penguins_data.R` it should be saved in your **scripts folder**.
+
+
+:::{.callout-important collapse = "true"}
+# Organised scripts
+Don't just check the content of your script is the same as the example below. Check that layouts are clear and comments have been included.
+
+:::
 
 `r hide("Check your script")`
 
 ```{r, eval = F, echo = T, fig.height=6, fig.width=6, out.width = "60%"}
-#___________________________----
+# ___________________________----
 # SET UP ----
 ## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----
 
 ### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----
-#__________________________----
+# __________________________----
 
 # PACKAGES ----
 library(tidyverse) # tidy data packages
 library(janitor) # cleans variable names
-#__________________________----
+# __________________________----
 # IMPORT DATA ----
-penguins_raw <- read_csv ("data/penguins_raw.csv")
+penguins_raw <- read_csv("data/penguins_raw.csv")
 
 attributes(penguins_raw) # reads as tibble
 
-head(penguins_raw) # check the data has loaded, prints first 10 rows of dataframe
+penguins_raw # check the data has loaded, prints first 10 rows of dataframe
 
 # CLEAN DATA ----
 
-# clean all variable names to snake_case 
+# clean all variable names to snake_case
 # using the clean_names function from the janitor package
-# note we are using assign <- 
-# to overwrite the old version of penguins 
+# note we are using assign <-
+# to overwrite the old version of penguins
 # with a version that has updated names
-# this changes the data in our R workspace 
+# this changes the data in our R workspace
 # but NOT the original csv file
 
 # clean the column names
 # assign to new R object
-penguins_clean <- janitor::clean_names(penguins_raw) 
+penguins_clean <- janitor::clean_names(penguins_raw)
 
 # quickly check the new variable names
-colnames(penguins_clean) 
+colnames(penguins_clean)
 
 # shorten the variable names for N and C isotope blood samples
 
-penguins <- rename(penguins_clean,
-         "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
-         "delta_13c"="delta_13_c_o_oo")
+penguins_clean <- rename(penguins_clean,
+  "delta_15n" = "delta_15_n_o_oo", # use rename from the dplyr package
+  "delta_13c" = "delta_13_c_o_oo"
+)
 
 # use mutate and case_when for a statement that conditionally changes the names of the values in a variable
-penguins <- penguins_clean |> 
-  mutate(species = case_when(species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
-                             species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
-                             species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"))
+penguins <- penguins_clean |>
+  mutate(species = case_when(
+    species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap"
+  ))
 
 # use mutate and if_else
-# for a statement that conditionally changes 
+# for a statement that conditionally changes
 # the names of the values in a variable
-penguins <- penguins |> 
+penguins <- penguins |>
   mutate(sex = if_else(
     sex == "MALE", "Male", "Female"
-  )
-  )
+  ))
 
 # use lubridate to format date and extract the year
 penguins <- penguins |>
   mutate(date_egg = lubridate::dmy(date_egg))
 
-penguins <- penguins |> 
+penguins <- penguins |>
   mutate(year = lubridate::year(date_egg))
 
 # Set body mass ranges
-penguins <- penguins |> 
+penguins <- penguins |>
   mutate(mass_range = case_when(
     body_mass_g <= 3500 ~ "smol penguin",
-    body_mass_g >3500 & body_mass_g < 4500 ~ "mid penguin",
+    body_mass_g > 3500 & body_mass_g < 4500 ~ "mid penguin",
     body_mass_g >= 4500 ~ "chonk penguin",
-    .default = NA)
-  )
+    .default = NA
+  ))
 
 # Assign these to an ordered factor
 
-penguins <- penguins |> 
-  mutate(mass_range = fct_relevel(mass_range, 
-                                  "smol penguin", 
-                                  "mid penguin", 
-                                  "chonk penguin")
-         )
+penguins <- penguins |>
+  mutate(mass_range = fct_relevel(
+    mass_range,
+    "smol penguin",
+    "mid penguin",
+    "chonk penguin"
+  ))
 
+# Write our cleaned dataframe to the processed data subfolder
+write_csv(
+  penguins,
+  "data/processed/penguins_clean.csv"
+)
 
 ```
 
@@ -878,7 +918,24 @@ knitr::include_graphics("images/project_penguin.png")
 knitr::include_graphics("images/r_script.png")
 ```
 
-- Does your script run from a `r glossary("blank slate")` without errors as described in {#sec-workflow}
+- Does your script run from a `r glossary("blank slate")` without errors as described in @sec-workflow
+
+:::{.callout-important collapse = "true"}
+
+# Check your script runs without error
+
+The best way to make sure your script contains no errors is to run it!
+ - **First** restart R and make sure that your *Environment* is empty
+
+- Then in your **console** type the following command
+
+```{r, eval = FALSE}
+source("scripts/01_import_penguins_data.R")
+```
+
+- Check your console for errors
+
+:::
 
 ### Checklist for data checking
 
@@ -894,6 +951,8 @@ knitr::include_graphics("images/r_script.png")
 - Are text values in an appropriate format?
 
 - Do we have any data duplication?
+
+- Do we have any missing data?
 
 - Are there any typos or mistakes in character strings?
 
@@ -984,7 +1043,7 @@ colnames(penguins_clean)
 
 # shorten the variable names for N and C isotope blood samples
 
-penguins <- rename(penguins_clean,
+penguins_clean <- rename(penguins_clean,
          "delta_15n"="delta_15_n_o_oo",  # use rename from the dplyr package
          "delta_13c"="delta_13_c_o_oo")
 
