@@ -1,0 +1,17 @@
+{
+  "hash": "c22bcbcf1cacc998f1df70a216e8db0d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Task One - Debugging {#sec-weekone}\n\n\n\n\n\n## Objective: Practice interpreting and fixing common R errors\n\nIt is common when learning a programming language to be tripped up by syntax issues and confusing error messages. This week's task is to start learning to check, read and understand errors! \n\n- Try to read and understand each error message - discuss it with the person sitting next to you, or an instructor\n\n- Fix the error and document it\n\n:::{.callout-tip collapse=\"true\"}\n# Get Help\n\n- First note the intent and the error message\n\n- Read the error carefully\n\n- try typing the error message into Google\n\n- Use ?? in front of functions - `??read_csv` to search for documentation in RStudio\n\n:::\n\n\n- It is tempting to dump code into AI and ask for a fix - **but please hold off** it will benefit you to try and understand it for yourself\n\n![Error](images/Error.jpg)\n\n### Step 1: Download the Scripts\n\n- Access Blackboard → Week 1 → “Debugging Scripts”\n\n- Download the R scripts to your local machine.\n\n### Step 2: Upload to Posit Cloud\n\n\n- Open your script in the penguins project.\n\n- Upload the downloaded scripts into the project.\n\n> Think organised project!\n\n### Step 3: Attempt to Run & Fix Each Analysis\n\n- Open each script.\n\n- Run code as-is to trigger errors.\n\n- Record the exact error message in your notes.\n\n- Attempt to fix the issue independently.\n\n- Discuss errors with the person next to you\n\n### Step 4: AI-Assisted Reflection\n\n**After your own attempt:**\n\nPaste the **error message only** into CoPilot or another approved AI tool.\n\nAsk questions like:\n\n- \"What does this R error mean?\"\n\n- \"How can I fix it?\"\n\n\nCompare AI suggestions with your own solution.\n\n:::{.callout-important}\n\nFocus on understanding the explanation, not just copying fixes.\n\nRefer to the [University Responsible AI guidelines](https://uea-uk.libguides.com/AI) for safe use.\n:::\n\n### Step 5: Reflection Prompts\n\nFor each exercise, write 2–3 sentences:\n\n- Did the AI explanation help you understand the error? How?\n\n- How would you explain this error to a peer?\n\n- If using AI, how did you structure your prompt to get the most helpful guidance without giving away your work?\n\n### Step 6: Submission / Discussion\n\n1. Submit your fixed scripts to Blackboard.\n\n2. Contribute one reflection sentence to the shared AI charter Padlet:\n\n“One way AI helped me learn was…”\n\n“One thing to watch out for when using AI is…”\n\n\n",
+    "supporting": [
+      "weekone_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

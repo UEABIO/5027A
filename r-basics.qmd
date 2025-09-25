@@ -168,7 +168,7 @@ The numbers in the square brackets are not part of the vector itself; they are m
 
 > Note that the : operator is used to create integer sequences
 
-### Operators {sec-operators}
+### Operators {#sec-operators}
 
 There are a few different types of operators to consider in R
 

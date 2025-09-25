@@ -44,7 +44,9 @@ knitr::include_graphics("images/antarctica-map.png")
 
 Before we can begin working with the data, we need to do some set-up. 
 
-* Go to RStudio Cloud and open the `Penguins` R project
+* Go to RStudio Cloud and make a new R Project - from template: 5027A
+
+* Call your project 'Penguins'
 
 * Create the following folders using the + New Folder button in the Files tab
 
@@ -104,7 +106,7 @@ Check out @sec-workflow for more information on filepaths and data management.
 knitr::include_graphics("images/project.png")
 ```
 
-Within this project you will notice there is already one file *.Rproj*. This is an R project file, this is a very useful feature, it interacts with R to tell it you are working in a very specific place on the computer (in this case the cloud server we have dialed into). It means R will automatically treat the location of your project file as the 'working directory' and makes importing and exporting easier. More on projects can be found in the [R4DS]((https://r4ds.had.co.nz/workflow-projects.html) book. 
+Within this project you will notice there is already one file *.Rproj*. This is an R project file, this is a very useful feature, it interacts with R to tell it you are working in a very specific place on the computer (in this case the cloud server we have dialed into). It means R will automatically treat the location of your project file as the 'working directory' and makes importing and exporting easier. More on projects can be found in the [R4DS](https://r4ds.had.co.nz/workflow-projects.html) book (@-R4DS). 
 
 ```{block, type = "warning"}
 It is very important to NEVER to move the .Rproj file, this may prevent your workspace from opening properly. 
@@ -232,13 +234,13 @@ penguins_raw
 ```{r, echo = FALSE}
 
 # check the data has loaded
-penguins_raw
+head(penguins_raw)
 
 ```
 
 
 ```{block, type = "danger"}
-Note the differences between `read.csv()` and `read_csv`. We covered this in differences between tibbles and dataframes - here most obviously is a difference in column names. 
+Note the differences between `read.csv()` and `read_csv()`. We covered this in differences between tibbles and dataframes - here most obviously is a difference in column names. 
 ```
 
 
