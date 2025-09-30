@@ -813,24 +813,31 @@ Don't just check the content of your script is the same as the example below. Ch
 `r hide("Check your script")`
 
 ```{r, eval = F, echo = T, fig.height=6, fig.width=6, out.width = "60%"}
-# ___________________________----
+#___________________________----
 # SET UP ----
-## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----
+# An analysis of the bill dimensions of male and female 
+# Adelie, Gentoo and Chinstrap penguins
 
-### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----
-# __________________________----
+# Data first published in  Gorman, KB, TD Williams, and WR Fraser. 
+# 2014. 
+# “Ecological Sexual Dimorphism and Environmental Variability 
+# Within a Community of Antarctic Penguins (Genus Pygoscelis).” 
+# PLos One 9 (3): e90081.
+# https://doi.org/10.1371/journal.pone.0090081. 
+#__________________________----
 
 # PACKAGES ----
 library(tidyverse) # tidy data packages
+library(here) # organised file paths
 library(janitor) # cleans variable names
-# __________________________----
+#__________________________----
+
 # IMPORT DATA ----
-penguins_raw <- read_csv("data/penguins_raw.csv")
+penguins_raw <- read_csv(here("data", "raw", "penguins_raw.csv"))
 
-attributes(penguins_raw) # reads as tibble
-
-penguins_raw # check the data has loaded, prints first 10 rows of dataframe
-
+# check the data has loaded, prints first 10 rows of dataframe
+penguins_raw
+#__________________________----
 # CLEAN DATA ----
 
 # clean all variable names to snake_case

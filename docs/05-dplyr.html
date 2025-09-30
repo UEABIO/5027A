@@ -1815,8 +1815,8 @@ Pay attention to warning and error messages
 <li>
 <strong>Question</strong> What is the appropriate function from the above to use on the <code>date_egg</code> variable?</li>
 </ul>
-<div id="radio_DCOLOVHVKW" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_DCOLOVHVKW" value="answer"><span>dmy()</span></label>
+<div id="radio_XKFGGKRHWB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_XKFGGKRHWB" value=""><span>ymd()</span></label><label><input type="radio" autocomplete="off" name="radio_XKFGGKRHWB" value=""><span>ydm()</span></label><label><input type="radio" autocomplete="off" name="radio_XKFGGKRHWB" value=""><span>mdy()</span></label><label><input type="radio" autocomplete="off" name="radio_XKFGGKRHWB" value="answer"><span>dmy()</span></label>
 </div>
 <div class="webex-solution">
 <button>
@@ -2018,95 +2018,102 @@ Factors will also be important when we build linear models a bit later. The refe
 Check your script
 </button>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># ___________________________----</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co">#___________________________----</span></span>
 <span id="cb53-2"><a href="#cb53-2"></a><span class="co"># SET UP ----</span></span>
-<span id="cb53-3"><a href="#cb53-3"></a><span class="do">## An analysis of the bill dimensions of male and female Adelie, Gentoo and Chinstrap penguins ----</span></span>
-<span id="cb53-4"><a href="#cb53-4"></a></span>
-<span id="cb53-5"><a href="#cb53-5"></a><span class="do">### Data first published in  Gorman, KB, TD Williams, and WR Fraser. 2014. “Ecological Sexual Dimorphism and Environmental Variability Within a Community of Antarctic Penguins (Genus Pygoscelis).” PLos One 9 (3): e90081. https://doi.org/10.1371/journal.pone.0090081. ----</span></span>
-<span id="cb53-6"><a href="#cb53-6"></a><span class="co"># __________________________----</span></span>
-<span id="cb53-7"><a href="#cb53-7"></a></span>
-<span id="cb53-8"><a href="#cb53-8"></a><span class="co"># PACKAGES ----</span></span>
-<span id="cb53-9"><a href="#cb53-9"></a><span class="fu">library</span>(tidyverse) <span class="co"># tidy data packages</span></span>
-<span id="cb53-10"><a href="#cb53-10"></a><span class="fu">library</span>(janitor) <span class="co"># cleans variable names</span></span>
-<span id="cb53-11"><a href="#cb53-11"></a><span class="co"># __________________________----</span></span>
-<span id="cb53-12"><a href="#cb53-12"></a><span class="co"># IMPORT DATA ----</span></span>
-<span id="cb53-13"><a href="#cb53-13"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/penguins_raw.csv"</span>)</span>
-<span id="cb53-14"><a href="#cb53-14"></a></span>
-<span id="cb53-15"><a href="#cb53-15"></a><span class="fu">attributes</span>(penguins_raw) <span class="co"># reads as tibble</span></span>
-<span id="cb53-16"><a href="#cb53-16"></a></span>
-<span id="cb53-17"><a href="#cb53-17"></a>penguins_raw <span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span>
-<span id="cb53-18"><a href="#cb53-18"></a></span>
-<span id="cb53-19"><a href="#cb53-19"></a><span class="co"># CLEAN DATA ----</span></span>
-<span id="cb53-20"><a href="#cb53-20"></a></span>
-<span id="cb53-21"><a href="#cb53-21"></a><span class="co"># clean all variable names to snake_case</span></span>
-<span id="cb53-22"><a href="#cb53-22"></a><span class="co"># using the clean_names function from the janitor package</span></span>
-<span id="cb53-23"><a href="#cb53-23"></a><span class="co"># note we are using assign &lt;-</span></span>
-<span id="cb53-24"><a href="#cb53-24"></a><span class="co"># to overwrite the old version of penguins</span></span>
-<span id="cb53-25"><a href="#cb53-25"></a><span class="co"># with a version that has updated names</span></span>
-<span id="cb53-26"><a href="#cb53-26"></a><span class="co"># this changes the data in our R workspace</span></span>
-<span id="cb53-27"><a href="#cb53-27"></a><span class="co"># but NOT the original csv file</span></span>
-<span id="cb53-28"><a href="#cb53-28"></a></span>
-<span id="cb53-29"><a href="#cb53-29"></a><span class="co"># clean the column names</span></span>
-<span id="cb53-30"><a href="#cb53-30"></a><span class="co"># assign to new R object</span></span>
-<span id="cb53-31"><a href="#cb53-31"></a>penguins_clean <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(penguins_raw)</span>
-<span id="cb53-32"><a href="#cb53-32"></a></span>
-<span id="cb53-33"><a href="#cb53-33"></a><span class="co"># quickly check the new variable names</span></span>
-<span id="cb53-34"><a href="#cb53-34"></a><span class="fu">colnames</span>(penguins_clean)</span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="co"># An analysis of the bill dimensions of male and female </span></span>
+<span id="cb53-4"><a href="#cb53-4"></a><span class="co"># Adelie, Gentoo and Chinstrap penguins</span></span>
+<span id="cb53-5"><a href="#cb53-5"></a></span>
+<span id="cb53-6"><a href="#cb53-6"></a><span class="co"># Data first published in  Gorman, KB, TD Williams, and WR Fraser. </span></span>
+<span id="cb53-7"><a href="#cb53-7"></a><span class="co"># 2014. </span></span>
+<span id="cb53-8"><a href="#cb53-8"></a><span class="co"># “Ecological Sexual Dimorphism and Environmental Variability </span></span>
+<span id="cb53-9"><a href="#cb53-9"></a><span class="co"># Within a Community of Antarctic Penguins (Genus Pygoscelis).” </span></span>
+<span id="cb53-10"><a href="#cb53-10"></a><span class="co"># PLos One 9 (3): e90081.</span></span>
+<span id="cb53-11"><a href="#cb53-11"></a><span class="co"># https://doi.org/10.1371/journal.pone.0090081. </span></span>
+<span id="cb53-12"><a href="#cb53-12"></a><span class="co">#__________________________----</span></span>
+<span id="cb53-13"><a href="#cb53-13"></a></span>
+<span id="cb53-14"><a href="#cb53-14"></a><span class="co"># PACKAGES ----</span></span>
+<span id="cb53-15"><a href="#cb53-15"></a><span class="fu">library</span>(tidyverse) <span class="co"># tidy data packages</span></span>
+<span id="cb53-16"><a href="#cb53-16"></a><span class="fu">library</span>(here) <span class="co"># organised file paths</span></span>
+<span id="cb53-17"><a href="#cb53-17"></a><span class="fu">library</span>(janitor) <span class="co"># cleans variable names</span></span>
+<span id="cb53-18"><a href="#cb53-18"></a><span class="co">#__________________________----</span></span>
+<span id="cb53-19"><a href="#cb53-19"></a></span>
+<span id="cb53-20"><a href="#cb53-20"></a><span class="co"># IMPORT DATA ----</span></span>
+<span id="cb53-21"><a href="#cb53-21"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"penguins_raw.csv"</span>))</span>
+<span id="cb53-22"><a href="#cb53-22"></a></span>
+<span id="cb53-23"><a href="#cb53-23"></a><span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span>
+<span id="cb53-24"><a href="#cb53-24"></a>penguins_raw</span>
+<span id="cb53-25"><a href="#cb53-25"></a><span class="co">#__________________________----</span></span>
+<span id="cb53-26"><a href="#cb53-26"></a><span class="co"># CLEAN DATA ----</span></span>
+<span id="cb53-27"><a href="#cb53-27"></a></span>
+<span id="cb53-28"><a href="#cb53-28"></a><span class="co"># clean all variable names to snake_case</span></span>
+<span id="cb53-29"><a href="#cb53-29"></a><span class="co"># using the clean_names function from the janitor package</span></span>
+<span id="cb53-30"><a href="#cb53-30"></a><span class="co"># note we are using assign &lt;-</span></span>
+<span id="cb53-31"><a href="#cb53-31"></a><span class="co"># to overwrite the old version of penguins</span></span>
+<span id="cb53-32"><a href="#cb53-32"></a><span class="co"># with a version that has updated names</span></span>
+<span id="cb53-33"><a href="#cb53-33"></a><span class="co"># this changes the data in our R workspace</span></span>
+<span id="cb53-34"><a href="#cb53-34"></a><span class="co"># but NOT the original csv file</span></span>
 <span id="cb53-35"><a href="#cb53-35"></a></span>
-<span id="cb53-36"><a href="#cb53-36"></a><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
-<span id="cb53-37"><a href="#cb53-37"></a></span>
-<span id="cb53-38"><a href="#cb53-38"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">rename</span>(penguins_clean,</span>
-<span id="cb53-39"><a href="#cb53-39"></a>  <span class="st">"delta_15n"</span> <span class="ot">=</span> <span class="st">"delta_15_n_o_oo"</span>, <span class="co"># use rename from the dplyr package</span></span>
-<span id="cb53-40"><a href="#cb53-40"></a>  <span class="st">"delta_13c"</span> <span class="ot">=</span> <span class="st">"delta_13_c_o_oo"</span></span>
-<span id="cb53-41"><a href="#cb53-41"></a>)</span>
+<span id="cb53-36"><a href="#cb53-36"></a><span class="co"># clean the column names</span></span>
+<span id="cb53-37"><a href="#cb53-37"></a><span class="co"># assign to new R object</span></span>
+<span id="cb53-38"><a href="#cb53-38"></a>penguins_clean <span class="ot">&lt;-</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>(penguins_raw)</span>
+<span id="cb53-39"><a href="#cb53-39"></a></span>
+<span id="cb53-40"><a href="#cb53-40"></a><span class="co"># quickly check the new variable names</span></span>
+<span id="cb53-41"><a href="#cb53-41"></a><span class="fu">colnames</span>(penguins_clean)</span>
 <span id="cb53-42"><a href="#cb53-42"></a></span>
-<span id="cb53-43"><a href="#cb53-43"></a><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
-<span id="cb53-44"><a href="#cb53-44"></a>penguins <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span></span>
-<span id="cb53-45"><a href="#cb53-45"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">case_when</span>(</span>
-<span id="cb53-46"><a href="#cb53-46"></a>    species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="sc">~</span> <span class="st">"Adelie"</span>,</span>
-<span id="cb53-47"><a href="#cb53-47"></a>    species <span class="sc">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="sc">~</span> <span class="st">"Gentoo"</span>,</span>
-<span id="cb53-48"><a href="#cb53-48"></a>    species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="sc">~</span> <span class="st">"Chinstrap"</span></span>
-<span id="cb53-49"><a href="#cb53-49"></a>  ))</span>
-<span id="cb53-50"><a href="#cb53-50"></a></span>
-<span id="cb53-51"><a href="#cb53-51"></a><span class="co"># use mutate and if_else</span></span>
-<span id="cb53-52"><a href="#cb53-52"></a><span class="co"># for a statement that conditionally changes</span></span>
-<span id="cb53-53"><a href="#cb53-53"></a><span class="co"># the names of the values in a variable</span></span>
-<span id="cb53-54"><a href="#cb53-54"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb53-55"><a href="#cb53-55"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">if_else</span>(</span>
-<span id="cb53-56"><a href="#cb53-56"></a>    sex <span class="sc">==</span> <span class="st">"MALE"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span></span>
-<span id="cb53-57"><a href="#cb53-57"></a>  ))</span>
-<span id="cb53-58"><a href="#cb53-58"></a></span>
-<span id="cb53-59"><a href="#cb53-59"></a><span class="co"># use lubridate to format date and extract the year</span></span>
-<span id="cb53-60"><a href="#cb53-60"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb53-61"><a href="#cb53-61"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span>
-<span id="cb53-62"><a href="#cb53-62"></a></span>
-<span id="cb53-63"><a href="#cb53-63"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb53-64"><a href="#cb53-64"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span>
+<span id="cb53-43"><a href="#cb53-43"></a><span class="co"># shorten the variable names for N and C isotope blood samples</span></span>
+<span id="cb53-44"><a href="#cb53-44"></a></span>
+<span id="cb53-45"><a href="#cb53-45"></a>penguins_clean <span class="ot">&lt;-</span> <span class="fu">rename</span>(penguins_clean,</span>
+<span id="cb53-46"><a href="#cb53-46"></a>  <span class="st">"delta_15n"</span> <span class="ot">=</span> <span class="st">"delta_15_n_o_oo"</span>, <span class="co"># use rename from the dplyr package</span></span>
+<span id="cb53-47"><a href="#cb53-47"></a>  <span class="st">"delta_13c"</span> <span class="ot">=</span> <span class="st">"delta_13_c_o_oo"</span></span>
+<span id="cb53-48"><a href="#cb53-48"></a>)</span>
+<span id="cb53-49"><a href="#cb53-49"></a></span>
+<span id="cb53-50"><a href="#cb53-50"></a><span class="co"># use mutate and case_when for a statement that conditionally changes the names of the values in a variable</span></span>
+<span id="cb53-51"><a href="#cb53-51"></a>penguins <span class="ot">&lt;-</span> penguins_clean <span class="sc">|&gt;</span></span>
+<span id="cb53-52"><a href="#cb53-52"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-53"><a href="#cb53-53"></a>    species <span class="sc">==</span> <span class="st">"Adelie Penguin (Pygoscelis adeliae)"</span> <span class="sc">~</span> <span class="st">"Adelie"</span>,</span>
+<span id="cb53-54"><a href="#cb53-54"></a>    species <span class="sc">==</span> <span class="st">"Gentoo penguin (Pygoscelis papua)"</span> <span class="sc">~</span> <span class="st">"Gentoo"</span>,</span>
+<span id="cb53-55"><a href="#cb53-55"></a>    species <span class="sc">==</span> <span class="st">"Chinstrap penguin (Pygoscelis antarctica)"</span> <span class="sc">~</span> <span class="st">"Chinstrap"</span></span>
+<span id="cb53-56"><a href="#cb53-56"></a>  ))</span>
+<span id="cb53-57"><a href="#cb53-57"></a></span>
+<span id="cb53-58"><a href="#cb53-58"></a><span class="co"># use mutate and if_else</span></span>
+<span id="cb53-59"><a href="#cb53-59"></a><span class="co"># for a statement that conditionally changes</span></span>
+<span id="cb53-60"><a href="#cb53-60"></a><span class="co"># the names of the values in a variable</span></span>
+<span id="cb53-61"><a href="#cb53-61"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-62"><a href="#cb53-62"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">if_else</span>(</span>
+<span id="cb53-63"><a href="#cb53-63"></a>    sex <span class="sc">==</span> <span class="st">"MALE"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span></span>
+<span id="cb53-64"><a href="#cb53-64"></a>  ))</span>
 <span id="cb53-65"><a href="#cb53-65"></a></span>
-<span id="cb53-66"><a href="#cb53-66"></a><span class="co"># Set body mass ranges</span></span>
+<span id="cb53-66"><a href="#cb53-66"></a><span class="co"># use lubridate to format date and extract the year</span></span>
 <span id="cb53-67"><a href="#cb53-67"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb53-68"><a href="#cb53-68"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">case_when</span>(</span>
-<span id="cb53-69"><a href="#cb53-69"></a>    body_mass_g <span class="sc">&lt;=</span> <span class="dv">3500</span> <span class="sc">~</span> <span class="st">"smol penguin"</span>,</span>
-<span id="cb53-70"><a href="#cb53-70"></a>    body_mass_g <span class="sc">&gt;</span> <span class="dv">3500</span> <span class="sc">&amp;</span> body_mass_g <span class="sc">&lt;</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"mid penguin"</span>,</span>
-<span id="cb53-71"><a href="#cb53-71"></a>    body_mass_g <span class="sc">&gt;=</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"chonk penguin"</span>,</span>
-<span id="cb53-72"><a href="#cb53-72"></a>    <span class="at">.default =</span> <span class="cn">NA</span></span>
-<span id="cb53-73"><a href="#cb53-73"></a>  ))</span>
-<span id="cb53-74"><a href="#cb53-74"></a></span>
-<span id="cb53-75"><a href="#cb53-75"></a><span class="co"># Assign these to an ordered factor</span></span>
-<span id="cb53-76"><a href="#cb53-76"></a></span>
-<span id="cb53-77"><a href="#cb53-77"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
-<span id="cb53-78"><a href="#cb53-78"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">fct_relevel</span>(</span>
-<span id="cb53-79"><a href="#cb53-79"></a>    mass_range,</span>
-<span id="cb53-80"><a href="#cb53-80"></a>    <span class="st">"smol penguin"</span>,</span>
-<span id="cb53-81"><a href="#cb53-81"></a>    <span class="st">"mid penguin"</span>,</span>
-<span id="cb53-82"><a href="#cb53-82"></a>    <span class="st">"chonk penguin"</span></span>
-<span id="cb53-83"><a href="#cb53-83"></a>  ))</span>
-<span id="cb53-84"><a href="#cb53-84"></a></span>
-<span id="cb53-85"><a href="#cb53-85"></a><span class="co"># Write our cleaned dataframe to the processed data subfolder</span></span>
-<span id="cb53-86"><a href="#cb53-86"></a><span class="fu">write_csv</span>(</span>
-<span id="cb53-87"><a href="#cb53-87"></a>  penguins,</span>
-<span id="cb53-88"><a href="#cb53-88"></a>  <span class="st">"data/processed/penguins_clean.csv"</span></span>
-<span id="cb53-89"><a href="#cb53-89"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb53-68"><a href="#cb53-68"></a>  <span class="fu">mutate</span>(<span class="at">date_egg =</span> lubridate<span class="sc">::</span><span class="fu">dmy</span>(date_egg))</span>
+<span id="cb53-69"><a href="#cb53-69"></a></span>
+<span id="cb53-70"><a href="#cb53-70"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-71"><a href="#cb53-71"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date_egg))</span>
+<span id="cb53-72"><a href="#cb53-72"></a></span>
+<span id="cb53-73"><a href="#cb53-73"></a><span class="co"># Set body mass ranges</span></span>
+<span id="cb53-74"><a href="#cb53-74"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-75"><a href="#cb53-75"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">case_when</span>(</span>
+<span id="cb53-76"><a href="#cb53-76"></a>    body_mass_g <span class="sc">&lt;=</span> <span class="dv">3500</span> <span class="sc">~</span> <span class="st">"smol penguin"</span>,</span>
+<span id="cb53-77"><a href="#cb53-77"></a>    body_mass_g <span class="sc">&gt;</span> <span class="dv">3500</span> <span class="sc">&amp;</span> body_mass_g <span class="sc">&lt;</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"mid penguin"</span>,</span>
+<span id="cb53-78"><a href="#cb53-78"></a>    body_mass_g <span class="sc">&gt;=</span> <span class="dv">4500</span> <span class="sc">~</span> <span class="st">"chonk penguin"</span>,</span>
+<span id="cb53-79"><a href="#cb53-79"></a>    <span class="at">.default =</span> <span class="cn">NA</span></span>
+<span id="cb53-80"><a href="#cb53-80"></a>  ))</span>
+<span id="cb53-81"><a href="#cb53-81"></a></span>
+<span id="cb53-82"><a href="#cb53-82"></a><span class="co"># Assign these to an ordered factor</span></span>
+<span id="cb53-83"><a href="#cb53-83"></a></span>
+<span id="cb53-84"><a href="#cb53-84"></a>penguins <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span></span>
+<span id="cb53-85"><a href="#cb53-85"></a>  <span class="fu">mutate</span>(<span class="at">mass_range =</span> <span class="fu">fct_relevel</span>(</span>
+<span id="cb53-86"><a href="#cb53-86"></a>    mass_range,</span>
+<span id="cb53-87"><a href="#cb53-87"></a>    <span class="st">"smol penguin"</span>,</span>
+<span id="cb53-88"><a href="#cb53-88"></a>    <span class="st">"mid penguin"</span>,</span>
+<span id="cb53-89"><a href="#cb53-89"></a>    <span class="st">"chonk penguin"</span></span>
+<span id="cb53-90"><a href="#cb53-90"></a>  ))</span>
+<span id="cb53-91"><a href="#cb53-91"></a></span>
+<span id="cb53-92"><a href="#cb53-92"></a><span class="co"># Write our cleaned dataframe to the processed data subfolder</span></span>
+<span id="cb53-93"><a href="#cb53-93"></a><span class="fu">write_csv</span>(</span>
+<span id="cb53-94"><a href="#cb53-94"></a>  penguins,</span>
+<span id="cb53-95"><a href="#cb53-95"></a>  <span class="st">"data/processed/penguins_clean.csv"</span></span>
+<span id="cb53-96"><a href="#cb53-96"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
