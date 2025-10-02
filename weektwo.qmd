@@ -45,11 +45,11 @@ This week's assignment is to use simple `dplyr` commands to take a messy dataset
 
 #### Set up:
 
-[ ] Load required packages (tidyverse, janitor, lubridate, stringr, forcats, skimr).
+- [ ] Load required packages (tidyverse, janitor, lubridate, stringr, forcats, skimr).
 
-[ ] Import data (read_csv / here()).
+- [ ] Import data (read_csv / here()).
 
-[ ] (Optional) Immediately standardise names: 
+- [ ] (Optional) Immediately standardise names: 
 
     - Apply snake_case: `janitor::clean_names()`.
     - Manually rename awkward or long columns: `dplyr::rename()`.
@@ -58,66 +58,66 @@ This week's assignment is to use simple `dplyr` commands to take a messy dataset
 
 #### Inspect structure & quality:
 
-[ ] Dimensions & glimpse: `dim()`, `glimpse()`, `head()`, `tail()`.
+- [ ] Dimensions & glimpse: `dim()`, `glimpse()`, `head()`, `tail()`.
 
-[ ] Types & summaries: `str()`, `summary()`, `skimr::skim()`.
+- [ ] Types & summaries: `str()`, `summary()`, `skimr::skim()`.
 
-[ ] Check for unexpected types (e.g. dates as character, numbers as character).
+- [ ] Check for unexpected types (e.g. dates as character, numbers as character).
 
-[ ] Confirm data is (or can be made) tidy{@sec-tidy}: one row = one observation, one column = one variable.
+- [ ] Confirm data is (or can be made) tidy{@sec-tidy}: one row = one observation, one column = one variable.
 
 
 #### Standardise values (within columns)
 
-[ ] Collapse verbose categorical labels (`case_when()`, `if_else()`).
+- [ ] Collapse verbose categorical labels (`case_when()`, `if_else()`).
 
-[ ] Harmonise capitalisation (`stringr::str_to_title` / `str_to_lower`).
+- [ ] Harmonise capitalisation (`stringr::str_to_title` / `str_to_lower`).
 
-[ ] Trim stray whitespace (`stringr::str_trim()`).
+- [ ] Trim stray whitespace (`stringr::str_trim()`).
 
-[ ] Make any required new variables with `mutate()`
+- [ ] Make any required new variables with `mutate()`
 
-[ ] Handle dates parse with correct order (lubridate::dmy / mdy / ymd / etc.).
+- [ ] Handle dates parse with correct order (lubridate::dmy / mdy / ymd / etc.).
 
 
 #### Check duplicates & integrity
 
-[ ] Whole-row duplications 
+- [ ] Whole-row duplications 
 
-[ ] Detect typos or impossible values
+- [ ] Detect typos or impossible values
 
 
 #### Factors & ordering
 
-[ ] Convert categorical text to factors: mutate(across(cols, forcats::as_factor)).
+- [ ] Convert categorical text to factors: mutate(across(cols, forcats::as_factor)).
 
-[ ] Set meaningful order: `fct_relevel()` (e.g. smol < mid < chonk).
+- [ ] Set meaningful order: `fct_relevel()` (e.g. smol < mid < chonk).
 
-[ ] (Optional) Create classification / grouping variables
+- [ ] (Optional) Create classification / grouping variables
 
 #### Summarise & validate
 
-[ ] Re-run skim() / summary() after transformations.
+- [ ] Re-run skim() / summary() after transformations.
 
-[ ] Spot remaining NAs; decide whether to keep or drop.
+- [ ] Spot remaining NAs; decide whether to keep or drop.
 
-[ ] Sanity-check ranges (e.g. min/max dates, value distributions).
+- [ ] Sanity-check ranges (e.g. min/max dates, value distributions).
 
 #### Readable code
 
-[ ] Use pipes for readability
+- [ ] Use pipes for readability
 
-[ ] Assign new R objects only at meaningful checkpoints - use clear names.
+- [ ] Assign new R objects only at meaningful checkpoints - use clear names.
 
-[ ] Keep all steps in a script (e.g. 01_import_penguins_data.R).
+- [ ] Keep all steps in a script (e.g. 01_import_penguins_data.R).
 
-[ ] Ensure script runs cleanly from a fresh R session (no hidden state).
+- [ ] Ensure script runs cleanly from a fresh R session (no hidden state).
 
-[ ] Add brief comments explaining each transformation.
+- [ ] Add brief comments explaining each transformation.
 
-[ ] Save cleaned object (e.g. write_csv() or saveRDS()).
+- [ ] Save cleaned object (e.g. write_csv() or saveRDS()).
 
-[ ] Do not overwrite or edit the raw data file.
+- [ ] Do not overwrite or edit the raw data file.
 
 
 ### Step 4: Submission / Discussion

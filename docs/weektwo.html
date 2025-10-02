@@ -488,50 +488,61 @@ ul.task-list li input[type="checkbox"] {
 <span class="header-section-number">4.1.3</span> Step 3: Checklist</h3>
 <section id="set-up" class="level4" data-number="4.1.3.1"><h4 data-number="4.1.3.1" class="anchored" data-anchor-id="set-up">
 <span class="header-section-number">4.1.3.1</span> Set up:</h4>
-<p>[ ] Load required packages (tidyverse, janitor, lubridate, stringr, forcats, skimr).</p>
-<p>[ ] Import data (read_csv / here()).</p>
-<p>[ ] (Optional) Immediately standardise names:</p>
-<pre><code>- Apply snake_case: `janitor::clean_names()`.
-- Manually rename awkward or long columns: `dplyr::rename()`.
-- Ensure no spaces, punctuation, or case inconsistencies that force backticks.
-- use sensible and clear names</code></pre>
-</section><section id="inspect-structure-quality" class="level4" data-number="4.1.3.2"><h4 data-number="4.1.3.2" class="anchored" data-anchor-id="inspect-structure-quality">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Load required packages (tidyverse, janitor, lubridate, stringr, forcats, skimr).</label></p></li>
+<li><p><label><input type="checkbox">Import data (read_csv / here()).</label></p></li>
+<li>
+<p><label><input type="checkbox">(Optional) Immediately standardise names:</label></p>
+<ul>
+<li>Apply snake_case: <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code>.</li>
+<li>Manually rename awkward or long columns: <code><a href="https://dplyr.tidyverse.org/reference/rename.html">dplyr::rename()</a></code>.</li>
+<li>Ensure no spaces, punctuation, or case inconsistencies that force backticks.</li>
+<li>use sensible and clear names</li>
+</ul>
+</li>
+</ul></section><section id="inspect-structure-quality" class="level4" data-number="4.1.3.2"><h4 data-number="4.1.3.2" class="anchored" data-anchor-id="inspect-structure-quality">
 <span class="header-section-number">4.1.3.2</span> Inspect structure &amp; quality:</h4>
-<p>[ ] Dimensions &amp; glimpse: <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>, <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>, <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code>.</p>
-<p>[ ] Types &amp; summaries: <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code>.</p>
-<p>[ ] Check for unexpected types (e.g.&nbsp;dates as character, numbers as character).</p>
-<p>[ ] Confirm data is (or can be made) tidy{<a href="tidy-data.html" class="quarto-xref"><span>Appendix C</span></a>}: one row = one observation, one column = one variable.</p>
-</section><section id="standardise-values-within-columns" class="level4" data-number="4.1.3.3"><h4 data-number="4.1.3.3" class="anchored" data-anchor-id="standardise-values-within-columns">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Dimensions &amp; glimpse: <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>, <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>, <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code>.</label></p></li>
+<li><p><label><input type="checkbox">Types &amp; summaries: <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code>.</label></p></li>
+<li><p><label><input type="checkbox">Check for unexpected types (e.g.&nbsp;dates as character, numbers as character).</label></p></li>
+<li><p><label><input type="checkbox">Confirm data is (or can be made) tidy{<a href="tidy-data.html" class="quarto-xref"><span>Appendix C</span></a>}: one row = one observation, one column = one variable.</label></p></li>
+</ul></section><section id="standardise-values-within-columns" class="level4" data-number="4.1.3.3"><h4 data-number="4.1.3.3" class="anchored" data-anchor-id="standardise-values-within-columns">
 <span class="header-section-number">4.1.3.3</span> Standardise values (within columns)</h4>
-<p>[ ] Collapse verbose categorical labels (<code>case_when()</code>, <code>if_else()</code>).</p>
-<p>[ ] Harmonise capitalisation (<code><a href="https://stringr.tidyverse.org/reference/case.html">stringr::str_to_title</a></code> / <code>str_to_lower</code>).</p>
-<p>[ ] Trim stray whitespace (<code><a href="https://stringr.tidyverse.org/reference/str_trim.html">stringr::str_trim()</a></code>).</p>
-<p>[ ] Make any required new variables with <code>mutate()</code></p>
-<p>[ ] Handle dates parse with correct order (lubridate::dmy / mdy / ymd / etc.).</p>
-</section><section id="check-duplicates-integrity" class="level4" data-number="4.1.3.4"><h4 data-number="4.1.3.4" class="anchored" data-anchor-id="check-duplicates-integrity">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Collapse verbose categorical labels (<code>case_when()</code>, <code>if_else()</code>).</label></p></li>
+<li><p><label><input type="checkbox">Harmonise capitalisation (<code><a href="https://stringr.tidyverse.org/reference/case.html">stringr::str_to_title</a></code> / <code>str_to_lower</code>).</label></p></li>
+<li><p><label><input type="checkbox">Trim stray whitespace (<code><a href="https://stringr.tidyverse.org/reference/str_trim.html">stringr::str_trim()</a></code>).</label></p></li>
+<li><p><label><input type="checkbox">Make any required new variables with <code>mutate()</code></label></p></li>
+<li><p><label><input type="checkbox">Handle dates parse with correct order (lubridate::dmy / mdy / ymd / etc.).</label></p></li>
+</ul></section><section id="check-duplicates-integrity" class="level4" data-number="4.1.3.4"><h4 data-number="4.1.3.4" class="anchored" data-anchor-id="check-duplicates-integrity">
 <span class="header-section-number">4.1.3.4</span> Check duplicates &amp; integrity</h4>
-<p>[ ] Whole-row duplications</p>
-<p>[ ] Detect typos or impossible values</p>
-</section><section id="factors-ordering" class="level4" data-number="4.1.3.5"><h4 data-number="4.1.3.5" class="anchored" data-anchor-id="factors-ordering">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Whole-row duplications</label></p></li>
+<li><p><label><input type="checkbox">Detect typos or impossible values</label></p></li>
+</ul></section><section id="factors-ordering" class="level4" data-number="4.1.3.5"><h4 data-number="4.1.3.5" class="anchored" data-anchor-id="factors-ordering">
 <span class="header-section-number">4.1.3.5</span> Factors &amp; ordering</h4>
-<p>[ ] Convert categorical text to factors: mutate(across(cols, forcats::as_factor)).</p>
-<p>[ ] Set meaningful order: <code>fct_relevel()</code> (e.g.&nbsp;smol &lt; mid &lt; chonk).</p>
-<p>[ ] (Optional) Create classification / grouping variables</p>
-</section><section id="summarise-validate" class="level4" data-number="4.1.3.6"><h4 data-number="4.1.3.6" class="anchored" data-anchor-id="summarise-validate">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Convert categorical text to factors: mutate(across(cols, forcats::as_factor)).</label></p></li>
+<li><p><label><input type="checkbox">Set meaningful order: <code>fct_relevel()</code> (e.g.&nbsp;smol &lt; mid &lt; chonk).</label></p></li>
+<li><p><label><input type="checkbox">(Optional) Create classification / grouping variables</label></p></li>
+</ul></section><section id="summarise-validate" class="level4" data-number="4.1.3.6"><h4 data-number="4.1.3.6" class="anchored" data-anchor-id="summarise-validate">
 <span class="header-section-number">4.1.3.6</span> Summarise &amp; validate</h4>
-<p>[ ] Re-run skim() / summary() after transformations.</p>
-<p>[ ] Spot remaining NAs; decide whether to keep or drop.</p>
-<p>[ ] Sanity-check ranges (e.g.&nbsp;min/max dates, value distributions).</p>
-</section><section id="readable-code" class="level4" data-number="4.1.3.7"><h4 data-number="4.1.3.7" class="anchored" data-anchor-id="readable-code">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Re-run skim() / summary() after transformations.</label></p></li>
+<li><p><label><input type="checkbox">Spot remaining NAs; decide whether to keep or drop.</label></p></li>
+<li><p><label><input type="checkbox">Sanity-check ranges (e.g.&nbsp;min/max dates, value distributions).</label></p></li>
+</ul></section><section id="readable-code" class="level4" data-number="4.1.3.7"><h4 data-number="4.1.3.7" class="anchored" data-anchor-id="readable-code">
 <span class="header-section-number">4.1.3.7</span> Readable code</h4>
-<p>[ ] Use pipes for readability</p>
-<p>[ ] Assign new R objects only at meaningful checkpoints - use clear names.</p>
-<p>[ ] Keep all steps in a script (e.g.&nbsp;01_import_penguins_data.R).</p>
-<p>[ ] Ensure script runs cleanly from a fresh R session (no hidden state).</p>
-<p>[ ] Add brief comments explaining each transformation.</p>
-<p>[ ] Save cleaned object (e.g.&nbsp;write_csv() or saveRDS()).</p>
-<p>[ ] Do not overwrite or edit the raw data file.</p>
-</section></section><section id="step-4-submission-discussion" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="step-4-submission-discussion">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Use pipes for readability</label></p></li>
+<li><p><label><input type="checkbox">Assign new R objects only at meaningful checkpoints - use clear names.</label></p></li>
+<li><p><label><input type="checkbox">Keep all steps in a script (e.g.&nbsp;01_import_penguins_data.R).</label></p></li>
+<li><p><label><input type="checkbox">Ensure script runs cleanly from a fresh R session (no hidden state).</label></p></li>
+<li><p><label><input type="checkbox">Add brief comments explaining each transformation.</label></p></li>
+<li><p><label><input type="checkbox">Save cleaned object (e.g.&nbsp;write_csv() or saveRDS()).</label></p></li>
+<li><p><label><input type="checkbox">Do not overwrite or edit the raw data file.</label></p></li>
+</ul></section></section><section id="step-4-submission-discussion" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="step-4-submission-discussion">
 <span class="header-section-number">4.1.4</span> Step 4: Submission / Discussion</h3>
 <ol type="1">
 <li>Submit your fixed scripts to Blackboard.</li>
