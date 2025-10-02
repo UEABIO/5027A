@@ -13,29 +13,65 @@ penguins <- readRDS(here("files", "chapter5.RDS"))
 For this exercise, we propose that our task is to generate insights into the relationship between **bill (culmen) length** and **bill (culmen) depth** in penguins. Our goal is to answer the question: *Is there a meaningful relationship between these two measurements?* Understanding this relationship can provide valuable insights into the physical characteristics of different penguin species and how they may vary.
 
 :::{.callout-important}
+You should be working in the script you made in the last session check it contains everything contained in {@sec-save-script} and runs cleanly (no errors).
 
-You should be working in the script you made in the last session check it contains everything contained in {@sec-save-script} and runs without causing errors
+Test this by making sure you have set your project up correctly (see {@blank}), restart your R session, and run your current script. 
 
+:::
+
+:::{.callout-note collapse = "true"}
+### Quick Recap
+
+Previously you:
+1. Imported data (`readRDS()`, `read_csv()`), saved intermediate objects.
+2. Cleaned names (`janitor::clean_names()`), checked types (`glimpse()` / `skimr::skim()`).
+3. Identified missing values, duplicates, inconsistent factor levels.
+4. Used grouping (dplyr) to summarise.
+5. Saved a reusable script.
+
+Today we build forward — we assume basic cleaning is done.
+
+:::
+
+
+::: {.callout-important}
+### Today’s Workflow
+
+**summarise → visualise → think causally**
+
+1. Summarise: Get core descriptive statistics (center, spread, counts).
+2. Visualise: Use multiple plot types to expose structure and anomalies.
+3. Think causally: Ask whether patterns could be explained by grouping variables (e.g. species), and avoid misleading pooled summaries.
 :::
 
 ## Understanding the Variables
 
-Before jumping into the analysis, it’s crucial to take a step back and first understand the variables we’re working with and how they might relate to each other. In this case, our key variables are:
+Our key variables are:
 
 - **Culmen Length (bill length)**: This measures the length of the penguin's bill, an important feature related to feeding.
 
 - **Culmen Depth (bill depth)**: This measures the thickness of the penguin's bill.
 
+We will also routinely consider: Species, Sex, Island, Year, Flipper length(mm) and Body Mass (g).
+
 ## What should we consider in our analysis?
 
-### 1. Distribution of Data Types
+### Data Types
 
-Understanding the type of data we’re dealing with is the first step in any analysis. Both culmen length and depth are continuous numerical variables, meaning they can take a wide range of values. However, our dataset may also include categorical variables like species and island, which will help us group the data and see how these groups influence our measurements.
+- Bill length and depth: **continuous numerical**.  
 
-Why this matters: Knowing whether a variable is numerical or categorical will influence how we visualize it and which statistical methods we use. For instance, numerical data might be plotted using histograms, while categorical data could be displayed using bar charts or boxplots.
+- Species, sex, island, year: **categorical** (year is numeric but often used as a factor in exploratory stratification).
 
-### 2. Central Tendency
-Next, we’ll want to understand the central tendency of our data. Central tendency refers to the average or most common values in a dataset. The mean, median, and mode are common measures used to describe central tendency.
+:::{.callout-note collapse = "true"}
+### Why this matters: 
+
+Knowing whether a variable is numerical or categorical will influence how we visualize it and which statistical methods we use. For instance, numerical data might be plotted using histograms, while categorical data could be displayed using bar charts or boxplots.
+
+:::
+
+### Central Tendency & Variation
+
+Next, we’ll want to understand the central tendency of our data. Central tendency refers to the average or most common values in a dataset:
 
 - Mean: The average value (sum of all values divided by the number of values).
 
@@ -43,63 +79,223 @@ Next, we’ll want to understand the central tendency of our data. Central tende
 
 - Mode: The most frequently occurring value in the dataset (not always relevant for continuous data).
 
-Why this matters: Understanding the average bill length and depth helps us get a sense of what is "normal" for our penguins. Additionally, comparing these statistics across different species or islands could reveal differences in penguin populations.
+:::{.callout-note collapse = "true"}
+### Why this matters: 
+Understanding the average bill length and depth helps us get a sense of what is "normal" for our penguins. Additionally, comparing these statistics across different species or islands could reveal differences in penguin populations.
 
-### 3. Relationship Between Variables
+:::
+
+### Relationships
 
 Now, we dive into the heart of our analysis: exploring the relationship between culmen length and culmen depth. To investigate this, we can use visual tools like `r glossary("scatterplots")` , which allow us to plot one variable against the other and visually check for patterns or trends.
 
-We might also want to calculate a `r glossary("correlation coefficient")` to quantify the strength of the relationship between bill length and bill depth. If we find a strong correlation, we can say that these two measurements tend to move together — for example, as the bill length increases, so might the bill depth.
+We might also want to calculate a `r glossary("correlation coefficient")` to quantify the strength of the relationship between bill length and bill depth. 
+If we find a strong correlation, we can say that these two measurements tend to move together — for example, as the bill length increases, so might the bill depth.
 
-Why this matters: Identifying the relationship between variables is critical to making meaningful conclusions. If bill length and depth are highly correlated, we can begin to explore why this might be the case — perhaps certain penguin species have distinct bill shapes that differ from others.
+:::{.callout-note collapse = "true"}
+### Why this matters: 
 
-### 4. Confounding Variables
+Identifying the relationship between variables is critical to making meaningful conclusions. If bill length and depth are highly correlated, we can begin to explore why this might be the case — perhaps certain penguin species have distinct bill shapes that differ from others.
+:::
 
-While exploring the relationship between bill length and depth, we must also be aware of the potential impact of `r glossary("confounding variable")` . A confounding variable is one that influences both the dependent and independent variables, potentially leading to a false conclusion about their relationship.
+### Confounding Variables
 
-In this dataset, potential confounders might include:
+A `r glossary("confounding variable")` influences both variables in a relationship (e.g. species affects both length and depth). Ignoring it can distort or reverse observed trends 
 
-- Species: Different species may naturally have different bill shapes, so the relationship between culmen length and depth could vary depending on the species.
 
-- Island or Location: Penguins from different islands might experience different environmental pressures that could affect bill size and shape.
+:::{.callout-note collapse = "true"}
+### Why this matters:  
 
-To account for this, we can group or subset the data by species or island and re-examine the relationship between bill length and depth within those groups. This helps us determine if the observed relationship holds true across different groups, or if it is being influenced by these other variables.
-
-Why this matters: Ignoring confounding variables could lead us to incorrect conclusions. For instance, if we see a strong relationship between bill length and depth, it could simply be due to species differences, rather than a true relationship across all penguins.
+Ignoring confounding variables could lead us to incorrect conclusions. For instance, if we see a strong relationship between bill length and depth, it could simply be due to species differences, rather than a true relationship across all penguins.
+:::
 
 ### Asking New Questions
 
-Every step of the analysis leads to new questions. This is a natural part of the data exploration process. For example:
+Every step of the analysis leads to new questions. This is a natural part of the data exploration process (e.g. “Is this consistent across species?”)
 
-- After looking at the distribution of culmen length and depth, we might wonder, do certain species have longer bills than others?
 
-- After finding a relationship between the variables, we might ask, is this relationship consistent across different islands or years?
+### Data Checking (Recap)
 
-- If we spot outliers, we might ask, why are some penguins' measurements so different from the rest?
+Already completed in {@sec-dplyr} a reminder why it matters:
 
-### Data checking
+- Confirm variable formats.
 
-Before diving into analysis, it's crucial to have a clear understanding of the structure and quality of your dataset. This step is part of the data wrangling process and ensures that your data is accurate, clean, and ready for exploration. Key tasks include:
+- Locate & classify missingness.
 
-- The number of variables: Know how many variables (columns) are present in the dataset. This helps in understanding the scope of the data and ensuring that all necessary information is available.
+- Count observations per key groups to assess balance.
 
-- The data format of each variable: Check whether each variable is in the correct format (e.g., numeric, categorical, date). Mistakes in data types, such as a numeric variable being stored as text, can cause errors during analysis.
+- Ensure cleaned, informative names (see {@sec-names})
 
-- Checked for missing data: Identify any missing values and decide how to handle them. Ignoring missing data can skew results, so it’s important to either remove, impute, or investigate why data might be missing.
 
-- Checked for typos, duplications, or other data errors: Manually inspect the data or use automated tools to detect any typos, duplicate entries, or inconsistencies that could impact your analysis. For example, species names should be consistent across all rows.
+## Activity: Quick Descriptive Summaries
 
-- Cleaned column or factor names: Ensure that all column names are properly labeled and easy to understand. This includes correcting any typos or formatting issues, such as spaces or special characters in names, which could cause problems when referencing them in code.
+We’ll start with descriptive statistics—numerical summaries that describe the main features of a dataset.
 
-These data checking steps provide a strong foundation for accurate and effective analysis, ensuring that your dataset is reliable and well-structured and luckily we carried this out in {@sec-dplyr}.
+For a single variable (here: "culmen length in mm"), the most common statistics are:
+
+| Statistic   | What it tells us                                    |
+| ----------- | --------------------------------------------------- |
+| **n**       | Sample size (how many penguins are included)        |
+| **Mean**    | The average value                                   |
+| **Median**  | The “middle” value (half above, half below)         |
+| **SD**      | Standard deviation = typical distance from the mean |
+| **IQR**     | Interquartile range = spread of the middle 50%      |
+| **Min/Max** | Smallest and largest values (range)                 |
+
+
+Think of **mean/median** as *center*, and **SD/IQR/min/max** as *spread*.
+
+Check out [StatQuest](https://statquest.org/statistics-fundamentals-the-mean-variance-and-standard-deviation/) for some great explainer/recap videos.
+
+### Overall distribution
+
+What does the culmen length look like across *all* penguins?
+
+```{r, eval = FALSE}
+
+penguins |>                         
+  summarise(                        # calculate summary statistics
+    n = n(),                        # count of observations (sample size)
+    mean = mean(culmen_length_mm,   # average culmen length, ignoring missing values
+                na.rm = TRUE),
+    median = median(culmen_length_mm, 
+                   na.rm = TRUE),   # middle value of culmen length
+    sd = sd(culmen_length_mm, 
+            na.rm = TRUE),          # standard deviation (spread around the mean)
+    iqr = IQR(culmen_length_mm, 
+              na.rm = TRUE),        # interquartile range (spread of middle 50%)
+    .groups = "drop"                
+  )
+
+```
+
+
+
+
+### By species
+
+Do species differ in average culmen length or variability?
+
+```{r, eval = FALSE}
+
+penguins |>
+  group_by(species) |>         # split the data into subgroups by species
+  summarise(                  # within each subgroup, calculate summary statistics
+    n = n(),
+    mean = mean(culmen_length_mm, na.rm = TRUE),
+    median = median(culmen_length_mm, na.rm = TRUE),
+    sd = sd(culmen_length_mm, na.rm = TRUE),
+    iqr = IQR(culmen_length_mm, na.rm = TRUE),
+    .groups = "drop"           # remove grouping in the final output
+  )
+
+
+```
+
+:::{.callout-note}
+
+## Stop & Reflect
+
+- How do the species means compare to the overall mean?
+
+- Why might it be misleading to report only the *overall mean* without looking at subgroups?
+
+- Why is species a useful/informative choice to split data by?
+
+- Could other variables also affect culmen length?
+
+`r hide("Solution")`
+
+- **Species vs. overall mean** → The species means are quite different from each other; the overall mean blends them together and hides those differences.
+
+- **Why overall mean can mislead** → If we only reported the overall mean, we’d miss meaningful biological variation according to important subgroups.
+
+- **Why species is useful** → Biology suggests species differ systematically in body size and morphology, so species plausibly causes variation in culmen length.
+
+- **Other variables** → Yes 
+                      - sex (sexual dimorphism): males and females can often have different average body size 
+                      - island: possible *if* they experience very different environmental conditions
+                      - year: possible *if* they experience different environmental conditions
+                      - body mass: possible - but body mass could also be indirectly affected by species *or* environment
+
+`r unhide()`
+
+:::
+
+### By species *and* sex
+
+Do males and females within a species look different? Which subgroups are most variable?
+
+```{r}
+
+penguins |>                         
+  group_by(species, sex) |>         # split the data into subgroups by species AND sex
+  summarise(                        # within each subgroup, calculate summary statistics
+    n = n(),                        
+    mean = mean(culmen_length_mm,   
+                na.rm = TRUE),
+    median = median(culmen_length_mm, 
+                   na.rm = TRUE),   
+    sd = sd(culmen_length_mm, 
+            na.rm = TRUE),         
+    iqr = IQR(culmen_length_mm, 
+              na.rm = TRUE),       
+    .groups = "drop"                # remove grouping in the final output
+  )
+
+
+```
+
+::: {.callout-note}
+
+## Stop & Reflect
+
+- Which species + sex subgroup has the highest variation (SD/IQR)?
+
+- Do any subgroups have very small n? Why might that matter if we want to draw reliable conclusions?
+
+- Small or imbalanced groups can make it difficult to know whether differences are real or due to chance.
+
+`r hide("Solution")`
+
+When a subgroup has **very few observations** (small n), any summary statistics we calculate—mean, median, standard deviation, or IQR—are **less reliable**. Small groups are more sensitive to random variation: a single unusually large or small value can dramatically change the mean or SD.
+
+Similarly, when subgroups are **imbalanced** (some very large, some very small), comparing averages across groups can be misleading, because the small groups contribute little information and their estimates are highly uncertain.
+
+`r unhide()`
+:::
+
+
+::: {.callout-tip collapse = "true"}
+
+## summary() vs summarise()
+
+### Base R: quick glance (not grouped)
+
+```{r, eval = FALSE}
+summary(penguins$culmen_length_mm)
+```
+
+### Tidyverse: grouped
+
+```{r, eval = FALSE}
+penguins |> group_by(species) |>
+  summarise(mean = mean(culmen_length_mm, na.rm=TRUE),
+            sd = sd(culmen_length_mm, na.rm=TRUE))
+```
+
+👉 Use `summary()` for a fast check, but `summarise()` when you need flexible or grouped results.
+:::
+
 
 ## Explore the distribution of categories
 
-Understanding how your data is distributed across important grouping variables is essential for context. In this case, the Palmer Penguins dataset includes key groupings such as **species, island, and year**, which might have significant effects on the relationships we want to study (e.g., between bill length and bill depth). By summarizing and visualizing the distribution of these variables, we can ensure that our analyses account for group-level differences, leading to more robust insights.
+Understanding how your data is distributed across important grouping variables is essential for context. In this case, the Palmer Penguins dataset includes key groupings such as **species, island, and year**, which might have significant effects on the relationships we want to study (e.g., between bill length and bill depth). By summarising and visualising the distribution of these variables, we can ensure that our analyses account for group-level differences, leading to more robust insights.
 
 ### Frequency
 
-By grouping the data according to the species variable, we can calculate the total count (n) of penguins within each species. This summary provides a clear understanding of how the penguins are distributed across the different species in the dataset. Knowing the sample size for each species is crucial because it informs us about the representation of each group, which affects the reliability of any comparisons or analyses we plan to perform. If one species has far fewer observations than others, for example, it may require special consideration when interpreting results, as smaller sample sizes can lead to less robust conclusions. Understanding this distribution is a foundational step for any further analysis or comparison between species.
+By grouping the data according to the species variable, we can calculate the total count (`n`) of penguins within each species. This summary provides a clear understanding of how the penguins are distributed across the different species in the dataset. 
+
 
 ```{r}
 penguins |> 
@@ -122,7 +318,7 @@ penguins |>
   # calculations applied per species
   group_by(species) |> 
   # summarise the number of observations in each group
-  summarise(n = n_distinct(individual_id))
+  summarise(n_unique = n_distinct(individual_id))
 
 ```
 
@@ -147,37 +343,48 @@ prob_obs_species <- penguins |>
 prob_obs_species
 
 ```
+
 So about 44% of our sample is made up of observations from Adelie penguins. When it comes to making summaries about categorical data, that's about the best we can do, we can make observations about the most common categorical observations, and the relative proportions.
 
-```{r}
+```{r, fig.alt="Horizontal bar chart showing counts per species with percentage labels."}
 penguins |> 
-  mutate(species=fct_relevel(species, 
-                             "Adelie",
-                             "Gentoo",
-                             "Chinstrap")) |> 
-  # set as factor and provide levels
-  ggplot()+
-  geom_bar(aes(x=species),
-           fill="steelblue",
-           width=0.8)+
-  labs(x="Species",
-       y = "Number of observations")+
-  geom_text(data=prob_obs_species,
-            aes(y=(n+10),
-                x=species,
-                label=scales::percent(prob_obs)))+
-  coord_flip()
+  mutate(species = fct_relevel(species,       # re-order the species factor levels
+                               "Adelie",      # first level
+                               "Gentoo",      # second level
+                               "Chinstrap")) |> # third level
+  # now species is a factor with a defined order
+  ggplot() +                                  # start a ggplot
+  geom_bar(aes(x = species),                  # create a bar chart counting observations per species
+           fill = "steelblue",               # fill bars with blue color
+           width = 0.8) +                     # width of bars
+  labs(x = "Species",                         # label x-axis
+       y = "Number of observations") +       # label y-axis
+  geom_text(data = prob_obs_species,          # add text labels on top of bars
+            aes(y = (n + 10),                # position labels slightly above each bar
+                x = species,
+                label = scales::percent(prob_obs))) + # show proportion as a percentage
+  coord_flip()                                # flip coordinates: horizontal bars instead of vertical
 
 ```
 
-This is an example of a figure we might use in a report or paper. Having cleaned up the theme, added some simple colour, made sure our labels are clear and descriptive, ordered our categories in ascending frequency order, and included some simple text of percentages to aid readability.
 
+:::{.callout-tip collapse = "true"}
+## Big-picture
+
+- `forcats::fct_relevel()`: ensures bars appear in a meaningful order (Adelie → Gentoo → Chinstrap).
+
+- `ggplot::geom_bar()`: counts penguins per species and plots as bars.
+
+- `ggplot::geom_text()`: overlays percentage labels above each bar for clarity.
+
+- `ggplot::coord_flip()`: makes the bar chart horizontal, which is often easier to read when labels are long.
+
+:::
 
 ## Two or more categories
 
 When investigating the distribution of observations, it’s important to consider how other variables might influence this relationship, such as sex, species or observations across years.
 
-`r hide ("Solution")`
 
 Understanding how frequency is broken down by island, species year and sex might be useful.
 
@@ -189,23 +396,39 @@ penguins |>
 ```
 
 
-```{r, fig.width = 10}
+```{r, fig.width = 10, fig.alt="Grid barplot of counts by year and location"}
 
 penguins |> 
-   ggplot(aes(x = species,
-             fill = sex))+
-   geom_bar(width=0.8,
-            position = position_dodge())+
-  labs(x="Species",
-       y = "Number of observations")+
-  facet_grid(island ~ year)
+  ggplot(aes(x = species,                  # x-axis = species
+             fill = sex)) +               # color bars by sex
+  geom_bar(width = 0.8,                     # width of the bars
+           position = position_dodge()) +  # dodge bars so males/females are side by side
+  labs(x = "Species",                       # x-axis label
+       y = "Number of observations") +     # y-axis label
+  facet_grid(island ~ year)                 # create a grid of plots: rows = island, columns = year
+
   
 
 ```
 
-`r unhide()`
+:::{.callout-tip collapse = "true"}
+## Big-picture
+
+- `fill = sex` → bars are colored by sex, so we can compare males vs females within each species.
+
+- `position_dodge()` → avoids stacking bars; puts male and female bars side by side for direct comparison.
+
+- `facet_grid(island ~ year)` → splits the plot into a grid showing counts for each island (rows) and year (columns).
+
+- This is a multi-dimensional descriptive view: you can see how species, sex, island, and year all relate to counts.
+
+:::
 
 By thinking about how categories might interact, we can identify interesting patterns or potential issues that could impact our analysis or data interpretation. Careful consideration of these interactions helps us ensure the validity of our findings. For instance:
+
+:::{.callout-important collapse = "true"}
+
+## Thinking about distributions
 
 - Sex Distribution: Looking at the patterns of male and female penguins, I’m reassured that the number of males and females observed is roughly equal across species and locations. This balance is important because unequal representation of sexes could bias our results, particularly in biological traits like bill length or body mass. Since there’s no imbalance, we can confidently proceed without worrying about gender skewing our insights.
 
@@ -217,10 +440,11 @@ By thinking about how categories might interact, we can identify interesting pat
 
 By reflecting on these patterns, we can be more confident in the integrity of the data and proceed with analysis, knowing that key variables are well-represented and that any missing data or inconsistencies are minimal and manageable.
 
+:::
 
 ## Missing data
 
-In the previous section, we identified some missing data, particularly for the sex variable, and noted that it was relatively small and likely random, meaning we could safely remove it from calculations without concern for `r glossary("bias")` . However, when it comes to our variables of interest, such as culmen length and culmen depth, it's worth taking a closer look at the missing values to understand if they occur in any particular patterns or groupings.
+In the previous section, we identified some missing data, particularly for the sex variable, and noted that it was relatively small and likely random, meaning we could safely remove it from calculations without concern for `r glossary("bias")` . However, when it comes to our variables of interest, such as `culmen length` and `culmen depth`, it's worth taking a closer look at the missing values to understand if they occur in any particular patterns or groupings.
 
 We previously used functions like `skimr::skim()` and `summary()` to find that there are two missing values each for culmen length and depth. Although this small amount of missing data is unlikely to introduce significant bias, it’s still a good practice to investigate where these missing values are located in the dataset. Identifying patterns or specific groups (e.g., certain species or islands) associated with the missing values can help ensure that the missing data is not clustered in a way that could subtly affect our analysis.
 
@@ -258,11 +482,16 @@ penguins |>
 ```
 `r unhide()`
 
-Again here we could safely drop these from our data and regard these as missing at random. 
 
-### remove na
+### Handling missing values
 
-If we are confident that missing data is not causing bias, then there are a few different ways we can deal with missing data so that it doesn't affect our calculations:
+Three main strategies: 
+
+1. Drop all rows with *any* NA (`drop_na()`): simple but can remove lots - **the nuclear option**
+
+2. Drop NAs in specific columns only.
+
+3. Keep rows, use `na.rm = TRUE` inside summary functions (least destructive).
 
 #### `drop_na()` on everything before we start. 
 
@@ -271,6 +500,7 @@ Using drop_na() to remove rows that contain any missing values across all variab
 - Pros: It's a simple, all-in-one solution for datasets where missing values are widespread and problematic.
 
 - Cons: This method may remove entire rows of data, even if the missing value is only in a single, unimportant column. This can lead to significant data loss if many rows have missing values in non-critical variables.
+
 
 #### `drop_na()` on a particular variable. 
 
@@ -298,35 +528,11 @@ penguins |>
 
 ## Continuous distributions
 
-A continuous variable is a type of numerical variable that can take an infinite number of values within a given range. Unlike categorical variables, which represent distinct groups or categories, continuous variables can represent quantities that can be measured with fine precision. Examples include height, weight, temperature, or in the case of the Palmer Penguins dataset, culmen length and culmen depth.
-
-### Summarizing a Continuous Variable
-
-To summarize a continuous variable, we typically focus on two key aspects:
-
-- `r glossary("central tendency")`  (such as the mean)
-
-- `r glossary("variation")`  (such as standard deviation)
-
-#### Mean (Central Tendency)
-
-The mean is the average value of a continuous variable. It is calculated by summing all the values and then dividing by the number of observations. The mean gives us a sense of the central location of the data, or where most of the data points cluster around.
-
-- Example: The mean culmen length of penguins gives us an average bill length, which represents the central value of the dataset.
-
-#### Variation (Spread)
-
-Variation describes how spread out the data points are around the mean.
-
-This concept is critical in data analysis because every variable exhibits its own unique pattern of variation. Understanding these patterns can provide important insights into the data. For example, the variation in penguin body mass or bill length across different species may reveal ecological or biological differences that are crucial to your analysis.
-
-The best way to explore and understand the pattern of variation is by visualizing the distribution of the variable's values. By plotting histograms, boxplots, or density plots, you can observe how the data is spread out, whether it is concentrated around a central value, or if there are any outliers. These visualizations allow you to quickly identify the extent of variation and gain insights into the behavior of the variable.
-
-:::{.callout-important}
-
-In the examples below I will look at the distributions of culmen length, you should modify and duplicate the code so that you check both culmen length and culmen depth.
-
+::: {.callout-important}
+In the examples below, adapt code to examine BOTH culmen length and culmen depth.
 :::
+
+A continuous variable is a type of numerical variable that can take an infinite number of values within a given range. Unlike categorical variables, which represent distinct groups or categories, continuous variables can represent quantities that can be measured with fine precision. Examples include height, weight, temperature, or in the case of the Palmer Penguins dataset, culmen length and culmen depth.
 
 
 ### Histograms
@@ -339,7 +545,7 @@ See the shape of the data: You can easily spot if the data is normally distribut
 Identify data spread: Histograms help you understand the spread or range of your data values.
 Detect outliers: Unusually high or low values become more noticeable in a histogram.
 
-```{r, warning = FALSE, message = FALSE}
+```{r, warning = FALSE, message = FALSE, "Histogram of culmen length with 10 bins."}
 penguins |> 
   ggplot()+
   geom_histogram(aes(x=culmen_length_mm),
@@ -348,11 +554,13 @@ penguins |>
 ```
 
 
-:::{.callout-tip}
+:::{.callout-tip collapse = "true}
 
 ## Change the bin argument
 
-Change the value specified to the bins argument and observe how the figure changes. It is usually a very good idea to try more than one set of bins in order to have better insights into the data
+Try different `bins` values (e.g. 8, 15, 25) and observe changes.
+
+It's usually a very good idea to see how the use of different numbers of data "bins" changes our understanding of the distribution
 
 :::
 
@@ -368,13 +576,15 @@ A `r glossary("boxplot")` is a powerful tool for visualizing the distribution of
 
 - Comparison Between Groups: One of the greatest strengths of boxplots is their ability to compare distributions across different groups. By plotting multiple boxplots side by side (e.g., for different penguin species), you can easily see how a variable's distribution changes between categories, helping to highlight differences or similarities between groups.
 
-```{r, warning = FALSE, message = FALSE}
+```{r, warning = FALSE, message = FALSE, "Horizontal boxplot of culmen length."}
 
 penguins |> 
   ggplot()+
-  geom_boxplot(aes(x=culmen_length_mm))
+  geom_boxplot(aes(x=culmen_length_mm))+
+  coord_flip()
 
 ```
+
 
 
 ## Continuous and categorical
@@ -385,7 +595,7 @@ To investigate how culmen length varies between different penguin species, we ca
 
 ```{r, warning = FALSE, message = FALSE}
 
-penguins %>% 
+penguins |> 
     ggplot(aes(x = species,
                y = body_mass_g,
                fill = species))+
@@ -406,13 +616,10 @@ Histograms and `r glossary("density plots")` are both useful tools for visualizi
 
 - Density plots, on the other hand, provide a smoothed estimate of the data distribution. Instead of counting data points in bins, a density plot estimates the probability density of the variable, giving a continuous curve that helps visualize the shape of the data. The area under the curve of a density plot sums to 1, making it particularly useful when comparing distributions between groups, as it normalizes the data regardless of sample size.
 
-In summary, histograms are useful for showing the exact count of data points in specific ranges, while density plots give a smoothed representation of the data’s distribution, helping to highlight the overall shape. Both are valuable tools, and the choice between them depends on the level of detail or smoothness you want to highlight.
-
-Below we have an example of a density plot, more useful when comparing groups of uneven sample sizes: 
 
 ```{r}
 
-penguins %>% 
+penguins|> 
   ggplot(aes(fill = species))+
   geom_density(aes(x = culmen_length_mm),
                    position = "identity",
@@ -421,12 +628,13 @@ penguins %>%
 ```
 
 
-### GGridges
+### Ridgeline density plots
 
-The package ggridges (Wilke (2021)) provides some excellent extra geoms to supplement ggplot. One if its most useful features is to to allow different groups to be mapped to the y axis, so that histograms are more easily viewed.
+The package `ggridges` @R-ggridges provides some excellent extra geoms to supplement ggplot `ggridges::geom_density_ridges()`. One of its most useful features is to to allow different groups to be mapped to the y axis, so that histograms are more easily viewed.
 
 ```{r}
 library(ggridges)
+
 ggplot(penguins, aes(x = culmen_length_mm, 
                      y = species)) + 
   ggridges::geom_density_ridges()
@@ -494,12 +702,16 @@ ggplot(penguins, aes(sample = culmen_length_mm))+
 
 The Shapiro-Wilk test is a commonly used statistical test to check whether a dataset follows a normal distribution. It gives a p-value that helps determine if the data significantly deviates from normality. While useful, the Shapiro test has its limitations, especially when it comes to sample size
 
-Sensitivity to Sample Size: The Shapiro-Wilk test is sensitive to sample size. For large samples, even very small deviations from normality can result in significant p-values, leading to a rejection of normality even when the deviations are minor and practically insignificant.
+:::{.callout-warning collapse = "true"}
+## Sensitivity to Sample Size: 
+
+The Shapiro-Wilk test is sensitive to sample size. For large samples (> 50), even small deviations from normality can result in significant p-values, leading to a rejection of normality even when the deviations are minor and practically insignificant.
+:::
 
 ```{r}
 library(rstatix)
 
-penguins %>% 
+penguins |> 
   shapiro_test(culmen_length_mm)
  
 
@@ -511,9 +723,9 @@ QQ plots are also more flexible with sample size. They work well with both large
 
 ### Normality in subgroups
 
-When you analyze the entire dataset without subgrouping, you combine data from different groups, such as species, locations, or treatments. Each group may have its own unique distribution. For example, in the Palmer Penguins dataset, bill length and bill depth may differ significantly between penguin species. If you test for normality across the entire dataset, the mix of different distributions might lead to misleading results—either falsely showing non-normality or obscuring deviations that are present in specific groups.
+When you analyse the entire dataset as a whole, you are combining different groups—for example, species, locations, or treatments—each of which may have its own distribution. In the Palmer Penguins dataset, bill length and bill depth can differ substantially between species. Testing for normality across the full dataset mixes these distributions, which can give misleading results: you might incorrectly conclude the data are non-normal, or you might miss deviations that exist within individual groups.
 
-Subgrouping allows you to test for normality within each specific group and understand whether the deviations from normality are general or isolated to certain groups. 
+By subgrouping, you can test normality within each group separately. This helps you see whether deviations from normality are common across all groups or specific to certain subgroups, giving a more accurate and interpretable picture of your data. 
 
 ```{r}
 library(qqplotr)
@@ -526,7 +738,7 @@ ggplot(penguins, aes(sample = culmen_length_mm))+
 ```
 
 ```{r}
-penguins %>% 
+penguins |> 
   group_by(species) |> 
   shapiro_test(culmen_length_mm)
 
@@ -534,132 +746,17 @@ penguins %>%
 
 Now we can see that when splitting into species subgroups - that the qqplots are much better. The Shapiro wilk test indicates that the Gentoo population deviates from a normal distribution for bill length, but our qqplot indicates this is very minor and we can still safely use descriptive statistics of mean and standard deviation that rely on this assumption.
 
-## Summary statistics
-
-### Calculating mean and standard deviation
-
-standard deviation (or s) is a measure of how dispersed the data is in relation to the mean. Low standard deviation means data are clustered around the mean, and high standard deviation indicates data are more spread out. We can calculate these easily in R with `group_by()` and `summarise()`.
-
-```{r}
-penguins |> 
-  group_by(species) |> 
-  summarise(mean = mean(culmen_length_mm),
-            sd = sd(culmen_length_mm))
-
-```
-`r hide("Solution")`
-
-```{r}
-penguins |> 
-  group_by(species) |> 
-  summarise(mean = mean(culmen_length_mm, na.rm = T),
-            sd = sd(culmen_length_mm, na.rm =T))
-
-```
-
-`r unhide()`
-
-### Median and quartiles
-
-If we were dealing with variables that did not fit a normal distribution, using summary statistics like max, min, median, and interquartile range (IQR) provides a robust way to describe the data's spread and central tendency. Unlike the mean and standard deviation, which are sensitive to outliers and skewed data, the median and IQR give a more accurate representation of the distribution's center and spread in non-normal data.
-
-- Median: This is the middle value and provides a better measure of central tendency than the mean when data is skewed.
-IQR (Interquartile Range): This measures the spread of the middle 50% of the data (between the 25th and 75th percentiles) and is less affected by extreme values.
-
-- Min and Max: These values show the range of the data, highlighting any extreme values or outliers.
-
-These summary statistics directly correspond to the boxplot: the median is the line inside the box, the IQR defines the box's edges, and the min/max (after removing outliers) are represented by the ends of the whiskers.
-
-
-```{r}
-penguins |> 
-  group_by(species) |> 
-  summarise(median = median(culmen_length_mm, na.rm = T),
-            quantile = quantile(culmen_length_mm, c(0.25, 0.5, 0.75), na.rm=TRUE),
-            max = max(culmen_length_mm, na.rm = T),
-            min = min(culmen_length_mm, na.rm = T)
-  )
-
-```
-
-::: {.callout-warning}
-
-If you ran the command above you likely received a warning in your R console
-
-```
-Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-dplyr 1.1.0.
-ℹ Please use `reframe()` instead.
-```
-This is because `summary()` is supposed to only supply one row per group - by asking for the different quartiles from each group it forces it to print more rows. Try doing what R asks and see what happens
-
-[See here](https://dplyr.tidyverse.org/reference/reframe.html)
-
-:::
-
-
-## Collinearity
-
-Collinearity occurs when two or more independent variables in a dataset are highly correlated with each other, meaning that they show a strong linear relationship. In simpler terms, it means that one variable can be almost perfectly predicted by another. Collinearity is particularly problematic in regression analysis, where you want each independent variable to provide unique information about the outcome (dependent variable).
-
-Imagine you’re studying penguin bill characteristics in the Palmer Penguins dataset. If you include both culmen length and flipper length are highly correlated, then collinearity may occur. This would make it difficult to determine whether changes in culmen depth are due to culmen length or flipper length, or a combination of both, as they provide overlapping information.
-
-### GGally
-
-The R package `GGally` helps us understand the relationships between variables, by producing a pairwise matric grid made of:
-
-- Scatterplots: The scatterplots in a pairwise matrix (created by ggpairs()) allow you to visually inspect the relationship between pairs of continuous variables. If two variables show a strong linear relationship (points forming a clear diagonal line), it suggests collinearity between those variables.
-
-- Correlation Coefficients: In the pairwise matrix, you can also display correlation coefficients. When these values are close to 1 (positive correlation) or -1 (negative correlation), it suggests that the variables are highly correlated and might indicate collinearity.
-
-```{r, fig.width = 12}
-
-library(GGally)
-
-penguins |> 
-  select(species, 
-         island, 
-         culmen_length_mm, 
-         culmen_depth_mm, 
-         flipper_length_mm, 
-         body_mass_g, 
-         sex) |> 
-  ggpairs()
-
-
-```
-
-From these pairwise plots we can see that there *is* a correlation between flipper length, body mass and the culmen length and depth variables. This is useful information to know when considering the relationship between variables for cause and effect, and will be important when build statistical models. 
-
-#### Applying Subgroups of Color in GGally (Using ggplot2)
-
-Since GGally builds on ggplot2, you can apply the same customisations that ggplot2 allows, including the use of color to represent different subgroups in your data. This is especially useful when exploring relationships between variables, as it helps highlight patterns or differences between categories (e.g., species, sex, or location).
-
-```{r, fig.width = 12}
-penguins |> 
-  ggpairs(columns = c(
-         "island", 
-         "culmen_length_mm", 
-         "culmen_depth_mm", 
-         "flipper_length_mm", 
-         "body_mass_g", 
-         "sex"), 
-         ggplot2::aes(colour = species))
-
-```
-
-
-Why is this useful? It means we can identify group-specific trends: Adding colour based on a categorical variable (like species) helps you quickly spot trends or patterns that may exist only within certain groups.
-
 ## Correlation
 
 A common measure of association between two numerical variables is the correlation coefficient. The correlation metric is a numerical measure of the strength of an association
 
+[Correlation video](https://statquest.org/covariance-and-correlation-part-1-covariance/)
+
 There are several measures of correlation including:
 
-- Pearson's correlation coefficient : good for describing linear associations
+- **Pearson's correlation coefficient** : good for describing linear associations
 
-- Spearman's rank correlation coefficient: a rank ordered correlation - good for when the assumptions for Pearson's correlation is not met.
+- **Spearman's rank correlation coefficient**: a rank ordered correlation - good for when the correlation may not be linear, or the data is not **normally distributed**.
 
 Pearson's correlation coefficient `r` is designed to measure the strength of a linear (straight line) association. Pearson's takes a value between -1 and 1.
 
@@ -676,7 +773,7 @@ We can use the `rstatix::cor_test()` function in R to calculate Pearson's correl
 ```{r}
 library(rstatix)
 
-penguins %>% 
+penguins |>  
   cor_test(culmen_length_mm, 
            culmen_depth_mm)
 
@@ -700,24 +797,23 @@ This can be difficult to understand at first, so carefully consider the figure a
 
 - The third row shows a series of associations where there is clearly a relationship between the two variables, but it is also not linear so would be inappropriate for a Pearson's correlation.
 
-### Assumptions of Pearson's correlation
 
-- A linear relationship
-
-- Normal distribution of the variance
-
-In our case we have already looked at the relationship and the assumptions of normality and would conclude our data is basically fine for using Pearson's correlation.
-
-But what should we do if the relationship between our variables is non-linear or does not follow a normal distribution? Instead of using Pearson's correlation coefficient we can calculate something called a rank correlation.
 
 ### Spearman's rank correlation
 
-Instead of working with the raw values of our two variables we can use rank ordering instead. The idea is pretty simple if we start with the lowest vaule in a variable and order it as '1', then assign labels '2', '3' etc. as we ascend in rank order. We can see a way that this could be applied manually with the function dense_rank from dplyr below:
+:::{.callout-important collapse = "true"}
+
+## If the data is not correlated in a straight line (linear), or doesn't have a normal distribution we should use Spearman's over Pearson's
+
+Instead of working with the raw values of our two variables we can use rank ordering instead. The idea is pretty simple if we start with the lowest value in a variable and order it as '1', then assign labels '2', '3' etc. as we ascend in rank order.
+
+:::
+
 
 ```{r}
 library(rstatix)
 
-penguins %>% 
+penguins |> 
   cor_test(culmen_length_mm, 
            culmen_depth_mm,
            method = "spearman")
@@ -726,7 +822,7 @@ penguins %>%
 
 You can see that we get a similar *but not identical* estimate of the strength of association. Generally non-parametric tests are less powerful, but have fewer assumptions about the structure of our data.
 
-### Graphical summaries between numeric variables
+### Scatterplots
 
 Correlation coefficients are a quick and simple way to attach a metric to the level of association between two variables. They are limited however in that a single number can never capture the every aspect of their relationship. This is why we visualise our data, and the best way to do that for two continuous variables is to make a scatterplot
 
@@ -745,19 +841,19 @@ Marginal plots are useful when you want to explore the distribution of individua
 
 #### How to Create Marginal Plots: Using patchwork in R
 
-`patchwork` is an R package that makes it easy to combine multiple ggplots into a single plot layout, including creating layouts for marginal plots. While ggplot2 doesn't natively support marginal plots, patchwork allows you to combine the scatterplot with additional histograms or density plots at the top and side, creating a custom marginal plot.
+`patchwork` @R-patchwork is an R package that makes it easy to combine multiple ggplots into a single plot layout, including creating layouts for marginal plots. While ggplot2 doesn't natively support marginal plots, patchwork allows you to combine the scatterplot with additional histograms or density plots at the top and side, creating a custom marginal plot.
 
 ```{r}
 
 library(patchwork) # package calls should be placed at the TOP of your script
 
-bill_depth_marginal <- penguins %>% 
+bill_depth_marginal <- penguins |> 
   ggplot()+
   geom_density(aes(x=culmen_depth_mm), fill="darkgrey")+
   theme_void()+
   coord_flip() # this graph needs to be rotated
 
-bill_length_marginal <- penguins %>% 
+bill_length_marginal <- penguins |> 
   ggplot()+
   geom_density(aes(x=culmen_length_mm), fill="darkgrey")+
   theme_void()
@@ -784,11 +880,125 @@ bill_length_marginal+
 
 From this plot we would conclude that there is weak `r mcq(c("positive", answer = "negative"))` relationship between culmen length and culmen depth. 
 
-## Important variables
 
-When analyzing the correlation between two variables, it’s essential to consider important categories or grouping variables (like species, gender, location, or time) to avoid misleading results and oversimplified interpretations. Ignoring relevant categories can result in omitted variable bias, which occurs when a key variable is left out of the analysis and its influence distorts the observed relationship between the variables of interest.
+### GGally
 
-Think about important categories or subgroups that should be included when considering the relationship between culment length and depth?
+The R package `GGally` @R-GGally helps us understand the relationships between variables, by producing a pairwise matrix grid made of:
+
+- Scatterplots: The scatterplots in a pairwise matrix (created by `GGally::ggpairs()`) allow you to visually inspect the relationship between pairs of continuous variables. If two variables show a strong linear relationship (points forming a clear diagonal line), it suggests collinearity between those variables.
+
+- Correlation Coefficients: In the pairwise matrix, you can also display correlation coefficients. When these values are close to 1 (positive correlation) or -1 (negative correlation), it suggests that the variables are highly correlated and might indicate collinearity.
+
+```{r, fig.width = 12}
+
+library(GGally)
+
+penguins |> 
+  select(species, 
+         island, 
+         culmen_length_mm, 
+         culmen_depth_mm, 
+         flipper_length_mm, 
+         body_mass_g, 
+         sex) |> 
+  ggpairs()
+
+
+```
+
+From these pairwise plots we can see that there *is* a correlation between flipper length, body mass and the culmen length and depth variables. This is useful information to know when considering the relationship between variables for cause and effect, and will be important when build statistical models. 
+
+:::{.callout-important collapse="true"}
+
+### Applying Subgroups in GGally
+
+Since GGally builds on ggplot2, you can apply the same customisations that ggplot2 allows, including the use of color to represent different subgroups in your data. This is especially useful when exploring relationships between variables, as it helps highlight patterns or differences between categories (e.g., species, sex, or location).
+
+```{r, fig.width = 12}
+penguins |> 
+  ggpairs(columns = c(
+         "island", 
+         "culmen_length_mm", 
+         "culmen_depth_mm", 
+         "flipper_length_mm", 
+         "body_mass_g", 
+         "sex"), 
+         ggplot2::aes(colour = species))
+
+```
+
+
+Why is this useful? It means we can identify group-specific trends: Adding colour based on a categorical variable (like species) helps you quickly spot trends or patterns that may exist only within certain groups.
+
+:::
+
+## Thinking Causally: Interpreting Relationships Carefully
+
+So far we have described patterns (distribution, correlation). Causal thinking adds one disciplined question:
+
+> Could another variable explain, mask, change, or reverse the relationship we see between two variables?
+
+We will NOT “prove” causation here. Instead we (a) name the main structures that can mislead, and (b) practice simple checks.
+
+### Core Terms 
+
+| Term | Meaning | Penguin example |
+|------|----------------------|-----------------|
+| Association | Two variables vary together | Culmen length & culmen depth correlate |
+| Confounder | Variable that influences *both* variables of interest, creating a misleading pooled pattern | Species affects both length and depth |
+| Omitted variable bias | Distortion in a relationship caused by leaving out a confounder | Ignoring species when correlating length & depth |
+| Effect modifier (interaction) | A variable that changes the *strength or slope* of a relationship | Species changes slope of length→depth (if slopes differ) |
+| Simpson’s paradox | Pooled trend weakens/reverses after stratifying by a confounder | Pooled weak/negative vs within‑species positive |
+| Adjustment / Stratification | Looking within levels (or controlling for) a variable (e.g. species) | Facet by species |
+| DAG (Directed Acrylic Graph) | A simple arrow diagram of assumptions | species → length; species → depth; length → depth (?) |
+| Moderator (plain synonym for effect modifier) | “Changes the effect size” | Sex modifies strength (if noticeable) |
+
+
+### Example DAG
+
+We hypothesise that:
+
+```
+species → culmen_length_mm
+species → culmen_depth_mm
+sex → culmen_depth_mm   (maybe sex → culmen_length_mm)
+culmen_length_mm → culmen_depth_mm ?   (relationship we are exploring)
+```
+
+Interpretation:
+- Species is a **confounder** of length–depth as it can affect both *directly*
+- Sex might weakly confound or modify (check visually).
+- We “adjust” by stratifying (faceting, colouring etc.) or adding grouping to summaries.
+
+
+### Checklist Before Interpreting a Scatterplot
+
+1. Are there obvious grouping variables that should have been included? (species, sex, island)
+2. Does the pooled relationship differ visually from within-group lines?
+3. Do group slopes look similar (association consistent) or different (effect modification)?
+4. Did missing values drop particular groups (re-check small `n`)?
+5. After splitting by groups, does the direction/strength change (Simpson’s paradox)?
+
+#### Activity: Revisit the Pooled Plot
+
+(You likely have this already—repeat quickly.)
+
+`r hide("Pooled plot")`
+```{r}
+ggplot(penguins, aes(culmen_length_mm, culmen_depth_mm)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method="lm", se=FALSE, colour="black") +
+  labs(x="Culmen length (mm)", y="Culmen depth (mm)")
+```
+
+`r unhide()`
+
+Question: Is the pooled slope clearly positive, clearly negative, or weak/ambiguous?
+
+`r mcq(c("strong positive", answer = "strong negative", "weak positive", "weak negative"))`
+
+
+#### Activity: Split by Species (Confounding Check)
 
 `r hide("Solution")`
 
@@ -810,7 +1020,7 @@ scatterplot_2 <- ggplot(penguins, aes(x= culmen_length_mm,
     labs(x="Bill length (mm)",
          y="Bill depth (mm)")
 
-bill_depth_marginal_2 <- penguins %>% 
+bill_depth_marginal_2 <- penguins |> 
   ggplot()+
   geom_density(aes(x=culmen_depth_mm,
                    fill=species),
@@ -819,7 +1029,7 @@ bill_depth_marginal_2 <- penguins %>%
   theme_void()+
   coord_flip() # this graph needs to be rotated
 
-bill_length_marginal_2 <- penguins %>% 
+bill_length_marginal_2 <- penguins |> 
   ggplot()+
   geom_density(aes(x=culmen_length_mm,
                    fill=species),
@@ -838,34 +1048,153 @@ bill_length_marginal_2+scatterplot_2+bill_depth_marginal_2+ # order of plots is 
   plot_layout(design=layout2) # uses the layout argument defined above to arrange the size and position of plots
 ```
 
-We now clearly see a striking **reversal** of our previous trend, that in fact within each species of penguin there is an overall positive association between bill length and depth.
+`r unhide()`
 
-This is called **Simpson's Paradox** it is a classic example of omitted variable bias, where a trend observed in different groups reverses or disappears when the data is combined. This happens when a key variable (often categorical) is not included in the analysis, leading to misleading conclusions.
+Task:
 
-This should prompt us to re-evaluate our correlation metrics:
+1. Visually compare each species’ slope to the pooled one.
+
+2. If pooled and within-species slopes differ in sign or strength, species is a confounder (Simpson’s paradox manifested).
+
+Species IS a confounder `r `torf(TRUE)`
+
+#### Activity: Add Sex as a Potential Effect Modifier
+
+`r hide("Solution")`
 
 ```{r}
-penguins %>% 
-  group_by(species) %>% 
-  cor_test(culmen_length_mm, 
-           culmen_depth_mm)
-
-
+ggplot(penguins |> drop_na(sex),
+       aes(culmen_length_mm, culmen_depth_mm,
+           colour = sex)) +
+  geom_point(alpha=0.5) +
+  geom_smooth(method="lm", se=FALSE) +
+  facet_wrap(~ species) +
+  labs(x="Culmen length (mm)", y="Culmen depth (mm)",
+       colour="Sex")
 ```
 
-We now see that all of our correlation coefficients are stronger and positive *within* each species. 
-
 `r unhide()`
+
+Task:
+
+- Do male vs female slopes *within the same species* look meaningfully different?  
+  
+  - If yes, sex may be an effect modifier.  
+  
+  - If not, treat sex mainly as a potential (minor) confounder or even ignore for this relationship.
+
+#### Exercise 4: Correlation Contrast (Quantify the Change)
+
+```{r}
+# Pooled
+penguins |>
+  cor_test(culmen_length_mm, culmen_depth_mm)
+
+# By species
+penguins |>
+  group_by(species) |>
+  cor_test(culmen_length_mm, culmen_depth_mm)
+
+# By species & sex (only if enough rows)
+penguins |>
+  filter(!is.na(sex)) |>
+  group_by(species, sex) |>
+  summarise(n = n()) |>
+  arrange(n)
+```
+
+Task:
+
+- Confirm each species’ correlation is stronger and (likely) positive.
+
+- Check counts before splitting further by sex -  low `n` makes interpretations less certain.
+
+#### Exercise 5 (Optional): “What if Island?”
+
+```{r}
+penguins |>
+  count(island, species)
+```
+
+Task:
+
+- If one species is almost exclusive to an island, island adds little *additional* confounding once species is in the picture. Make a one-line note.
+
+---
+
+### Interpretation Templates
+
+Pick one that matches what you observe:
+
+1. *Confounding only:*  
+   “Species confounds the culmen length–depth relationship: pooled association was weak, but each species shows a clear positive trend.”
+
+2. *Confounding + minor effect modification:*  
+   “Species confounds and slightly modifies the relationship: all species show positive slopes, but Chinstrap is steeper.”
+
+3. *No strong modification:*  
+   “After adjusting for species, the length–depth association is consistently positive with similar slopes, suggesting little effect modification by species.”
+
+4. *Sex modifies (if evident):*  
+   “Within species, male and female slopes differ (Gentoo largest gap), indicating sex may modify the length–depth relationship.”
+
+---
+
+### Rapid Reflection (Write 1–2 Sentences Each)
+
+1. Which variable had the strongest confounding impact? Why?
+2. Did any variable *change* (modify) slope shape, or did it only shift intercepts?
+3. Which additional variable would you next test and why (island, year, body_mass_g, flipper_length_mm)?
+4. Provide a final adjusted interpretation (choose or adapt a template).
+
+`r hide("Example Answer")`
+Species was the key confounder: pooled slope understated the positive within-species scaling. Slopes were similar across sexes, so sex isn’t a strong effect modifier here. I would next inspect body_mass_g because it correlates with both bill dimensions and could enter a future multivariable model.
+`r unhide()`
+
+---
+
+### Causal Mini‑Summary
+
+- Start from a pattern (association).  
+- Ask: “Could a third variable explain or change this pattern?” (confounder or modifier).  
+- Stratify or adjust.  
+- Compare pooled vs stratified results.  
+- Report the adjusted story, not the misleading pooled one.
+
 
 
 ## Summary
 
-When analysing data, it’s important to start with simple visualizations like scatterplots, boxplots, or histograms to uncover basic patterns and distributions.
-Before continuing with simple visualisations of relationships and groupings. These tools help provide quick insights into your data, such as distribution, trends, or outliers.
+Good exploratory analysis is more than generating a gallery of plots. Follow a clear workflow: summarise → visualise → think causally.
 
-However, it’s equally important to think carefully about the context of your data. This includes considering grouping variables (like species, sex, or location) to avoid pitfalls like omitted variable bias or Simpson’s Paradox, where important patterns may be hidden or misrepresented if key variables are ignored.
+1. Summarise: Compute core descriptive statistics (counts, mean/median, sd/IQR) overall and by biologically relevant groups (species, sex).
 
-By incorporating relevant categories and ensuring you're accounting for potential confounding variables, you make sure your analysis is more accurate, insightful, and meaningful. Always take a moment to reflect on the broader context before drawing conclusions from simple data summaries
+2. Visualise: Use complementary plot types (histograms + density, box + violin, scatter + stratified regression lines) to uncover shape, variation, multigroup structure, and potential outliers.
+
+3. Think Causally: Ask whether apparent associations (e.g. culmen length vs depth) could be explained by confounders (species) or modified by other variables (sex). Stratify early to prevent misinterpretation (Simpson’s paradox).
+
+Along the way:
+
+- Inspect group balance (are some islands or species overrepresented?).
+
+- Handle missing data transparently (avoid silent bias from complete-case filtering).
+
+- Flag strongly correlated predictors for later modelling choices.
+
+- Distinguish “association” from a causal story; visual adjustments (colouring/faceting) are informal “adjustments.”
+
+- Use concise interpretation templates: report the adjusted relationships, not just the pooled one.
+
+End every exploration by answering:
+
+- What changed after grouping/splitting?
+
+- Which variables mattered most?
+
+- What uncertainties remain?
+
+A high-quality summary is a short, justified narrative linking observed patterns to biological structure—not a disconnected sequence of figures.
+
 
 ## Glossary
 

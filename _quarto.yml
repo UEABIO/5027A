@@ -42,6 +42,8 @@ book:
     - 04-penguin-project.qmd
     - weekone.qmd
     - 05-dplyr.qmd
+    - weektwo.qmd
+    - 07-data-insights.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd

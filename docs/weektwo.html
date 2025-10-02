@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.24">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="author" content="Philip Leftwich">
 <meta name="description" content="Statistical skills for Biologists">
-<title>5027A</title>
+<title>4&nbsp; Task Two - Data Cleaning – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -27,7 +26,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04-penguin-project.html" rel="next">
+<link href="./07-data-insights.html" rel="next">
+<link href="./05-dplyr.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -244,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./index.html">Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./weektwo.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Task Two - Data Cleaning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -281,7 +281,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
@@ -305,7 +305,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weektwo.html" class="sidebar-item-text sidebar-link">
+  <a href="./weektwo.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Task Two - Data Cleaning</span></span></a>
   </div>
 </li>
@@ -424,35 +424,25 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
 <li>
-<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+<a href="#objective-practice-clean-a-messy-dataset" id="toc-objective-practice-clean-a-messy-dataset" class="nav-link active" data-scroll-target="#objective-practice-clean-a-messy-dataset"><span class="header-section-number">4.1</span> Objective: Practice clean a messy dataset</a>
   <ul class="collapse">
-<li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes">Learning outcomes</a></li>
-  <li><a href="#how-to-use-this-book" id="toc-how-to-use-this-book" class="nav-link" data-scroll-target="#how-to-use-this-book">How to use this book</a></li>
-  <li><a href="#course-structure" id="toc-course-structure" class="nav-link" data-scroll-target="#course-structure">Course Structure</a></li>
+<li><a href="#step-1-download-the-scripts" id="toc-step-1-download-the-scripts" class="nav-link" data-scroll-target="#step-1-download-the-scripts"><span class="header-section-number">4.1.1</span> Step 1: Download the Scripts</a></li>
+  <li><a href="#step-2-upload-to-posit-cloud" id="toc-step-2-upload-to-posit-cloud" class="nav-link" data-scroll-target="#step-2-upload-to-posit-cloud"><span class="header-section-number">4.1.2</span> Step 2: Upload to Posit Cloud</a></li>
+  <li><a href="#step-3-checklist" id="toc-step-3-checklist" class="nav-link" data-scroll-target="#step-3-checklist"><span class="header-section-number">4.1.3</span> Step 3: Checklist</a></li>
+  <li><a href="#step-4-submission-discussion" id="toc-step-4-submission-discussion" class="nav-link" data-scroll-target="#step-4-submission-discussion"><span class="header-section-number">4.1.4</span> Step 4: Submission / Discussion</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./index.html">Overview</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">5027A</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./weektwo.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Task Two - Data Cleaning</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-weektwo" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Task Two - Data Cleaning</span></span></h1>
 </div>
 
-<div>
-  <div class="description">
-    Statistical skills for Biologists
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Philip Leftwich </p>
-          </div>
-  </div>
     
   
     
@@ -460,32 +450,92 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-<section id="overview" class="level1 unnumbered"><h1 class="unnumbered">Overview</h1><p><img src="images/logos/logo.png" title="5027A" class="quarto-cover-image nolightbox img-fluid"></p>
-<p>This course will introduce scientists and practitioners interested in applying statistical approaches in their daily routine using R as a working environment. Participants will be introduced into R and R Studio while learning how to perform common statistical analyses. After a short introduction on R and its principles, the focus will be on questions that could be addressed using common statistical analyses, both for descriptive statistics and for statistical inference.</p>
-<section id="learning-outcomes" class="level2"><h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
+</header><section id="objective-practice-clean-a-messy-dataset" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="objective-practice-clean-a-messy-dataset">
+<span class="header-section-number">4.1</span> Objective: Practice clean a messy dataset</h2>
+<p>This week’s assignment is to use simple <code>dplyr</code> commands to take a messy dataset, understand it and clean it.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Using AI
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>Understand how to read, interpret and write scripts in R.</p></li>
-<li><p>Learn how to check and clean data</p></li>
-<li><p>Learn statistical tools to address common questions in research activities.</p></li>
-<li><p>An introduction to efficient, readable and reproducible analyses</p></li>
-<li><p>Being comfortable with using R when performing both descriptive and inferential statistics.</p></li>
-</ul></section><section id="how-to-use-this-book" class="level2"><h2 class="anchored" data-anchor-id="how-to-use-this-book">How to use this book</h2>
-<p>For many of the chapters, we will provide the code you need to use. You can copy and paste from the book using the clipboard in the top-right corner.</p>
-<p>We also provide the solutions to many of the activities. No-one is going to check whether you tried to figure it out yourself rather than going straight to the solution but remember this: if you copy and paste without thinking, you will learn nothing.</p>
-<p>Finally, on occasion we will make updates to the book such as fixing typos and including additional detail or activities and as such this book should be considered a living document. Please tell me if you find any mistakes.</p>
-</section><section id="course-structure" class="level2"><h2 class="anchored" data-anchor-id="course-structure">Course Structure</h2>
-<p>We have:</p>
-<ul>
-<li>
-<p>One <strong>workshop per week</strong>, these both timetabled in-person sessions, and you should check Timetabler for up to-date information on scheduling. However, everything you need to complete workshops will be available on this site.</p>
-<ul>
-<li>If you feel unwell, or cannot attend a session in-person don’t worry you can access everything, and follow along in real time, or work at your own pace.</li>
+<li><p>For this exercise we are asking you <strong>Not</strong> to use LLMs such as Copilot or ChatGPT.</p></li>
+<li><p>This is because this is your opportunity to build familiarity with the process of thinking about your data and learning basic R functions</p></li>
+<li><p>It is tempting to dump code into AI and ask for a fix - <strong>but please hold off</strong> it will benefit you to try and understand it for yourself</p></li>
 </ul>
-</li>
-<li><p>One <strong>assignment per week</strong> - this will be in the form of quizzes or short assignments, each assignment is worth 2% of your module grade (to a maximum of 15%) and there will be 10 assignments total.</p></li>
-<li><p>One <strong>data analysis project</strong> - this will be a single piece of coursework (details after reading week) worth 20% of the the module grade</p></li>
+</div>
+</div>
+<section id="step-1-download-the-scripts" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="step-1-download-the-scripts">
+<span class="header-section-number">4.1.1</span> Step 1: Download the Scripts</h3>
+<ul>
+<li><p>Access Blackboard → Week 2 → “Cleaning Data”</p></li>
+<li><p>Download the R scripts to your local machine.</p></li>
+</ul></section><section id="step-2-upload-to-posit-cloud" class="level3" data-number="4.1.2"><h3 data-number="4.1.2" class="anchored" data-anchor-id="step-2-upload-to-posit-cloud">
+<span class="header-section-number">4.1.2</span> Step 2: Upload to Posit Cloud</h3>
+<ul>
+<li><p>Open your script in a <strong>NEW</strong> project.</p></li>
+<li><p>Upload the downloaded scripts into the project.</p></li>
 </ul>
+<blockquote class="blockquote">
+<p>Think organised project!</p>
+</blockquote>
+</section><section id="step-3-checklist" class="level3" data-number="4.1.3"><h3 data-number="4.1.3" class="anchored" data-anchor-id="step-3-checklist">
+<span class="header-section-number">4.1.3</span> Step 3: Checklist</h3>
+<section id="set-up" class="level4" data-number="4.1.3.1"><h4 data-number="4.1.3.1" class="anchored" data-anchor-id="set-up">
+<span class="header-section-number">4.1.3.1</span> Set up:</h4>
+<p>[ ] Load required packages (tidyverse, janitor, lubridate, stringr, forcats, skimr).</p>
+<p>[ ] Import data (read_csv / here()).</p>
+<p>[ ] (Optional) Immediately standardise names:</p>
+<pre><code>- Apply snake_case: `janitor::clean_names()`.
+- Manually rename awkward or long columns: `dplyr::rename()`.
+- Ensure no spaces, punctuation, or case inconsistencies that force backticks.
+- use sensible and clear names</code></pre>
+</section><section id="inspect-structure-quality" class="level4" data-number="4.1.3.2"><h4 data-number="4.1.3.2" class="anchored" data-anchor-id="inspect-structure-quality">
+<span class="header-section-number">4.1.3.2</span> Inspect structure &amp; quality:</h4>
+<p>[ ] Dimensions &amp; glimpse: <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>, <code>glimpse()</code>, <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>, <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code>.</p>
+<p>[ ] Types &amp; summaries: <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code>.</p>
+<p>[ ] Check for unexpected types (e.g.&nbsp;dates as character, numbers as character).</p>
+<p>[ ] Confirm data is (or can be made) tidy{<a href="tidy-data.html" class="quarto-xref"><span>Appendix C</span></a>}: one row = one observation, one column = one variable.</p>
+</section><section id="standardise-values-within-columns" class="level4" data-number="4.1.3.3"><h4 data-number="4.1.3.3" class="anchored" data-anchor-id="standardise-values-within-columns">
+<span class="header-section-number">4.1.3.3</span> Standardise values (within columns)</h4>
+<p>[ ] Collapse verbose categorical labels (<code>case_when()</code>, <code>if_else()</code>).</p>
+<p>[ ] Harmonise capitalisation (<code><a href="https://stringr.tidyverse.org/reference/case.html">stringr::str_to_title</a></code> / <code>str_to_lower</code>).</p>
+<p>[ ] Trim stray whitespace (<code><a href="https://stringr.tidyverse.org/reference/str_trim.html">stringr::str_trim()</a></code>).</p>
+<p>[ ] Make any required new variables with <code>mutate()</code></p>
+<p>[ ] Handle dates parse with correct order (lubridate::dmy / mdy / ymd / etc.).</p>
+</section><section id="check-duplicates-integrity" class="level4" data-number="4.1.3.4"><h4 data-number="4.1.3.4" class="anchored" data-anchor-id="check-duplicates-integrity">
+<span class="header-section-number">4.1.3.4</span> Check duplicates &amp; integrity</h4>
+<p>[ ] Whole-row duplications</p>
+<p>[ ] Detect typos or impossible values</p>
+</section><section id="factors-ordering" class="level4" data-number="4.1.3.5"><h4 data-number="4.1.3.5" class="anchored" data-anchor-id="factors-ordering">
+<span class="header-section-number">4.1.3.5</span> Factors &amp; ordering</h4>
+<p>[ ] Convert categorical text to factors: mutate(across(cols, forcats::as_factor)).</p>
+<p>[ ] Set meaningful order: <code>fct_relevel()</code> (e.g.&nbsp;smol &lt; mid &lt; chonk).</p>
+<p>[ ] (Optional) Create classification / grouping variables</p>
+</section><section id="summarise-validate" class="level4" data-number="4.1.3.6"><h4 data-number="4.1.3.6" class="anchored" data-anchor-id="summarise-validate">
+<span class="header-section-number">4.1.3.6</span> Summarise &amp; validate</h4>
+<p>[ ] Re-run skim() / summary() after transformations.</p>
+<p>[ ] Spot remaining NAs; decide whether to keep or drop.</p>
+<p>[ ] Sanity-check ranges (e.g.&nbsp;min/max dates, value distributions).</p>
+</section><section id="readable-code" class="level4" data-number="4.1.3.7"><h4 data-number="4.1.3.7" class="anchored" data-anchor-id="readable-code">
+<span class="header-section-number">4.1.3.7</span> Readable code</h4>
+<p>[ ] Use pipes for readability</p>
+<p>[ ] Assign new R objects only at meaningful checkpoints - use clear names.</p>
+<p>[ ] Keep all steps in a script (e.g.&nbsp;01_import_penguins_data.R).</p>
+<p>[ ] Ensure script runs cleanly from a fresh R session (no hidden state).</p>
+<p>[ ] Add brief comments explaining each transformation.</p>
+<p>[ ] Save cleaned object (e.g.&nbsp;write_csv() or saveRDS()).</p>
+<p>[ ] Do not overwrite or edit the raw data file.</p>
+</section></section><section id="step-4-submission-discussion" class="level3" data-number="4.1.4"><h3 data-number="4.1.4" class="anchored" data-anchor-id="step-4-submission-discussion">
+<span class="header-section-number">4.1.4</span> Step 4: Submission / Discussion</h3>
+<ol type="1">
+<li>Submit your fixed scripts to Blackboard.</li>
+</ol>
 
 
 </section></section></main><!-- /main --><script>
@@ -1133,10 +1183,13 @@ window.onresize = move_sidebar;
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./05-dplyr.html" class="pagination-link" aria-label="Data cleaning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data cleaning</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04-penguin-project.html" class="pagination-link" aria-label="Meet the Penguins">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Meet the Penguins</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./07-data-insights.html" class="pagination-link" aria-label="Data insights">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data insights</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -126,7 +126,7 @@ One quirk of working in a `.Rmd` Rmarkdown file is that when you "knit" all code
 :::
 
 
-## Blank slates
+## Blank slates {#sec-blank}
 
 When working on data analysis and coding projects in R, it's crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies. 
 
@@ -343,7 +343,7 @@ penguins_clean |>
 
 `r unhide()`
 
-## Naming things
+## Naming things {#sec-names}
 
 So as we are reading things into and out of our environment we come to filenames. 
 

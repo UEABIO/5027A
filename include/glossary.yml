@@ -18,6 +18,8 @@ correlation coefficient: |
   A numerical value ranging from -1 to 1 that measures the strength and direction of the linear relationship between two variables.
 scatterplot: |
   A graph that displays the relationship between two numerical variables by plotting data points on an X and Y axis.
+scatterplots: |
+  A graph that displays the relationship between two numerical variables by plotting data points on an X and Y axis.
 confounding variable: |
   A variable that affects both the independent and dependent variables, potentially distorting the observed relationship between them.
 bias: |
@@ -38,5 +40,5 @@ mean: |
   The average of a dataset, calculated by summing all values and dividing by the number of observations.
 standard deviation: |
   A measure of the amount of variation or spread in a dataset, indicating how far data points are from the mean on average.
-
-
+density plots: |
+  A density plot is a visualization of the distribution of a continuous numerical variable, acting as a smoothed, continuous version of a histogram. It uses a mathematical technique called kernel density estimation to draw a smooth curve that estimates the probability distribution of the data, making it easier to see the underlying shape and overall pattern compared to a histogram
