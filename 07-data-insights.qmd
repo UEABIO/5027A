@@ -554,7 +554,7 @@ penguins |>
 ```
 
 
-:::{.callout-tip collapse = "true}
+:::{.callout-tip collapse = "true"}
 
 ## Change the bin argument
 
