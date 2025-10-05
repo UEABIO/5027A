@@ -17,6 +17,8 @@ In this section we will be introduced to some of the most commonly used data wra
 
 ::: {.callout-important}
 
+Work in your existing R project
+
 Try running the following functions directly in your `r glossary("console")` *or* make a `scraps.R` scrappy file to mess around in. 
 
 :::

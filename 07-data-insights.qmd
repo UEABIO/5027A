@@ -947,11 +947,11 @@ We will NOT “prove” causation here. Instead we (a) name the main structures 
 | Association | Two variables vary together | Culmen length & culmen depth correlate |
 | Confounder | Variable that influences *both* variables of interest, creating a misleading pooled pattern | Species affects both length and depth |
 | Omitted variable bias | Distortion in a relationship caused by leaving out a confounder | Ignoring species when correlating length & depth |
-| Effect modifier (interaction) | A variable that changes the *strength or slope* of a relationship | Species changes slope of length→depth (if slopes differ) |
+| Effect modifier/moderator (interaction) | A variable that changes the *strength or slope* of a relationship | sex might change the slope of length→depth (if slopes differ) |
 | Simpson’s paradox | Pooled trend weakens/reverses after stratifying by a confounder | Pooled weak/negative vs within‑species positive |
 | Adjustment / Stratification | Looking within levels (or controlling for) a variable (e.g. species) | Facet by species |
 | DAG (Directed Acrylic Graph) | A simple arrow diagram of assumptions | species → length; species → depth; length → depth (?) |
-| Moderator (plain synonym for effect modifier) | “Changes the effect size” | Sex modifies strength (if noticeable) |
+
 
 
 ### Example DAG
@@ -1056,7 +1056,7 @@ Task:
 
 2. If pooled and within-species slopes differ in sign or strength, species is a confounder (Simpson’s paradox manifested).
 
-Species IS a confounder `r `torf(TRUE)`
+Species IS a confounder `r torf(TRUE)`
 
 #### Activity: Add Sex as a Potential Effect Modifier
 
