@@ -15,7 +15,7 @@ For this exercise, we propose that our task is to generate insights into the rel
 :::{.callout-important}
 You should be working in the script you made in the last session check it contains everything contained in {@sec-save-script} and runs cleanly (no errors).
 
-Test this by making sure you have set your project up correctly (see {@blank}), restart your R session, and run your current script. 
+Test this by making sure you have set your project up correctly (see {@sec-blank}), restart your R session, and run your current script. 
 
 :::
 
@@ -79,6 +79,8 @@ Next, we’ll want to understand the central tendency of our data. Central tende
 
 - Mode: The most frequently occurring value in the dataset (not always relevant for continuous data).
 
+![mean-median-mode](images/mean_median_mode.png)
+
 :::{.callout-note collapse = "true"}
 ### Why this matters: 
 Understanding the average bill length and depth helps us get a sense of what is "normal" for our penguins. Additionally, comparing these statistics across different species or islands could reveal differences in penguin populations.
@@ -91,6 +93,8 @@ Now, we dive into the heart of our analysis: exploring the relationship between 
 
 We might also want to calculate a `r glossary("correlation coefficient")` to quantify the strength of the relationship between bill length and bill depth. 
 If we find a strong correlation, we can say that these two measurements tend to move together — for example, as the bill length increases, so might the bill depth.
+
+![scatter](images/scatter_example.png)
 
 :::{.callout-note collapse = "true"}
 ### Why this matters: 
