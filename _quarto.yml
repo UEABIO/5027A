@@ -44,6 +44,9 @@ book:
     - 05-dplyr.qmd
     - weektwo.qmd
     - 07-data-insights.qmd
+    - weekthree.qmd
+    - 08-inferential-statistics.qmd
+    - 09-linear-models.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd

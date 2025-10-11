@@ -67,63 +67,6 @@ Use the File > New Script menu item and select an R Script.
 :::
 
 
-
-
-
-## Activity 1: Carry out some basic exploratory data analysis
-
-The first thing we should know by now is to always start by exploring our data. If you want to stretch yourself, see if you can perform a basic data check **without** prompts. 
-
-`r hide("Solution")`
-
-
-```{r, eval = FALSE}
-# check the structure of the data
-glimpse(darwin)
-
-# check data is in a tidy format
-head(darwin)
-
-# check variable names
-colnames(darwin)
-
-
-# clean up column names
-
-darwin <- janitor::clean_names(darwin)
-
-# check for duplication
-darwin |> 
-  duplicated() |> 
-  sum()
-
-# check for typos - by looking at impossible values
-darwin |> 
-  summarise(min=min(height, na.rm=TRUE), 
-            max=max(height, na.rm=TRUE))
-
-# check for typos by looking at distinct characters/values
-
-darwin |> 
-  distinct(pair)
-
-darwin |> 
-  distinct(type)
-
-# missing values
-darwin |> 
-  is.na() |> 
-  sum()
-
-# quick summary
-
-summary(darwin)
-```
-
-`r unhide()`
-
-
-
 ### Visualisation
 
 Now seems like a good time for our first data visualisation.
@@ -167,34 +110,6 @@ You should (re)familiarise yourself with how (and why) we calculate standard dev
 
 :::
 
-Summary statistics like these could be presented as figures or tables. We normally reserve tables for **very** simple sets of numbers, and this instance we could present both.
-
-```{r}
-
-# make a new object
-darwin_summary <-darwin |> 
-  group_by(type) |> 
-  summarise(mean=mean(height),
-            sd=sd(height))
-
-# make a summary plot
-darwin_summary |> 
-  ggplot(aes(x=type,
-             y=mean))+
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd))+
-  theme_bw()
-
-# put this at top of script
-library(kableExtra)
-
-# use kable extra functions to make a nice table (could be replaced with kable() if needed)
-darwin_summary |> 
-    kbl(caption="Summary statistics of crossed and selfed maize plants") |> 
-  kable_styling(bootstrap_options = "striped", full_width = T, position = "left")
-
-```
-
-Descriptive statistics and careful data checking are often skipped steps in the rush to answer the **big** questions. However, description is an essential part of early phase analysis. 
 
 ## Estimation
 
@@ -208,128 +123,99 @@ Our goal is to:
 
 * Quantify our *confidence* in these differences
 
-### Differences between groups
 
-Darwin's data used match pairs - each pair shared one parent. So that in pair 1 the same parent plant was either 'selfed' or 'crossed' to produce offspring. This is a powerful approach to experimental design, as it means that we can look at the differences in heights across each of the 15 pairs of plants - rather than having to infer differences from two randomly derived groups. 
+### Standard error
 
-In order to calculate the differences in height between each pair we need to do some data wrangling with `tidyr::pivot_wider()` {@sec-tidy} and calculations with `mutate`.
+Remember that standard deviation is a descriptive statistic — it measures how much individual data points vary around the mean. In other words, it tells us how spread out our data are within a sample.
 
-## Activity 2: Differences
+However, when we move into inferential statistics, we’re no longer just describing our sample — we’re trying to make inferences about the population from which our sample came. This is where the standard error (SE) comes in.
 
-Create a new column called difference with the height of the selfed plant in each pair subtracted from the crossed plant. 
+We can think of the standard error as the standard deviation of the mean. The mean we calculate from our sample is just one possible estimate of the population mean. If we were to repeat our sampling process many times, we’d get slightly different sample means each time. The standard error tells us how much those sample means would typically vary from one sample to another.
 
-`r hide("Solution")`
-
-```{r}
-# pivot data to wide format then subtract Selfed plant heights from Crossed plant heights
-
-darwin_wide <- darwin |> 
-  pivot_wider(names_from = type, 
-              values_from = height) |> 
-  mutate(difference = Cross - Self)
-```
-
-`r unhide()`
-
-
-
-We now have the difference in height for each pair, we can use this to calculate the **mean difference** in heights between paired plants, and the amount of variance (as standard deviation)
-
-```{r}
-
-difference_summary <- darwin_wide |> 
-  summarise(mean=mean(difference),
-            sd=sd(difference),
-            n=n())
-
-difference_summary
-
-```
-
-
-:::{.callout-important}
-
-What we have just calculated is the average difference in height between these groups of plants and the standard deviation of the difference
-Moving forward we will be working a lot with estimating our confidence in differences between groups
-
-:::
-
-### Standard error of the difference
-
-Remember standard deviation is a *descriptive* statistic - it measures the variance within our dataset - e.g. how closely do datapoints fit to the mean. However for *inferential* statistics we are more interested in our confidence in our estimation of the mean. This is where standard error comes in. 
-
-We can think of error as a standard deviation of the mean. The mean we have calculated is an estimate based on one sample of data. We would expect that if we sampled another 30 plants these would have a different sample mean. Standard error describes the variability we would expect among sample means if we repeated this experiment many times. So we can think of it as a measure of the confidence we have in our estimate of a **true population mean**. 
+In short, the standard error measures how confident we can be that our sample mean is close to the true population mean.
 
 $$
 SE = \frac{s}{\sqrt(n)}
 $$
+where
+
+- s = sample standard deviation
+
+- n = sample size
 
 As sample size increases the standard error should reduce - reflecting an increasing confidence in our estimate. 
+
+```{r}
+darwin |> 
+  group_by(type) |> 
+  summarise(mean=mean(height),
+            sd=sd(height),
+            n = n(),
+            se = sd/sqrt(n))
+
+```
 
 Here is a great explainer video on [Standard Error](https://www.youtube.com/watch?v=A82brFpdr9g)
 
 And try this [Shiny App on Sampling](http://pleft86.shinyapps.io/Sampling)
 
-We can calculate the standard error for our sample by applying this equation to our `difference_summary` object, can you complete this?
+### Standard error of the difference
 
-`r hide("Solution")`
+Just as the standard error tells us how much a single sample mean would vary across repeated samples, the standard error of the difference tells us how much the **difference** between two sample means would vary if we repeated the experiment many times.
 
-```{r}
-difference_summary |> 
-  mutate(se= sd/sqrt(n))
+When comparing two groups (for example, two plant treatments), each sample mean has its own sampling variability. The variability in the difference between those means depends on both standard errors:
 
-```
+$$
+SE_{diff} = \sqrt{SE^2_1 + SE^2_2}
+$$
 
-`r unhide()`
-
+This combined standard error forms the basis for inferential tests like the t-test, where we assess whether the observed difference between two means is likely due to random sampling variation — or reflects a real difference in the populatio
 
 Our estimate of the mean is not really very useful without an accompanying measuring of *uncertainty* like the standard error, in fact estimates of averages or differences should **always** be accompanied by their measure of uncertainty. 
 
-### Activity 3: Communicate
 
-With the information above, how would you present a short sentence describing the average different in height?
+```{r}
+se_diff <- darwin |> 
+  group_by(type) |> 
+  summarise(
+    mean = mean(height),
+    sd = sd(height),
+    n = n(),
+    se = sd / sqrt(n)
+  ) |> 
+  summarise(
+    mean_diff = diff(mean), 
+    se_diff = sqrt(sum(se^2))
+  )
 
+se_diff
 
-`r hide("solution")`
+```
 
-*... the average difference in height was 2.62 ± 1.22 inches (mean ± SE).*
-
-`r unhide()`
-
-## Uncertainty
-
-With a mean and standard error of the difference in heights between inbred and crossed plants - how do we work out how much confidence we have in their being a difference between our **population means**? 
-
-Standard error is a measure of uncertainty, the larger the standard error the more *noise* around our data and the more uncertainty we have. The smaller the standard error the more confidence we can have that our difference in means is *real*. 
-
-* Null hypothesis - there is no difference in the mean height of self vs crossed plants
-
-* Alternate hypothesis - inbreeding reduces the fitness of the selfed plants, observed as selfed plants on average being smaller than crossed plants
-
-
-:::{.callout-tip}
-
-A statistical way of thinking about our inferences is in terms of confidence around keeping or rejecting the null hypothesis. The (alternate) hypothesis is simply one that contradicts the null. 
-
-When we decide whether we have enough confidence that a difference is real (e.g. we could reject the null hypothesis), we cannot ever be 100% certain that this isn't a false positive (also known as a Type I error). More on this later
-
-:::
 
 ### Normal distribution
 
-The normal distribution is a way to describe data that forms a bell-shaped curve when plotted on a graph. Most of the data points are clustered around the middle, with fewer data points as you move farther from the center in either direction. The middle point is the average (or mean), and it represents the most common value in the data set.
+The **normal distribution** describes data that form a **bell-shaped curve** when plotted on a graph. Most values are close to the **mean** (average), and fewer occur as you move further away from it in either direction.
 
 [What is the normal distribution](https://www.youtube.com/watch?v=rzFX5NWojp0&t=2s)
 
-Now, standard deviation tells you how spread out the data points are from the mean. A small standard deviation means the data points are close to the mean, so the curve will be tall and narrow. A large standard deviation means the data points are more spread out, making the curve wider and flatter.
+### Spread of the data
 
-In short, the standard deviation measures how much variation there is in the data from the average value. 
+The standard deviation measures how spread out the data are from the mean:
 
-Large standard deviations produce wide bell curves, with short peaks. Small standard deviations produce narrow bell curves with tall peaks. 
+- A small standard deviation → data are close to the mean → tall, narrow curve.
 
-The bell curve occurs frequently in nature, most circumstances where we can think of a continuous measure coming from a population e.g. human mass, penguin flipper lengths or plant heights. 
+- A large standard deviation → data are more spread out → wide, flat curve.
 
-As a *probability* distribution, the area within the curve sums to the whole population (e.g. the probability that the curve contains every possible measurement is 1). Known proportions of the curve lie within certain distances from the centre e.g. 67.8% of observations should have values within one standard deviation of the mean. 95% of observations should have values within two standard deviations of the mean. This *idealised* normal distribution is presented below:
+The bell-shaped curve appears often in nature — for example, in human height, penguin flipper length, or plant height.
+
+As a probability distribution, the total area under the curve equals 1 (the whole population). Certain parts of the curve correspond to known probabilities:
+
+- About 68% of values are within 1 standard deviation of the mean.
+
+- About 95% are within 2 standard deviations.
+
+- About 99.7% are within 3 standard deviations.
 
 ```{r, echo = FALSE, eval=TRUE}
 #Create a sequence of 100 equally spaced numbers between -4 and 4
@@ -345,48 +231,47 @@ plot(x,y, type = "l", lwd = 2, axes = FALSE, xlab = "", ylab = "")
 axis(1, at = -3:3, labels = c("-3s", "-2s", "-1s", "mean", "1s", "2s", "3s"))
 ```
 
-How do we convert this information into how likely we are to observe a difference of 2.62 inches in plant heights if the 'true' difference between crosses and selfed plants is *zero*? 
+#### The Central Limit Theorem
 
-The **central limit theorem** states that if you have a population with mean and standard deviation, and take sufficiently large random samples from the population, then the distribution of the sample means will be approximately normally distributed. Standard error then is our measure of variability around our sample mean, and we will assume that we can apply a normal distribution to our ability to estimate the mean. 
+The **central limit theorem** tells us that if we take many random samples from a population, the averages (sample means) will form a normal distribution — even if the original data are not normal.
 
-So if we now center our bell curve on the estimate of the mean (2.62), then just over two thirds of the area under the curve is ± 1.22 inches. 95% of it will be within ± 2 standard errors, and 99.8% will be within ± 3 standard errors.
+The **standard error (SE)** shows how much the sample mean varies from the true population mean.
 
 ```{r, eval=TRUE, echo=FALSE}
 plot(x,y, type = "l", lwd = 2, axes = FALSE, xlab = "difference in height (inches)", ylab = "")
-axis(1, at = -3:3, labels = c("", "0.18", "", "2.62", "", "5.06", ""))
+axis(1, at = -3:3, labels = c("", "0.48", "", "2.62", "", "4.76", ""))
 
 ```
 
-Taking a look at this figure we can ask ourselves where is zero on our normal distribution? One way to think about this is, if the true difference between our plant groups is zero, how surprising is it that we estimated a difference between the groups of 2.62 inches? 
+#### Example: Comparing Plant Heights
 
-If zero was close to the center of the bell curve, then our observed mean would not be surprising at all (**if the null hypothesis is true**). However in this case it is not in the middle of the bell. It falls in the left-hand tail, and it is > than two standard deviations from our estimated mean. 
+Suppose we measure the difference in height between two groups of maize plants — cross-pollinated and self-pollinated.
+We find a mean difference of 2.62 inches, with a standard error of 1.07 inches.
 
-We can describe this in two ways:
+If the true difference between the groups were actually zero, how likely would it be to observe a difference of 2.62 inches?
 
-* We estimate that if we ran this experiment 100 times then >95 of our experiments would estimate a mean difference between our plant groups that is > 0. 
+Because 2.62 is more than two standard errors from zero, it would be unusual to see this by chance alone. That’s why we might reject the null hypothesis (that there’s no difference).
+In statistical terms, this corresponds to a p-value < 0.05.
 
-* This is also usually taken as the minimum threshold needed to *reject* a null hypothesis. We can think of the probability of estimating this mean difference, if our true mean difference was zero, as p < 0.05. 
-
-You will probably be very used to a threshold for null hypothesis rejection of $\alpha$ = 0.05, but this only the very lowest level of confidence at which we can pass a statistical test. If we increase the severity of our test so that the minimum we require is $\alpha$ = 0.001 or 99% confidence, we can see that we no longer believe we have enough confidence to reject the null hypothesis (0 is within 3 s.d. of our estimated mean). 
+If we used a stricter test (for example, p < 0.001), the result would not be considered significant, since zero would still fall within three standard errors.
 
 ### Confidence Intervals
 
-Because ± 2 standard errors covers the central 95% of the area under the normal curve, we refer to this as our 95% confidence interval. We can calculate confidence intervals for any level, but commonly we refer to standard error (68% CI), 95% and 99%. 
+A confidence interval (CI) gives a range that is likely to include the true mean difference.
 
-We can work out the 95% confidence interval range of our estimated mean as follows:
+Since ±2 standard errors cover about 95% of the normal curve, the 95% confidence interval for our estimate is:
 
 ```{r}
-lowerCI <- 2.62-(2*1.22)
+lowerCI <- 2.62-(2*1.07)
 
-upperCI <- 2.62+(2*1.22)
+upperCI <- 2.62+(2*1.07)
 
 lowerCI
 upperCI
 ```
 
-A common mistake it to state that we are 95% confident that the 'true' mean lies within our interval. But *technically* it refers to the fact that if we kept running this experiment again and again the intervals we calculate would capture the true mean in 95% of experiments. So really we are saying that we are confident we would capture the true mean in 95% of our experiments. 
+So, we write this as:
 
-How might we write this up?
 
 :::{.callout-tip}
 
@@ -394,13 +279,9 @@ The maize plants that have been cross pollinated were taller on average than the
 
 :::
 
-> Note that because it is possible to generate multiple types of average and confidence interval, we clearly state them in our write up. The same would be true if you were presenting the standard error (± S.E.) or the standard deviation (± S.D.) or a median and interquartile range (median [± IQR]). 
+This statement clearly shows the direction, size, and uncertainty of the difference.
 
-The above is a good example of a simple but clear write-up because it clearly describes the *direction* of the difference, the *amount* and the *error* in our estimate. 
+> It’s a common mistake to say we are 95% sure the true mean lies inside this interval.
+Technically, it means that if we repeated this experiment many times, 95% of those intervals would contain the true mean.
 
 
-## Summary
-
-Statistics is all about trying to interpret whether the signal (of a difference or trend) is stronger than the amount of noise (variability). In a sample the standard deviation is a strong choice for estimating this *within* a dataset. The standard deviation of the sampling distribution of the mean is known as the standard error. The standard error (of the mean) is a measure of the precision we have in our estimate of the mean. Thanks to the central limit theorem and normal distribution we can use the variability in our estimate to calculate confidence intervals, and decide whether our signal of an effect is strong enough to reject a null hypothesis (of no effect or no difference). 
-
-Next we will start working with linear models - this approach allows us to estimate means and intervals in a more sophisticated (and automated) way. 

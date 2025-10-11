@@ -1,0 +1,15 @@
+{
+  "hash": "ef1365d36c478362d9033415115f7fee",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Task Three - Data Cleaning {#sec-weekthree}\n\n\n\n\n\n## Objective: \nIn biological research, we often summarise data to understand patterns, make comparisons, and draw conclusions. However, data are rarely perfect: samples may be biased, measurements may contain errors or outliers, and important variables may be missing. Understanding these issues is critical for interpreting results accurately.\n\nIn this worksheet, you will explore three realistic biological datasets, each containing a different type of bias. For each dataset you should: \n\n- Computing descriptive statistics (mean, median, standard deviation, counts).\n\n- Make one appropriate plot (boxplots, histograms, scatterplots).\n\n- Detect and comment on any potential biases in the data and reasoning about their effect on conclusions.\n\n\n:::{.callout-important}\nYou will not be fitting statistical models yet. The goal is to summarise, visualise, and interpret the data while thinking carefully about bias.\n:::\n\n## The datasets:\n\n| Dataset               | Biological Context          | \n| --------------------- | --------------------------- | \n| **Bird Body Mass**    | Birds in different habitats |\n| **Glucose & Ketones** | Human blood measurements    | \n| **Cytokine Response** | Immune response study       | \n\n### Dataset 1: Bird Body Mass Across Habitats\n\nBias Type: Sampling Bias | Complexity: Easy\n\nBirds from three different habitats — Forest, Wetland, and Grassland — were weighed to study differences in body mass. However, due to field constraints, some birds might be underrepresented in certain habitats. This under-sampling can bias the overall mean body mass. Your task is to explore how habitat representation affects the summary statistics and visualize the differences across habitats.\n\n### Dataset 2: Blood Glucose and Ketone Levels\n\nYou have measurements of fasting blood glucose and blood ketone levels from a human study. \nThe blood test devices are not always accurate and glucose levels above 30 should be discarded. In addition, some ketone values are recorded as zero due to machine detection limits. Your task is to summarise these two variables, explore the relationship between them, and assess how outliers and detection limits affect your results.\n\n### Dataset 3: Cytokine Response to a Treatment\n\nParticipants underwent a treatment designed to increase cytokine levels, measured before and after treatment. Your task is to explore how cytokine levels change according to treatment, record missing data patterns, and consider how omitted factors and dropouts could bias interpretation.\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -285,3 +285,66 @@ ggplot(aes(x = Day,
     theme(legend.position = "top")+
     coord_cartesian(ylim = c(.98,1.09))
    # scale_y_continuous(limits = c(.5,1.2))
+
+
+
+  ## Week three=====
+
+  set.seed(123)
+
+  # Simulate population data (true population)
+  population <- data.frame(
+    Habitat = rep(c("Forest", "Wetland", "Grassland"), each = 1000),
+    Mass_g = c(
+      rnorm(1000, mean = 25, sd = 3),
+      rnorm(1000, mean = 30, sd = 3),
+      rnorm(1000, mean = 35, sd = 3)
+    )
+  )
+
+  # Biased sample (under-sampled Grassland)
+  sample_biased <- data.frame(
+    Habitat = c(rep("Forest", 200), rep("Wetland", 200), rep("Grassland", 40)),
+    Mass_g = c(
+      rnorm(200, mean = 25, sd = 3),
+      rnorm(200, mean = 30, sd = 3),
+      rnorm(40, mean = 35, sd = 3)
+    )
+  )
+
+
+  set.seed(456)
+
+  n <- 250
+  glucose <- rnorm(n, mean = 10, sd = 5)
+  ketones <- 0.04 * glucose + rnorm(n, mean = 0.3, sd = 0.2)
+
+  # Add impossible and extreme outliers
+  glucose[c(10, 20)] <- c(-5, 500)
+  ketones[c(15, 25)] <- c(10, -1)
+
+  # Add non-detects (left-censoring)
+  ketones[ketones < 0.2] <- 0
+
+  glucose_data <- data.frame(Glucose = glucose, Ketone = ketones)
+
+
+  set.seed(789)
+
+  n <- 200
+  sex <- sample(c("Male", "Female"), n, replace = TRUE)
+  baseline_hormone <- ifelse(sex == "Female",
+                             rnorm(n, mean = 35, sd = 5),
+                             rnorm(n, mean = 50, sd = 5))
+
+  before <- rnorm(n, mean = 20, sd = 4)
+  after_true <- ifelse(sex == "Female",
+                       before + rnorm(n, mean = 8, sd = 2),  # stronger response
+                       before + rnorm(n, mean = 3, sd = 2))
+
+  # Introduce missingness (dropouts)
+  dropout <- rbinom(n, 1, ifelse(sex == "Female", 0.05, 0.25))  # more males drop out
+  after_obs <- ifelse(dropout == 1, NA, after_true)
+
+  cytokine <- data.frame(Sex = sex, Before = before, After = after_obs)
+

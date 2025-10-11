@@ -1087,44 +1087,7 @@ Task:
   
   - If not, treat sex mainly as a potential (minor) confounder or even ignore for this relationship.
 
-#### Exercise 4: Correlation Contrast (Quantify the Change)
 
-```{r}
-# Pooled
-penguins |>
-  cor_test(culmen_length_mm, culmen_depth_mm)
-
-# By species
-penguins |>
-  group_by(species) |>
-  cor_test(culmen_length_mm, culmen_depth_mm)
-
-# By species & sex (only if enough rows)
-penguins |>
-  filter(!is.na(sex)) |>
-  group_by(species, sex) |>
-  summarise(n = n()) |>
-  arrange(n)
-```
-
-Task:
-
-- Confirm each species’ correlation is stronger and (likely) positive.
-
-- Check counts before splitting further by sex -  low `n` makes interpretations less certain.
-
-#### Exercise 5 (Optional): “What if Island?”
-
-```{r}
-penguins |>
-  count(island, species)
-```
-
-Task:
-
-- If one species is almost exclusive to an island, island adds little *additional* confounding once species is in the picture. Make a one-line note.
-
----
 
 ### Interpretation Templates
 
@@ -1134,25 +1097,25 @@ Pick one that matches what you observe:
    “Species confounds the culmen length–depth relationship: pooled association was weak, but each species shows a clear positive trend.”
 
 2. *Confounding + minor effect modification:*  
-   “Species confounds and slightly modifies the relationship: all species show positive slopes, but Chinstrap is steeper.”
+   “Species confounds and slightly modifies the relationship: all species show positive slopes, but varies by species.”
 
 3. *No strong modification:*  
-   “After adjusting for species, the length–depth association is consistently positive with similar slopes, suggesting little effect modification by species.”
+   “After adjusting for species, the length–depth association is unchanged, suggesting little effect modification by species.”
 
 4. *Sex modifies (if evident):*  
-   “Within species, male and female slopes differ (Gentoo largest gap), indicating sex may modify the length–depth relationship.”
+   “Within species, male and female slopes differ, indicating sex may also modify the length–depth relationship.”
 
 ---
 
 ### Rapid Reflection (Write 1–2 Sentences Each)
 
 1. Which variable had the strongest confounding impact? Why?
-2. Did any variable *change* (modify) slope shape, or did it only shift intercepts?
+2. Did any variable *change* (modify) slope shape, or did it only shift intercepts (starting points)?
 3. Which additional variable would you next test and why (island, year, body_mass_g, flipper_length_mm)?
 4. Provide a final adjusted interpretation (choose or adapt a template).
 
 `r hide("Example Answer")`
-Species was the key confounder: pooled slope understated the positive within-species scaling. Slopes were similar across sexes, so sex isn’t a strong effect modifier here. I would next inspect body_mass_g because it correlates with both bill dimensions and could enter a future multivariable model.
+Species was the key confounder: pooled slope understated the positive within-species scaling. Slopes were generally similar across sexes, so sex isn’t a confounder but could be considered a medium/strong effect modifier.
 `r unhide()`
 
 ---

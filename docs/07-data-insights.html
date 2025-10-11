@@ -81,7 +81,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary-table.html" rel="next">
+<link href="./weekthree.html" rel="next">
 <link href="./weektwo.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -371,6 +371,24 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data insights</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./weekthree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Task Three - Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-inferential-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferential statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear models and t-tests</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -385,7 +403,7 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary-table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary tables</span></span></a>
   </div>
 </li>
       </ul>
@@ -402,13 +420,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced_ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">ggplot extras</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">ggplot extras</span></span></a>
   </div>
 </li>
       </ul>
@@ -425,13 +443,13 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quarto-reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Quarto quick reference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Quarto quick reference</span></span></a>
   </div>
 </li>
       </ul>
@@ -2411,233 +2429,24 @@ Solution
 <li><p>If not, treat sex mainly as a potential (minor) confounder or even ignore for this relationship.</p></li>
 </ul>
 </li>
-</ul></section><section id="exercise-4-correlation-contrast-quantify-the-change" class="level4" data-number="5.11.3.4"><h4 data-number="5.11.3.4" class="anchored" data-anchor-id="exercise-4-correlation-contrast-quantify-the-change">
-<span class="header-section-number">5.11.3.4</span> Exercise 4: Correlation Contrast (Quantify the Change)</h4>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Pooled</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">cor_test</span>(culmen_length_mm, culmen_depth_mm)</span>
-<span id="cb36-4"><a href="#cb36-4"></a></span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="co"># By species</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb36-7"><a href="#cb36-7"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
-<span id="cb36-8"><a href="#cb36-8"></a>  <span class="fu">cor_test</span>(culmen_length_mm, culmen_depth_mm)</span>
-<span id="cb36-9"><a href="#cb36-9"></a></span>
-<span id="cb36-10"><a href="#cb36-10"></a><span class="co"># By species &amp; sex (only if enough rows)</span></span>
-<span id="cb36-11"><a href="#cb36-11"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb36-12"><a href="#cb36-12"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">|&gt;</span></span>
-<span id="cb36-13"><a href="#cb36-13"></a>  <span class="fu">group_by</span>(species, sex) <span class="sc">|&gt;</span></span>
-<span id="cb36-14"><a href="#cb36-14"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb36-15"><a href="#cb36-15"></a>  <span class="fu">arrange</span>(n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 19%">
-<col style="width: 18%">
-<col style="width: 6%">
-<col style="width: 11%">
-<col style="width: 10%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 9%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">var1</th>
-<th style="text-align: left;">var2</th>
-<th style="text-align: right;">cor</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p</th>
-<th style="text-align: right;">conf.low</th>
-<th style="text-align: right;">conf.high</th>
-<th style="text-align: left;">method</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: left;">culmen_length_mm</td>
-<td style="text-align: left;">culmen_depth_mm</td>
-<td style="text-align: right;">-0.24</td>
-<td style="text-align: right;">-4.459093</td>
-<td style="text-align: right;">1.12e-05</td>
-<td style="text-align: right;">-0.3328072</td>
-<td style="text-align: right;">-0.1323004</td>
-<td style="text-align: left;">Pearson</td>
-</tr></tbody>
-</table>
-</div>
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 18%">
-<col style="width: 17%">
-<col style="width: 5%">
-<col style="width: 10%">
-<col style="width: 6%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 8%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">var1</th>
-<th style="text-align: left;">var2</th>
-<th style="text-align: right;">cor</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p</th>
-<th style="text-align: right;">conf.low</th>
-<th style="text-align: right;">conf.high</th>
-<th style="text-align: left;">method</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">culmen_length_mm</td>
-<td style="text-align: left;">culmen_depth_mm</td>
-<td style="text-align: right;">0.39</td>
-<td style="text-align: right;">5.193285</td>
-<td style="text-align: right;">7e-07</td>
-<td style="text-align: right;">0.2472226</td>
-<td style="text-align: right;">0.5187796</td>
-<td style="text-align: left;">Pearson</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">culmen_length_mm</td>
-<td style="text-align: left;">culmen_depth_mm</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">7.014647</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.4917326</td>
-<td style="text-align: right;">0.7717134</td>
-<td style="text-align: left;">Pearson</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">culmen_length_mm</td>
-<td style="text-align: left;">culmen_depth_mm</td>
-<td style="text-align: right;">0.64</td>
-<td style="text-align: right;">9.244703</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.5262952</td>
-<td style="text-align: right;">0.7365271</td>
-<td style="text-align: left;">Pearson</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">species</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: right;">n</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: right;">34</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: left;">Male</td>
-<td style="text-align: right;">34</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: right;">58</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: left;">Male</td>
-<td style="text-align: right;">61</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: right;">73</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: left;">Male</td>
-<td style="text-align: right;">73</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Task:</p>
-<ul>
-<li><p>Confirm each species’ correlation is stronger and (likely) positive.</p></li>
-<li><p>Check counts before splitting further by sex - low <code>n</code> makes interpretations less certain.</p></li>
-</ul></section><section id="exercise-5-optional-what-if-island" class="level4" data-number="5.11.3.5"><h4 data-number="5.11.3.5" class="anchored" data-anchor-id="exercise-5-optional-what-if-island">
-<span class="header-section-number">5.11.3.5</span> Exercise 5 (Optional): “What if Island?”</h4>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">count</span>(island, species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">island</th>
-<th style="text-align: left;">species</th>
-<th style="text-align: right;">n</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">44</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Biscoe</td>
-<td style="text-align: left;">Gentoo</td>
-<td style="text-align: right;">124</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Dream</td>
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">56</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dream</td>
-<td style="text-align: left;">Chinstrap</td>
-<td style="text-align: right;">68</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Torgersen</td>
-<td style="text-align: left;">Adelie</td>
-<td style="text-align: right;">52</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Task:</p>
-<ul>
-<li>If one species is almost exclusive to an island, island adds little <em>additional</em> confounding once species is in the picture. Make a one-line note.</li>
-</ul>
-<hr></section></section><section id="interpretation-templates" class="level3" data-number="5.11.4"><h3 data-number="5.11.4" class="anchored" data-anchor-id="interpretation-templates">
+</ul></section></section><section id="interpretation-templates" class="level3" data-number="5.11.4"><h3 data-number="5.11.4" class="anchored" data-anchor-id="interpretation-templates">
 <span class="header-section-number">5.11.4</span> Interpretation Templates</h3>
 <p>Pick one that matches what you observe:</p>
 <ol type="1">
 <li><p><em>Confounding only:</em><br>
 “Species confounds the culmen length–depth relationship: pooled association was weak, but each species shows a clear positive trend.”</p></li>
 <li><p><em>Confounding + minor effect modification:</em><br>
-“Species confounds and slightly modifies the relationship: all species show positive slopes, but Chinstrap is steeper.”</p></li>
+“Species confounds and slightly modifies the relationship: all species show positive slopes, but varies by species.”</p></li>
 <li><p><em>No strong modification:</em><br>
-“After adjusting for species, the length–depth association is consistently positive with similar slopes, suggesting little effect modification by species.”</p></li>
+“After adjusting for species, the length–depth association is unchanged, suggesting little effect modification by species.”</p></li>
 <li><p><em>Sex modifies (if evident):</em><br>
-“Within species, male and female slopes differ (Gentoo largest gap), indicating sex may modify the length–depth relationship.”</p></li>
+“Within species, male and female slopes differ, indicating sex may also modify the length–depth relationship.”</p></li>
 </ol>
 <hr></section><section id="rapid-reflection-write-12-sentences-each" class="level3" data-number="5.11.5"><h3 data-number="5.11.5" class="anchored" data-anchor-id="rapid-reflection-write-12-sentences-each">
 <span class="header-section-number">5.11.5</span> Rapid Reflection (Write 1–2 Sentences Each)</h3>
 <ol type="1">
 <li>Which variable had the strongest confounding impact? Why?</li>
-<li>Did any variable <em>change</em> (modify) slope shape, or did it only shift intercepts?</li>
+<li>Did any variable <em>change</em> (modify) slope shape, or did it only shift intercepts (starting points)?</li>
 <li>Which additional variable would you next test and why (island, year, body_mass_g, flipper_length_mm)?</li>
 <li>Provide a final adjusted interpretation (choose or adapt a template).</li>
 </ol>
@@ -2645,7 +2454,7 @@ Solution
 <button>
 Example Answer
 </button>
-<p>Species was the key confounder: pooled slope understated the positive within-species scaling. Slopes were similar across sexes, so sex isn’t a strong effect modifier here. I would next inspect body_mass_g because it correlates with both bill dimensions and could enter a future multivariable model.</p>
+<p>Species was the key confounder: pooled slope understated the positive within-species scaling. Slopes were generally similar across sexes, so sex isn’t a confounder but could be considered a medium/strong effect modifier.</p>
 </div>
 <hr></section><section id="causal-minisummary" class="level3" data-number="5.11.6"><h3 data-number="5.11.6" class="anchored" data-anchor-id="causal-minisummary">
 <span class="header-section-number">5.11.6</span> Causal Mini‑Summary</h3>
@@ -3408,8 +3217,8 @@ window.onresize = move_sidebar;
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary-table.html" class="pagination-link" aria-label="Summary tables">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary tables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./weekthree.html" class="pagination-link" aria-label="Task Three - Data Cleaning">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Task Three - Data Cleaning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
