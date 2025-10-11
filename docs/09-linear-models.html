@@ -537,13 +537,7 @@ window.Quarto = {
 </li>
   <li><a href="#robust-standard-errors-with-sandwich" id="toc-robust-standard-errors-with-sandwich" class="nav-link" data-scroll-target="#robust-standard-errors-with-sandwich"><span class="header-section-number">8.5</span> Robust standard errors with sandwich</a></li>
   <li><a href="#assumptions-minimal-practical-checks" id="toc-assumptions-minimal-practical-checks" class="nav-link" data-scroll-target="#assumptions-minimal-practical-checks"><span class="header-section-number">8.6</span> Assumptions: minimal, practical checks</a></li>
-  <li>
-<a href="#simple-write-up" id="toc-simple-write-up" class="nav-link" data-scroll-target="#simple-write-up"><span class="header-section-number">8.7</span> Simple write-up</a>
-  <ul class="collapse">
-<li><a href="#changing-the-intercept" id="toc-changing-the-intercept" class="nav-link" data-scroll-target="#changing-the-intercept"><span class="header-section-number">8.7.1</span> Changing the intercept</a></li>
-  <li><a href="#emmeans" id="toc-emmeans" class="nav-link" data-scroll-target="#emmeans"><span class="header-section-number">8.7.2</span> Emmeans</a></li>
-  </ul>
-</li>
+  <li><a href="#simple-write-up" id="toc-simple-write-up" class="nav-link" data-scroll-target="#simple-write-up"><span class="header-section-number">8.7</span> Simple write-up</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -1375,7 +1369,18 @@ Warning: Heteroscedasticity (non-constant error variance) detected (p = 0.047).<
 <p>From the Welch t-test (or the linear model), you can write:</p>
 <p>“The maize plants that have been cross-pollinated were taller on average than the self-pollinated plants. The mean difference in height was approximately 2.62 inches (95% CI: 0.34 to 4.89), t(df ≈ 28) ≈ 2.35, p ≈ 0.026.”</p>
 <p>Tip: Match the df and exact numbers to the specific method you report (Welch vs equal-variance vs robust) as they <strong>will be slightly different</strong>. Using <code>rstatix::t_test(..., detailed = TRUE)</code> or <code>broom::tidy(..., conf.int = TRUE)</code> ensures you have all values at hand.</p>
-<p>:::{.callout-note, collapse = “true”} ## Estimating means</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Estimating means
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>One limitation of the table of coefficients output is that it doesn’t provide the mean and standard error of the <em>other</em> treatment level (only the difference between them). If we wish to calculate the “other” mean and SE then we can get R to do this.</p>
 <section id="changing-the-intercept" class="level3" data-number="8.7.1"><h3 data-number="8.7.1" class="anchored" data-anchor-id="changing-the-intercept">
 <span class="header-section-number">8.7.1</span> Changing the intercept</h3>
@@ -1456,7 +1461,10 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </div>
 <p>Notice that no matter how we calculate the estimated SE (and therefore the 95% CI) of both treatments is the same. This is because as mentioned earlier the variance is a pooled estimate, e.g.&nbsp;variance is not being calculate separately for each group. The only difference you should see in SE across treatments will be if there is a difference in <em>sample size</em> between groups.</p>
-<p>:::</p>
+</section>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -1464,7 +1472,7 @@ Confidence level used: 0.95 </code></pre>
 Robinson, D., Hayes, A., &amp; Couch, S. (2024). <em>Broom: Convert statistical objects into tidy tibbles</em>. <a href="https://broom.tidymodels.org/">https://broom.tidymodels.org/</a>
 </div>
 </div>
-</section></section></main><!-- /main --><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {

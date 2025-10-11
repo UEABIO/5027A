@@ -496,7 +496,8 @@ Tip: Match the df and exact numbers to the specific method you report (Welch vs 
 
 
 
-:::{.callout-note, collapse = "true"}
+:::{.callout-note collapse = "true"}
+
 ## Estimating means
 
 One limitation of the table of coefficients output is that it doesn't provide the mean and standard error of the *other* treatment level (only the difference between them). If we wish to calculate the "other" mean and SE then we can get R to do this.
