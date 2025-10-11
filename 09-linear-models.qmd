@@ -484,6 +484,7 @@ plot(lsmodel1, which = 1)
 
 ```
 
+:::
 
 ## Simple write-up
 
@@ -493,21 +494,6 @@ From the Welch t-test (or the linear model), you can write:
 
 Tip: Match the df and exact numbers to the specific method you report (Welch vs equal-variance vs robust) as they **will be slightly different**. Using `rstatix::t_test(..., detailed = TRUE)` or `broom::tidy(..., conf.int = TRUE)` ensures you have all values at hand.
 
-## Exercises
-
-1) Run a Welch t-test and an equal-variance t-test. Do the conclusions differ?
-```{r}
-darwin |> t_test(height ~ type, detailed = TRUE)   
-# Welch
-darwin |> t_test(height ~ type, var.equal = TRUE, detailed = TRUE)  
-# Student
-```
-
-2) Fit `lm(height ~ type)`. Compare the standard errors and p-values from:
-- `summary(lm(...))`
-- `lmtest::coeftest(lm(...), vcov. = sandwich::vcovHC(..., type = "HC3"))`
-
-3) Check equal variances with Levene’s test. If evidence of unequal variances exists, prefer Welch or robust SEs.
 
 
 :::{.callout-note, collapse = "true"}

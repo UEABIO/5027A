@@ -537,6 +537,13 @@ window.Quarto = {
 </li>
   <li><a href="#robust-standard-errors-with-sandwich" id="toc-robust-standard-errors-with-sandwich" class="nav-link" data-scroll-target="#robust-standard-errors-with-sandwich"><span class="header-section-number">8.5</span> Robust standard errors with sandwich</a></li>
   <li><a href="#assumptions-minimal-practical-checks" id="toc-assumptions-minimal-practical-checks" class="nav-link" data-scroll-target="#assumptions-minimal-practical-checks"><span class="header-section-number">8.6</span> Assumptions: minimal, practical checks</a></li>
+  <li>
+<a href="#simple-write-up" id="toc-simple-write-up" class="nav-link" data-scroll-target="#simple-write-up"><span class="header-section-number">8.7</span> Simple write-up</a>
+  <ul class="collapse">
+<li><a href="#changing-the-intercept" id="toc-changing-the-intercept" class="nav-link" data-scroll-target="#changing-the-intercept"><span class="header-section-number">8.7.1</span> Changing the intercept</a></li>
+  <li><a href="#emmeans" id="toc-emmeans" class="nav-link" data-scroll-target="#emmeans"><span class="header-section-number">8.7.2</span> Emmeans</a></li>
+  </ul>
+</li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -1243,8 +1250,6 @@ Note
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Performance</a></li>
 <li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Base R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Simple write-up</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false" href="">Exercises</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
@@ -1363,159 +1368,29 @@ Warning: Heteroscedasticity (non-constant error variance) detected (p = 0.047).<
 </div>
 </div>
 </div>
-<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+</div>
+</div>
+</section><section id="simple-write-up" class="level2" data-number="8.7"><h2 data-number="8.7" class="anchored" data-anchor-id="simple-write-up">
+<span class="header-section-number">8.7</span> Simple write-up</h2>
 <p>From the Welch t-test (or the linear model), you can write:</p>
 <p>“The maize plants that have been cross-pollinated were taller on average than the self-pollinated plants. The mean difference in height was approximately 2.62 inches (95% CI: 0.34 to 4.89), t(df ≈ 28) ≈ 2.35, p ≈ 0.026.”</p>
 <p>Tip: Match the df and exact numbers to the specific method you report (Welch vs equal-variance vs robust) as they <strong>will be slightly different</strong>. Using <code>rstatix::t_test(..., detailed = TRUE)</code> or <code>broom::tidy(..., conf.int = TRUE)</code> ensures you have all values at hand.</p>
-</div>
-<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<ol type="1">
-<li>Run a Welch t-test and an equal-variance t-test. Do the conclusions differ?</li>
-</ol>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>darwin <span class="sc">|&gt;</span> <span class="fu">t_test</span>(height <span class="sc">~</span> type, <span class="at">detailed =</span> <span class="cn">TRUE</span>)   </span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># Welch</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>darwin <span class="sc">|&gt;</span> <span class="fu">t_test</span>(height <span class="sc">~</span> type, <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="at">detailed =</span> <span class="cn">TRUE</span>)  </span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="co"># Student</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 2%">
-<col style="width: 2%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 9%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">estimate1</th>
-<th style="text-align: right;">estimate2</th>
-<th style="text-align: left;">.y.</th>
-<th style="text-align: left;">group1</th>
-<th style="text-align: left;">group2</th>
-<th style="text-align: right;">n1</th>
-<th style="text-align: right;">n2</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">conf.low</th>
-<th style="text-align: right;">conf.high</th>
-<th style="text-align: left;">method</th>
-<th style="text-align: left;">alternative</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">2.616667</td>
-<td style="text-align: right;">20.19167</td>
-<td style="text-align: right;">17.575</td>
-<td style="text-align: left;">height</td>
-<td style="text-align: left;">Cross</td>
-<td style="text-align: left;">Self</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">2.437113</td>
-<td style="text-align: right;">0.0233</td>
-<td style="text-align: right;">22.16409</td>
-<td style="text-align: right;">0.3909566</td>
-<td style="text-align: right;">4.842377</td>
-<td style="text-align: left;">T-test</td>
-<td style="text-align: left;">two.sided</td>
-</tr></tbody>
-</table>
-</div>
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 2%">
-<col style="width: 2%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 2%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 10%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">estimate1</th>
-<th style="text-align: right;">estimate2</th>
-<th style="text-align: left;">.y.</th>
-<th style="text-align: left;">group1</th>
-<th style="text-align: left;">group2</th>
-<th style="text-align: right;">n1</th>
-<th style="text-align: right;">n2</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">conf.low</th>
-<th style="text-align: right;">conf.high</th>
-<th style="text-align: left;">method</th>
-<th style="text-align: left;">alternative</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">2.616667</td>
-<td style="text-align: right;">20.19167</td>
-<td style="text-align: right;">17.575</td>
-<td style="text-align: left;">height</td>
-<td style="text-align: left;">Cross</td>
-<td style="text-align: left;">Self</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">2.437113</td>
-<td style="text-align: right;">0.0214</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: right;">0.4173433</td>
-<td style="text-align: right;">4.81599</td>
-<td style="text-align: left;">T-test</td>
-<td style="text-align: left;">two.sided</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Fit <code>lm(height ~ type)</code>. Compare the standard errors and p-values from:</li>
-</ol>
-<ul>
-<li><code>summary(lm(...))</code></li>
-<li><code>lmtest::coeftest(lm(...), vcov. = sandwich::vcovHC(..., type = "HC3"))</code></li>
-</ul>
-<ol start="3" type="1">
-<li>Check equal variances with Levene’s test. If evidence of unequal variances exists, prefer Welch or robust SEs.</li>
-</ol>
 <p>:::{.callout-note, collapse = “true”} ## Estimating means</p>
 <p>One limitation of the table of coefficients output is that it doesn’t provide the mean and standard error of the <em>other</em> treatment level (only the difference between them). If we wish to calculate the “other” mean and SE then we can get R to do this.</p>
-<section id="changing-the-intercept" class="level3" data-number="8.6.1"><h3 data-number="8.6.1" class="anchored" data-anchor-id="changing-the-intercept">
-<span class="header-section-number">8.6.1</span> Changing the intercept</h3>
+<section id="changing-the-intercept" class="level3" data-number="8.7.1"><h3 data-number="8.7.1" class="anchored" data-anchor-id="changing-the-intercept">
+<span class="header-section-number">8.7.1</span> Changing the intercept</h3>
 <p>One way to do this is to change the levels of the type variable as a factor:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Perform linear regression on darwin data with Self as the intercept</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>darwin <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="co"># Convert 'type' column to a factor</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type)) <span class="sc">|&gt;</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="co"># Relevel 'type' column to specify the order of factor levels</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">fct_relevel</span>(type, <span class="fu">c</span>(<span class="st">"Self"</span>, <span class="st">"Cross"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a>  <span class="co"># Fit linear regression model with 'height' as the response variable and 'type' as the predictor</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">lm</span>(height <span class="sc">~</span> type, <span class="at">data =</span> _) <span class="sc">|&gt;</span></span>
-<span id="cb24-9"><a href="#cb24-9"></a>  <span class="co"># Tidy the model summary</span></span>
-<span id="cb24-10"><a href="#cb24-10"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Perform linear regression on darwin data with Self as the intercept</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>darwin <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="co"># Convert 'type' column to a factor</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type)) <span class="sc">|&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="co"># Relevel 'type' column to specify the order of factor levels</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">fct_relevel</span>(type, <span class="fu">c</span>(<span class="st">"Self"</span>, <span class="st">"Cross"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="co"># Fit linear regression model with 'height' as the response variable and 'type' as the predictor</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a>  <span class="fu">lm</span>(height <span class="sc">~</span> type, <span class="at">data =</span> _) <span class="sc">|&gt;</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>  <span class="co"># Tidy the model summary</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -1547,14 +1422,14 @@ Warning: Heteroscedasticity (non-constant error variance) detected (p = 0.047).<
 </div>
 </div>
 <p>After releveling, the self treatment is now taken as the intercept, and we get the estimate for it’s mean and standard error</p>
-</section><section id="emmeans" class="level3" data-number="8.6.2"><h3 data-number="8.6.2" class="anchored" data-anchor-id="emmeans">
-<span class="header-section-number">8.6.2</span> Emmeans</h3>
+</section><section id="emmeans" class="level3" data-number="8.7.2"><h3 data-number="8.7.2" class="anchored" data-anchor-id="emmeans">
+<span class="header-section-number">8.7.2</span> Emmeans</h3>
 <p>We could also use the package <a href="https://aosmith.rbind.io/2019/03/25/getting-started-with-emmeans/"><code>emmeans</code></a> and its function <code>emmeans()</code> to do a similar thing</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Calculate estimated marginal means (EMMs) using emmeans package</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>means <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(lsmodel1, <span class="at">specs =</span> <span class="sc">~</span> type)</span>
-<span id="cb25-3"><a href="#cb25-3"></a></span>
-<span id="cb25-4"><a href="#cb25-4"></a>means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Calculate estimated marginal means (EMMs) using emmeans package</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>means <span class="ot">&lt;-</span> emmeans<span class="sc">::</span><span class="fu">emmeans</span>(lsmodel1, <span class="at">specs =</span> <span class="sc">~</span> type)</span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a>means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> type  emmean    SE df lower.CL upper.CL
  Cross   20.2 0.759 28     18.6     21.7
@@ -1566,25 +1441,22 @@ Confidence level used: 0.95 </code></pre>
 <p>The advantage of emmeans is that it provides the mean, standard error and 95% confidence interval estimates of all levels from the model at once (e.g.&nbsp;it relevels the model multiple times behind the scenes).</p>
 <p><code>emmeans</code> also gives us a handy summary to include in data visuals that combine raw data and statistical inferences. These are standard <code>ggplot()</code> outputs so can be <a href="ggplot.html#intro-to-grammar">customised as much as you want</a>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Convert the 'means' object to a tibble</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>means <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb27-4"><a href="#cb27-4"></a>  <span class="co"># Create a plot using ggplot</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> emmean)) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6"></a>  <span class="co"># Add point estimates with error bars</span></span>
-<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower.CL, <span class="at">ymax =</span> upper.CL))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Convert the 'means' object to a tibble</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>means <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="co"># Create a plot using ggplot</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> emmean)) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="co"># Add point estimates with error bars</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower.CL, <span class="at">ymax =</span> upper.CL))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="09-linear-models_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="09-linear-models_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Notice that no matter how we calculate the estimated SE (and therefore the 95% CI) of both treatments is the same. This is because as mentioned earlier the variance is a pooled estimate, e.g.&nbsp;variance is not being calculate separately for each group. The only difference you should see in SE across treatments will be if there is a difference in <em>sample size</em> between groups.</p>
-</section>
-</div>
-</div>
-</div>
+<p>:::</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -1592,7 +1464,7 @@ Confidence level used: 0.95 </code></pre>
 Robinson, D., Hayes, A., &amp; Couch, S. (2024). <em>Broom: Convert statistical objects into tidy tibbles</em>. <a href="https://broom.tidymodels.org/">https://broom.tidymodels.org/</a>
 </div>
 </div>
-</section></main><!-- /main --><script>
+</section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
