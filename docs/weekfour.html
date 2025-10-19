@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary-table.html" rel="next">
+<link href="./11-regression.html" rel="next">
 <link href="./09-linear-models.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -374,6 +374,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Task Four - Paired t-tests</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -388,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary-table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Summary tables</span></span></a>
   </div>
 </li>
       </ul>
@@ -405,13 +411,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./advanced_ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ggplot extras</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ggplot extras</span></span></a>
   </div>
 </li>
       </ul>
@@ -428,13 +434,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quarto-reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Quarto quick reference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Quarto quick reference</span></span></a>
   </div>
 </li>
       </ul>
@@ -516,14 +522,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><section id="objective" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="objective">
 <span class="header-section-number">9.1</span> Objective:</h2>
-<p>In the previous exercise, you used R and the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to perform a two-sample t-test. In this assignment, you’ll extend that work by conducting a <strong>paired t-test</strong> using the <em>Darwin plant height</em> dataset as an example:</p>
+<p>In the previous exercise {<a href="09-linear-models.html" class="quarto-xref"><span>Chapter 8</span></a>}, you used R and the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to perform a two-sample t-test. In this assignment, you’ll extend that work by conducting a <strong>paired t-test</strong> using the <em>Darwin plant height</em> dataset as an example:</p>
 <p>Your task is to:</p>
 <ol type="1">
 <li><p>Import and inspect the data</p></li>
 <li><p>Conduct a <em>paired t-test</em></p></li>
 <li><p>Explore the relationship between paired observations</p></li>
 <li><p>Visualise and interpret your results</p></li>
-<li><p>Present your analysis in a Quarto report {<a href="quarto.html" class="quarto-xref"><span>Chapter 13</span></a>}</p></li>
+<li><p>Present your analysis in a Quarto report {<a href="quarto.html" class="quarto-xref"><span>Chapter 14</span></a>}</p></li>
 </ol></section><section id="learning-outcomes" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="learning-outcomes">
 <span class="header-section-number">9.2</span> Learning Outcomes</h2>
 <p>By completing this assignment, you will:</p>
@@ -625,19 +631,31 @@ Note
 <span class="header-section-number">9.8</span> Summarise your findings</h2>
 <p>In 4–6 sentences, interpret your analysis:</p>
 <ul>
-<li><p>What did your test show?</p></li>
-<li><p>How does the correlation between paired observations support your design?</p></li>
-<li><p>How do your visuals complement your numerical findings?</p></li>
+<li><p>Write a short results summary - it should include estimates of difference, uncertainty values, test statistics and p-values.</p></li>
+<li><p>How does the estimate of height difference compare to the two-sample t-test in the previous chapter {<a href="09-linear-models.html" class="quarto-xref"><span>Chapter 8</span></a>}?</p></li>
+<li><p>What is the strength of correlation between paired observations?</p></li>
+<li><p>How do your visuals complement your findings?</p></li>
 </ul>
-<p>In the last chapter we analyzed Darwin’s maize data and computed confidence intervals “by hand.” That helped build intuition about estimates, standard errors, and confidence. Here, we’ll move to faster, standard tools:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Discussion point
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
-<li>
-<code><a href="https://rpkgs.datanovia.com/rstatix/reference/t_test.html">rstatix::t_test()</a></code> for two-sample t-tests (Welch and equal-variance/Student).</li>
-<li>
-<code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for linear models (which also reproduces the two-sample t-test).</li>
-<li>
-<code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> with <code>sandwich</code> (robust) standard errors to guard against unequal variances.</li>
-</ul></section><section id="rendering-your-quarto-doc" class="level2" data-number="9.9"><h2 data-number="9.9" class="anchored" data-anchor-id="rendering-your-quarto-doc">
+<li><p>Discuss with your classmates - what effect does adding pair have about our confidence on the effect of inbreeding?</p></li>
+<li><p>Should we exclude variables that are a part of our study design if they make us less confident about the results?</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="rendering-your-quarto-doc" class="level2" data-number="9.9"><h2 data-number="9.9" class="anchored" data-anchor-id="rendering-your-quarto-doc">
 <span class="header-section-number">9.9</span> Rendering your Quarto doc</h2>
 <p>After completing your analysis, render your <code>.qmd</code> file to HTML to produce a polished report. Check the following:</p>
 <ul>
@@ -647,7 +665,7 @@ Note
 <li><p>Interpretation is included – your narrative explains results, not just code output.</p></li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -656,10 +674,10 @@ Note
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.</p>
-<p>Check out {<a href="quarto.html" class="quarto-xref"><span>Chapter 13</span></a>} for more help.</p>
+<p>Check out {<a href="quarto.html" class="quarto-xref"><span>Chapter 14</span></a>} for more help.</p>
 </div>
 </div>
 </div>
@@ -1315,8 +1333,8 @@ window.onresize = move_sidebar;
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary-table.html" class="pagination-link" aria-label="Summary tables">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary tables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./11-regression.html" class="pagination-link" aria-label="Regression">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -48,6 +48,7 @@ book:
     - 08-inferential-statistics.qmd
     - 09-linear-models.qmd
     - weekfour.qmd
+    - 11-regression.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd

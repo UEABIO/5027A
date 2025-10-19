@@ -13,7 +13,7 @@ source("R/my_setup.R")
 
 ## Objective:
 
-In the previous exercise, you used R and the `lm()` function to perform a two-sample t-test. In this assignment, you’ll extend that work by conducting a **paired t-test** using the *Darwin plant height* dataset as an example:
+In the previous exercise {@sec-linear}, you used R and the `lm()` function to perform a two-sample t-test. In this assignment, you’ll extend that work by conducting a **paired t-test** using the *Darwin plant height* dataset as an example:
 
 Your task is to: 
 
@@ -128,17 +128,24 @@ If you jitter your points, make sure your lines use the same jitter so they conn
 
 In 4–6 sentences, interpret your analysis:
 
-- What did your test show?
+- Write a short results summary - it should include estimates of difference, uncertainty values, test statistics and p-values.
 
-- How does the correlation between paired observations support your design?
+- How does the estimate of height difference compare to the two-sample t-test in the previous chapter {@sec-linear}?
 
-- How do your visuals complement your numerical findings?
+- What is the strength of correlation between paired observations?
 
-In the last chapter we analyzed Darwin’s maize data and computed confidence intervals “by hand.” That helped build intuition about estimates, standard errors, and confidence. Here, we’ll move to faster, standard tools:
+- How do your visuals complement your findings?
 
-- `rstatix::t_test()` for two-sample t-tests (Welch and equal-variance/Student).
-- `lm()` for linear models (which also reproduces the two-sample t-test).
-- `lm()` with `sandwich` (robust) standard errors to guard against unequal variances.
+:::{.callout-important collapse = "true"}
+## Discussion point
+
+- Discuss with your classmates - what effect does adding pair have about our confidence on the effect of inbreeding?
+
+- Should we exclude variables that are a part of our study design if they make us less confident about the results?
+
+:::
+
+
 
 ## Rendering your Quarto doc
 
