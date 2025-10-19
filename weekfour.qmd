@@ -1,0 +1,161 @@
+# Task Four - Paired t-tests {#sec-weekthree}
+
+
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+library(janitor)
+library(here)
+library(performance)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+
+```
+
+## Objective:
+
+In the previous exercise, you used R and the `lm()` function to perform a two-sample t-test. In this assignment, you’ll extend that work by conducting a **paired t-test** using the *Darwin plant height* dataset as an example:
+
+Your task is to: 
+
+1. Import and inspect the data
+
+2. Conduct a *paired t-test* 
+
+3. Explore the relationship between paired observations
+
+4. Visualise and interpret your results
+
+5. Present your analysis in a Quarto report {@sec-reports}
+
+## Learning Outcomes
+
+By completing this assignment, you will:
+
+- Apply the concept of paired data to control for within-pair variation.
+
+- Understand the equivalence between a paired t-test and a linear model with a pair factor.
+
+- Build confidence in constructing reproducible analysis workflows using Quarto.
+
+- Communicate results clearly with integrated text, code, and visuals.
+
+## Task Outline
+
+### Set up your Quarto document
+
+- Create a new .qmd file with a clear title, author, and date.
+
+- Load your packages.
+
+Read in the dataset:
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(here)
+library(rstatix)     # simple t-tests with tidy output
+library(broom)       # tidy model summaries (optional)
+library(sandwich)    # robust (heteroskedasticity-consistent) variance estimators
+library(lmtest)      # coeftest/coefci for robust inference
+library(performance) # easy model checks
+
+darwin <- read_csv(here("data", "darwin.csv"))
+
+```
+
+- Include a brief introduction: What question are we testing?
+
+
+## Explore and understand the data
+
+Before analysis, ensure you understand what each variable represents.
+Check-in:
+
+- How are “Cross” and “Self” plants related within pairs?
+
+- Why might it make sense to treat “pair” as a factor rather than a numeric variable?
+
+> Question: Does this design look like independent samples, or are observations linked in some way?
+
+## Carry out a paired *t-test*
+
+Test whether there is a significant difference between pairs in plant height between the two pollination types.
+
+Think about:
+
+- How could you account for pairs in your analysis?
+
+- How could you model this using `lm()`?
+
+> You can add covariates to a linear model by including them on the right-hand side of the formula (after ~ ) separated with +.
+
+:::{.callout-note}
+
+This model analyses height based on type *while controlling for pair*. Including pair will produce coefficients for every pair, but for this assignment you can ignore the individual pair coefficients and **focus on the main effect of type** — this tells you the average difference in height between pairs of Cross and Self plants.
+
+:::
+
+
+## Examine the correlation between paired measurements
+
+Run a correlation test between the Cross and Self values.
+
+Check-in:
+
+- Is there evidence that pairs are correlated?
+
+- How does this justify the use of a paired rather than independent t-test?
+
+## Visualise your data
+
+Create a plot that includes:
+
+- Raw data (all individual points),
+
+- Paired connections (lines between pairs),
+
+- A summary geom (mean ± SE/95% CI or boxplots).
+
+:::{.callout-tip collapse = "true"}
+## Jitter plots
+
+If you jitter your points, make sure your lines use the same jitter so they connect correctly (you can share a `position_jitter` object between `geom_line()` and `geom_point()`).
+
+[See here](https://martinasladek.co.uk/content/blog/2022_feb_til-matching-position-jitter-of-points-and-lines-in-ggplot2)
+
+:::
+
+## Summarise your findings
+
+In 4–6 sentences, interpret your analysis:
+
+- What did your test show?
+
+- How does the correlation between paired observations support your design?
+
+- How do your visuals complement your numerical findings?
+
+In the last chapter we analyzed Darwin’s maize data and computed confidence intervals “by hand.” That helped build intuition about estimates, standard errors, and confidence. Here, we’ll move to faster, standard tools:
+
+- `rstatix::t_test()` for two-sample t-tests (Welch and equal-variance/Student).
+- `lm()` for linear models (which also reproduces the two-sample t-test).
+- `lm()` with `sandwich` (robust) standard errors to guard against unequal variances.
+
+## Rendering your Quarto doc
+
+After completing your analysis, render your `.qmd` file to HTML to produce a polished report. Check the following:
+
+- Code runs top to bottom – all chunks execute without errors.
+
+- Figures and tables appear correctly – plots are visible, captions make sense.
+
+- Formatting is clear – headers, text, and code chunks are readable.
+
+- Interpretation is included – your narrative explains results, not just code output.
+
+:::{.callout-warning collapse = "true"}
+## My document won't render
+
+If the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.
+
+Check out {@sec-reports} for more help.
+:::

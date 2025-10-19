@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.24">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>13&nbsp; Intro to Quarto – 5027A</title>
+<title>9&nbsp; Task Four - Paired t-tests – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,8 +61,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./quarto-reference.html" rel="next">
-<link href="./advanced_ggplot.html" rel="prev">
+<link href="./summary-table.html" rel="next">
+<link href="./09-linear-models.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quarto.html">Reproducible Reports</a></li><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./weekfour.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Task Four - Paired t-tests</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -307,13 +307,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Weekly Sessions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
@@ -370,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weekfour.html" class="sidebar-item-text sidebar-link">
+  <a href="./weekfour.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Task Four - Paired t-tests</span></span></a>
   </div>
 </li>
@@ -418,16 +418,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Reproducible Reports</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link active">
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></a>
   </div>
 </li>
@@ -482,39 +482,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#how-it-works" id="toc-how-it-works" class="nav-link active" data-scroll-target="#how-it-works">How it works</a></li>
+<li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">9.1</span> Objective:</a></li>
+  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes"><span class="header-section-number">9.2</span> Learning Outcomes</a></li>
   <li>
-<a href="#quarto-parts" id="toc-quarto-parts" class="nav-link" data-scroll-target="#quarto-parts">Quarto parts</a>
+<a href="#task-outline" id="toc-task-outline" class="nav-link" data-scroll-target="#task-outline"><span class="header-section-number">9.3</span> Task Outline</a>
   <ul class="collapse">
-<li><a href="#yaml-metadata" id="toc-yaml-metadata" class="nav-link" data-scroll-target="#yaml-metadata">YAML Metadata</a></li>
-  <li><a href="#task-can-you-edit-the-yaml-in-the-quarto-file-in-the-markdown-folder-to-have-your-name-as-author-try-changing-the-output-to-a-different-file-type." id="toc-task-can-you-edit-the-yaml-in-the-quarto-file-in-the-markdown-folder-to-have-your-name-as-author-try-changing-the-output-to-a-different-file-type." class="nav-link" data-scroll-target="#task-can-you-edit-the-yaml-in-the-quarto-file-in-the-markdown-folder-to-have-your-name-as-author-try-changing-the-output-to-a-different-file-type."><span class="header-section-number">13.0.1</span> TASK: Can you edit the YAML in the Quarto file in the markdown folder to have your name as author? Try changing the output to a different file type.</a></li>
-  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks">Code chunks</a></li>
-  <li><a href="#text" id="toc-text" class="nav-link" data-scroll-target="#text">Text</a></li>
-  <li><a href="#in-text-code" id="toc-in-text-code" class="nav-link" data-scroll-target="#in-text-code">In-text code</a></li>
-  <li><a href="#running-code" id="toc-running-code" class="nav-link" data-scroll-target="#running-code">Running code</a></li>
+<li><a href="#set-up-your-quarto-document" id="toc-set-up-your-quarto-document" class="nav-link" data-scroll-target="#set-up-your-quarto-document"><span class="header-section-number">9.3.1</span> Set up your Quarto document</a></li>
   </ul>
 </li>
-  <li>
-<a href="#self-contained-reports" id="toc-self-contained-reports" class="nav-link" data-scroll-target="#self-contained-reports"><span class="header-section-number">13.1</span> Self contained Reports</a>
-  <ul class="collapse">
-<li><a href="#task-generate-a-self-contained-report-from-data" id="toc-task-generate-a-self-contained-report-from-data" class="nav-link" data-scroll-target="#task-generate-a-self-contained-report-from-data"><span class="header-section-number">13.1.1</span> TASK: Generate a self-contained report from data</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#common-render-issues" id="toc-common-render-issues" class="nav-link" data-scroll-target="#common-render-issues">Common render issues</a>
-  <ul class="collapse">
-<li><a href="#duplication" id="toc-duplication" class="nav-link" data-scroll-target="#duplication">Duplication</a></li>
-  <li><a href="#not-the-right-order" id="toc-not-the-right-order" class="nav-link" data-scroll-target="#not-the-right-order">Not the right order</a></li>
-  <li><a href="#forgotten-trails" id="toc-forgotten-trails" class="nav-link" data-scroll-target="#forgotten-trails">Forgotten trails</a></li>
-  <li><a href="#path-not-taken" id="toc-path-not-taken" class="nav-link" data-scroll-target="#path-not-taken">Path not taken</a></li>
-  <li><a href="#spolling" id="toc-spolling" class="nav-link" data-scroll-target="#spolling">Spolling</a></li>
-  </ul>
-</li>
+  <li><a href="#explore-and-understand-the-data" id="toc-explore-and-understand-the-data" class="nav-link" data-scroll-target="#explore-and-understand-the-data"><span class="header-section-number">9.4</span> Explore and understand the data</a></li>
+  <li><a href="#carry-out-a-paired-t-test" id="toc-carry-out-a-paired-t-test" class="nav-link" data-scroll-target="#carry-out-a-paired-t-test"><span class="header-section-number">9.5</span> Carry out a paired <em>t-test</em></a></li>
+  <li><a href="#examine-the-correlation-between-paired-measurements" id="toc-examine-the-correlation-between-paired-measurements" class="nav-link" data-scroll-target="#examine-the-correlation-between-paired-measurements"><span class="header-section-number">9.6</span> Examine the correlation between paired measurements</a></li>
+  <li><a href="#visualise-your-data" id="toc-visualise-your-data" class="nav-link" data-scroll-target="#visualise-your-data"><span class="header-section-number">9.7</span> Visualise your data</a></li>
+  <li><a href="#summarise-your-findings" id="toc-summarise-your-findings" class="nav-link" data-scroll-target="#summarise-your-findings"><span class="header-section-number">9.8</span> Summarise your findings</a></li>
+  <li><a href="#rendering-your-quarto-doc" id="toc-rendering-your-quarto-doc" class="nav-link" data-scroll-target="#rendering-your-quarto-doc"><span class="header-section-number">9.9</span> Rendering your Quarto doc</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quarto.html">Reproducible Reports</a></li><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-reports" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Intro to Quarto</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./weekfour.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Task Four - Paired t-tests</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-weekthree" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Task Four - Paired t-tests</span></span></h1>
 </div>
 
 
@@ -528,266 +514,158 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/rmarkdownoutputformats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="./quarto-reference.html">Looking for tips and quick-reference? See: Quarto Tips &amp; Reference</a></p>
-<p>Quarto is a widely-used tool for creating automated, reproducible, and share-worthy outputs, such as reports. It can generate static or interactive outputs, in Word, pdf, html, Powerpoint slides, and many other formats.</p>
-<p>A Quarto file combines R code (or other programming code) and text such that the script actually becomes your output document. You can create an entire formatted document, including narrative text (can be dynamic to change based on your data), tables, figures, bullets/numbers, bibliographies, etc.</p>
-<p>Documents produced with Quarto, allow analyses to be included easily - and make the link between raw data, analysis &amp; and a published report <em>completely reproducible</em>.</p>
-<p>With Quarto we can make reproducible html, word, pdf, powerpoints or websites and dashboards<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<section id="how-it-works" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="how-it-works">How it works</h2>
-<p>Choose a title, author, as well as your default output format (HTML, PDF, or Word). These values can be changed later.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Visual vs Source
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>RStudio may open .qmd files in the Visual Editor by default. For this lesson, please switch to Source mode (use the <a href="https://quarto.org/docs/visual-editor/">Visual/Source</a> toggle in the editor toolbar).</p>
-</div>
-</div>
-<p>Click OK, and RStudio will create a Quarto document with some placeholder content.</p>
+</header><section id="objective" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="objective">
+<span class="header-section-number">9.1</span> Objective:</h2>
+<p>In the previous exercise, you used R and the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to perform a two-sample t-test. In this assignment, you’ll extend that work by conducting a <strong>paired t-test</strong> using the <em>Darwin plant height</em> dataset as an example:</p>
+<p>Your task is to:</p>
+<ol type="1">
+<li><p>Import and inspect the data</p></li>
+<li><p>Conduct a <em>paired t-test</em></p></li>
+<li><p>Explore the relationship between paired observations</p></li>
+<li><p>Visualise and interpret your results</p></li>
+<li><p>Present your analysis in a Quarto report {<a href="quarto.html" class="quarto-xref"><span>Chapter 13</span></a>}</p></li>
+</ol></section><section id="learning-outcomes" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="learning-outcomes">
+<span class="header-section-number">9.2</span> Learning Outcomes</h2>
+<p>By completing this assignment, you will:</p>
+<ul>
+<li><p>Apply the concept of paired data to control for within-pair variation.</p></li>
+<li><p>Understand the equivalence between a paired t-test and a linear model with a pair factor.</p></li>
+<li><p>Build confidence in constructing reproducible analysis workflows using Quarto.</p></li>
+<li><p>Communicate results clearly with integrated text, code, and visuals.</p></li>
+</ul></section><section id="task-outline" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="task-outline">
+<span class="header-section-number">9.3</span> Task Outline</h2>
+<section id="set-up-your-quarto-document" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="set-up-your-quarto-document">
+<span class="header-section-number">9.3.1</span> Set up your Quarto document</h3>
+<ul>
+<li><p>Create a new .qmd file with a clear title, author, and date.</p></li>
+<li><p>Load your packages.</p></li>
+</ul>
+<p>Read in the dataset:</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/quarto.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(rstatix)     <span class="co"># simple t-tests with tidy output</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(broom)       <span class="co"># tidy model summaries (optional)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(sandwich)    <span class="co"># robust (heteroskedasticity-consistent) variance estimators</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(lmtest)      <span class="co"># coeftest/coefci for robust inference</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(performance) <span class="co"># easy model checks</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a>darwin <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"darwin.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</div>
-<p>This document contains several sections, each of which we will discuss below. First, though, let’s skip to the finish line by doing what’s called <em>rendering</em> our document. The <strong>Render</strong> button at the top of RStudio converts the Quarto document into whatever format we selected.</p>
-<p><strong>To make your document publish - hit the render button at the top of the doc</strong></p>
-</section><section id="quarto-parts" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="quarto-parts">Quarto parts</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
+<ul>
+<li>Include a brief introduction: What question are we testing?</li>
+</ul></section></section><section id="explore-and-understand-the-data" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="explore-and-understand-the-data">
+<span class="header-section-number">9.4</span> Explore and understand the data</h2>
+<p>Before analysis, ensure you understand what each variable represents. Check-in:</p>
+<ul>
+<li><p>How are “Cross” and “Self” plants related within pairs?</p></li>
+<li><p>Why might it make sense to treat “pair” as a factor rather than a numeric variable?</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>Question: Does this design look like independent samples, or are observations linked in some way?</p>
+</blockquote>
+</section><section id="carry-out-a-paired-t-test" class="level2" data-number="9.5"><h2 data-number="9.5" class="anchored" data-anchor-id="carry-out-a-paired-t-test">
+<span class="header-section-number">9.5</span> Carry out a paired <em>t-test</em>
+</h2>
+<p>Test whether there is a significant difference between pairs in plant height between the two pollination types.</p>
+<p>Think about:</p>
+<ul>
+<li><p>How could you account for pairs in your analysis?</p></li>
+<li><p>How could you model this using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>?</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>You can add covariates to a linear model by including them on the right-hand side of the formula (after ~ ) separated with +.</p>
+</blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Rstudio lets you view your Quarto document in visual (partially rendered) or source (all plain text) mode. The code and explanations below work best if you are viewing in source</p>
+<p>This model analyses height based on type <em>while controlling for pair</em>. Including pair will produce coefficients for every pair, but for this assignment you can ignore the individual pair coefficients and <strong>focus on the main effect of type</strong> — this tells you the average difference in height between pairs of Cross and Self plants.</p>
 </div>
 </div>
-<p>As you can see, there are three basic components to any Quarto file:</p>
+</section><section id="examine-the-correlation-between-paired-measurements" class="level2" data-number="9.6"><h2 data-number="9.6" class="anchored" data-anchor-id="examine-the-correlation-between-paired-measurements">
+<span class="header-section-number">9.6</span> Examine the correlation between paired measurements</h2>
+<p>Run a correlation test between the Cross and Self values.</p>
+<p>Check-in:</p>
 <ul>
-<li><p>YAML</p></li>
-<li><p>Markdown text</p></li>
-<li><p>R code chunks.</p></li>
-</ul>
-<section id="yaml-metadata" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="yaml-metadata">YAML Metadata</h3>
-<p>The YAML section is the very beginning of an Quarto document. The name YAML comes from the recursive acronym YAML ain’t markup language, whose meaning isn’t important for our purposes. Three dashes indicate its beginning and end, and the text inside of it contains metadata about the Quarto document. Here is my YAML:</p>
-<pre><code>
----
-title: "My Report"
-format: html
----
-
-</code></pre>
-<p>As you can see, it provides the title, author, and output format. All elements of the YAML are given in <code>key: value</code> syntax, where each key is a label for a piece of metadata (for example, the title) followed by a value in quotes.</p>
-<p>In the example above, because we clicked that our default output would be an html file, we can see that the YAML says output: <code>html</code>. However we can also change this to say <code>pptx</code> or <code>docx</code> or even <code>pdf_document</code>. (https://quarto.org/docs/output-formats/all-formats.html)</p>
-</section><section id="task-can-you-edit-the-yaml-in-the-quarto-file-in-the-markdown-folder-to-have-your-name-as-author-try-changing-the-output-to-a-different-file-type." class="level3" data-number="13.0.1"><h3 data-number="13.0.1" class="anchored" data-anchor-id="task-can-you-edit-the-yaml-in-the-quarto-file-in-the-markdown-folder-to-have-your-name-as-author-try-changing-the-output-to-a-different-file-type.">
-<span class="header-section-number">13.0.1</span> TASK: Can you edit the YAML in the Quarto file in the markdown folder to have your name as author? Try changing the output to a different file type.</h3>
-</section><section id="code-chunks" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="code-chunks">Code chunks</h3>
-<p>Quarto documents have a different structure from the R script files you might be familiar with (those with the .R extension). R script files treat all content as code unless you comment out a line by putting a pound sign (#) in front of it. In the following code, the first line is a comment while the second line is code.</p>
-<pre><code>
-```{r}
-# Import our data
-data &lt;- read_csv("data.csv")
-```
-</code></pre>
-<p>In Quarto, the situation is reversed. Everything after the YAML is treated as text unless we specify otherwise by creating what are known as code chunks. Each chunk is opened with a line that starts with three back-ticks, and curly brackets that contain parameters for the chunk { }. The chunk ends with three more back-ticks.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="in">```{r}</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Quarto treats anything in the code chunk as R code when we knit. For example, this code chunk will produce a histogram in the final document.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="in">```{r}</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">hist</span>(cars<span class="sc">$</span>speed)</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout-info">
-<p>Some notes about the contents of the curly brackets { }:</p>
-<p>They start with ‘r’ to indicate that the language name within this chunk is <strong>R</strong>. It is possible to include other programming language chunks here such as <strong>SQL</strong>, <strong>Python</strong> or <strong>Bash</strong>.</p>
-<p>After the r you can optionally write a chunk “name” – these are not necessary but can help you organise your work. Note that if you name your chunks, you should ALWAYS use unique names or else R will <em>complain</em> when you try to render.</p>
-<p>After the language name and optional chunk name put a comma, then you can include other options too, written as <code>tag=value</code>, such as:</p>
+<li><p>Is there evidence that pairs are correlated?</p></li>
+<li><p>How does this justify the use of a paired rather than independent t-test?</p></li>
+</ul></section><section id="visualise-your-data" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="visualise-your-data">
+<span class="header-section-number">9.7</span> Visualise your data</h2>
+<p>Create a plot that includes:</p>
 <ul>
-<li><p>eval: false to not run the R code</p></li>
-<li><p>echo: false to not print the chunk’s R source code in the output document</p></li>
-<li><p>warning: false to not print warnings produced by the R code</p></li>
-<li><p>message: false to not print any messages produced by the R code</p></li>
-<li><p>include: true/false whether to include chunk outputs (e.g.&nbsp;plots) in the document</p></li>
-<li><p>out-width and out-height = size of output in final document e.g.&nbsp;out-width = “75%”</p></li>
-<li><p>fig-width and fig-height: relative size of figure</p></li>
-<li><p>fig-align = “center” adjust how a figure is aligned across the page</p></li>
-<li><p>fig-show=‘hold’ if your chunk prints multiple figures and you want them printed next to each other (pair with out-width = c(“33%”, “67%”).</p></li>
+<li><p>Raw data (all individual points),</p></li>
+<li><p>Paired connections (lines between pairs),</p></li>
+<li><p>A summary geom (mean ± SE/95% CI or boxplots).</p></li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p><strong>Question.</strong> If we wanted to see the R code, but <strong>not</strong> its output we need to select what combo of code chunk options? <select class="webex-select"><option value="blank"></option>
-<option value="">echo = TRUE, eval = TRUE</option>
-<option value="answer">echo = TRUE, eval = FALSE</option>
-<option value="">echo = FALSE, eval = TRUE</option>
-<option value="">echo = FALSE, eval = FALSE</option></select></p>
-<p>Default options for showing code, charts, and other elements in the rendered versions of the document. In Quarto, these options are set in the execute field of the YAML. For example, the following would provide the outputs of code, but hide the code itself, as well as all warnings and messages, from the rendered document:</p>
-<pre><code>---
-title: "My Report"
-format: html
-execute:
-  echo: false
-  warning: false
-  message: false
----</code></pre>
-<p>In cases where you’re using Quarto to generate a report for a non-R user, you likely want to follow this setup of hiding the code, messages, and warnings but show the output (which would include any visualizations you generate).</p>
-<p><strong>However, you can also override these global code chunk options on individual chunks</strong>. If I wanted my document to show both the plot itself and the code used to make it, I could set <code>echo = TRUE</code> for that code chunk only:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="in">```{r}</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#| echo = TRUE</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">hist</span>(cars<span class="sc">$</span>speed)</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The option is set within the code chunk itself. The characters #| (known as a hash pipe) at the start of a line indicate that you are setting options.</p>
-</section><section id="text" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="text">Text</h3>
-<p>This is the narrative of your document, including the titles and headings. It is written in the “markdown” language, which is used across many different software.</p>
-<p>Below are the core ways to write this text. See more extensive documentation available on Quarto “cheatsheets” at the RStudio website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<section id="text-emphasis" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="text-emphasis">Text emphasis</h4>
-<p>Surround your normal text with these characters to change how it appears in the output.</p>
-<p>Underscores (_text_) or single asterisk (*text*) to <em>italicise</em></p>
-<p>Double asterisks (**text**) for <strong>bold</strong> text</p>
-<p>Back-ticks (` text `) to display text as <code>code</code></p>
-<p>The actual appearance of the font can be set by using specific templates (specified in the YAML metadata).</p>
-</section><section id="titles-and-headings" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="titles-and-headings">Titles and headings</h4>
-<p>A hash symbol in a text portion of a Quarto script creates a heading. This is different than in a chunk of R code in the script, in which a hash symbol is a mechanism to comment/annotate/de-activate, as in a normal R script.</p>
-<p>Different heading levels are established with different numbers of hash symbols at the start of a new line. One hash symbol is a title or primary heading. Two hash symbols are a second-level heading. Third- and fourth-level headings can be made with successively more hash symbols.</p>
-<pre><code>
-# First-level heading / Title
-
-## Second level heading  
-
-### Third-level heading
-</code></pre>
-</section><section id="bullets-and-numbering" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="bullets-and-numbering">Bullets and numbering</h4>
-<p>Use asterisks (*) to created a bullets list. Finish the previous sentence, enter two spaces, Enter/Return twice, and then start your bullets. Include a space between the asterisk and your bullet text. After each bullet enter two spaces and then Enter/Return. Sub-bullets work the same way but are indented. Numbers work the same way but instead of an asterisk, write 1), 2), etc. Below is how your Quarto script text might look.</p>
-<p>Here are my bullets (there are two spaces after this colon):</p>
-<pre><code>* Bullet 1 (followed by two spaces and Enter/Return)  
-* Bullet 2 (followed by two spaces and Enter/Return)  
-  * Sub-bullet 1 (followed by two spaces and Enter/Return)  
-  * Sub-bullet 2 (followed by two spaces and Enter/Return)  </code></pre>
-</section></section><section id="in-text-code" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="in-text-code">In-text code</h3>
-<p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
-<p>This book was printed on <code>`r Sys.Date()`</code></p>
-<p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
-<p>This book was printed on 2025-09-25</p>
-</section><section id="running-code" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="running-code">Running code</h3>
-<p>You can run the code in an Quarto document in two ways. The first way is by rendering the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.</p>
-<p>The one downside to running code interactively is that you can sometimes make mistakes that cause your Quarto document to fail to render. That is because, in order to render, a Quarto document must <em>contain</em> all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to render your document. When working in Quarto, always keep all code within a single document.</p>
-<p>The code must also always appear in the right order.</p>
-</section></section><section id="self-contained-reports" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="self-contained-reports">
-<span class="header-section-number">13.1</span> Self contained Reports</h2>
-<p>For a relatively simple report, you may elect to organize your Quarto script such that it is “self-contained” and does not involve any external scripts.</p>
-<p><strong>Set up your Rmd file to ‘read’ the penguins data file.</strong></p>
-<p>Everything you need to run the Quarto is imported or created within the Rmd file, including all the code chunks and package loading. This “self-contained” approach is appropriate when you do not need to do much data processing (e.g.&nbsp;it brings in a clean or semi-clean data file) and the rendering of the Quarto will not take too long.</p>
-<p>In this scenario, one logical organization of the Quarto script might be:</p>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Jitter plots
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you jitter your points, make sure your lines use the same jitter so they connect correctly (you can share a <code>position_jitter</code> object between <code>geom_line()</code> and <code>geom_point()</code>).</p>
+<p><a href="https://martinasladek.co.uk/content/blog/2022_feb_til-matching-position-jitter-of-points-and-lines-in-ggplot2">See here</a></p>
+</div>
+</div>
+</div>
+</section><section id="summarise-your-findings" class="level2" data-number="9.8"><h2 data-number="9.8" class="anchored" data-anchor-id="summarise-your-findings">
+<span class="header-section-number">9.8</span> Summarise your findings</h2>
+<p>In 4–6 sentences, interpret your analysis:</p>
 <ul>
-<li><p>Set global render options</p></li>
-<li><p>Load packages</p></li>
-<li><p>Import data</p></li>
-<li><p>Process data</p></li>
-<li><p>Produce outputs (tables, plots, etc.)</p></li>
-<li><p>Save outputs, <em>if applicable</em> (.csv, .png, etc.)</p></li>
+<li><p>What did your test show?</p></li>
+<li><p>How does the correlation between paired observations support your design?</p></li>
+<li><p>How do your visuals complement your numerical findings?</p></li>
 </ul>
-<section id="task-generate-a-self-contained-report-from-data" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="task-generate-a-self-contained-report-from-data">
-<span class="header-section-number">13.1.1</span> TASK: Generate a self-contained report from data</h3>
-<p>Delete this content and replace it with your own. As an example, let’s create a report about penguins. Add the following content to a Quarto doc:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">---</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="an">title:</span><span class="co"> "Penguins Report"</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="an">author:</span><span class="co"> "Phil"</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="an">output:</span><span class="co"> html</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="an">execute:</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">  echo: false</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">  warning: false</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">  message: false</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">---</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="in">```{r}</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb9-14"><a href="#cb9-14"></a></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="in">```</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="in">```{r}</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a></span>
-<span id="cb9-19"><a href="#cb9-19"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files"</span>, <span class="st">"penguins_raw.csv"</span>))</span>
-<span id="cb9-20"><a href="#cb9-20"></a></span>
-<span id="cb9-21"><a href="#cb9-21"></a><span class="in">```</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a></span>
-<span id="cb9-23"><a href="#cb9-23"></a><span class="fu"># Introduction</span></span>
-<span id="cb9-24"><a href="#cb9-24"></a></span>
-<span id="cb9-25"><a href="#cb9-25"></a>We are writing a report about the **Palmer Penguins**. These penguins are *really* amazing. There are three species:</span>
-<span id="cb9-26"><a href="#cb9-26"></a></span>
-<span id="cb9-27"><a href="#cb9-27"></a><span class="ss">- </span>Adelie</span>
-<span id="cb9-28"><a href="#cb9-28"></a><span class="ss">- </span>Gentoo</span>
-<span id="cb9-29"><a href="#cb9-29"></a><span class="ss">- </span>Chinstrap</span>
-<span id="cb9-30"><a href="#cb9-30"></a></span>
-<span id="cb9-31"><a href="#cb9-31"></a><span class="fu">## Bill Length</span></span>
-<span id="cb9-32"><a href="#cb9-32"></a></span>
-<span id="cb9-33"><a href="#cb9-33"></a>We can make a histogram to see the distribution of bill lengths.</span>
-<span id="cb9-34"><a href="#cb9-34"></a></span>
-<span id="cb9-35"><a href="#cb9-35"></a><span class="in">```{r}</span></span>
-<span id="cb9-36"><a href="#cb9-36"></a>penguins_raw <span class="sc">|&gt;</span> </span>
-<span id="cb9-37"><a href="#cb9-37"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Culmen Length (mm)</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb9-38"><a href="#cb9-38"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb9-39"><a href="#cb9-39"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb9-40"><a href="#cb9-40"></a><span class="in">```</span></span>
-<span id="cb9-41"><a href="#cb9-41"></a></span>
-<span id="cb9-42"><a href="#cb9-42"></a><span class="in">```{r}</span></span>
-<span id="cb9-43"><a href="#cb9-43"></a>average_bill_length <span class="ot">&lt;-</span> penguins_raw <span class="sc">|&gt;</span> </span>
-<span id="cb9-44"><a href="#cb9-44"></a>  <span class="fu">summarize</span>(<span class="at">avg_bill_length =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Culmen Length (mm)</span><span class="st">`</span>,</span>
-<span id="cb9-45"><a href="#cb9-45"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-46"><a href="#cb9-46"></a>  <span class="fu">pull</span>(avg_bill_length)</span>
-<span id="cb9-47"><a href="#cb9-47"></a><span class="in">```</span></span>
-<span id="cb9-48"><a href="#cb9-48"></a></span>
-<span id="cb9-49"><a href="#cb9-49"></a>The chart shows the distribution of bill lengths. The average bill length is <span class="in">`r average_bill_length`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section></section><section id="common-render-issues" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="common-render-issues">Common render issues</h2>
-<p>Any of these issues will cause the qmd document to fail to render in its entirety. A failed render is usually an easy fix, but needs you to READ the error message, and do a little detective work.</p>
-<section id="duplication" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="duplication">Duplication</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="in">```{r title-one}</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="in">```</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="in">```{r title-one}</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="not-the-right-order" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="not-the-right-order">Not the right order</h3>
-<pre><code>plot(my_table)
-
-my_table &lt;- table(mtcars$cyl)</code></pre>
-</section><section id="forgotten-trails" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="forgotten-trails">Forgotten trails</h3>
-<p>: Missing “,”, or “(”, “}”, or “’”</p>
-</section><section id="path-not-taken" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="path-not-taken">Path not taken</h3>
-<p>The qmd document is in a different location the .Rproj file causing issues with relative filepaths</p>
-</section><section id="spolling" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="spolling">Spolling</h3>
+<p>In the last chapter we analyzed Darwin’s maize data and computed confidence intervals “by hand.” That helped build intuition about estimates, standard errors, and confidence. Here, we’ll move to faster, standard tools:</p>
 <ul>
-<li><p>Incorrectly labelled chunk options</p></li>
-<li><p>Incorrectly evaluated R code</p></li>
+<li>
+<code><a href="https://rpkgs.datanovia.com/rstatix/reference/t_test.html">rstatix::t_test()</a></code> for two-sample t-tests (Welch and equal-variance/Student).</li>
+<li>
+<code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for linear models (which also reproduces the two-sample t-test).</li>
+<li>
+<code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> with <code>sandwich</code> (robust) standard errors to guard against unequal variances.</li>
+</ul></section><section id="rendering-your-quarto-doc" class="level2" data-number="9.9"><h2 data-number="9.9" class="anchored" data-anchor-id="rendering-your-quarto-doc">
+<span class="header-section-number">9.9</span> Rendering your Quarto doc</h2>
+<p>After completing your analysis, render your <code>.qmd</code> file to HTML to produce a polished report. Check the following:</p>
+<ul>
+<li><p>Code runs top to bottom – all chunks execute without errors.</p></li>
+<li><p>Figures and tables appear correctly – plots are visible, captions make sense.</p></li>
+<li><p>Formatting is clear – headers, text, and code chunks are readable.</p></li>
+<li><p>Interpretation is included – your narrative explains results, not just code output.</p></li>
 </ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>My document won’t render
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.</p>
+<p>Check out {<a href="quarto.html" class="quarto-xref"><span>Chapter 13</span></a>} for more help.</p>
+</div>
+</div>
+</div>
 
 
-</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
-<ol>
-<li id="fn1"><p>(https://quarto.org/docs/gallery/)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>(https://www.rstudio.com/resources/cheatsheets/)<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -1432,13 +1310,13 @@ window.onresize = move_sidebar;
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./advanced_ggplot.html" class="pagination-link" aria-label="ggplot extras">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ggplot extras</span></span>
+      <a href="./09-linear-models.html" class="pagination-link" aria-label="Linear models and t-tests">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear models and t-tests</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./quarto-reference.html" class="pagination-link" aria-label="Quarto quick reference">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Quarto quick reference</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary-table.html" class="pagination-link" aria-label="Summary tables">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary tables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

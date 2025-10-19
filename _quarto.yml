@@ -29,7 +29,7 @@ book:
     foreground: dark
     border: true
     alignment: left
-    collapse-level: 3
+    collapse-level: 1
     pinned: true
     header: ''
     footer: ''
@@ -47,6 +47,7 @@ book:
     - weekthree.qmd
     - 08-inferential-statistics.qmd
     - 09-linear-models.qmd
+    - weekfour.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd
