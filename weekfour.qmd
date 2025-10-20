@@ -105,6 +105,18 @@ Check-in:
 
 - How does this justify the use of a paired rather than independent t-test?
 
+:::{.callout-tip collapse = "true"}
+# Correlation with rstatix
+
+```{r, eval = FALSE}
+darwin |> 
+  pivot_wider(names_from = type, 
+              values_from = height) |> 
+  rstatix::cor_test(`Self`,`Cross`) 
+```
+
+:::
+
 ## Visualise your data
 
 Create a plot that includes:
@@ -158,6 +170,9 @@ After completing your analysis, render your `.qmd` file to HTML to produce a pol
 - Formatting is clear – headers, text, and code chunks are readable.
 
 - Interpretation is included – your narrative explains results, not just code output.
+    
+    - Include a figure
+    - Include a short results section (with a model write-up and correlation test)
 
 :::{.callout-warning collapse = "true"}
 ## My document won't render

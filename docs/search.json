@@ -675,7 +675,7 @@
     "href": "weekfour.html#examine-the-correlation-between-paired-measurements",
     "title": "9  Task Four - Paired t-tests",
     "section": "\n9.6 Examine the correlation between paired measurements",
-    "text": "9.6 Examine the correlation between paired measurements\nRun a correlation test between the Cross and Self values.\nCheck-in:\n\nIs there evidence that pairs are correlated?\nHow does this justify the use of a paired rather than independent t-test?",
+    "text": "9.6 Examine the correlation between paired measurements\nRun a correlation test between the Cross and Self values.\nCheck-in:\n\nIs there evidence that pairs are correlated?\nHow does this justify the use of a paired rather than independent t-test?\n\n\n\n\n\n\n\nTipCorrelation with rstatix\n\n\n\n\n\n\ndarwin |&gt; \n  pivot_wider(names_from = type, \n              values_from = height) |&gt; \n  rstatix::cor_test(`Self`,`Cross`)",
     "crumbs": [
       "Weekly Sessions",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Task Four - Paired t-tests</span>"
@@ -708,7 +708,7 @@
     "href": "weekfour.html#rendering-your-quarto-doc",
     "title": "9  Task Four - Paired t-tests",
     "section": "\n9.9 Rendering your Quarto doc",
-    "text": "9.9 Rendering your Quarto doc\nAfter completing your analysis, render your .qmd file to HTML to produce a polished report. Check the following:\n\nCode runs top to bottom – all chunks execute without errors.\nFigures and tables appear correctly – plots are visible, captions make sense.\nFormatting is clear – headers, text, and code chunks are readable.\nInterpretation is included – your narrative explains results, not just code output.\n\n\n\n\n\n\n\nWarningMy document won’t render\n\n\n\n\n\nIf the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.\nCheck out {Chapter 14} for more help.",
+    "text": "9.9 Rendering your Quarto doc\nAfter completing your analysis, render your .qmd file to HTML to produce a polished report. Check the following:\n\nCode runs top to bottom – all chunks execute without errors.\nFigures and tables appear correctly – plots are visible, captions make sense.\nFormatting is clear – headers, text, and code chunks are readable.\n\nInterpretation is included – your narrative explains results, not just code output.\n\nInclude a figure\nInclude a short results section (with a model write-up and correlation test)\n\n\n\n\n\n\n\n\n\nWarningMy document won’t render\n\n\n\n\n\nIf the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.\nCheck out {Chapter 14} for more help.",
     "crumbs": [
       "Weekly Sessions",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Task Four - Paired t-tests</span>"
