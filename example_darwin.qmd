@@ -1,0 +1,81 @@
+---
+title: "Darwin Paired T-test"
+author: Philip Leftwich
+self-contained: true
+type: html
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(here)
+library(rstatix)     # simple t-tests with tidy output
+library(broom)       # tidy model summaries (optional)
+library(sandwich)    # robust (heteroskedasticity-consistent) variance estimators
+library(lmtest)      # coeftest/coefci for robust inference
+library(performance) # easy model checks
+
+darwin <- read_csv(here("files", "darwin.csv"))
+
+```
+
+
+## A summary table of a paired t-test
+
+This is a table summary of my paired t-tes analysis of the darwin maize data
+
+```{r, echo = FALSE}
+
+darwin_model <- darwin |>  
+  mutate(pair = as_factor(pair)) |>  
+  lm(height ~ type + pair, data = _) 
+
+darwin |> 
+  t_test(height ~ type, paired = TRUE)
+
+
+darwin |>  
+  mutate(pair = as_factor(pair)) |>  
+  lm(height ~ type + pair, data = _) |>  
+  broom::tidy() |> 
+  gt::gt()
+
+```
+
+## Correlation test
+
+```{r, echo = FALSE}
+
+darwin |> 
+  pivot_wider(names_from = type, 
+              values_from = height) |> 
+  rstatix::cor_test(`Self`,`Cross`) |> 
+  gt::gt()
+```
+
+## Figure
+
+```{r, echo = FALSE, warning = FALSE}
+
+means <- emmeans::emmeans(darwin_model, specs = ~ type) |> 
+  as_tibble() |> 
+  rename(height = emmean)
+
+
+darwin |> 
+  # sort by id and time: 
+  dplyr::arrange(pair) %>% 
+  ggplot2::ggplot(., aes(y = height, x = type)) +
+  # slightly tweaked sizes and alphas here to make the points easier to see: 
+  geom_path(
+    aes(group = pair), 
+    linewidth = 0.4, alpha = 0.3, 
+    position = position_jitter(width = 0.1, seed = 3922)
+  ) + 
+  geom_point(size = 1, alpha = 0.7, position = position_jitter(width = 0.1, seed = 3922),
+             alpha = .3) +
+  # Add point estimates with error bars
+  geom_pointrange(data = means, size = 1, aes(ymin = lower.CL, ymax = upper.CL))+
+  theme_minimal()+
+  labs(type = "Breeding type", x = "Mean height inches [+- 95% CI]")
+
+```

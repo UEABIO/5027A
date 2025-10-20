@@ -643,10 +643,10 @@ data &lt;- read_csv("data.csv")
 </ul>
 </div>
 <p><strong>Question.</strong> If we wanted to see the R code, but <strong>not</strong> its output we need to select what combo of code chunk options? <select class="webex-select"><option value="blank"></option>
-<option value="">echo = TRUE, eval = TRUE</option>
-<option value="answer">echo = TRUE, eval = FALSE</option>
+<option value="">echo = FALSE, eval = FALSE</option>
 <option value="">echo = FALSE, eval = TRUE</option>
-<option value="">echo = FALSE, eval = FALSE</option></select></p>
+<option value="answer">echo = TRUE, eval = FALSE</option>
+<option value="">echo = TRUE, eval = TRUE</option></select></p>
 <p>Default options for showing code, charts, and other elements in the rendered versions of the document. In Quarto, these options are set in the execute field of the YAML. For example, the following would provide the outputs of code, but hide the code itself, as well as all warnings and messages, from the rendered document:</p>
 <pre><code>---
 title: "My Report"
@@ -694,7 +694,7 @@ execute:
 <p>You can also include minimal R code within back-ticks. Within the back-ticks, begin the code with “r” and a space, so RStudio knows to evaluate the code as R code. See the example below.</p>
 <p>This book was printed on <code>`r Sys.Date()`</code></p>
 <p>When typed in-line within a section of what would otherwise be Markdown text, it knows to produce an r output instead:</p>
-<p>This book was printed on 2025-09-25</p>
+<p>This book was printed on 2025-10-20</p>
 </section><section id="running-code" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="running-code">Running code</h3>
 <p>You can run the code in an Quarto document in two ways. The first way is by rendering the entire document. The second way is to run code chunks manually (also known as interactively) by hitting the little green play button at the top-right of a code chunk. The down arrow next to the green play button will run all code until that point.</p>
 <p>The one downside to running code interactively is that you can sometimes make mistakes that cause your Quarto document to fail to render. That is because, in order to render, a Quarto document must <em>contain</em> all the code it uses. If you are working interactively and, say, load data from a separate file, you will be unable to render your document. When working in Quarto, always keep all code within a single document.</p>
@@ -702,8 +702,8 @@ execute:
 </section></section><section id="self-contained-reports" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="self-contained-reports">
 <span class="header-section-number">14.1</span> Self contained Reports</h2>
 <p>For a relatively simple report, you may elect to organize your Quarto script such that it is “self-contained” and does not involve any external scripts.</p>
-<p><strong>Set up your Rmd file to ‘read’ the penguins data file.</strong></p>
-<p>Everything you need to run the Quarto is imported or created within the Rmd file, including all the code chunks and package loading. This “self-contained” approach is appropriate when you do not need to do much data processing (e.g.&nbsp;it brings in a clean or semi-clean data file) and the rendering of the Quarto will not take too long.</p>
+<p><strong>Set up your Quarto file to ‘read’ the penguins data file.</strong></p>
+<p>Everything you need to run the Quarto is imported or created within the file, including all the code chunks and package loading. This “self-contained” approach is appropriate when you do not need to do much data processing (e.g.&nbsp;it brings in a clean or semi-clean data file) and the rendering of the Quarto will not take too long.</p>
 <p>In this scenario, one logical organization of the Quarto script might be:</p>
 <ul>
 <li><p>Set global render options</p></li>

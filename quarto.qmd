@@ -257,9 +257,9 @@ The code must also always appear in the right order.
 
 For a relatively simple report, you may elect to organize your Quarto script such that it is “self-contained” and does not involve any external scripts.
 
-**Set up your Rmd file to 'read' the penguins data file.**
+**Set up your Quarto file to 'read' the penguins data file.**
 
-Everything you need to run the Quarto is imported or created within the Rmd file, including all the code chunks and package loading. This “self-contained” approach is appropriate when you do not need to do much data processing (e.g. it brings in a clean or semi-clean data file) and the rendering of the Quarto will not take too long.
+Everything you need to run the Quarto is imported or created within the file, including all the code chunks and package loading. This “self-contained” approach is appropriate when you do not need to do much data processing (e.g. it brings in a clean or semi-clean data file) and the rendering of the Quarto will not take too long.
 
 In this scenario, one logical organization of the Quarto script might be:
 

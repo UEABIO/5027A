@@ -45,11 +45,31 @@ By completing this assignment, you will:
 
 - Create a new .qmd file with a clear title, author, and date.
 
-- Load your packages.
+````md
+---
+title: "My Report"
+author: "Your Name"
+format: html
+  embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
 
-Read in the dataset:
+---
 
-```{r, eval = FALSE}
+````
+
+- Load packages
+
+- Read in the dataset:
+
+
+
+````md
+```{r}`r ''`
+#| include: false
+
 library(tidyverse)
 library(here)
 library(rstatix)     # simple t-tests with tidy output
@@ -59,8 +79,8 @@ library(lmtest)      # coeftest/coefci for robust inference
 library(performance) # easy model checks
 
 darwin <- read_csv(here("data", "darwin.csv"))
-
 ```
+````
 
 - Include a brief introduction: What question are we testing?
 
@@ -72,7 +92,7 @@ Check-in:
 
 - How are “Cross” and “Self” plants related within pairs?
 
-- Why might it make sense to treat “pair” as a factor rather than a numeric variable?
+- Why might it make sense to treat “pair” as a **factor rather than a numeric variable**?
 
 > Question: Does this design look like independent samples, or are observations linked in some way?
 
@@ -86,7 +106,8 @@ Think about:
 
 - How could you model this using `lm()`?
 
-> You can add covariates to a linear model by including them on the right-hand side of the formula (after ~ ) separated with +.
+> You can add covariates to a linear model by including them on the right-hand side of the formula (after ~ ) separated with + 
+> e.g. lm(variable ~ predictor_1 + predictor_2)
 
 :::{.callout-note}
 
@@ -123,7 +144,7 @@ Create a plot that includes:
 
 - Raw data (all individual points),
 
-- Paired connections (lines between pairs),
+- (*Optionally*) Paired connections (lines between pairs),
 
 - A summary geom (mean ± SE/95% CI or boxplots).
 
