@@ -49,6 +49,8 @@ book:
     - 09-linear-models.qmd
     - weekfour.qmd
     - 11-regression.qmd
+    - weekfive.qmd
+    - 12-ANOVA.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd

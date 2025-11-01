@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.24">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>7&nbsp; Inferential statistics – 5027A</title>
+<title>11&nbsp; Task Five - Regression – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,8 +61,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./09-linear-models.html" rel="next">
-<link href="./weekthree.html" rel="prev">
+<link href="./12-ANOVA.html" rel="next">
+<link href="./11-regression.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -104,32 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="site_libs/font-awesome-6.5.2/js/script.js"></script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
@@ -304,7 +279,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./08-inferential-statistics.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferential statistics</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./weekfive.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Task Five - Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -383,7 +358,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-inferential-statistics.html" class="sidebar-item-text sidebar-link active">
+  <a href="./08-inferential-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferential statistics</span></span></a>
   </div>
 </li>
@@ -407,7 +382,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./weekfive.html" class="sidebar-item-text sidebar-link">
+  <a href="./weekfive.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Task Five - Regression</span></span></a>
   </div>
 </li>
@@ -525,28 +500,24 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#darwins-maize-data" id="toc-darwins-maize-data" class="nav-link active" data-scroll-target="#darwins-maize-data"><span class="header-section-number">7.1</span> Darwin’s maize data</a>
-  <ul class="collapse">
-<li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation"><span class="header-section-number">7.1.1</span> Visualisation</a></li>
-  <li><a href="#comparing-groups" id="toc-comparing-groups" class="nav-link" data-scroll-target="#comparing-groups"><span class="header-section-number">7.1.2</span> Comparing groups</a></li>
-  </ul>
-</li>
+<li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">11.1</span> Objective:</a></li>
+  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes"><span class="header-section-number">11.2</span> Learning Outcomes</a></li>
   <li>
-<a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">7.2</span> Estimation</a>
+<a href="#task-outline" id="toc-task-outline" class="nav-link" data-scroll-target="#task-outline"><span class="header-section-number">11.3</span> Task Outline</a>
   <ul class="collapse">
-<li><a href="#standard-error" id="toc-standard-error" class="nav-link" data-scroll-target="#standard-error"><span class="header-section-number">7.2.1</span> Standard error</a></li>
-  <li><a href="#standard-error-of-the-difference" id="toc-standard-error-of-the-difference" class="nav-link" data-scroll-target="#standard-error-of-the-difference"><span class="header-section-number">7.2.2</span> Standard error of the difference</a></li>
-  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution"><span class="header-section-number">7.2.3</span> Normal distribution</a></li>
-  <li><a href="#spread-of-the-data" id="toc-spread-of-the-data" class="nav-link" data-scroll-target="#spread-of-the-data"><span class="header-section-number">7.2.4</span> Spread of the data</a></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">7.2.5</span> Confidence Intervals</a></li>
+<li><a href="#set-up-your-quarto-document" id="toc-set-up-your-quarto-document" class="nav-link" data-scroll-target="#set-up-your-quarto-document"><span class="header-section-number">11.3.1</span> Set up your Quarto document</a></li>
   </ul>
 </li>
+  <li><a href="#visualise" id="toc-visualise" class="nav-link" data-scroll-target="#visualise"><span class="header-section-number">11.4</span> Visualise</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">11.5</span> Model</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">11.6</span> Assumptions</a></li>
+  <li><a href="#summarise-your-findings" id="toc-summarise-your-findings" class="nav-link" data-scroll-target="#summarise-your-findings"><span class="header-section-number">11.7</span> Summarise your findings</a></li>
+  <li><a href="#rendering-your-quarto-doc" id="toc-rendering-your-quarto-doc" class="nav-link" data-scroll-target="#rendering-your-quarto-doc"><span class="header-section-number">11.8</span> Rendering your Quarto doc</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./08-inferential-statistics.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferential statistics</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-stats" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferential statistics</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Weekly Sessions</a></li><li class="breadcrumb-item"><a href="./weekfive.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Task Five - Regression</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-weekfive" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Task Five - Regression</span></span></h1>
 </div>
 
 
@@ -560,293 +531,108 @@ window.Quarto = {
   
 
 
-</header><p>In this chapter will be focusing more on <em>statistics</em>. We actually did quite a lot of <em>descriptive statistics</em> work previously. Every time we summarised or described our data, by calculating a <strong>mean</strong>, <strong>median</strong>, <strong>standard deviation</strong>, <strong>frequency/count</strong>, or <strong>distribution</strong> we were carrying out <em>descriptive statistics</em> that helped us understand our data better.</p>
-<p>We are building on this to develop our skills in <em>inferential statistics</em>. Inferential statistics allow us to make generalisations - taking a descriptive statistics from our data such as the <strong>sample mean</strong>, and using it to say something about a population parameter (i.e.&nbsp;the <strong>population mean</strong>).</p>
-<p>For example we might measure the measure the heights of some plants that have been outcrossed and inbred and make some summaries and figures to construct an average difference in height (this is <strong>descriptive</strong>). Or we could use this to produce some estimates of the general effect of outcrossing vs inbreeding on plant heights (this is <strong>inferential</strong>).</p>
-<section id="darwins-maize-data" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="darwins-maize-data">
-<span class="header-section-number">7.1</span> Darwin’s maize data</h2>
-<p>Loss of genetic diversity is an important issue in the conservation of species. Declines in population size due to over exploitation, habitat fragmentation lead to loss of genetic diversity. Even populations restored to viable numbers through conservation efforts may suffer from continued loss of population fitness because of inbreeding depression.</p>
-<p>Charles Darwin even wrote a book on the subject <em>“The Effects of Cross and Self-Fertilisation in the Vegetable Kingdom”</em>. In this he describes how he produced seeds of maize (<em>Zea mays</em>) that were fertilised with pollen from the same individual or from a different plant. The height of the seedlings that were produced from these were then measured as a proxy for their evolutionary fitness.</p>
-<p>Darwin wanted to know whether inbreeding reduced the fitness of the selfed plants - this was his <strong>hypothesis</strong>. The data we are going to use today is from Darwin’s original dataset.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/darwin.csv">
-<button class="btn btn-success"><i class="fa fa-save"></i> Download Maize data as csv</button>
-</a>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a>darwin <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"darwin.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
+</header><section id="objective" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="objective">
+<span class="header-section-number">11.1</span> Objective:</h2>
+<p>In the previous exercise {<a href="11-regression.html" class="quarto-xref"><span>Chapter 10</span></a>}, you conducted a regression analysis - now we will repeat this with a new dataset Your task is to:</p>
+<ol type="1">
+<li><p>Import and inspect the data</p></li>
+<li><p>Conduct a <em>regression</em> using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code></p></li>
+<li><p>Visualise and interpret your results</p></li>
+<li><p>Present your analysis in a Quarto report {<a href="quarto.html" class="quarto-xref"><span>Chapter 16</span></a>}</p></li>
+</ol></section><section id="learning-outcomes" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="learning-outcomes">
+<span class="header-section-number">11.2</span> Learning Outcomes</h2>
+<p>By completing this assignment, you will:</p>
+<ul>
+<li><p>Apply the concept of regression analysis using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>.</p></li>
+<li><p>Build confidence in constructing reproducible analysis workflows using Quarto.</p></li>
+<li><p>Communicate results clearly with integrated text, code, and visuals.</p></li>
+</ul></section><section id="task-outline" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="task-outline">
+<span class="header-section-number">11.3</span> Task Outline</h2>
+<p>Cope’s rule refers to the tendency of animal body sizes to increase in time with increasing age of the lineage. De Souza and Santucci (2014) tested this using a set of data from the dinosaur clade called the Titanosaurs. This is a group of sauropods that included some of the largest animals known in the history of the Earth (e.g.&nbsp;<em>Argentinosaurus</em>) and which were widespread and diverse during the Cretaceous period. Most Titanosaurs are known from only a few bones, and the massive limb bones are particularly common. De Souza and Santucci assembled measurements of limb bones from 46 species of Titanosaur. Measurements of both humerus and femur were available for 20 of these, with 12 being represented only by the humerus and 14 by the femur only. In order to carry out an analysis of how the body size of these animals varied with time, it is necessary to estimate the femur sizes for those animals that are only represented by the humerus, and to do this we can use a linear regression to work out the expected values for each of these missing data points.</p>
+<section id="set-up-your-quarto-document" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="set-up-your-quarto-document">
+<span class="header-section-number">11.3.1</span> Set up your Quarto document</h3>
+<ul>
+<li>Create a new .qmd file with a clear title, author, and date.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "My Report"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">  embed-resources: true</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="an">execute:</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">  echo: false</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">  warning: false</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">  message: false</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p>Load packages</p></li>
+<li><p>Read in the dataset:</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#| include: false</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(rstatix)     <span class="co"># simple t-tests with tidy output</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">library</span>(broom)       <span class="co"># tidy model summaries (optional)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">library</span>(sandwich)    <span class="co"># robust (heteroskedasticity-consistent) variance estimators</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">library</span>(lmtest)      <span class="co"># coeftest/coefci for robust inference</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">library</span>(performance) <span class="co"># easy model checks</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a>titanosaurs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"titanosaurs.csv"</span>))</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section><section id="visualise" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="visualise">
+<span class="header-section-number">11.4</span> Visualise</h2>
+<p>Plot a scatterplot to show how the length of the two limb bones relate to each other. Remember we are going to try to predict femur length from humerus length so decide which measurement should go on the y- and x- axes on this basis.</p>
+</section><section id="model" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="model">
+<span class="header-section-number">11.5</span> Model</h2>
+<p>Fit a linear regression to the data using the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function and save the fitted model to an object in the R workspace.</p>
+</section><section id="assumptions" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="assumptions">
+<span class="header-section-number">11.6</span> Assumptions</h2>
+<p>Check the assumptions of the model are there any issues with this model?</p>
+</section><section id="summarise-your-findings" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="summarise-your-findings">
+<span class="header-section-number">11.7</span> Summarise your findings</h2>
+<p>In 4–6 sentences, interpret your analysis:</p>
+<ul>
+<li><p>Write a short results summary - it should include estimates of difference, uncertainty values, test statistics and p-values.</p></li>
+<li><p>How strong is the regression?</p></li>
+<li><p>How do your visuals complement your findings?</p></li>
+</ul></section><section id="rendering-your-quarto-doc" class="level2" data-number="11.8"><h2 data-number="11.8" class="anchored" data-anchor-id="rendering-your-quarto-doc">
+<span class="header-section-number">11.8</span> Rendering your Quarto doc</h2>
+<p>After completing your analysis, render your <code>.qmd</code> file to Pdf to produce a polished report. Check the following:</p>
+<ul>
+<li><p>Code runs top to bottom – all chunks execute without errors.</p></li>
+<li><p>Figures and tables appear correctly – plots are visible, captions make sense.</p></li>
+<li><p>Formatting is clear – headers, text, and code chunks are readable.</p></li>
+<li>
+<p>Interpretation is included – your narrative explains results, not just code output.</p>
+<ul>
+<li>Include a figure</li>
+<li>Include a short results section (with a model write-up and correlation test)</li>
+</ul>
+</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+<span class="screen-reader-only">Warning</span>My document won’t render
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Set up a new project</p>
-<p>Have you got separate subfolders set up within your project?</p>
-<p>You should set up a script to put your work into - use this to write instructions and store comments.</p>
-<p>Use the File &gt; New Script menu item and select an R Script.</p>
-</div>
-</div>
-<section id="visualisation" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="visualisation">
-<span class="header-section-number">7.1.1</span> Visualisation</h3>
-<p>Now seems like a good time for our first data visualisation.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>darwin <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>type,</span>
-<span id="cb2-3"><a href="#cb2-3"></a>         <span class="at">y=</span>height))<span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="08-inferential-statistics_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># you could also substitute (or combine) other geoms including</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># geom_boxplot()</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># geom_violin()</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># geom_histogram()</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># Why not have a go and see what you can make?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The graph clearly shows that the average height of the ‘crossed’ plants is greater than that of the ‘selfed’ plants. But we need to investigate further in order to determine whether the signal (any apparent differences in mean values) is greater than the level of noise (variance within the different groups).</p>
-<p>The variance appears to be roughly similar between the two groups - though by making a graph we can now clearly see that in the crossed group, there is a <em>potential</em> outlier with a value of 12.</p>
-</section><section id="comparing-groups" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="comparing-groups">
-<span class="header-section-number">7.1.2</span> Comparing groups</h3>
-<p>As we have seen previously we can use various tidy functions to determine the mean and standard deviations of our groups.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>darwin <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">group_by</span>(type) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(height),</span>
-<span id="cb4-4"><a href="#cb4-4"></a>            <span class="at">sd=</span><span class="fu">sd</span>(height)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>            )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">type</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: right;">sd</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Cross</td>
-<td style="text-align: right;">20.19167</td>
-<td style="text-align: right;">3.616945</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Self</td>
-<td style="text-align: right;">17.57500</td>
-<td style="text-align: right;">2.051676</td>
-</tr>
-</tbody>
-</table>
+<p>If the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.</p>
+<p>Check out {<a href="quarto.html" class="quarto-xref"><span>Chapter 16</span></a>} for more help.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You should (re)familiarise yourself with how (and why) we calculate standard deviation.</p>
-</div>
-</div>
-</section></section><section id="estimation" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="estimation">
-<span class="header-section-number">7.2</span> Estimation</h2>
-<p>In the section above we concentrated on description. But the hypothesis Darwin aimed to test was whether ‘inbreeding reduced the fitness of the selfed plants’. To do this we will use the height of the plants as a proxy for fitness and explicitly address whether there is a <strong>difference</strong> in the mean heights of the plants between these two groups.</p>
-<p>Our goal is to:</p>
-<ul>
-<li><p>Estimate the mean heights of the plants in these two groups</p></li>
-<li><p>Estimate the mean <em>difference</em> in heights between these two groups</p></li>
-<li><p>Quantify our <em>confidence</em> in these differences</p></li>
-</ul>
-<section id="standard-error" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="standard-error">
-<span class="header-section-number">7.2.1</span> Standard error</h3>
-<p>Remember that standard deviation is a descriptive statistic — it measures how much individual data points vary around the mean. In other words, it tells us how spread out our data are within a sample.</p>
-<p>However, when we move into inferential statistics, we’re no longer just describing our sample — we’re trying to make inferences about the population from which our sample came. This is where the standard error (SE) comes in.</p>
-<p>We can think of the standard error as the standard deviation of the mean. The mean we calculate from our sample is just one possible estimate of the population mean. If we were to repeat our sampling process many times, we’d get slightly different sample means each time. The standard error tells us how much those sample means would typically vary from one sample to another.</p>
-<p>In short, the standard error measures how confident we can be that our sample mean is close to the true population mean.</p>
-<p><span class="math display">\[
-SE = \frac{s}{\sqrt(n)}
-\]</span> where</p>
-<ul>
-<li><p>s = sample standard deviation</p></li>
-<li><p>n = sample size</p></li>
-</ul>
-<p>As sample size increases the standard error should reduce - reflecting an increasing confidence in our estimate.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>darwin <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">group_by</span>(type) <span class="sc">|&gt;</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(height),</span>
-<span id="cb5-4"><a href="#cb5-4"></a>            <span class="at">sd=</span><span class="fu">sd</span>(height),</span>
-<span id="cb5-5"><a href="#cb5-5"></a>            <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-6"><a href="#cb5-6"></a>            <span class="at">se =</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">type</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: right;">sd</th>
-<th style="text-align: right;">n</th>
-<th style="text-align: right;">se</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Cross</td>
-<td style="text-align: right;">20.19167</td>
-<td style="text-align: right;">3.616945</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0.9338912</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Self</td>
-<td style="text-align: right;">17.57500</td>
-<td style="text-align: right;">2.051676</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0.5297405</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Here is a great explainer video on <a href="https://www.youtube.com/watch?v=A82brFpdr9g">Standard Error</a></p>
-<p>And try this <a href="http://pleft86.shinyapps.io/Sampling">Shiny App on Sampling</a></p>
-</section><section id="standard-error-of-the-difference" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="standard-error-of-the-difference">
-<span class="header-section-number">7.2.2</span> Standard error of the difference</h3>
-<p>Just as the standard error tells us how much a single sample mean would vary across repeated samples, the standard error of the difference tells us how much the <strong>difference</strong> between two sample means would vary if we repeated the experiment many times.</p>
-<p>When comparing two groups (for example, two plant treatments), each sample mean has its own sampling variability. The variability in the difference between those means depends on both standard errors:</p>
-<p><span class="math display">\[
-SE_{diff} = \sqrt{SE^2_1 + SE^2_2}
-\]</span></p>
-<p>This combined standard error forms the basis for inferential tests like the t-test, where we assess whether the observed difference between two means is likely due to random sampling variation — or reflects a real difference in the populatio</p>
-<p>Our estimate of the mean is not really very useful without an accompanying measuring of <em>uncertainty</em> like the standard error, in fact estimates of averages or differences should <strong>always</strong> be accompanied by their measure of uncertainty.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>se_diff <span class="ot">&lt;-</span> darwin <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">group_by</span>(type) <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(height),</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(height),</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb6-8"><a href="#cb6-8"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb6-10"><a href="#cb6-10"></a>    <span class="at">mean_diff =</span> <span class="fu">diff</span>(mean), </span>
-<span id="cb6-11"><a href="#cb6-11"></a>    <span class="at">se_diff =</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(se<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb6-12"><a href="#cb6-12"></a>  )</span>
-<span id="cb6-13"><a href="#cb6-13"></a></span>
-<span id="cb6-14"><a href="#cb6-14"></a>se_diff</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: right;">mean_diff</th>
-<th style="text-align: right;">se_diff</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: right;">-2.616667</td>
-<td style="text-align: right;">1.073675</td>
-</tr></tbody>
-</table>
-</div>
-</div>
-</div>
-</section><section id="normal-distribution" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="normal-distribution">
-<span class="header-section-number">7.2.3</span> Normal distribution</h3>
-<p>The <strong>normal distribution</strong> describes data that form a <strong>bell-shaped curve</strong> when plotted on a graph. Most values are close to the <strong>mean</strong> (average), and fewer occur as you move further away from it in either direction.</p>
-<p><a href="https://www.youtube.com/watch?v=rzFX5NWojp0&amp;t=2s">What is the normal distribution</a></p>
-</section><section id="spread-of-the-data" class="level3" data-number="7.2.4"><h3 data-number="7.2.4" class="anchored" data-anchor-id="spread-of-the-data">
-<span class="header-section-number">7.2.4</span> Spread of the data</h3>
-<p>The standard deviation measures how spread out the data are from the mean:</p>
-<ul>
-<li><p>A small standard deviation → data are close to the mean → tall, narrow curve.</p></li>
-<li><p>A large standard deviation → data are more spread out → wide, flat curve.</p></li>
-</ul>
-<p>The bell-shaped curve appears often in nature — for example, in human height, penguin flipper length, or plant height.</p>
-<p>As a probability distribution, the total area under the curve equals 1 (the whole population). Certain parts of the curve correspond to known probabilities:</p>
-<ul>
-<li><p>About 68% of values are within 1 standard deviation of the mean.</p></li>
-<li><p>About 95% are within 2 standard deviations.</p></li>
-<li><p>About 99.7% are within 3 standard deviations.</p></li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="08-inferential-statistics_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="the-central-limit-theorem" class="level4" data-number="7.2.4.1"><h4 data-number="7.2.4.1" class="anchored" data-anchor-id="the-central-limit-theorem">
-<span class="header-section-number">7.2.4.1</span> The Central Limit Theorem</h4>
-<p>The <strong>central limit theorem</strong> tells us that if we take many random samples from a population, the averages (sample means) will form a normal distribution — even if the original data are not normal.</p>
-<p>The <strong>standard error (SE)</strong> shows how much the sample mean varies from the true population mean.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="08-inferential-statistics_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="example-comparing-plant-heights" class="level4" data-number="7.2.4.2"><h4 data-number="7.2.4.2" class="anchored" data-anchor-id="example-comparing-plant-heights">
-<span class="header-section-number">7.2.4.2</span> Example: Comparing Plant Heights</h4>
-<p>Suppose we measure the difference in height between two groups of maize plants — cross-pollinated and self-pollinated. We find a mean difference of 2.62 inches, with a standard error of 1.07 inches.</p>
-<p>If the true difference between the groups were actually zero, how likely would it be to observe a difference of 2.62 inches?</p>
-<p>Because 2.62 is more than two standard errors from zero, it would be unusual to see this by chance alone. That’s why we might reject the null hypothesis (that there’s no difference). In statistical terms, this corresponds to a p-value &lt; 0.05.</p>
-<p>If we used a stricter test (for example, p &lt; 0.001), the result would not be considered significant, since zero would still fall within three standard errors.</p>
-</section></section><section id="confidence-intervals" class="level3" data-number="7.2.5"><h3 data-number="7.2.5" class="anchored" data-anchor-id="confidence-intervals">
-<span class="header-section-number">7.2.5</span> Confidence Intervals</h3>
-<p>A confidence interval (CI) gives a range that is likely to include the true mean difference.</p>
-<p>Since ±2 standard errors cover about 95% of the normal curve, the 95% confidence interval for our estimate is:</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>lowerCI <span class="ot">&lt;-</span> <span class="fl">2.62</span><span class="sc">-</span>(<span class="dv">2</span><span class="sc">*</span><span class="fl">1.07</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>upperCI <span class="ot">&lt;-</span> <span class="fl">2.62</span><span class="sc">+</span>(<span class="dv">2</span><span class="sc">*</span><span class="fl">1.07</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a>lowerCI</span>
-<span id="cb7-6"><a href="#cb7-6"></a>upperCI</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.48
-[1] 4.76</code></pre>
-</div>
-</div>
-<p>So, we write this as:</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The maize plants that have been cross pollinated were taller on average than the self-pollinated plants, with a mean difference in height of 2.62 [0.18, 5.06] inches (mean [95% CI]).</p>
-</div>
-</div>
-<p>This statement clearly shows the direction, size, and uncertainty of the difference.</p>
-<blockquote class="blockquote">
-<p>It’s a common mistake to say we are 95% sure the true mean lies inside this interval. Technically, it means that if we repeated this experiment many times, 95% of those intervals would contain the true mean.</p>
-</blockquote>
 
 
-</section></section></main><!-- /main --><script>
+</section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -1491,13 +1277,13 @@ window.onresize = move_sidebar;
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./weekthree.html" class="pagination-link" aria-label="Task Three - Data Cleaning">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Task Three - Data Cleaning</span></span>
+      <a href="./11-regression.html" class="pagination-link" aria-label="Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./09-linear-models.html" class="pagination-link" aria-label="Linear models and t-tests">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear models and t-tests</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./12-ANOVA.html" class="pagination-link" aria-label="ANOVA">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ANOVA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

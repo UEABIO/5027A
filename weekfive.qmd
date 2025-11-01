@@ -1,0 +1,135 @@
+# Task Five - Regression {#sec-weekfive}
+
+
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+library(janitor)
+library(here)
+library(performance)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+
+```
+
+## Objective:
+
+In the previous exercise {@sec-reg}, you conducted a regression analysis - now we will repeat this with a new dataset
+Your task is to: 
+
+1. Import and inspect the data
+
+2. Conduct a *regression* using `lm()` 
+
+3. Visualise and interpret your results
+
+4. Present your analysis in a Quarto report {@sec-reports}
+
+## Learning Outcomes
+
+By completing this assignment, you will:
+
+- Apply the concept of regression analysis using `lm()`.
+
+- Build confidence in constructing reproducible analysis workflows using Quarto.
+
+- Communicate results clearly with integrated text, code, and visuals.
+
+## Task Outline
+
+Cope’s rule refers to the tendency of animal body sizes to increase in time with increasing age of the lineage. De
+Souza and Santucci (2014) tested this using a set of data from the dinosaur clade called the Titanosaurs. This is a
+group of sauropods that included some of the largest animals known in the history of the Earth (e.g. *Argentinosaurus*)
+and which were widespread and diverse during the Cretaceous period. Most Titanosaurs are known from only a few
+bones, and the massive limb bones are particularly common. De Souza and Santucci assembled measurements of
+limb bones from 46 species of Titanosaur. Measurements of both humerus and femur were available for 20 of these,
+with 12 being represented only by the humerus and 14 by the femur only. In order to carry out an analysis of how
+the body size of these animals varied with time, it is necessary to estimate the femur sizes for those animals that are
+only represented by the humerus, and to do this we can use a linear regression to work out the expected values for
+each of these missing data points.
+
+### Set up your Quarto document
+
+- Create a new .qmd file with a clear title, author, and date.
+
+````md
+---
+title: "My Report"
+author: "Your Name"
+format: html
+  embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+
+---
+
+````
+
+- Load packages
+
+- Read in the dataset:
+
+
+````md
+```{r}`r ''`
+#| include: false
+
+library(tidyverse)
+library(here)
+library(rstatix)     # simple t-tests with tidy output
+library(broom)       # tidy model summaries (optional)
+library(sandwich)    # robust (heteroskedasticity-consistent) variance estimators
+library(lmtest)      # coeftest/coefci for robust inference
+library(performance) # easy model checks
+
+titanosaurs <- read_csv(here("data", "titanosaurs.csv"))
+```
+````
+## Visualise
+
+Plot a scatterplot to show how the length of the two limb bones relate to each other. Remember we are going to try to predict femur length from humerus length so decide which measurement should go on the y- and x- axes on this basis.
+
+
+## Model
+
+Fit a linear regression to the data using the `lm()` function and save the fitted model to an object in the R workspace.
+
+## Assumptions
+
+Check the assumptions of the model are there any issues with this model?
+
+
+## Summarise your findings
+
+In 4–6 sentences, interpret your analysis:
+
+- Write a short results summary - it should include estimates of difference, uncertainty values, test statistics and p-values.
+
+- How strong is the regression?
+
+- How do your visuals complement your findings?
+
+
+## Rendering your Quarto doc
+
+After completing your analysis, render your `.qmd` file to Pdf to produce a polished report. Check the following:
+
+- Code runs top to bottom – all chunks execute without errors.
+
+- Figures and tables appear correctly – plots are visible, captions make sense.
+
+- Formatting is clear – headers, text, and code chunks are readable.
+
+- Interpretation is included – your narrative explains results, not just code output.
+    
+    - Include a figure
+    - Include a short results section (with a model write-up and correlation test)
+
+:::{.callout-warning collapse = "true"}
+## My document won't render
+
+If the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.
+
+Check out {@sec-reports} for more help.
+:::
