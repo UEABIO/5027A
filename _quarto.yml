@@ -51,6 +51,8 @@ book:
     - 11-regression.qmd
     - weekfive.qmd
     - 12-ANOVA.qmd
+    - weeksix.qmd
+    - model-assumptions.qmd
   - part: "Summary tables"
     chapters:
     - summary-table.qmd

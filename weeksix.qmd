@@ -1,0 +1,201 @@
+# Task Six - Interaction models {#sec-weeksix}
+
+
+```{r, echo = F, warning = F, message = F}
+library(tidyverse)
+library(janitor)
+library(here)
+library(performance)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+
+```
+
+## Objective:
+
+In the previous exercise {@sec-anova}, you conducted an ANOVA
+
+In this workshop, you will test whether two experimental factors — Light and Fertiliser — interact to affect plant biomass.
+You’ll use a factorial dataset and compare two models:
+
+- **Additive model** – assumes effects of Light and Fertiliser simply add together
+
+- **Interaction model** – allows the effect of one variable to depend on the other
+
+## Learning Outcomes
+
+By completing this assignment, you will:
+
+- Fit factorial ANOVA models in R using `lm()`.
+
+- Test for an interaction term with `anova()`.
+
+- Interpret model summaries and visualise predicted means.
+
+- Decide when an interaction term is warranted.
+
+
+
+### Set up your Quarto document
+
+- Create a new .qmd file with a clear title, author, and date.
+
+````md
+---
+title: "My Report"
+author: "Your Name"
+format: html
+  embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+
+---
+
+````
+
+- Load packages
+
+- Read in the dataset
+
+- Complete the following sections
+
+
+````md
+```{r}`r ''`
+#| include: false
+
+library(tidyverse)
+library(here)
+library(rstatix)     # simple t-tests with tidy output
+library(broom)       # tidy model summaries (optional)
+library(sandwich)    # robust (heteroskedasticity-consistent) variance estimators
+library(lmtest)      # coeftest/coefci for robust inference
+library(performance) # easy model checks
+
+biomass <- read_csv(here("data", "biomass.csv"))
+
+## The data
+
+## Visualisation
+
+## Additive model
+
+## Interaction model
+
+## Model predictions
+
+## Visualise model predictions
+
+```
+````
+
+## The data
+
+The dataset records biomass production (g/m²) for grassland plots treated with combinations of Fertiliser and Light.
+
+Download and read the data
+
+> How many observations are there, and what are the three variables in the dataset?
+
+
+## Visualise treatment effects
+
+Create a boxplot to explore how biomass varies with Fertiliser and Light.
+
+> What pattern do you notice? Does the combined (F+ L+) treatment appear additive or possibly interactive?
+
+## Fit an additive model
+
+Now test whether each treatment affects biomass independently.
+
+```{r, eval = FALSE}
+
+model_add <- lm(Biomass.m2 ~ Fert + Light, data = biomass)
+summary(model_add)
+
+```
+
+> Which treatments are significant predictors of biomass?
+
+> What does the intercept represent in this model?
+
+## Fit an interaction model
+
+Add an interaction term and compare models.
+
+```{r, eval = FALSE}
+
+model_int <- lm(Biomass.m2 ~ Fert + Light +
+                  Fert:Light, # interaction term
+                data = biomass)
+summary(model_int)
+
+anova(model_add, model_int)
+
+```
+
+> Does the interaction term improve model fit (look at the F-test)?
+
+> What does a significant interaction mean in this context?
+
+
+## Visualise model predictions
+
+- Use `emmeans`
+
+- Plot predicted means and 95% confidence intervals
+
+
+> Describe what the plot shows.
+
+> Does Light increase biomass more when Fertiliser is present or absent?
+
+
+## Check model assumptions
+
+```{r, eval = FALSE}
+
+check_model(model_int,
+            detrend = FALSE)
+
+```
+
+> Do the residuals appear normally distributed and homoscedastic?
+
+> Would you keep this model based on the diagnostics?
+
+## Summarise your findings
+
+In 4–6 sentences, interpret your analysis:
+
+- Write a short results summary - it should include estimates of difference, uncertainty values, test statistics and p-values.
+
+- Which model (additive or interaction) fits the data better?
+
+- Summarise the biological conclusion in two sentences.
+
+
+## Rendering your Quarto doc
+
+After completing your analysis, render your `.qmd` file to Pdf to produce a polished report. Check the following:
+
+- Code runs top to bottom – all chunks execute without errors.
+
+- Figures and tables appear correctly – plots are visible, captions make sense.
+
+- Formatting is clear – headers, text, and code chunks are readable.
+
+- Interpretation is included – your narrative explains results, not just code output.
+    
+    - Include a figure
+    - Include a short results section (with a model write-up and correlation test)
+
+:::{.callout-warning collapse = "true"}
+## My document won't render
+
+If the document doesn’t render, check that all packages are loaded and all objects are created in previous chunks.
+
+Check out {@sec-reports} for more help.
+:::
