@@ -44,8 +44,7 @@ By completing this assignment, you will:
 ---
 title: "My Report"
 author: "Your Name"
-format: html
-  embed-resources: true
+format: pdf
 execute:
   echo: false
   warning: false
