@@ -1,0 +1,366 @@
+# Visualising models {#sec-visual-models}
+
+```{r, include = FALSE}
+library(tidyverse)
+library(here)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+source("R/clean_penguins.R")
+
+
+
+```
+
+
+When you gather raw data, you have lots of numbers and information, but it can be hard to see the big picture. That’s where statistical models come in. Unlike descriptive statistics, which summarize your data using tools like boxplots to show medians and variability, models provide inferential statistics that help you make predictions and understand relationships beyond your immediate data.
+
+By fitting visuals from models onto your figures, you can see these deeper patterns clearly. For example, adding a regression line to a scatter plot not only summarizes the data but also shows the trend and predicts future values. This transforms your data from simple summaries into stories that explain how variables are connected.
+
+Models are important because they allow you to generalize findings to larger populations, test hypotheses, and make informed decisions based on evidence. While descriptive statistics tell you what is happening in your dataset, inferential statistics from models help you understand why it's happening and what might happen next.
+
+### Visuals vs tables
+
+While model summary tables provide important numbers like coefficients and p-values, visuals bring your data and models to life in several key ways:
+
+- Easy Understanding: Graphs and charts make complex information simple to grasp at a glance. For example, a regression line on a scatter plot clearly shows the relationship between variables.
+
+- Better Communication: Visuals help you share your findings with others more effectively. Pictures can convey your results quickly, even to those who aren’t familiar with the detailed statistics.
+
+- Highlight Patterns: Visuals reveal trends, outliers, and relationships that might be hidden in tables. This helps you see the bigger picture and important details simultaneously.
+
+- Check Model Fit: Graphs like residual plots let you see if your model is accurately capturing the data patterns, making it easier to spot issues.
+
+- Make It Memorable: People remember images better than numbers. Using visuals ensures your key insights stick with your audience.
+
+In summary, while summary tables are essential for detailed analysis, visual representations make your models easier to understand, communicate, and interpret. In this class, you'll learn to use both tables and visuals to effectively present your statistical findings.
+
+### Simple models
+
+`geom_smooth()` in ggplot2 is a convenient way to fit simple models to your data and visualize trends in scatterplots. By default, `geom_smooth()` fits a `loess` (local regression) curve for smaller datasets, which is a flexible, non-parametric method that captures local patterns in the data. For larger datasets, or when specified, it uses a linear model (`method = "lm"`), which fits a straight line through the data, representing the best linear relationship between the x and y variables.
+
+In addition to the trend line, `geom_smooth()` can display a confidence interval around the fitted line, showing the range in which the true trend likely lies. This interval is controlled by the se argument (set to TRUE by default)
+
+```{r}
+
+penguins |> 
+  ggplot(aes(x=flipper_length_mm, 
+             y = body_mass_g,
+             colour = species))+ # this can be set at the ggplot layer
+  geom_point(alpha = .4)+
+  geom_smooth(method = "lm")
+
+```
+
+
+### Complex models
+
+`geom_smooth()` can automatically fit separate regression lines for each level of a categorical variable by grouping with the color or fill aesthetic. For example, if you group by species, geom_smooth() will produce independent regressions for each species, fitting separate trend lines without considering any relationships or dependencies between groups.
+
+However, this approach may be misleading if you’re working with an additive model or a model that includes interactions between groups, where the effect of one variable is not entirely independent of others. In additive models, variables combine to produce an overall effect, and each group’s trend should account for shared influences, not isolated patterns. Simply applying `geom_smooth()` would ignore these dependencies and could inaccurately suggest that each group’s trend is independent, when in fact, the groups may influence each other in important ways. For representing additive or interaction-based models, it’s better to use customized modeling and visualization techniques that accurately reflect the dependencies among variables.
+
+
+#### Butterfly data
+
+```{r, include = FALSE}
+
+butterfly <- readr::read_csv("files/univoltine_butterfly.csv")
+
+```
+
+
+- Year specimen collected
+
+- Forewing length (mm)
+
+- Sex of butterfly
+
+- Average June temp (celsius)
+
+- Average June rainfall (mm)
+
+
+`r hide("Data cleaning")`
+
+```{r}
+
+
+butterfly <- butterfly |> 
+  janitor::clean_names()
+
+butterfly_correct <- butterfly |> 
+  mutate(rain_jun = if_else(rain_jun >100, mean(rain_jun), rain_jun)) |> 
+  mutate(sex = case_when(sex == "Maes" ~ "Males",
+                         sex == "Female" ~ "Females",
+                          .default = as.character(sex)))
+
+
+```
+
+`r unhide()`
+
+
+
+#### Analysis
+
+My initial hypotheses are:
+
+- Average June temperature causes a change in forewing length
+
+- Average June Rainfall causes a change in forewing length
+
+- The average forewing length of male and female butterflies are different
+
+- Male and female butterflies respond differently to average June temperature
+
+**Can you produce a single linear model to test these hypotheses?**
+
+`r hide("Solution")`
+
+```{r}
+
+
+model <- lm(forewing_length ~ jun_mean + rain_jun + sex + jun_mean:sex, data = butterfly_correct)
+
+summary(model)
+
+
+```
+
+`r unhide()`
+
+#### Check model fit
+
+Once the initial model has been fitted we need to check the assumptions, try to evaluate this model
+
+`r hide("Model fit")`
+```{r}
+
+performance::check_model(model, detrend = F)
+
+```
+
+If in doubt try running normality and heteroscedasticity tests - the collinearity plot shows some high multicollinearity but only between `sex` and `jun_mean:sex`. Multicollinearity between terms and their interactions is normal.
+
+`r unhide()`
+
+#### Test interaction
+
+Can you test whether the interaction term should be kept or removed?
+
+`r hide("Solution")`
+
+```{r}
+
+
+model_2 <- lm(forewing_length ~ jun_mean + rain_jun + sex, data = butterfly_correct)
+
+anova(model_2, model)
+
+# Alternatively
+# drop1(model, test = "F")
+
+summary(model_2)
+
+```
+
+`r unhide()`
+
+#### Figures
+
+Great now we have fitted and evaluated a model - that shows temperature and sex both affect adult forewing length. But crucially there is no evidence of an interaction effect (a differential response to temperature by sex). 
+
+If we make a figure as follow:
+
+```{r}
+
+
+butterfly_correct |> 
+  ggplot(aes(x = jun_mean,
+             y = forewing_length,
+             colour = sex))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  theme_classic(base_size = 18)
+
+```
+
+Q. What is the issue with the above figure?
+
+```{r, echo = F}
+opts_q <- c(
+   "geom_smooth() assumes all predictors have an interaction effect by default, which skews the trend lines",
+     answer =  "geom_smooth() fits separate trend lines for each level of the categorical predictor, failing to account for the additive effects across groups without interaction",
+  "geom_smooth() only applies linear fits"
+)
+```
+
+`r longmcq(opts_q)`
+
+### Understanding emmeans and When to Estimate Trends
+
+What is `emmeans`? `emmeans` stands for Estimated Marginal Means. It’s a tool in R used to summarize the effects of factors in your statistical model, especially when you have multiple predictors. `emmeans` helps you understand the average predictions from your model, adjusted for other variables.
+
+#### When to Use emmeans:
+
+- Categorical Predictors: When you have factors like sex, treatment groups, or any categorical variable, emmeans can compare the average outcomes across different categories. For example, comparing the average test scores between males and females while controlling for other variables.
+
+- Continuous Predictors: When dealing with continuous variables (like age or dosage), you might want to estimate the trend or effect at specific points. Instead of just looking at the overall relationship, emmeans can provide estimated means at particular values of the continuous predictor.
+
+#### When You Wouldn't Need to Estimate a Trend:
+
+- If your model only includes categorical predictors and you're solely interested in comparing group means without exploring trends across different levels.
+
+- When the relationship between predictors and the outcome is simple and doesn’t require detailed estimation at specific values.
+
+Example Explained:
+
+```{r}
+est_mean <- emmeans::emmeans(model_2, specs = ~ sex + jun_mean,
+                 at = list(jun_mean = seq(11,17,1))) |> as_tibble() 
+
+est_mean
+```
+
+
+- model_2: Your fitted statistical model.
+
+- specs = ~ sex + jun_mean: You want to estimate the means for each combination of sex (a categorical predictor) and jun_mean (a continuous predictor).
+
+- at = list(jun_mean = seq(11,17,1)): You’re specifying that you want to estimate the means at jun_mean values from 11 to 17 in steps of 1.
+
+
+- Continuous Predictor (jun_mean): You’re interested in how the outcome changes as jun_mean increases from 11 to 17. Estimating at these specific points allows you to see the trend or pattern in the relationship.
+
+- Categorical Predictor (sex): You want to see the average outcome for each sex category at each specified jun_mean value.
+
+Now we fit the estimated means from *our* evaluated model producing a more accurate representation of our findings: 
+
+```{r}
+
+est_mean |>
+  ggplot(aes(x = jun_mean,
+             y = emmean,
+             colour = sex,
+             fill = sex)) +
+  geom_ribbon(aes(ymin = lower.CL,
+                  ymax = upper.CL),
+              alpha = .2)+
+  geom_line()+
+  geom_point(data = butterfly_correct,
+             aes(x = jun_mean,
+                 y = forewing_length))+
+  theme_classic(base_size = 18)
+```
+
+
+# Refining Plots for Publication Standard
+
+## Background
+
+In scientific publications, a plot must be both aesthetically pleasing and scientifically informative. Clear, readable visuals are essential to ensure that the message in your data is conveyed effectively to readers. Refining a plot for publication involves careful attention to scaling, labeling, and annotation, all of which help make data more accessible and the figure easier to interpret. Good design elements—like clean axes, appropriate scaling, minimal but helpful gridlines, and informative captions—allow readers to focus on the data rather than unnecessary elements.
+
+This section covers the core principles of refining plots for publication standards, ensuring they are clean, well-labeled, and capable of standing alone within a scientific paper.
+
+### Best Practices for Publication-Ready Plots
+
+- Clarity and Simplicity:
+
+    Focus on simplicity and remove unnecessary elements that don’t convey useful information. Every component of the graph should serve a purpose, supporting the main message.
+
+    Avoid decorative effects (such as 3D elements) that detract from readability and clarity.
+
+- Effective Use of Color:
+
+     Use color thoughtfully, as it can quickly communicate information but also mislead or confuse if overused. Limit color to highlight key distinctions.
+
+     Ensure accessibility by choosing colorblind-friendly palettes and testing for readability in grayscale if necessary.
+     
+- Choosing the Right Graph Type:
+
+    Select the graph type that best represents your data and message. Scatterplots, line graphs, bar charts, and box plots each have strengths for specific data types and questions.
+
+    Avoid using overly complex or unusual graph types that may be difficult for readers to interpret without adding value.
+
+- Clear and Descriptive Labels:
+
+    Use self-explanatory axis labels that include units (e.g., "Body Size (cm)").
+
+    Avoid abbreviations where possible, unless they are universally understood in your field.
+
+- Use of axes:
+
+    Ensure that axes use the correct scale (e.g., linear, log, or custom) to represent the data accurately.
+
+    Avoid unnecessary distortion—choose scales that highlight the data patterns without exaggeration.
+    
+    Ensure that axis limits and intervals are set to show data clearly, without truncating or misrepresenting information.
+    
+    Order categories along an axis to aid readability
+
+- Minimalist Themes:
+
+    Use minimal gridlines to guide the eye without overwhelming the data.
+    
+    Use grids vertical and horizontal gridlines for scatterplots
+    
+    Use only horizontal (or no gridlines) when you have a categorical x-axis
+    
+    Avoid distracting backgrounds or decorative elements.
+
+    Opt for `theme_minimal()` or `theme_classic()` in `ggplot2`, which offer a clean, professional look.
+
+- Annotations:
+
+    Add annotations to highlight important points, trends, or outliers in the data.
+
+    Use concise text and arrows or markers to draw attention to specific aspects without cluttering the plot.
+
+- Informative Captions:
+
+    Write a detailed caption that summarizes the plot’s main insights and context.
+
+    The caption should make the figure understandable without requiring additional context from the text.
+
+
+- Consistency Across Figures:
+
+    Maintain a consistent style across figures in terms of font, size, color, and design to create a cohesive look throughout a publication.
+    
+    This consistency makes figures easier to compare and keeps readers focused on the data.
+
+
+## Task: Take the unvoltine butterfly figure and make it publication ready by following the tips above
+
+- When you have made your best effort figure save it and submit it as this week's assignment.
+
+## Saving
+
+One of the easiest ways to save a figure you have made is with the `ggsave()` function. By default it will save the last plot you made on the screen. 
+
+If have assigned the plot to an R object, then you can also provide this as the first argument for `ggsave()` in order to save a particular plot
+
+You should specify the output path to your **figures** folder, then provide a file name. Here I have decided to call my plot *plot* (imaginative!) and I want to save it as a .PNG image file. I can also specify the resolution (dpi 300 is good enough for most computer screens).
+
+```{r, eval = F}
+# OUTPUT FIGURE TO FILE
+
+ggsave("outputs/YYYYMMDD_ggplot_workshop_final_plot.png", dpi=300)
+
+# ggsave(plot,"outputs/YYYYMMDD_ggplot_workshop_final_plot.png", dpi=300)
+
+```
+
+
+## Further Reading, Guides and tips on data visualisation
+
+Check out @sec-advanced-ggplot for extra data visualisation resources
+
+* [R Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+
+* [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): this book tells you everything you need to know about presenting your figures for accessbility and clarity
+
+* [Beautiful Plotting in R](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/): an incredibly handy ggplot guide for how to build and improve your figures
+
+*[Why Scientist's need to be better at Data Visualisation](https://knowablemagazine.org/content/article/mind/2019/science-data-visualization)
+
+* [The ggplot2 book](https://ggplot2-book.org/): the original Hadley Wickham book on ggplot2

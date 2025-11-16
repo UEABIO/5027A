@@ -59,6 +59,8 @@ book:
   - part: "Data Visualisation"
     chapters:
     - ggplot.qmd
+    - customising-plots.qmd
+    - visualising-models.qmd
     - advanced_ggplot.qmd
   - part: "Reproducible Reports"
     chapters:
