@@ -67,6 +67,17 @@ butterfly <- readr::read_csv("files/univoltine_butterfly.csv")
 
 ```
 
+```{r, eval = TRUE, echo = FALSE}
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/5027A/refs/heads/2025/files/univoltine_butterfly.csv",
+  button_label = "Butterfly Data",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
 
 - Year specimen collected
 

@@ -1,4 +1,4 @@
-# ggplot {#sec-ggplot}
+# Intro to ggplot {#sec-ggplot}
 
 ```{r, include = FALSE}
 library(tidyverse)

@@ -31,6 +31,16 @@ By the end of this chapter, you will be able to:
 - Export and enhance visualisations with camcorder and plotly.
 
 
+```{r, eval = F}
+library(colorspace)
+library(ggh4x)
+library(colorBlindness)
+library(patchwork)
+
+
+```
+
+
 ## Colours, palettes and extensions
 
 Colour is one of the most powerful visual cues we can use in data visualisation.

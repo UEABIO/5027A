@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+}</script><script src="site_libs/font-awesome-6.5.2/js/script.js"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
@@ -435,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Intro to ggplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -598,6 +598,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>However, this approach may be misleading if you’re working with an additive model or a model that includes interactions between groups, where the effect of one variable is not entirely independent of others. In additive models, variables combine to produce an overall effect, and each group’s trend should account for shared influences, not isolated patterns. Simply applying <code>geom_smooth()</code> would ignore these dependencies and could inaccurately suggest that each group’s trend is independent, when in fact, the groups may influence each other in important ways. For representing additive or interaction-based models, it’s better to use customized modeling and visualization techniques that accurately reflect the dependencies among variables.</p>
 <section id="butterfly-data" class="level4" data-number="18.0.3.1"><h4 data-number="18.0.3.1" class="anchored" data-anchor-id="butterfly-data">
 <span class="header-section-number">18.0.3.1</span> Butterfly data</h4>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<a href="https://raw.githubusercontent.com/UEABIO/5027A/refs/heads/2025/files/univoltine_butterfly.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Butterfly Data</button>
+</a>
+</div>
+</div>
 <ul>
 <li><p>Year specimen collected</p></li>
 <li><p>Forewing length (mm)</p></li>
@@ -675,7 +682,7 @@ Model fit
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(model, <span class="at">detrend =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="visualising-models_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="visualising-models_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -768,14 +775,14 @@ F-statistic: 47.59 on 3 and 54 DF,  p-value: 3.512e-15</code></pre>
 <span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="visualising-models_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="visualising-models_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Q. What is the issue with the above figure?</p>
-<div id="radio_YOQDVEHZUB" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YOQDVEHZUB" value=""><span>geom_smooth() assumes all predictors have an interaction effect by default, which skews the trend lines</span></label><label><input type="radio" autocomplete="off" name="radio_YOQDVEHZUB" value="answer"><span>geom_smooth() fits separate trend lines for each level of the categorical predictor, failing to account for the additive effects across groups without interaction</span></label><label><input type="radio" autocomplete="off" name="radio_YOQDVEHZUB" value=""><span>geom_smooth() only applies linear fits</span></label>
+<div id="radio_JAGAFVMSCS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_JAGAFVMSCS" value=""><span>geom_smooth() assumes all predictors have an interaction effect by default, which skews the trend lines</span></label><label><input type="radio" autocomplete="off" name="radio_JAGAFVMSCS" value="answer"><span>geom_smooth() fits separate trend lines for each level of the categorical predictor, failing to account for the additive effects across groups without interaction</span></label><label><input type="radio" autocomplete="off" name="radio_JAGAFVMSCS" value=""><span>geom_smooth() only applies linear fits</span></label>
 </div>
 </section></section><section id="understanding-emmeans-and-when-to-estimate-trends" class="level3" data-number="18.0.4"><h3 data-number="18.0.4" class="anchored" data-anchor-id="understanding-emmeans-and-when-to-estimate-trends">
 <span class="header-section-number">18.0.4</span> Understanding emmeans and When to Estimate Trends</h3>
@@ -965,7 +972,7 @@ F-statistic: 47.59 on 3 and 54 DF,  p-value: 3.512e-15</code></pre>
 <span id="cb10-13"><a href="#cb10-13"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="visualising-models_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="visualising-models_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
