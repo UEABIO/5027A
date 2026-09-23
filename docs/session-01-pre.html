@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Statistical skills for Biologists">
+<title>Probability - Pre-Reading – 5027A</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./session-01-workshop.html" rel="next">
+<link href="./index.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b754b9fd3853d7e56faef54c29c5d52b.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-de8274a4d1ecc1e6aaeaf6e5564b5074.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b754b9fd3853d7e56faef54c29c5d52b.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e0a43ceb7c9e63dd117097429fd00833.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d7d11905500e7839d0ae783f44cd34c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e0a43ceb7c9e63dd117097429fd00833.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-01-pre.html">Week One</a></li><li class="breadcrumb-item"><a href="./session-01-pre.html">Probability - Pre-Reading</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">5027A</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week One</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-01-pre.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Probability - Pre-Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-01-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random sampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-01-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulating sampling distributions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Week Two</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-02-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimation and uncertainty - Pre-Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-02-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building the confidence interval</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-02-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulating uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Week Three</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-03-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypotheses - Pre-Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-03-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Null distributions and what a p-value is</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-03-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">P-value simulation</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Week Four</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-04-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The linear model - Pre-reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-04-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calculating t</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-04-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#sec-video" id="toc-sec-video" class="nav-link active" data-scroll-target="#sec-video">Video: population, sample, and what a variable is</a></li>
+  <li>
+<a href="#sec-reading" id="toc-sec-reading" class="nav-link" data-scroll-target="#sec-reading">Reading: probability and the sampling idea</a>
+  <ul class="collapse">
+<li><a href="#two-directions-of-reasoning" id="toc-two-directions-of-reasoning" class="nav-link" data-scroll-target="#two-directions-of-reasoning">Two directions of reasoning</a></li>
+  <li><a href="#what-probability-means-in-this-course" id="toc-what-probability-means-in-this-course" class="nav-link" data-scroll-target="#what-probability-means-in-this-course">What probability means in this course</a></li>
+  </ul>
+</li>
+  <li><a href="#random-variables-distributions-and-the-sample-space" id="toc-random-variables-distributions-and-the-sample-space" class="nav-link" data-scroll-target="#random-variables-distributions-and-the-sample-space">Random variables, distributions, and the sample space</a></li>
+  <li>
+<a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution">The normal distribution</a>
+  <ul class="collapse">
+<li><a href="#the-68-95-99.7-rule" id="toc-the-68-95-99.7-rule" class="nav-link" data-scroll-target="#the-68-95-99.7-rule">The 68-95-99.7 rule</a></li>
+  </ul>
+</li>
+  <li><a href="#the-sampling-distribution-of-the-mean" id="toc-the-sampling-distribution-of-the-mean" class="nav-link" data-scroll-target="#the-sampling-distribution-of-the-mean">The sampling distribution of the mean</a></li>
+  <li><a href="#sec-primer" id="toc-sec-primer" class="nav-link" data-scroll-target="#sec-primer">Primer: the unit of observation</a></li>
+  <li><a href="#sec-selftest" id="toc-sec-selftest" class="nav-link" data-scroll-target="#sec-selftest">Self-test</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-01-pre.html">Week One</a></li><li class="breadcrumb-item"><a href="./session-01-pre.html">Probability - Pre-Reading</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Probability - Pre-Reading</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>Complete this material before your first workshop session. It carries the vocabulary you will need in the room.</p>
+<section id="sec-video" class="level2"><h2 class="anchored" data-anchor-id="sec-video">Video: population, sample, and what a variable is</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Watch before class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/oI3hZJqXJuc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>After watching, you should be able to state the difference between a population and a sample.</p>
+</div>
+</div>
+</section><section id="sec-reading" class="level2"><h2 class="anchored" data-anchor-id="sec-reading">Reading: probability and the sampling idea</h2>
+<section id="two-directions-of-reasoning" class="level3"><h3 class="anchored" data-anchor-id="two-directions-of-reasoning">Two directions of reasoning</h3>
+<p>Probability and statistics get talked about together a lot. They are closely related but not identical concepts. Probability theory is the “doctrine of chances”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. It’s a branch of mathematics that tells you how often different kinds of events will happen.</p>
+<p>The following are simple examples of things you can answer using probability theory:</p>
+<ul>
+<li>If both parents are heterozygous (Aa), what fraction of offspring show the recessive phenotype? <input class="webex-solveme nospaces ignorecase" size="4" data-answer="[&quot;1/4&quot;,&quot;0.25&quot;,&quot;.25&quot;]">
+</li>
+</ul>
+<div class="webex-solution">
+<button>
+Explanation
+</button>
+<p>The cross Aa × Aa gives genotypes AA, Aa, aA, and aa with equal probability. Only aa (one out of four) shows the recessive phenotype.</p>
+</div>
+<ul>
+<li>If a clutch has eight eggs and each is equally likely to be male or female, how likely is it that all eight are female? <input class="webex-solveme nospaces ignorecase" size="6" data-answer="[&quot;1/256&quot;,&quot;0.0039&quot;,&quot;0.004&quot;,&quot;.0039&quot;,&quot;.004&quot;]">
+</li>
+</ul>
+<div class="webex-solution">
+<button>
+Explanation
+</button>
+<p>Each egg has probability 1/2 of being female, and the eggs are independent, so the probability that all eight are female is (1/2)<sup>8</sup> = 1/256 ≈ 0.004.</p>
+</div>
+<ul>
+<li>A seabird lays two eggs. Each hatches independently with probability 0.8. What is the probability that both hatch? <input class="webex-solveme nospaces ignorecase" size="4" data-answer="[&quot;0.64&quot;,&quot;.64&quot;]">
+</li>
+</ul>
+<div class="webex-solution">
+<button>
+Explanation
+</button>
+<p>The two events are independent, so the probability that both occur is 0.8 × 0.8 = 0.64.</p>
+</div>
+<p>Statistics works in the opposite direction to probability. In probability you <em>know</em> the process that generates data and you work out what the data are likely to look like. In statistics you have the data and you work backwards to <em>learn</em> how it was generated.</p>
+<p>A coin is fair — what proportion of heads will I see in 100 flips? That is probability. I saw 73 heads in 100 flips — is the coin fair? That is statistics. Every method in this course is a tool for reasoning backwards from data to the process that produced them.</p>
+</section><section id="what-probability-means-in-this-course" class="level3"><h3 class="anchored" data-anchor-id="what-probability-means-in-this-course">What probability means in this course</h3>
+<p>The word “probability” can mean several things. This course uses the <strong>frequentist definition</strong>: the probability of an event is the proportion of times it occurs in a long run of identical repetitions. Flip a fair coin ten times and you might see seven heads. Flip it a hundred times and the proportion of heads will be closer to one-half. Flip it ten thousand times and closer still. Our working definition of probability <em>is</em> that long-run proportion.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Interactive demonstration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<style>
+/* Long-run frequency widget.
+   To match the house palette, set --coin-accent below to the output of
+   colorspace::qualitative_hcl(1, palette = "Dark 3") in R. */
+#coin-lab {
+  --coin-accent: #4A6FA5;
+  --coin-ghost: rgba(74, 111, 165, 0.32);
+  --coin-ghost: color-mix(in srgb, var(--coin-accent) 30%, transparent);
+  --coin-ink: var(--bs-body-color, #1f2328);
+  --coin-rule: var(--bs-border-color, #d0d5da);
+  --coin-muted: #6b7280;
+  --coin-muted: color-mix(in srgb, var(--coin-ink) 60%, transparent);
+  border: 1px solid var(--coin-rule);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+#coin-lab .coin-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+#coin-lab button {
+  font: inherit;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--coin-rule);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--coin-ink);
+  cursor: pointer;
+}
+#coin-lab button:hover:not(:disabled) { border-color: var(--coin-accent); }
+#coin-lab button:focus-visible { outline: 2px solid var(--coin-accent); outline-offset: 2px; }
+#coin-lab button:disabled { opacity: 0.45; cursor: default; }
+#coin-lab button.coin-secondary { color: var(--coin-muted); }
+#coin-lab .coin-readout {
+  margin: 0.5rem 0 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+#coin-lab .coin-readout strong { color: var(--coin-accent); }
+#coin-lab svg { width: 100%; height: auto; display: block; }
+#coin-lab table {
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+#coin-lab th, #coin-lab td {
+  padding: 0.25rem 0.9rem 0.25rem 0;
+  text-align: left;
+  border-bottom: 1px solid var(--coin-rule);
+}
+#coin-lab td.coin-pending { color: var(--coin-muted); }
+#coin-lab .coin-caption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--coin-muted);
+}
+</style>
+<div id="coin-lab">
+  <div class="coin-controls">
+    <button type="button" data-flip="1">Flip once</button>
+    <button type="button" data-flip="10">Flip 10</button>
+    <button type="button" data-flip="100">Flip 100</button>
+    <button type="button" data-flip="1000">Flip 1000</button>
+    <button type="button" class="coin-secondary" data-action="new">Start a new run</button>
+    <button type="button" class="coin-secondary" data-action="clear">Clear everything</button>
+  </div>
+
+  <p class="coin-readout" aria-live="polite" id="coin-readout">
+    No flips yet. Press a button to start.
+  </p>
+
+  <svg id="coin-svg" viewbox="0 0 700 300" role="img" aria-label="Running proportion of heads against number of flips."></svg><table class="caption-top">
+<caption>Proportion of heads at each milestone in the current run</caption>
+<thead><tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">After</th>
+<th data-quarto-table-cell-role="th" scope="col">Proportion heads</th>
+<th data-quarto-table-cell-role="th" scope="col">Distance from 0.5</th>
+</tr></thead>
+<tbody id="coin-milestones"></tbody>
+</table>
+<p class="coin-caption">
+    The solid line is the run in progress. Faint lines are runs you have already
+    finished. The dashed line is 0.5.
+  </p>
+
+  <noscript>
+    <p><strong>This demonstration needs JavaScript.</strong> If it is switched off,
+    the short version is: the proportion of heads swings wildly for the first few
+    dozen flips and settles towards 0.5 over the first few hundred, without ever
+    landing exactly on it.</p>
+  </noscript>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.getElementById("coin-lab");
+  if (!root) return;
+
+  var svg = document.getElementById("coin-svg");
+  var readout = document.getElementById("coin-readout");
+  var milestoneBody = document.getElementById("coin-milestones");
+  var buttons = root.querySelectorAll("button");
+
+  var W = 700, H = 300, ML = 46, MR = 14, MT = 12, MB = 34;
+  var PW = W - ML - MR, PH = H - MT - MB;
+  var STEPS = [20, 50, 100, 250, 500, 1000, 2000];
+  var CAP = 2000;
+  var MILESTONES = [10, 100, 1000];
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var ghosts = [];   // finished runs, each an array of running proportions
+  var current = [];  // run in progress
+  var heads = 0;
+  var busy = false;
+
+  function xMaxFor(n) {
+    for (var i = 0; i < STEPS.length; i++) if (STEPS[i] >= n) return STEPS[i];
+    return STEPS[STEPS.length - 1];
+  }
+
+  function pathFor(props, xMax) {
+    if (!props.length) return "";
+    var d = "", x, y;
+    for (var i = 0; i < props.length; i++) {
+      x = ML + ((i + 1) / xMax) * PW;
+      y = MT + (1 - props[i]) * PH;
+      d += (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+    return d;
+  }
+
+  function el(name, attrs, text) {
+    var node = document.createElementNS("http://www.w3.org/2000/svg", name);
+    for (var k in attrs) node.setAttribute(k, attrs[k]);
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function longest() {
+    var n = current.length;
+    for (var i = 0; i < ghosts.length; i++) n = Math.max(n, ghosts[i].length);
+    return n;
+  }
+
+  function draw() {
+    var xMax = xMaxFor(Math.max(longest(), 1));
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // Horizontal gridlines and y-axis labels
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (p) {
+      var y = MT + (1 - p) * PH;
+      svg.appendChild(el("line", {
+        x1: ML, x2: ML + PW, y1: y, y2: y,
+        stroke: "currentColor", "stroke-width": p === 0.5 ? 1 : 0.5,
+        "stroke-dasharray": p === 0.5 ? "5 4" : "none",
+        opacity: p === 0.5 ? 0.75 : 0.18
+      }));
+      svg.appendChild(el("text", {
+        x: ML - 8, y: y + 4, "text-anchor": "end",
+        "font-size": 12, fill: "currentColor", opacity: 0.7
+      }, p.toFixed(2)));
+    });
+
+    // x-axis labels
+    [0, Math.round(xMax / 2), xMax].forEach(function (v) {
+      svg.appendChild(el("text", {
+        x: ML + (v / xMax) * PW, y: H - 10, "text-anchor": "middle",
+        "font-size": 12, fill: "currentColor", opacity: 0.7
+      }, String(v)));
+    });
+    // Finished runs, then the run in progress on top
+    ghosts.forEach(function (run) {
+      svg.appendChild(el("path", {
+        d: pathFor(run, xMax), fill: "none",
+        stroke: "var(--coin-ghost)", "stroke-width": 1.2
+      }));
+    });
+    if (current.length) {
+      svg.appendChild(el("path", {
+        d: pathFor(current, xMax), fill: "none",
+        stroke: "var(--coin-accent)", "stroke-width": 1.8,
+        "stroke-linejoin": "round"
+      }));
+    }
+
+    svg.setAttribute("aria-label",
+      "Running proportion of heads over " + current.length +
+      " flips, on a horizontal axis running to " + xMax + " flips.");
+  }
+
+  function updateText() {
+    var n = current.length;
+    if (n === 0) {
+      readout.textContent = ghosts.length
+        ? "New run started. " + ghosts.length + " finished run" +
+          (ghosts.length === 1 ? "" : "s") + " shown faintly."
+        : "No flips yet. Press a button to start.";
+    } else {
+      var p = heads / n;
+      readout.innerHTML = n + " flips, " + heads + " heads. Proportion so far: <strong>" +
+        p.toFixed(3) + "</strong>. That is " + Math.abs(p - 0.5).toFixed(3) + " away from 0.5.";
+    }
+
+    milestoneBody.innerHTML = "";
+    MILESTONES.forEach(function (m) {
+      var row = document.createElement("tr");
+      var reached = current.length >= m;
+      var p = reached ? current[m - 1] : null;
+      row.innerHTML =
+        "<th scope='row'>" + m + " flips</th>" +
+        (reached
+          ? "<td>" + p.toFixed(3) + "</td><td>" + Math.abs(p - 0.5).toFixed(3) + "</td>"
+          : "<td class='coin-pending'>not yet</td><td class='coin-pending'>&ndash;</td>");
+      milestoneBody.appendChild(row);
+    });
+  }
+
+  function render() { draw(); updateText(); }
+
+  function addFlips(k) {
+    for (var i = 0; i < k && current.length < CAP; i++) {
+      if (Math.random() < 0.5) heads++;
+      current.push(heads / (current.length + 1));
+    }
+  }
+
+  function setBusy(state) {
+    busy = state;
+    for (var i = 0; i < buttons.length; i++) buttons[i].disabled = state;
+  }
+
+  function flip(n) {
+    if (busy) return;
+    if (reduceMotion || n <= 10) { addFlips(n); render(); return; }
+    setBusy(true);
+    var remaining = n;
+    var perFrame = Math.max(1, Math.round(n / 60));
+    (function step() {
+      addFlips(Math.min(perFrame, remaining));
+      remaining -= perFrame;
+      render();
+      if (remaining > 0) { requestAnimationFrame(step); } else { setBusy(false); }
+    })();
+  }
+
+  root.addEventListener("click", function (event) {
+    var target = event.target.closest("button");
+    if (!target || busy) return;
+
+    if (target.dataset.flip) {
+      flip(parseInt(target.dataset.flip, 10));
+    } else if (target.dataset.action === "new") {
+      if (current.length) { ghosts.push(current); }
+      current = []; heads = 0;
+      render();
+    } else if (target.dataset.action === "clear") {
+      ghosts = []; current = []; heads = 0;
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+</div>
+</div>
+<p>The crucial feature of the frequentist definition is that it says nothing about any single flip. It tells you what happens when you repeat the same process many times. That idea — <em>what would happen if we repeated the process many times</em> — is key to our statistics.</p>
+</section></section><section id="random-variables-distributions-and-the-sample-space" class="level2"><h2 class="anchored" data-anchor-id="random-variables-distributions-and-the-sample-space">Random variables, distributions, and the sample space</h2>
+<p>A <strong>variable</strong> is a quantity that differs between observations: the mass of a bean, the height of a plant, the number of colonies on a plate. When the value you observe depends on chance (which bean you happened to pick, which plant you happened to measure), the variable is a <strong>random variable</strong>.</p>
+<p>The <strong>sample space</strong> is the set of all values a random variable can take. For a coin it is {heads, tails}. For the mass of a bean it is every positive real number, though in practice the masses cluster within a limited range. A <strong>probability distribution</strong> assigns a probability to each subset of the sample space. It tells you <strong>how likely each value, or each range of values, is</strong>.</p>
+<p>You can think of a probability distribution as a shape. Where the shape is tall, values are common; where it is low, values are rare. Different processes produce different shapes. A fair die gives a flat shape (each face equally likely) known as the <em>uniform distribution</em>. The masses of beans from a single variety give a shape that rises to a peak and tails off — most beans are near the middle, few are very light or very heavy known as the <em>normal distribution</em>.</p>
+</section><section id="the-normal-distribution" class="level2"><h2 class="anchored" data-anchor-id="the-normal-distribution">The normal distribution</h2>
+<p>One distribution matters more than any other in this course. The <strong>normal distribution</strong> (also called the Gaussian distribution) is a symmetric, bell-shaped curve defined by two numbers: its mean (the centre) and its standard deviation (the width). Many biological measurements are approximately normal: heights, masses, concentrations, log-transformed counts.</p>
+<section id="the-68-95-99.7-rule" class="level3"><h3 class="anchored" data-anchor-id="the-68-95-99.7-rule">The 68-95-99.7 rule</h3>
+<p>The <strong>68-95-99.7 rule</strong> summarises how probability is spread across a normal distribution:</p>
+<ul>
+<li>About 68% of values fall within one standard deviation of the mean.</li>
+<li>About 95% fall within two standard deviations.</li>
+<li>About 99.7% fall within three standard deviations.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-normal-rule" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-normal-rule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-01-pre_files/figure-html/fig-normal-rule-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-rule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The normal distribution with mean (0) and standard deviation (1). The x axis corresponds to the value of some variable, and the y axis tells us something about how likely we are to observe that value.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>This rule gives you a rough sense of what is ordinary and what is surprising. If a single observation is three standard deviations from the mean of its distribution, it is unusual. You will use this intuition repeatedly.</p>
+</section></section><section id="the-sampling-distribution-of-the-mean" class="level2"><h2 class="anchored" data-anchor-id="the-sampling-distribution-of-the-mean">The sampling distribution of the mean</h2>
+<p>So far the examples have been bean masses, which are roughly normal. In the workshop you will use a variable that is not: reaction time, which has a long right tail because a slow trial can be very slow but a fast trial cannot be faster than about 150 ms.</p>
+<p>Suppose every student in your class has recorded their reaction time in a shared spreadsheet. You draw a random sample of 6 students and compute the mean of their reaction times. Now draw another 6, and compute the mean again. Each sample gives a different mean — not because anything changed, but because chance determined which students you happened to pick.</p>
+<p>If you repeated this process many times and plotted all the sample means on a histogram, you would see a distribution. That distribution is the <strong>sampling distribution of the sample mean</strong>. Three things about it are important enough to state now, though we will develop them further in later sessions:</p>
+<ol type="1">
+<li><p><strong>Centre.</strong> The sampling distribution is centred on the population mean. On average, the sample mean is correct.</p></li>
+<li><p><strong>Width.</strong> The sampling distribution is narrower than the distribution of individual values. Averaging reduces the variability.</p></li>
+<li><p><strong>Shape.</strong> The sampling distribution tends to be approximately normal, even when the individual values are not. You will see this in today’s workshop, and the next session.</p></li>
+</ol>
+<p>The sampling distribution is one of our <strong>most important concepts</strong>. Everything that follows — <em>standard errors</em>, <em>confidence intervals</em>, <em>p-values</em> — are a consequence of the fact that a statistic computed from a random sample is itself random.</p>
+<p>So each roll of the die is random, even if the distribution of values follows a known probability distribution</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Bring a device
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the workshop you will measure your own reaction time using the <a href="https://humanbenchmark.com/tests/reactiontime">Human Benchmark</a> reaction-time test. Bring a laptop or phone with a browser. The test runs five trials and reports your average in milliseconds; that single average is the number you will use.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<iframe src="sampling.html" width="100%" height="1200" style="border: none;">
+</iframe>
+</div>
+</div>
+</div>
+</section><section id="sec-primer" class="level2"><h2 class="anchored" data-anchor-id="sec-primer">Primer: the unit of observation</h2>
+<p>Before you collect data, you need to know what counts as one independent observation. Getting this wrong inflates your sample size and with it every claim you make.</p>
+<p>Consider a physiologist who measures blood glucose in 10 mice, taking three blood drops from each mouse. She has <input class="webex-solveme nospaces" size="2" data-answer="[&quot;30&quot;]"> numbers, but she does not have 30 independent observations. The three drops from one mouse come from the same animal under the same conditions. They will be more alike than drops from different mice. The independent unit of observation is the <input class="webex-solveme nospaces ignorecase" size="5" data-answer="[&quot;mouse&quot;,&quot;Mouse&quot;]">, and the sample size is <input class="webex-solveme nospaces" size="2" data-answer="[&quot;10&quot;]">, not 30. The three drops per mouse are <strong>technical replicates</strong> — repeated measurements of the same unit — and they tell you about measurement precision, not about the population of mice.</p>
+<p>Now consider a marine biologist who records the shell length of 50 mussels collected from a single rocky shore. Each mussel is a separate organism, so the independent unit of observation is the <input class="webex-solveme nospaces ignorecase" size="6" data-answer="[&quot;mussel&quot;,&quot;Mussel&quot;]">, and the sample size is <input class="webex-solveme nospaces" size="2" data-answer="[&quot;50&quot;]">. (Whether those 50 mussels tell you about mussels in general, or only about mussels on that particular shore, is a different question — one about the population the sample represents, not about what counts as one observation.)</p>
+<p>The rule is: two observations are independent if knowing the value of one tells you nothing about the value of the other, beyond what you already knew from the population. When multiple measurements come from the same biological unit — the same mouse, the same plant, the same Petri dish — they are not independent of one another, and the unit, not the measurement, is the observation.</p>
+<p>Bring this vocabulary to the workshop. You will need it in the first ten minutes.</p>
+</section><section id="sec-selftest" class="level2"><h2 class="anchored" data-anchor-id="sec-selftest">Self-test</h2>
+<div class="webex-check webex-box">
+<strong>1.</strong> A population is
+<div id="radio_ORMSTPOBRS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ORMSTPOBRS" value=""><span>the subset of data you analyse in R</span></label><label><input type="radio" autocomplete="off" name="radio_ORMSTPOBRS" value="answer"><span>the entire group of individuals or values about which you want to draw conclusions</span></label><label><input type="radio" autocomplete="off" name="radio_ORMSTPOBRS" value=""><span>the group of individuals you actually measured</span></label>
+</div>
+<p>.</p>
+<p><strong>2.</strong> Under the frequentist definition, the probability of an event is its long-run <input class="webex-solveme nospaces ignorecase" size="10" data-answer="[&quot;proportion&quot;]"> across many identical repetitions.</p>
+<p><strong>3.</strong> If a measurement is normally distributed, approximately <input class="webex-solveme nospaces" size="2" data-answer="[&quot;95&quot;]"> per cent of values lie within two standard deviations of the mean.</p>
+<strong>4.</strong> The sampling distribution of the sample mean is
+<div id="radio_LUKPPPWDBI" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LUKPPPWDBI" value=""><span>wider than the raw data distribution</span></label><label><input type="radio" autocomplete="off" name="radio_LUKPPPWDBI" value=""><span>centred on the sample mean and wider than the raw data distribution</span></label><label><input type="radio" autocomplete="off" name="radio_LUKPPPWDBI" value=""><span>narrower than the raw data distribution</span></label><label><input type="radio" autocomplete="off" name="radio_LUKPPPWDBI" value="answer"><span>centred on the population mean and narrower than the raw data distribution</span></label>
+</div>
+<p>.</p>
+<p><strong>5.</strong> A researcher takes four leaf samples from each of six plants and measures chlorophyll concentration. The independent unit of observation is the <input class="webex-solveme nospaces ignorecase" size="5" data-answer="[&quot;plant&quot;,&quot;Plant&quot;]">, and the sample size is <input class="webex-solveme nospaces" size="1" data-answer="[&quot;6&quot;]">.</p>
+</div>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p><a href="https://www.nature.com/articles/d41586-024-04096-5">Why probability probably doesn’t exist (but it is useful to act like it does)</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./session-01-workshop.html" class="pagination-link" aria-label="Random sampling">
+        <span class="nav-page-text">Random sampling</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CC-BY (2026) Philip Leftwich</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

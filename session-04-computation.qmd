@@ -1,0 +1,320 @@
+# Linear models in R {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+```{r}
+#| include: false
+
+set.seed(20260826)
+
+darwin <- read_csv(here("files", "darwin.csv"))
+
+# Compute paired differences (Cross - Self within each pot)
+darwin_diff <- darwin |>
+  pivot_wider(names_from = type, values_from = height) |>
+  mutate(difference = Cross - Self)
+```
+
+In hour 1 you ranked scenarios by strength of evidence and arrived at
+the t-statistic as the ratio of estimate to standard error. Here you
+fit the linear model in R and read its coefficient table.
+
+The data are the same paired differences you have worked with since
+Session 2: the height of the cross-pollinated plant minus the height
+of the self-pollinated plant within each pot.
+
+## The paired differences {#sec-data}
+
+:::{.task}
+::::{.task-header}
+**Task: inspect the paired differences**
+::::
+
+::::{.task-container}
+
+Run the code below to see the fifteen paired differences. These are
+the same values you used in Sessions 2 and 3.
+
+::::
+:::
+
+```{r}
+#| label: show-differences
+
+darwin_diff |>
+  select(pair, Cross, Self, difference)
+```
+
+## Fit the intercept-only model {#sec-fit}
+
+:::{.task}
+::::{.task-header}
+**Task: predict the intercept**
+::::
+
+::::{.task-container}
+
+Before running any code, write down your prediction. You have computed
+the mean of these differences before. What value do you expect the
+intercept to be?
+
+::::
+:::
+
+```{r}
+#| label: lm-paired
+
+lsmodel1 <- lm(difference ~ 1, data = darwin_diff)
+```
+
+The formula `difference ~ 1` means "fit an intercept only." The
+intercept is the mean of the paired differences. The coefficient
+table tests whether that mean differs from zero — the same question
+the permutation test in Session 3 answered.
+
+## Read the coefficient table {#sec-summary}
+
+:::{.task}
+::::{.task-header}
+**Task: read the summary output**
+::::
+
+::::{.task-container}
+
+Run the code below. Compare the intercept with your prediction, then
+answer:
+
+1. What does the estimate represent?
+2. What does the t-value represent, and how does it relate to the
+   ranking exercise from hour 1?
+3. Is there evidence that the mean difference is not zero?
+
+`r hide("Answer")`
+1. The estimate is the mean of the fifteen paired differences — the
+   average advantage of cross-pollination over self-pollination
+   within a pot.
+2. The t-value is the estimate divided by its standard error. A
+   larger absolute t-value means the estimate is further from zero
+   in standard-error units, just as in the ranking exercise.
+3. Check the p-value. If it is below 0.05, there is evidence that
+   the mean difference is not zero, consistent with the permutation
+   test from Session 3.
+`r unhide()`
+
+::::
+:::
+
+::: {.panel-tabset}
+
+## Base R
+
+```{r}
+#| label: summary-base
+
+summary(lsmodel1)
+```
+
+## Broom
+
+```{r}
+#| label: summary-broom
+
+broom::tidy(lsmodel1, conf.int = TRUE)
+```
+
+:::
+
+## Confidence interval from the model {#sec-ci}
+
+:::{.task}
+::::{.task-header}
+**Task: obtain and interpret the confidence interval**
+::::
+
+::::{.task-container}
+
+Run the code below. The output is a 95% confidence interval for the
+mean paired difference.
+
+1. Does this interval include zero?
+2. Compare it with the confidence interval you computed in Session 2.
+   Are the values the same (or very close)?
+
+`r hide("Answer")`
+1. If the interval does not include zero, this is consistent with the
+   p-value being below 0.05.
+2. The values should match or be very close. The linear model and the
+   manual computation from Session 2 use the same formula: estimate
+   ± critical value × SE.
+`r unhide()`
+
+::::
+:::
+
+::: {.panel-tabset}
+
+## Base R
+
+```{r}
+#| label: ci-base
+
+confint(lsmodel1)
+```
+
+## Broom
+
+```{r}
+#| label: ci-broom
+
+broom::tidy(lsmodel1, conf.int = TRUE)
+```
+
+:::
+
+::: {.callout-note}
+## A simple write-up
+From the linear model on paired differences: "Cross-pollinated maize
+plants were taller on average than self-pollinated plants, with a
+mean paired difference of 2.62 inches (95% CI: 0.004, 5.22;
+t(14) = 2.15, p = 0.05)."
+
+Note: the degrees of freedom are 14 (fifteen pairs minus one), not
+28. Match the values to your output.
+:::
+
+## Compare with the one-sample t-test {#sec-compare-ttest}
+
+:::{.task}
+::::{.task-header}
+**Task: confirm the equivalence**
+::::
+
+::::{.task-container}
+
+Run the code below. Compare the p-value from `t.test()` with the
+p-value from `summary(lsmodel1)`. They should be identical.
+
+This confirms that the intercept-only linear model on paired
+differences is the same test as a one-sample t-test. The linear model
+is the more general framework.
+
+::::
+:::
+
+```{r}
+#| label: ttest-paired
+
+t.test(darwin_diff$difference, mu = 0)
+```
+
+## Composition task: fit the unpaired model {#sec-composition}
+
+:::{.task}
+::::{.task-header}
+**Task: write an `lm()` call for the unpaired comparison**
+::::
+
+::::{.task-container}
+
+You have just fitted a model that respects the paired design:
+
+```r
+lsmodel1 <- lm(difference ~ 1, data = darwin_diff)
+```
+
+Now write an `lm()` call that ignores the pairing entirely: model
+height as a function of pollination type, using the original
+`darwin` data frame. Assign the result to `lsmodel2` and run
+`summary()` on it.
+
+`r hide("Hint")`
+The response is `height`, the predictor is `type`, and the data are
+`darwin`. The formula takes the form `response ~ predictor`.
+`r unhide()`
+
+`r hide("Model answer")`
+```r
+lsmodel2 <- lm(height ~ type, data = darwin)
+summary(lsmodel2)
+```
+`r unhide()`
+
+::::
+:::
+
+:::{.task}
+::::{.task-header}
+**Task: compare the two models**
+::::
+
+::::{.task-container}
+
+Look at the coefficient table for `lsmodel2`.
+
+What does the `typeSelf` coefficient estimate? Is this the same
+quantity as the intercept of `lsmodel1`?
+
+
+`r hide("Answer")`
+
+The `typeSelf` coefficient estimates the difference in mean height
+   between self-pollinated and cross-pollinated plants — the same
+   quantity as the intercept of `lsmodel1`, but with the opposite
+   sign (Self minus Cross rather than Cross minus Self). The absolute
+   value is the same.
+
+`r unhide()`
+
+::::
+:::
+
+::: {.callout-note}
+## Why pairing matters
+Darwin paired his plants by parent because genetic lineage might play a large role in natural variance in height. By computing the difference *within each pair*, the paired
+analysis minimises this source of variation and isolates the effect of
+pollination type. The unpaired analysis ignores this structure. The lesson: a model should respect the design that
+generated the data.
+:::
+
+## Exit ticket {#sec-exit}
+
+:::{.task}
+::::{.task-header}
+**Task: exit question**
+::::
+
+::::{.task-container}
+
+Write your answer on paper before you leave. This question is
+deliberately unanswerable from today's material alone — we will
+pick this up next time.
+
+> You receive a collaborator's spreadsheet to analyse. The "species"
+> column contains entries recorded as "Drosophila", "drosophila",
+> "D. melanogaster", and "Dros.". You fit
+> `lm(wing_length ~ species, data = df)` and get four coefficients
+> for species (plus the intercept). Is the model answering the
+> question you intended, and what should you do before fitting it?
+
+::::
+:::
+
+## Reading
+
+### Library
+
+- The New Statistics with R, 2nd Edition, **Chapter 6** by Andy Hector
+
+
+### Online
+
+- [Everything is a Linear Model] (danielroelfs.com/posts/everything-is-a-linear-model/), by Daniel Roelfs
+
+- [Common statistical tests are linear models](lindeloev.github.io/tests-as-linear/), by Jonas Kristoffer Lindeløv - *Covers more than we got to today*

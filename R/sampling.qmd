@@ -1,0 +1,745 @@
+# Sampling and the randomness of a statistic {#sec-sampling}
+
+```{r}
+#| include: false
+library(tidyverse)
+library(webexercises)
+set.seed(20260721)
+```
+
+## Introduction
+
+This chapter is responsible for a single idea, put simply for now: 
+
+*a number you work out from a sample, such as an average or a proportion, is not the fixed, solid fact it looks like. Measure a different sample and you would get a different number.* 
+
+Everything that follows is about taking that unsettling observation seriously and learning what we can and cannot infer on the basis of this.
+
+This is the first chapter, so it assumes no earlier statistics from this book. It does lean on two ideas you are expected to already be familiar with, and both are recalled briefly where they are first used rather than taken for granted:
+
+- **The distinction between a population and a sample** — the population is the whole set of things we want to know about; the sample is the subset we actually measure. This is assumed from prior study; if you are unsure of it, the pre-class reading is where it is shored up.
+
+- **How to compute a mean and a measure of spread** from a set of numbers, and read them as summaries of that set e.g. Mean and Standard Deviation.
+
+There is one more idea the argument needs, and this one the chapter does not assume at all: **a probability is simply how often something happens when you repeat it many times** @sec-longrun below develops this carefully, because the whole sampling argument rests on it.
+
+## Learning objectives
+
+By the end of this chapter you will be able to:
+
+1. **Describe** how the proportion of times something happens settles down to a stable value as you keep repeating a chance process, and say what that stable value is.
+
+2. **Distinguish** a population parameter from a sample statistic in a described study, and state which one is known and which is estimated.
+
+3. **Predict** that repeated samples from one population yield different values of the same statistic, and describe the collection of those values as having a distribution.
+
+4. **Explain** why a single sample mean should not be read as the population mean, and identify this misreading when it appears in a worked or quoted conclusion.
+
+5. **Relate** sample size to the spread of the sampling distribution qualitatively: larger samples give a tighter spread of the statistic.
+
+Each objective is assessed: objectives 1–4 by the multiple-choice questions below, and objectives 3 and 5 by the in-class resampling exercise.
+
+## Two directions of reasoning {#sec-directions}
+
+The scientific method works by building models of how the world operates: the probability of an allele being inherited, the presence or absence of a species at a site, the typical body mass in a population. We observe data, and we use data and models together to work out how the world behaves. 
+
+There are really two directions you can reason in to make inferences and predictions about the world, and telling them apart is worth a moments consideration.
+
+**Probability reasons forwards**, from a known world model to data you haven't seen yet. You're handed the rules and you work out what you're likely to see. 
+
+- If both parents are *Aa*, what fraction of offspring show the recessive trait (*aa*)?
+
+- If a pond holds no newts, how often does an assay wrongly cry newt anyway? Each one starts from a stated model — an allele frequency, a false-positive rate — and asks what data that model tends to throw off. The model is known; the data are the unknown.
+
+**Statistics reasons backwards**, from data you *have* to a world model you don't. 
+
+- Two *Aa* parents, and 40 of 100 offspring show the recessive trait — is that just Mendel, or is something else going on? 
+
+- An assay reports a newt — is the newt really there? Same situations, flipped. Now the data are the fixed thing in your hand and the model is what you're building.
+
+That backwards direction is the harder one, and it's the focus of this module. Everything ahead is a way of reasoning from our data and building a model that helps explain what we observed.
+
+::: {.callout-note}
+## The difference in one line
+In probability the model is known and the data are uncertain. In statistics the data are known and the model is uncertain. Statistics is probability run backwards, and backwards is the harder direction — which is the whole reason the subject exists.
+:::
+
+
+### Example 
+
+Think about surveying a stretch of stream and measuring the body length of the thirty sticklebacks you happen to catch, then reporting their mean length. You can calculate the mean body length of the sample of fish you collected. But *really* the whole point is what they say about **every** stickleback in the stream, including the many hundreds you did not catch. 
+
+The tricky part is how much confidence you have about this *inference*? If your thirty fish produce a mean average 42 mm, is the stream's true average also about 42? Or Could it be 40? or 38?  Some rival values you can rule out at once: nobody would believe the true average is 70 mm after catching thirty fish that averaged 42. But 44? Or 40? Or 38? Those you cannot dismiss out of hand, even though they are not all equally believable. Somewhere between "42 is surely about right" and "70 is absurd" sits a fuzzy band of values your data are consistent with, and your gut cannot tell you how wide it is. Pinning down that band, saying how far the truth could reasonably lie from your estimate, is the entire reason inferential statistics exists. It puts numbers on how far a sample lets you go. Actually pinning that band down comes a few chapters later; for now we are concentrating on another idea, that any estimate is inherently uncertain in the first place.
+
+
+## Frequentist views on probability {#sec-longrun}
+
+One of the most popular approaches to probability, and most dominant in statistics is the *frequentist view*, and it defines probability as a **long-run frequency**. 
+
+Take a coin. Flip it once and you have no idea whether it'll be heads — that single flip is genuinely unpredictable, and no amount of cleverness will tell you the answer in advance.
+
+By definition the coin has a $P(H)=0.5$, so we expect *in the long run* for around half the coin flips to come up heads. 
+
+Flip a fair coin over and over again, and as *N*
+grows large (approaches infinity), the proportion of heads will converge to 50%.
+
+We can watch it happen rather than take it on faith. @fig-coin tracks the running proportion of heads across a thousand simulated flips, repeated as four independent runs so you can see it isn't a fluke of one lucky sequence.
+
+```{r}
+#| label: fig-coin
+#| code-fold: true
+#| fig-cap: "Four independent runs of 1000 fair-coin flips. Each line is the running proportion of heads as the flips accumulate; the dashed line marks 0.5. The proportion swings wildly early on, then settles towards one half. The horizontal axis is on a log scale, so equal steps along it are equal *multiplications* of the flip count rather than equal additions; this stretches out the first few flips, where all the action is, and compresses the later ones."
+
+library(tidyverse)
+set.seed(20260721)   # date-based seed for reproducibility, not a magic constant
+
+# One run: flip a fair coin `n` times, return the running proportion of heads.
+# cumsum() gives the running count of heads; dividing by the flip number
+# turns that into the running proportion at each step.
+running_proportion <- \(n) {
+  flips <- sample(c(0, 1), size = n, replace = TRUE)   # 1 = heads, 0 = tails
+  tibble(
+    flip       = seq_len(n),
+    proportion = cumsum(flips) / seq_len(n)
+  )
+}
+
+# Four independent runs, stacked into one tibble with a run label.
+coin_runs <- map(1:4, \(r) running_proportion(1000) |> mutate(run = paste("Run", r))) |>
+  list_rbind()
+
+ggplot(coin_runs, aes(x = flip, y = proportion)) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.4) +
+  geom_line(linewidth = 0.6) +
+  facet_wrap(~ run) +
+  scale_x_log10() +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(x = "Number of flips (log scale)", y = "Proportion of heads") +
+  theme_minimal(base_size = 12)
+```
+
+Early on the proportion of heads lurches — up near 0.8 or down towards 0.3 — but by a few hundred flips it has calmed down and sits close to one half. None of the four runs lands exactly on 0.5, and none ever would in a finite number of flips, but the pull towards it is unmistakable. 
+
+Better than reading it off a fixed picture is generating it yourself. The panel below flips a fresh fair coin the number of times you choose and traces the running proportion. Flip it again and again: the early wildness and the eventual settling show up every time, but the *particular* path is different on every run, which is the whole point — the settling is reliable, the individual wobble is not.
+
+```{=html}
+<div id="coin-widget" style="border:1px solid #ddd; border-radius:6px; padding:16px; margin:1.2em 0; font-family:system-ui, sans-serif;">
+  <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:12px;">
+    <button id="coin-flip" style="padding:6px 14px; border:1px solid #999; border-radius:4px; background:#f6f6f6; cursor:pointer; font-size:14px;">Flip again</button>
+    <label style="font-size:14px;">Number of flips:
+      <span id="coin-nlabel" style="font-variant-numeric:tabular-nums; font-weight:600;">500</span>
+    </label>
+    <input id="coin-n" type="range" min="20" max="200" value="5" step="5" style="flex:1; min-width:140px;">
+  </div>
+  <svg id="coin-svg" role="img" aria-label="Line chart of the running proportion of heads against the number of coin flips on a log scale. The line is volatile for the first few flips and settles towards the true value of 0.5 as flips accumulate." viewBox="0 0 640 300" style="width:100%; height:auto; display:block;"></svg>
+  <p id="coin-readout" aria-live="polite" style="font-size:13px; color:#555; margin:8px 0 0;"></p>
+</div>
+
+<script>
+(function () {
+  const svg = document.getElementById("coin-svg");
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 640, H = 300, ml = 44, mr = 12, mt = 12, mb = 34;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  // Map a (flip index, proportion) pair to SVG coordinates.
+  // x is on a log scale so the early volatility is visible, matching the static figure.
+  function xpos(i, n) { return ml + (Math.log10(i) / Math.log10(n)) * plotW; }
+  function ypos(p)    { return mt + (1 - p) * plotH; }
+
+  function el(tag, attrs) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  function draw(n) {
+    svg.innerHTML = "";
+
+    // axes frame
+    svg.appendChild(el("line", {x1: ml, y1: mt, x2: ml, y2: mt + plotH, stroke: "#999", "stroke-width": 1}));
+    svg.appendChild(el("line", {x1: ml, y1: mt + plotH, x2: ml + plotW, y2: mt + plotH, stroke: "#999", "stroke-width": 1}));
+
+    // dashed line at 0.5 (the true probability)
+    svg.appendChild(el("line", {x1: ml, y1: ypos(0.5), x2: ml + plotW, y2: ypos(0.5),
+      stroke: "#c0392b", "stroke-width": 1, "stroke-dasharray": "4 3"}));
+
+    // text label on the 0.5 line, so the "true value" cue does not rely on colour alone
+    const truelab = el("text", {x: ml + plotW - 4, y: ypos(0.5) - 5, "text-anchor": "end", "font-size": 11, fill: "#c0392b"});
+    truelab.textContent = "true value 0.5";
+    svg.appendChild(truelab);
+
+    // y gridline labels at 0, 0.5, 1
+    [0, 0.5, 1].forEach(p => {
+      const lab = el("text", {x: ml - 6, y: ypos(p) + 4, "text-anchor": "end", "font-size": 11, fill: "#666"});
+      lab.textContent = p.toFixed(1);
+      svg.appendChild(lab);
+    });
+
+    // flip the coin n times, build the running-proportion path
+    let heads = 0;
+    let d = "";
+    for (let i = 1; i <= n; i++) {
+      heads += Math.random() < 0.5 ? 1 : 0;
+      const p = heads / i;
+      // start the path at the first flip; skip i=1 x (log10(1)=0) sitting on the axis is fine
+      d += (i === 1 ? "M" : "L") + xpos(i, n).toFixed(1) + "," + ypos(p).toFixed(1) + " ";
+    }
+    svg.appendChild(el("path", {d: d, fill: "none", stroke: "#2c3e50", "stroke-width": 1.4}));
+
+    // axis labels
+    const xlab = el("text", {x: ml + plotW / 2, y: H - 6, "text-anchor": "middle", "font-size": 12, fill: "#444"});
+    xlab.textContent = "Number of flips (log scale)";
+    svg.appendChild(xlab);
+
+    const finalP = (heads / n);
+    document.getElementById("coin-readout").textContent =
+      "This run landed on " + finalP.toFixed(3) + " heads after " + n + " flips (true mean = 0.5).";
+  }
+
+  const slider = document.getElementById("coin-n");
+  const nlabel = document.getElementById("coin-nlabel");
+  document.getElementById("coin-flip").addEventListener("click", () => draw(+slider.value));
+  slider.addEventListener("input", () => { nlabel.textContent = slider.value; draw(+slider.value); });
+
+  draw(+slider.value);
+})();
+</script>
+```
+
+
+Now swap the coin for something biological. Suppose you're scoring a shore snail that comes in two colour morphs, striped and plain, and you want the proportion that's striped. Score one snail and you learn almost nothing; it's striped or it isn't. Score 10 and you will have a proportion, but it could be a long way from the true value. Score five hundred and the proportion of striped snails settles down to something steady. A proportion you compute from a sample of organisms, settling towards a true value out there in the whole shore population. 
+
+::: {.callout-note collapse = "true"}
+## Frequentist limitations
+This is what a frequentist means by "probability": the probability of heads just *is* the value the long-run proportion settles to. It's the reading that makes sense of sampling, so it's the one we lean on here and for most of the module.
+
+But there are limits to a frequentist characterisation of probability. True infinite sequences don't exist, they are purely hypothetical. So does it make sense to *pretend* that infinite coin flips is a meaningful concept. Under the strictest frequentist definition you cannot make statements about the probability that a non-repeatable event will occur. 
+An alternative approach is the **Bayesian view** of probability. It defines probability as the *degree of belief* that we assign to to the truth of that event. From that perspective, probabilities don’t actually exist in the real world, but rather in the thoughts and assumptions of people and other intelligent beings. However, in order for this approach to work, we need some way of operationalising “degree of belief”. The advantage is a we can apply Bayesian probabilities to unique or non-repeatable events, the disadvantage is that a degree of belief, removes an assumption that we can be truly objective about events. 
+
+:::
+
+## Sampling variation
+
+A great deal of biology comes down to measuring something in a handful of organisms and hoping the number tells you something about the many you didn't measure. You weigh thirty lizards and report a mean mass. But you never cared about those thirty lizards for their own sake; you wanted to know about the population they came from. The thirty are just a means to an end.
+
+::: {.callout-warning}
+## One assumption underneath all of this
+Everything that follows assumes your sample is *representative* of the population — loosely, that every individual had an equal chance of ending up in it, so that no group is systematically over- or under-caught. Real biological sampling rarely delivers this for free: nets, traps and quadrats all favour some individuals over others, and a camera trap only ever records animals that happen to pass in front of it. When a sample is biased, the statistic still varies from sample to sample, but it no longer settles towards the population value — it settles towards the wrong number, and no amount of extra data rescues it. Earning a representative sample is a problem of *study design*, taken up later in the module. Here we simply assume it has been solved.
+:::
+
+The snag is that the mean mass of your thirty lizards isn't the mean mass of the population. It's *close*, probably, but it isn't the same number — and here's the thing the whole chapter turns on — if you went back out and caught thirty *different* lizards, you'd get a different mean. Another thirty, another mean again. The sample mean isn't a fixed property of the population at all. It's a number that jumps around depending on which lizards happened to end up in your net.
+
+This is worth pinning down, because it's the kind of thing you can nod along to and still not really take on board. There are two claims, and it's the second one that does the actual work:
+
+1. The **sample** is random: which individuals you catch is a matter of chance.
+2. Therefore **any number computed from the sample** — the mean, the median, the standard deviation, a proportion — is also random. It inherits the randomness of the sample.
+
+Most people accept the first claim immediately. Different nets catch different fish; of course they do. The second claim is where people get stuck, because we're used to treating "the average" as a solid fact about the data rather than as one of many averages we might have got. The sample mean *feels* like the answer. It's really just one instance of a number that has its own spread.
+
+This is the coin all over again. The running proportion of heads was a number that came out different at every stage; a sample mean is the same sort of beast, coming out different every time you recompute it on a fresh catch of lizards. The only change is what's doing the varying. With the coin you watched the number move as you piled up more flips; here you watch it move as you go out and catch a different sample. Same phenomenon, viewed from the angle that matters for real research, where you don't get to keep adding to one long sequence — you get one sample, and you have to reason about all the other samples you might have caught instead.
+
+That spread has a name. Picture collecting the mean from every possible sample of a given size; the spread of all those means is called the **sampling distribution** of the mean. You never actually see the whole thing — in real life you have one sample and therefore one mean — but it's the idea that makes sense of what your single number is up to. Your one sample mean is a single pick from the sampling distribution, and the questions that fill the rest of this book (how far off might my estimate be, is this difference bigger than I'd expect by chance) are really questions about how wide that distribution is and what shape it takes.
+
+::: {.callout-note}
+The sampling distribution is a distribution of a *statistic*, not of the raw data. The individual lizards have a distribution of masses; the sample means have a different, narrower distribution. Keeping these two apart is the single most useful habit you can build in this chapter, and the distinction returns in the next chapter as the difference between the standard deviation and the standard error.
+:::
+
+None of this is special to the mean. The same story holds for any statistic you like: a sample proportion jumps around from sample to sample, and so does a sample standard deviation. The mean just gets top billing, and not because it's the only one that varies — it's because its sampling distribution turns out to be remarkably well-behaved, which is the next chapter's business.
+
+::: {.callout-note collapse="true"}
+## Does a statistic ever *not* vary? (optional aside)
+
+The variation we've been describing isn't an optional extra you could switch off — it comes with sampling itself, and it's there whenever your data are a sample from something bigger. There's really only one way to escape it. If you somehow measure *every* member of the population — a true census, every lizard on the island — then your computed number isn't an estimate of anything; it *is* the population value, and there's no other sample you could have taken, so nothing varies.
+
+One caveat is worth stating plainly, because a careful reader will spot it. Throughout this chapter we treat each measurement as the true value for that individual. Real measurements carry error of their own, and that measurement error does *not* disappear in a census the way sampling variation does: weigh every lizard on the island and the *sampling* uncertainty is gone, but a set of imperfect scales is still imperfect. We set this aside here to keep one idea in view, but it never quite goes away in practice.
+
+In biology a true census essentially never happens, so in practice a statistic always varies. (There's a further subtlety about whether the sampling could even in principle be repeated, which matters for how we read these numbers, but we'll leave that until the next chapter where it actually bites.)
+:::
+
+## A worked illustration
+
+To actually *watch* a statistic vary, we get to do something you can never do in real research: draw sample after sample from the same population and watch the mean wobble about. In real life you get one sample and that's your lot. But in a simulation we can build a population whose mean we already know, draw from it again and again, and see what the sample mean gets up to. That's what the illustration buys us — it shows the thing that real research keeps hidden.
+
+The code below uses a *skewed*, lopsided population on purpose, so that nothing here looks like it depends on the data being a tidy bell shape. It doesn't.
+
+```{r}
+#| label: sampling-demo
+#| eval: false
+
+library(tidyverse)
+set.seed(20260721)   # date-based seed so the numbers below are reproducible
+
+# ----- Build a known population -------------------------------------------
+# A skewed population of 100,000 "beetle body lengths" (arbitrary units).
+# We use a gamma distribution only because it is visibly NOT symmetric;
+# the point is that the sampling argument does not need a normal population.
+population <- tibble(
+  length = rgamma(n = 100000, shape = 2, rate = 0.5)
+)
+
+# The population mean is a fixed, known number here because WE built it.
+# In real research this is the unknown we are trying to estimate.
+true_mean <- population |> pull(length) |> mean()
+true_mean
+
+# ----- Draw ONE sample of 30 and compute its mean -------------------------
+# This is what a real study gets to see: a single sample, a single mean.
+one_sample <- population |> slice_sample(n = 30)
+one_sample |> pull(length) |> mean()
+# Run these two lines again and again: the mean changes every time.
+
+# ----- Draw MANY samples and collect their means --------------------------
+# For each of 1000 repetitions, draw 30 beetles and record the sample mean.
+# map_dbl returns a numeric vector of 1000 means -- one study's worth each.
+# This is the sampling distribution, made visible.
+sample_means <- map_dbl(
+  1:1000,
+  \(i) population |> slice_sample(n = 30) |> pull(length) |> mean()
+)
+
+# ----- Look at the spread of the means ------------------------------------
+sampling_dist <- tibble(mean_length = sample_means)
+
+ggplot(sampling_dist, aes(x = mean_length)) +
+  geom_histogram(bins = 30) +
+  geom_vline(xintercept = true_mean) +   # the fixed population mean
+  labs(
+    x = "Mean length of a sample of 30",
+    y = "Number of samples",
+    title = "One thousand samples, one thousand different means"
+  )
+```
+
+::: {.callout-tip}
+The one line worth changing yourself is the sample size. Everywhere `n = 30` appears, the number is the size of each sample. Raising it and re-running is the whole of the next chapter's machinery in miniature — watch what happens to the width of the histogram.
+:::
+
+You don't have to run the code to get a feel for it. The panel below does the same thing — draw many samples, collect their means, plot the spread — but lets you drag the sample size and watch the histogram of means respond in real time. Start small and the means are scattered widely; slide towards larger samples and the spread pulls in tight around the true value. That narrowing is the single most important thing to take from this chapter, and in the workshop you'll build it yourself on real data and be asked to explain *why* it happens, so treat this as a preview rather than the finished story.
+
+```{=html}
+<div id="sd-widget" style="border:1px solid #ddd; border-radius:6px; padding:16px; margin:1.2em 0; font-family:system-ui, sans-serif;">
+  <fieldset style="border:none; padding:0; margin:0 0 10px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; font-size:14px;">
+    <legend style="float:left; padding:0 8px 0 0; font-weight:600;">Population:</legend>
+    <label><input type="radio" name="sd-pop" value="gamma" checked> Mild skew (gamma, skewness &#8776; 1.4)</label>
+    <label><input type="radio" name="sd-pop" value="lognormal"> Heavy skew (lognormal, &#8776; 6.2)</label>
+    <label><input type="radio" name="sd-pop" value="binary"> Binary, p = 0.1 (&#8776; 2.7)</label>
+  </fieldset>
+  <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:12px;">
+    <label style="font-size:14px;">Sample size (n):
+      <span id="sd-nlabel" style="font-variant-numeric:tabular-nums; font-weight:600;">5</span>
+    </label>
+    <input id="sd-n" type="range" min="2" max="200" value="5" step="1" style="flex:1; min-width:160px;">
+    <button id="sd-redraw" style="padding:6px 14px; border:1px solid #999; border-radius:4px; background:#f6f6f6; cursor:pointer; font-size:14px;">New samples</button>
+  </div>
+  <svg id="sd-svg" role="img" aria-label="Three stacked panels that update with a population toggle and a sample size slider. The top panel shows the shape of the chosen population distribution in grey, with the true population mean marked by a red vertical line. The middle panel shows, in orange, a histogram of the individual data values within one random sample, with each value also marked as a tick beneath the bars. The bottom panel shows, in blue, the distribution of 2000 sample means; the single bin containing the mean of the displayed sample is coloured orange to match, and the true mean is again marked in red. For the mildly skewed population the means look symmetric at small sample sizes; for the heavily skewed lognormal and the binary population with p equal to 0.1, visible asymmetry or discreteness persists to much larger sample sizes, showing that the sample size needed for the central limit theorem depends on the population." viewBox="0 0 640 680" style="width:100%; height:auto; display:block;"></svg>
+  <p id="sd-readout" aria-live="polite" style="font-size:13px; color:#555; margin:8px 0 0;"></p>
+</div>
+
+<script>
+(function () {
+  const svg = document.getElementById("sd-svg");
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 640, ml = 44, mr = 12;
+  const plotW = W - ml - mr;
+
+  // Panel geometry: population shape, one sample, sampling distribution.
+  const P0 = { top: 26, height: 110 };   // baseline 136
+  const P1 = { top: 196, height: 120 };  // baseline 316
+  const P2 = { top: 376, height: 240 };  // baseline 616
+
+  const SAMPLE_COLOUR = "#e67e22";
+  const RUG_COLOUR = "#b35c0e";
+  const MEANS_COLOUR = "#5b7fa6";
+  const POP_COLOUR = "#9a9a9a";
+  const TRUE_COLOUR = "#c0392b";
+
+  // Standard normal via Box-Muller, for the lognormal draws.
+  function stdNormal() {
+    let u = 0;
+    while (u === 0) u = Math.random();
+    const v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+
+  // Each population: label, true mean, skewness (for the readout), a draw
+  // function, a density (or null for the binary PMF, handled specially),
+  // and FIXED axes for the data panel and the means panel. Fixed, not
+  // data-driven: rescaling with n would hide the narrowing.
+  const POPULATIONS = {
+    gamma: {
+      name: "gamma(2, 0.5), mildly skewed",
+      trueMean: 4, skew: "1.4",
+      // Sum of two exponentials via inverse transform (integer shape).
+      draw: () => (-Math.log(Math.random()) / 0.5) + (-Math.log(Math.random()) / 0.5),
+      density: x => 0.25 * x * Math.exp(-x / 2),
+      axData:  { min: 0, max: 16, bins: 32, tick: 4 },
+      axMeans: { min: 0, max: 10, bins: 50, tick: 2 }
+    },
+    lognormal: {
+      name: "lognormal(0, 1), heavily skewed",
+      trueMean: Math.exp(0.5), skew: "6.2",
+      draw: () => Math.exp(stdNormal()),
+      density: x => x <= 0 ? 0 : Math.exp(-Math.pow(Math.log(x), 2) / 2) / (x * Math.sqrt(2 * Math.PI)),
+      axData:  { min: 0, max: 12, bins: 36, tick: 2 },
+      axMeans: { min: 0, max: 6,  bins: 60, tick: 1 }
+    },
+    binary: (function () {
+      const p = 0.1; // single source of truth; everything below derives from it
+      return {
+        name: "binary with p = " + p,
+        p: p,
+        trueMean: p,
+        skew: ((1 - 2 * p) / Math.sqrt(p * (1 - p))).toFixed(1),
+        draw: () => (Math.random() < p ? 1 : 0),
+        density: null, // PMF drawn specially
+        axData:  { min: -0.5, max: 1.5, bins: 2, ticks: [0, 1] },
+        axMeans: { min: 0, max: 0.6, bins: 50, tick: 0.1 }
+      };
+    })()
+  };
+
+  function el(tag, attrs) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function xpos(v, ax) { return ml + ((v - ax.min) / (ax.max - ax.min)) * plotW; }
+
+  // Right-inclusive at the top edge, so a value exactly equal to ax.max
+  // lands in the last bin instead of being dropped. Essential for the
+  // binary population, where a sample mean of exactly the axis maximum
+  // can occur.
+  function binIndex(v, ax) {
+    const bw = (ax.max - ax.min) / ax.bins;
+    let b = Math.floor((v - ax.min) / bw);
+    if (b === ax.bins && v <= ax.max) b = ax.bins - 1;
+    return b;
+  }
+
+  function binCounts(values, ax) {
+    const counts = new Array(ax.bins).fill(0);
+    let dropped = 0;
+    for (const v of values) {
+      const b = binIndex(v, ax);
+      if (b >= 0 && b < ax.bins) counts[b]++; else dropped++;
+    }
+    return { counts, dropped };
+  }
+
+  function drawBars(counts, ax, top, height, colourFor) {
+    const maxCount = Math.max(...counts, 1);
+    const bw = (ax.max - ax.min) / ax.bins;
+    for (let b = 0; b < ax.bins; b++) {
+      if (counts[b] === 0) continue;
+      const h = (counts[b] / maxCount) * height;
+      svg.appendChild(el("rect", {
+        x: xpos(ax.min + b * bw, ax) + 0.5,
+        y: top + height - h,
+        width: (plotW / ax.bins) - 1,
+        height: h,
+        fill: colourFor(b)
+      }));
+    }
+  }
+
+  function panelTitle(text, top) {
+    const t = el("text", { x: ml, y: top - 8, "font-size": 12, "font-weight": 600, fill: "#444" });
+    t.textContent = text;
+    svg.appendChild(t);
+  }
+
+  function baseline(top, height) {
+    svg.appendChild(el("line", {
+      x1: ml, y1: top + height, x2: ml + plotW, y2: top + height,
+      stroke: "#999", "stroke-width": 1
+    }));
+  }
+
+  function xTicks(ax, top, height) {
+    const vals = ax.ticks
+      ? ax.ticks
+      : (() => { const a = []; for (let v = ax.min; v <= ax.max + 1e-9; v += ax.tick) a.push(v); return a; })();
+    for (const v of vals) {
+      const t = el("text", { x: xpos(v, ax), y: top + height + 16, "text-anchor": "middle", "font-size": 11, fill: "#666" });
+      t.textContent = Math.round(v * 100) / 100;
+      svg.appendChild(t);
+    }
+  }
+
+  function trueMeanLine(pop, ax, top, height, withLabel) {
+    svg.appendChild(el("line", {
+      x1: xpos(pop.trueMean, ax), y1: top, x2: xpos(pop.trueMean, ax), y2: top + height,
+      stroke: TRUE_COLOUR, "stroke-width": 1.5
+    }));
+    if (withLabel) {
+      const t = el("text", { x: xpos(pop.trueMean, ax) + 4, y: top + 12, "font-size": 11, fill: TRUE_COLOUR });
+      t.textContent = "true mean";
+      svg.appendChild(t);
+    }
+  }
+
+  // Population shape panel: smooth density polyline for continuous
+  // populations, two probability-mass bars for the binary one. Heights are
+  // normalised to the panel, so this panel conveys shape only.
+  function drawPopulation(pop) {
+    panelTitle("Population: " + pop.name + " (shape only)", P0.top);
+    const ax = pop.axData;
+    if (pop.density) {
+      const NPTS = 240;
+      const xs = [], ys = [];
+      let ymax = 0;
+      for (let i = 0; i <= NPTS; i++) {
+        const x = ax.min + (i / NPTS) * (ax.max - ax.min);
+        const y = pop.density(Math.max(x, 1e-9));
+        xs.push(x); ys.push(y);
+        if (y > ymax) ymax = y;
+      }
+      const pts = xs.map((x, i) =>
+        xpos(x, ax).toFixed(1) + "," + (P0.top + P0.height - (ys[i] / ymax) * P0.height).toFixed(1)
+      ).join(" ");
+      svg.appendChild(el("polyline", {
+        points: pts, fill: "none", stroke: POP_COLOUR, "stroke-width": 2
+      }));
+    } else {
+      const barW = 0.15; // in data units
+      const p = pop.p;
+      for (const [x, prob] of [[0, 1 - p], [1, p]]) {
+        const h = (prob / Math.max(p, 1 - p)) * P0.height;
+        svg.appendChild(el("rect", {
+          x: xpos(x - barW / 2, ax),
+          y: P0.top + P0.height - h,
+          width: xpos(x + barW / 2, ax) - xpos(x - barW / 2, ax),
+          height: h,
+          fill: POP_COLOUR
+        }));
+      }
+    }
+    trueMeanLine(pop, ax, P0.top, P0.height, true);
+    baseline(P0.top, P0.height);
+    xTicks(ax, P0.top, P0.height);
+  }
+
+  function draw(popKey, n) {
+    svg.innerHTML = "";
+    const pop = POPULATIONS[popKey];
+    const REPS = 2000;
+
+    drawPopulation(pop);
+
+    // Simulate. Replicate 1 is retained as the displayed sample so the
+    // highlighted bin genuinely belongs to the plotted distribution.
+    const means = new Array(REPS);
+    let firstSample = null;
+    for (let r = 0; r < REPS; r++) {
+      const vals = new Array(n);
+      let s = 0;
+      for (let i = 0; i < n; i++) { vals[i] = pop.draw(); s += vals[i]; }
+      means[r] = s / n;
+      if (r === 0) firstSample = vals;
+    }
+    const sampleMean = means[0];
+
+    // ---- Panel 2: raw values of one sample ----
+    panelTitle("One random sample: the n individual data values", P1.top);
+    const sampleHist = binCounts(firstSample, pop.axData);
+    drawBars(sampleHist.counts, pop.axData, P1.top, P1.height, () => SAMPLE_COLOUR);
+    for (const v of firstSample) {
+      if (v < pop.axData.min || v > pop.axData.max) continue;
+      svg.appendChild(el("line", {
+        x1: xpos(v, pop.axData), y1: P1.top + P1.height - 8,
+        x2: xpos(v, pop.axData), y2: P1.top + P1.height,
+        stroke: RUG_COLOUR, "stroke-width": 1, opacity: 0.6
+      }));
+    }
+    baseline(P1.top, P1.height);
+    xTicks(pop.axData, P1.top, P1.height);
+
+    // ---- Panel 3: distribution of sample means ----
+    panelTitle("Means of " + REPS + " such samples (note this panel's own axis)", P2.top);
+    const highlightBin = binIndex(sampleMean, pop.axMeans);
+    const meansHist = binCounts(means, pop.axMeans);
+    drawBars(meansHist.counts, pop.axMeans, P2.top, P2.height,
+      b => (b === highlightBin ? SAMPLE_COLOUR : MEANS_COLOUR));
+    trueMeanLine(pop, pop.axMeans, P2.top, P2.height, true);
+    baseline(P2.top, P2.height);
+    xTicks(pop.axMeans, P2.top, P2.height);
+    const xlab = el("text", { x: ml + plotW / 2, y: P2.top + P2.height + 36, "text-anchor": "middle", "font-size": 12, fill: "#444" });
+    xlab.textContent = "Value (each panel has its own fixed x-axis range)";
+    svg.appendChild(xlab);
+
+    // Readout: carries the colour-link explanation and the skewness context.
+    const mbar = means.reduce((a, b) => a + b, 0) / REPS;
+    const variance = means.reduce((a, b) => a + (b - mbar) * (b - mbar), 0) / REPS;
+    const sd = Math.sqrt(variance);
+    let msg = "Population skewness \u2248 " + pop.skew +
+      ". The orange sample of n = " + n + " has mean \u2248 " + sampleMean.toFixed(3) +
+      "; the orange bin below is where that mean falls among the " + REPS +
+      " sample means, whose spread (SD) \u2248 " + sd.toFixed(3) +
+      ". Compare how symmetric the blue histogram looks across the three populations at the same n.";
+    if (meansHist.dropped > 0) {
+      msg += " (" + meansHist.dropped + " mean" + (meansHist.dropped === 1 ? "" : "s") +
+        " fell beyond " + pop.axMeans.max + " and " +
+        (meansHist.dropped === 1 ? "is" : "are") + " not shown.)";
+    }
+    document.getElementById("sd-readout").textContent = msg;
+  }
+
+  const slider = document.getElementById("sd-n");
+  const nlabel = document.getElementById("sd-nlabel");
+  function currentPop() {
+    return document.querySelector('input[name="sd-pop"]:checked').value;
+  }
+  slider.addEventListener("input", () => { nlabel.textContent = slider.value; draw(currentPop(), +slider.value); });
+  document.getElementById("sd-redraw").addEventListener("click", () => draw(currentPop(), +slider.value));
+  document.querySelectorAll('input[name="sd-pop"]').forEach(r =>
+    r.addEventListener("change", () => draw(currentPop(), +slider.value))
+  );
+  draw(currentPop(), +slider.value);
+})();
+</script>
+```
+
+## Reading the output
+
+Running the illustration gives you, first, the two single means. The exact figures depend on your machine, but they will look something like this: `true_mean` near `4.0`, and the first `one_sample` mean around `3.7`; run the single-sample line again and you might see `4.3`, then `3.9`. The first thing to notice is the important one: **none of these numbers matches any of the others, and none matches the population mean.** Nothing has gone wrong. Every one of them is a perfectly good sample mean; they differ simply because the samples differ.
+
+The histogram is the object to dwell on. It shows the 1,000 sample means, not the 100,000 beetle lengths. Three features are worth reading deliberately:
+
+- **Where it sits.** The histogram sits centred close to the population mean, marked by the vertical line. On average the sample mean lands on the truth — it isn't systematically too high or too low — even though hardly any individual mean is bang on the true value. Read that twice, because it's the useful bit: each single estimate is almost always a little wrong, yet the estimates are correct *on average*. Being right on average and being right each time are not the same thing, and an estimate only promises the first.
+- **How wide it is.** The means run from roughly 3 to 5, even though the individual beetle lengths in the population are spread far wider than that. The spread of the *statistic* is narrower than the spread of the *data*. That's not a fluke of this particular population; it's the thing the next chapter puts numbers on.
+- **Its shape.** The population was badly skewed, yet the histogram of means comes out much more symmetric. That's a real and slightly surprising fact, and I'm leaving it unexplained on purpose — it's the hook for the central limit theorem in the next chapter.
+
+Here's the misreading to watch for: seeing the histogram sitting nicely centred on the true mean and concluding *so my one sample mean is the true mean*. The histogram says the exact opposite. It says your one mean is somewhere in that spread — probably near the middle, but you don't get to know where. The width of the histogram *is* your uncertainty, and pretending that width is zero, treating your single mean as if it were the population value, is precisely the mistake this whole chapter exists to stop you making.
+
+::: {.callout-note}
+Notice what you had to know to draw the vertical line: the true population mean. In the simulation you know it because you built the population. In research you never do — if you did, you would not be sampling. Everything from the next chapter onward is about what you can say when that line is invisible.
+:::
+
+## Check your understanding
+
+::: {.webex-check .webex-box}
+
+```{r}
+#| echo: false
+#| results: asis
+opts_freq <- sample(c(
+  answer = "The running proportion of heads settles towards one half as the flips accumulate.",
+  "Each flip becomes more likely to be heads to correct the imbalance so far.",
+  "The number of heads and the number of tails become equal as flips accumulate.",
+  "The proportion of heads reaches exactly one half and stays there after enough flips."
+))
+cat("**1.** You flip a fair coin many times, keeping a running proportion of heads. What does the frequency idea say happens?", longmcq(opts_freq))
+
+opts1 <- sample(c(
+  answer = "a quantity computed from a sample, whose value would change if another sample were taken",
+  "a fixed property of the population that we look up",
+  "the true value we would get if we measured every individual",
+  "a number that is the same for any sample of the same size"
+))
+cat("\n\n**2.** In this chapter, a *statistic* is best described as:", longmcq(opts1))
+
+opts2 <- sample(c(
+  answer = "The sample means vary from sample to sample and form a distribution.",
+  "Each sample gives the same mean because they come from one population.",
+  "The sample mean equals the population mean once the sample is large enough.",
+  "The population mean varies depending on which sample is drawn."
+))
+cat("\n\n**3.** You draw many samples of size 30 from one population and compute each mean. Which statement is correct?", longmcq(opts2))
+
+opts3 <- sample(c(
+  answer = "No — it is one draw from a distribution of possible means and need not equal the population mean.",
+  "Yes — the sample mean is an unbiased estimator, so it equals the population mean.",
+  "Yes — provided the sample was drawn at random.",
+  "No — the sample mean is always smaller than the population mean."
+))
+cat("\n\n**4.** A colleague reports a sample mean and calls it 'the population mean'. Is this reading correct?", longmcq(opts3))
+
+opts4 <- sample(c(
+  answer = "The spread of the sample means gets narrower.",
+  "The spread of the sample means gets wider.",
+  "The spread of the individual measurements gets narrower.",
+  "The population mean moves toward the sample mean."
+))
+cat("\n\n**5.** In the simulation you increase the sample size from 30 to 120. What happens?", longmcq(opts4))
+
+opts5 <- sample(c(
+  answer = "The distribution of a statistic across all possible samples of a given size.",
+  "The distribution of the raw measurements in one sample.",
+  "The distribution of the raw measurements in the whole population.",
+  "The range of values a single measurement can take."
+))
+cat("\n\n**6.** The *sampling distribution of the mean* is:", longmcq(opts5))
+
+opts6 <- sample(c(
+  answer = "Because a census measures everyone, so there is no other sample that could have been drawn.",
+  "Because the population is normally distributed.",
+  "Because the sample size equals 30.",
+  "Because the standard deviation is zero in a census."
+))
+cat("\n\n**7.** Why does a statistic from a complete census *not* vary in the way a sample statistic does?", longmcq(opts6))
+```
+
+:::
+
+## In-class exercise
+
+::: {.callout-note}
+## About this exercise
+This exercise runs across the whole two-hour session, and it is carried out **and assessed in class**. Full instructions, materials, and feedback are handed out on the day. What follows is not the task — it is a description of what to arrive holding, so that the session's time goes on thinking rather than on catching up. The task itself is deliberately not reconstructable from this outline: the data, the materials, and the specific questions appear only in the room, and several steps depend on committing a prediction *before* you are shown what happens.
+:::
+
+**Shape of the session.** The two hours run in two halves that build on each other. The first half is hands-on and involves no computer at all: you will work with a physical population and produce a statistic from it, alongside everyone else in the room, and something will be built up on the board from what the class collectively produces. The second half moves the same idea onto real data and a computer, where you will generate many samples rather than a few and look at the distribution that results. The two halves are the same phenomenon at two scales, and the point of the session is to make you feel the join between them.
+
+**What it assesses.** Objective 3 (that repeated samples from one population produce *different* values of a statistic, and that those values themselves form a distribution — the sampling distribution) and objective 5 (that the sample size controls how wide that distribution is). The definition of the sampling distribution is assessed directly: you will be asked to point to the thing you have built and say precisely what it is a distribution *of*.
+
+**Data and materials.** A physical sampling material for the first half, provided in the room. A real morphological dataset of several hundred organisms for the second half, supplied on the day; you will treat it as a population and draw samples from it.
+
+**Be comfortable with — before class:**
+
+- Taking a random sample of a given size from a data frame in the tidyverse and computing the mean of a column. These are the descriptive tools you bring from prior study; be able to do this without looking up the syntax from cold, because the session does not spend time teaching it.
+- Reading a histogram: what its horizontal position, its width and its shape each tell you. You will be doing this repeatedly and at speed.
+- The distinction this chapter draws between the spread of the raw measurements and the spread of a statistic. You will be asked to compare the two directly, and to say what you expect *before* you are shown the answer, so arrive able to state what you expect a distribution of sample means to look like relative to the distribution of the raw data.
+- The idea, from @sec-longrun and the panels above, that a statistic is wild for small samples and steadies as the sample grows. The whole second half turns on it.
+
+:::{.task}
+::::{.task-header}
+**Task: arrive ready to predict, not just to watch**
+::::
+
+::::{.task-container}
+
+Much of the session withholds the answer until you have committed to a prediction, because a prediction you have written down is one you can actually learn from when the data confirm or break it. Come prepared to commit, in writing and out loud, to each of these before seeing any result:
+
+- Before the class pools its work in the first half: will everyone's value be the same, and if not, what will the collection of values look like — clustered where, spread how far?
+- Before the sample size changes in the second half: when the sample size is doubled, what happens to the spread of the sample means, and *why*?
+- Before comparing the two histograms: how should the spread of the sample means compare with the spread of the raw measurements — wider, narrower, the same?
+
+Be ready to say each prediction to the person next to you in one sentence. You will not be marked on being right. You will be expected to have committed.
+
+::::
+:::
+
+::: {.content-hidden}
+
+<!--
+INSTRUCTOR NOTES — not for student distribution.
+
+This self-audit is design documentation for the chapter author and discusses how
+the assessment is constructed. It is wrapped in a `.content-hidden` div so that it
+stays in the source but does not render into the student-facing book. If you keep an
+instructor build profile, move it into that profile instead.
+-->
+
+## Instructor notes: chapter self-audit
+
+**(1) Is the exposition alone sufficient for revision, without the live exercise?**
+Yes. The chapter builds its own foundation: @sec-longrun establishes long-run frequency from the coin, and the worked illustration, its output, and the reading of that output carry the rest of the conceptual load — that a statistic varies, that its values form a sampling distribution, that this distribution is centred near the parameter but has width, and that width narrows with sample size. A student who missed the class could revise from the prose and code alone. The frequency idea is no longer an unmet prerequisite pushed to pre-class; the pre-class material supplies vocabulary only, and the chapter re-establishes the idea, demonstrating the law of large numbers rather than merely asserting it.
+
+**(2) Do the MCQs test the stated objectives and nothing untaught?**
+Question 1 tests objective 1 (long-run frequency, taught in @sec-longrun). Questions 2 and 4 test objectives 2 and 4 (parameter vs statistic; the misreading of a sample mean). Questions 3 and 6 test objective 3 (repeated samples form a distribution; the definition of the sampling distribution). Question 5 tests objective 5 (sample size and spread). Question 7 tests the census boundary case made explicit in the exposition, including the caveat that measurement error, unlike sampling variation, does not vanish in a census. No question requires the normal distribution, the standard error, the central limit theorem, or any R syntax beyond what the illustration shows — all held back to later chapters. No untaught material is tested.
+
+**(3) Does the exercise outline aid preparation without specifying the assessed task?**
+The outline describes the session's two-half shape (a physical first half, a computational second half) and names the skills and predictions to arrive with, but withholds the specifics that would let a student pre-solve it: the physical material, the dataset, and the questions all appear only in the room, and several steps are gated behind a prediction the student must commit before being shown the result, so reading the outline cannot substitute for doing the task. The preparation guidance and the assessed task are kept distinct. Because the book must not contain the facilitator's run-sheet (timings, materials, activity steps), that detail is held separately from the chapter, and the outline here is the only exercise-related text in the book itself.
+
+:::

@@ -1,0 +1,147 @@
+# The linear model - Pre-reading {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+Complete this material before your workshop session. It carries the
+vocabulary you will need in the room.
+
+## Video: from the t-test to the linear model {#sec-video}
+
+::: {.callout-note}
+## Watch before class
+{{< video https://www.youtube.com/embed/NF5_btOaCig?si=CGQecgQDQ_FPrLyR >}}
+
+After watching, you should be able to state why the two-sample t-test
+is a special case of a more general model.
+:::
+
+## Reading: the linear model as generalisation {#sec-reading}
+
+In Sessions 2 and 3 you worked with the fifteen paired differences
+in Darwin's maize data — the height of the cross-pollinated plant
+minus the height of the self-pollinated plant within each pot. You
+tested whether that difference is large enough to constitute evidence
+against the null hypothesis that cross-pollination has no effect.
+
+The question you answered was: is the mean of these differences
+different from zero? That question can be expressed as a **linear
+model** — a general framework that subsumes every comparison you have
+met so far and extends to problems you have not.
+
+### The simplest linear model
+
+The simplest linear model fits a single number — the mean — to a set
+of values, and tests whether that mean differs from zero. In R:
+
+```r
+lm(difference ~ 1, data = darwin_diff)
+```
+
+The `~ 1` means "fit an intercept only." The output is a
+**coefficient table** with one row:
+
+- **Estimate**: the mean of the paired differences (the same number
+  you computed in Sessions 2 and 3).
+- **Std. Error**: the standard error of that mean.
+- **t value**: the ratio of the estimate to its standard error.
+- **Pr(>|t|)**: the p-value — the probability of a t-value at least
+  this extreme if the true mean difference were zero.
+
+This is the same test as a one-sample t-test on the differences. The
+linear model does not give a different answer; it gives the same
+answer in a form that generalises.
+
+### The coefficient table
+
+The coefficient table is the single most important piece of output
+you will read for the rest of this course. Every model you fit — two
+groups, ten groups, continuous predictors, interactions — reports its
+results in this table. The columns are always the same: estimate,
+standard error, t-value, p-value. Learning to read the table once
+means you can read it for any model.
+
+### Generalising beyond two groups
+
+In Session 3, the exit question asked what happens when a third group
+enters the study. A single difference of means handles exactly two
+groups. The linear model handles any number of groups by choosing one
+level as the **reference level** and reporting the difference between
+each other level and the reference. This extension appears in
+Session 6. The table structure stays the same.
+
+### Generalising beyond paired differences
+
+When data are not paired, the linear model can take a different form.
+Instead of computing differences and testing whether their mean is
+zero, you can fit:
+
+```r
+lm(height ~ type, data = darwin)
+```
+
+Here `type` is a categorical predictor with two levels. The intercept
+is the mean of the reference level, and the coefficient for the other
+level is the estimated difference between the two means. This is
+equivalent to a two-sample t-test.
+
+For Darwin's maize, the paired analysis is the correct one because
+the design paired plants within pots. The unpaired version ignores
+that structure and gives a less precise answer. You will compare the
+two in hour 2.
+
+
+## Self-test {#sec-selftest}
+
+::: {.webex-check .webex-box}
+
+**1.** You tested whether two groups differ and got a coefficient of
+1.2 with a standard error of 0.5. A third group now enters the study.
+Can you still use a single difference of means, and if not, what do
+you need?
+
+`r hide("Answer")`
+No. A single difference of means handles exactly two groups. With
+three groups, you need a linear model that estimates differences
+relative to a reference level and tests them within a single
+framework.
+`r unhide()`
+
+**2.** In the model `lm(difference ~ 1)`, the intercept estimates
+the `r fitb(c("mean"), ignore_case = TRUE)` of the paired
+differences.
+
+`r hide("Explanation")`
+The `~ 1` formula fits an intercept only. That intercept is the mean
+of whatever values are on the left-hand side — here, the paired
+differences.
+`r unhide()`
+
+**3.** The t-value in a coefficient table is the ratio of the
+`r fitb(c("estimate"), ignore_case = TRUE)` to the
+`r fitb(c("standard error", "SE", "std. error"), ignore_case = TRUE)`.
+
+`r hide("Explanation")`
+A larger absolute t-value means the estimate is more standard errors
+away from zero, which corresponds to a smaller p-value and stronger
+evidence against the null.
+`r unhide()`
+
+**4.** True or false: for Darwin's paired maize data, fitting
+`lm(difference ~ 1)` gives the same result as a one-sample t-test
+on the differences.
+`r torf(TRUE)`
+
+`r hide("Explanation")`
+The intercept-only linear model and the one-sample t-test are
+mathematically identical. The linear model is simply the more general
+framework.
+`r unhide()`
+
+:::

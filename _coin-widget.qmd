@@ -1,0 +1,276 @@
+```{=html}
+<style>
+/* Long-run frequency widget.
+   To match the house palette, set --coin-accent below to the output of
+   colorspace::qualitative_hcl(1, palette = "Dark 3") in R. */
+#coin-lab {
+  --coin-accent: #4A6FA5;
+  --coin-ghost: rgba(74, 111, 165, 0.32);
+  --coin-ghost: color-mix(in srgb, var(--coin-accent) 30%, transparent);
+  --coin-ink: var(--bs-body-color, #1f2328);
+  --coin-rule: var(--bs-border-color, #d0d5da);
+  --coin-muted: #6b7280;
+  --coin-muted: color-mix(in srgb, var(--coin-ink) 60%, transparent);
+  border: 1px solid var(--coin-rule);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+#coin-lab .coin-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+#coin-lab button {
+  font: inherit;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--coin-rule);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--coin-ink);
+  cursor: pointer;
+}
+#coin-lab button:hover:not(:disabled) { border-color: var(--coin-accent); }
+#coin-lab button:focus-visible { outline: 2px solid var(--coin-accent); outline-offset: 2px; }
+#coin-lab button:disabled { opacity: 0.45; cursor: default; }
+#coin-lab button.coin-secondary { color: var(--coin-muted); }
+#coin-lab .coin-readout {
+  margin: 0.5rem 0 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+#coin-lab .coin-readout strong { color: var(--coin-accent); }
+#coin-lab svg { width: 100%; height: auto; display: block; }
+#coin-lab table {
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+#coin-lab th, #coin-lab td {
+  padding: 0.25rem 0.9rem 0.25rem 0;
+  text-align: left;
+  border-bottom: 1px solid var(--coin-rule);
+}
+#coin-lab td.coin-pending { color: var(--coin-muted); }
+#coin-lab .coin-caption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--coin-muted);
+}
+</style>
+
+<div id="coin-lab">
+  <div class="coin-controls">
+    <button type="button" data-flip="1">Flip once</button>
+    <button type="button" data-flip="10">Flip 10</button>
+    <button type="button" data-flip="100">Flip 100</button>
+    <button type="button" data-flip="1000">Flip 1000</button>
+    <button type="button" class="coin-secondary" data-action="new">Start a new run</button>
+    <button type="button" class="coin-secondary" data-action="clear">Clear everything</button>
+  </div>
+
+  <p class="coin-readout" aria-live="polite" id="coin-readout">
+    No flips yet. Press a button to start.
+  </p>
+
+  <svg id="coin-svg" viewBox="0 0 700 300" role="img"
+       aria-label="Running proportion of heads against number of flips."></svg>
+
+  <table>
+    <caption class="visually-hidden">Proportion of heads at each milestone in the current run</caption>
+    <thead>
+      <tr><th scope="col">After</th><th scope="col">Proportion heads</th><th scope="col">Distance from 0.5</th></tr>
+    </thead>
+    <tbody id="coin-milestones"></tbody>
+  </table>
+
+  <p class="coin-caption">
+    The solid line is the run in progress. Faint lines are runs you have already
+    finished. The dashed line is 0.5.
+  </p>
+
+  <noscript>
+    <p><strong>This demonstration needs JavaScript.</strong> If it is switched off,
+    the short version is: the proportion of heads swings wildly for the first few
+    dozen flips and settles towards 0.5 over the first few hundred, without ever
+    landing exactly on it.</p>
+  </noscript>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.getElementById("coin-lab");
+  if (!root) return;
+
+  var svg = document.getElementById("coin-svg");
+  var readout = document.getElementById("coin-readout");
+  var milestoneBody = document.getElementById("coin-milestones");
+  var buttons = root.querySelectorAll("button");
+
+  var W = 700, H = 300, ML = 46, MR = 14, MT = 12, MB = 34;
+  var PW = W - ML - MR, PH = H - MT - MB;
+  var STEPS = [20, 50, 100, 250, 500, 1000, 2000];
+  var CAP = 2000;
+  var MILESTONES = [10, 100, 1000];
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var ghosts = [];   // finished runs, each an array of running proportions
+  var current = [];  // run in progress
+  var heads = 0;
+  var busy = false;
+
+  function xMaxFor(n) {
+    for (var i = 0; i < STEPS.length; i++) if (STEPS[i] >= n) return STEPS[i];
+    return STEPS[STEPS.length - 1];
+  }
+
+  function pathFor(props, xMax) {
+    if (!props.length) return "";
+    var d = "", x, y;
+    for (var i = 0; i < props.length; i++) {
+      x = ML + ((i + 1) / xMax) * PW;
+      y = MT + (1 - props[i]) * PH;
+      d += (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+    return d;
+  }
+
+  function el(name, attrs, text) {
+    var node = document.createElementNS("http://www.w3.org/2000/svg", name);
+    for (var k in attrs) node.setAttribute(k, attrs[k]);
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function longest() {
+    var n = current.length;
+    for (var i = 0; i < ghosts.length; i++) n = Math.max(n, ghosts[i].length);
+    return n;
+  }
+
+  function draw() {
+    var xMax = xMaxFor(Math.max(longest(), 1));
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // Horizontal gridlines and y-axis labels
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (p) {
+      var y = MT + (1 - p) * PH;
+      svg.appendChild(el("line", {
+        x1: ML, x2: ML + PW, y1: y, y2: y,
+        stroke: "currentColor", "stroke-width": p === 0.5 ? 1 : 0.5,
+        "stroke-dasharray": p === 0.5 ? "5 4" : "none",
+        opacity: p === 0.5 ? 0.75 : 0.18
+      }));
+      svg.appendChild(el("text", {
+        x: ML - 8, y: y + 4, "text-anchor": "end",
+        "font-size": 12, fill: "currentColor", opacity: 0.7
+      }, p.toFixed(2)));
+    });
+
+    // x-axis labels
+    [0, Math.round(xMax / 2), xMax].forEach(function (v) {
+      svg.appendChild(el("text", {
+        x: ML + (v / xMax) * PW, y: H - 10, "text-anchor": "middle",
+        "font-size": 12, fill: "currentColor", opacity: 0.7
+      }, String(v)));
+    });
+    // Finished runs, then the run in progress on top
+    ghosts.forEach(function (run) {
+      svg.appendChild(el("path", {
+        d: pathFor(run, xMax), fill: "none",
+        stroke: "var(--coin-ghost)", "stroke-width": 1.2
+      }));
+    });
+    if (current.length) {
+      svg.appendChild(el("path", {
+        d: pathFor(current, xMax), fill: "none",
+        stroke: "var(--coin-accent)", "stroke-width": 1.8,
+        "stroke-linejoin": "round"
+      }));
+    }
+
+    svg.setAttribute("aria-label",
+      "Running proportion of heads over " + current.length +
+      " flips, on a horizontal axis running to " + xMax + " flips.");
+  }
+
+  function updateText() {
+    var n = current.length;
+    if (n === 0) {
+      readout.textContent = ghosts.length
+        ? "New run started. " + ghosts.length + " finished run" +
+          (ghosts.length === 1 ? "" : "s") + " shown faintly."
+        : "No flips yet. Press a button to start.";
+    } else {
+      var p = heads / n;
+      readout.innerHTML = n + " flips, " + heads + " heads. Proportion so far: <strong>" +
+        p.toFixed(3) + "</strong>. That is " + Math.abs(p - 0.5).toFixed(3) + " away from 0.5.";
+    }
+
+    milestoneBody.innerHTML = "";
+    MILESTONES.forEach(function (m) {
+      var row = document.createElement("tr");
+      var reached = current.length >= m;
+      var p = reached ? current[m - 1] : null;
+      row.innerHTML =
+        "<th scope='row'>" + m + " flips</th>" +
+        (reached
+          ? "<td>" + p.toFixed(3) + "</td><td>" + Math.abs(p - 0.5).toFixed(3) + "</td>"
+          : "<td class='coin-pending'>not yet</td><td class='coin-pending'>&ndash;</td>");
+      milestoneBody.appendChild(row);
+    });
+  }
+
+  function render() { draw(); updateText(); }
+
+  function addFlips(k) {
+    for (var i = 0; i < k && current.length < CAP; i++) {
+      if (Math.random() < 0.5) heads++;
+      current.push(heads / (current.length + 1));
+    }
+  }
+
+  function setBusy(state) {
+    busy = state;
+    for (var i = 0; i < buttons.length; i++) buttons[i].disabled = state;
+  }
+
+  function flip(n) {
+    if (busy) return;
+    if (reduceMotion || n <= 10) { addFlips(n); render(); return; }
+    setBusy(true);
+    var remaining = n;
+    var perFrame = Math.max(1, Math.round(n / 60));
+    (function step() {
+      addFlips(Math.min(perFrame, remaining));
+      remaining -= perFrame;
+      render();
+      if (remaining > 0) { requestAnimationFrame(step); } else { setBusy(false); }
+    })();
+  }
+
+  root.addEventListener("click", function (event) {
+    var target = event.target.closest("button");
+    if (!target || busy) return;
+
+    if (target.dataset.flip) {
+      flip(parseInt(target.dataset.flip, 10));
+    } else if (target.dataset.action === "new") {
+      if (current.length) { ghosts.push(current); }
+      current = []; heads = 0;
+      render();
+    } else if (target.dataset.action === "clear") {
+      ghosts = []; current = []; heads = 0;
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+```

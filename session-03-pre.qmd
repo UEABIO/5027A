@@ -1,0 +1,213 @@
+# Hypotheses - Pre-Reading {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+Complete this material before your workshop session. 
+
+## Video: hypotheses as population claims {#sec-video}
+
+::: {.callout-note}
+## Watch before class
+
+{{< video https://www.youtube.com/embed/0oc49DyA3hU?si=M0ckNvFNjXlw_S7x >}}
+
+After watching, you should be able to write a null and an alternative
+hypothesis as statements about a population.
+
+:::
+
+The video introduces the idea that a statistical hypothesis is a claim
+about a population, not about a sample. It covers:
+
+- The **null hypothesis**, written H~0~, and the **alternative
+  hypothesis**, written H~1~.
+- Why the null is a specific, testable claim (usually of no effect or
+  no difference) while the alternative states what you would conclude
+  if the null were rejected.
+- What it means for an alternative to be **directional** (one-sided)
+  or **non-directional** (two-sided).
+
+The video does not cover alpha, significance thresholds, or p-values.
+Those appear in the workshop.
+
+
+## Reading: hypotheses and the measurement {#sec-reading}
+
+### Hypotheses are claims about populations
+
+In the last session you estimated a population quantity from a single sample
+and quantified your uncertainty with a confidence interval. That
+interval told you *where the population value plausibly lies*. It did
+not tell you whether a specific claim about the population is
+supported by the data. That is the job of a hypothesis test.
+
+A **statistical hypothesis** is a precise claim about a population
+parameter. You always work with two hypotheses as a pair.
+
+The **null hypothesis** (H~0~) states that there is no effect, no
+difference, or no relationship in the population. It is the claim you
+will try to reject. The null must be specific enough to generate
+predictions: if H~0~ is true, what data would you expect?
+
+The **alternative hypothesis** (H~1~) states that the population
+parameter differs from the null value. It is what you conclude if the
+data are sufficiently unlikely under H~0~.
+
+A hypothesis is always about the population. A statement about what
+happened in your sample is a description, not a hypothesis.
+
+Is the following a valid null hypothesis? 
+
+"The mean of my sample is 5.2." `r torf(FALSE)`
+
+`r hide("Explanation")`
+No. A hypothesis is a claim about a population parameter, not a
+description of a sample quantity. The sample mean is a known number;
+there is nothing to test.
+`r unhide()`
+
+### Directionality
+
+The alternative hypothesis can be **non-directional** (two-sided) or
+**directional** (one-sided).
+
+A two-sided alternative states that the population parameter differs
+from the null value, without specifying the direction. For a
+population mean $\mu$:
+
+$$H_0: \mu = 0 \qquad H_1: \mu \neq 0$$
+
+A one-sided alternative specifies the direction of the difference:
+
+$$H_0: \mu = 0 \qquad H_1: \mu > 0$$
+
+The choice between one-sided and two-sided is made before looking at
+the data. It follows from the research question, not from the results.
+
+```{r}
+#| echo: false
+opts_direction <- sample(c(
+  "One-sided, because the question specifies a direction",
+  answer = "Two-sided, because the question asks whether the treatment has an effect without specifying a direction",
+  "It depends on the results"
+))
+```
+
+A researcher asks: "Does this drug affect blood pressure?" Which
+alternative is appropriate?
+
+`r longmcq(opts_direction)`
+
+`r hide("Explanation")`
+The question asks whether the drug *affects* blood pressure, not
+whether it raises or lowers it. That is a two-sided question. If the
+question were "Does this drug *lower* blood pressure?", the
+alternative would be one-sided.
+`r unhide()`
+
+### The measurement: Darwin's maize data
+
+You already know this dataset from last time. Darwin grew fifteen
+pairs of maize plants, one cross-pollinated and one self-pollinated
+in each pair, and measured their heights. For each pair, the quantity
+of interest is the **paired difference**: the height of the
+cross-pollinated plant minus the height of the self-pollinated plant.
+
+The question is whether cross-pollination increases height. Stated as
+hypotheses about the population mean of the paired differences,
+$\mu_d$:
+
+$$H_0: \mu_d = 0 \qquad H_1: \mu_d > 0$$
+
+H~0~ claims that cross-pollination makes no difference to height in
+the population. H~1~ claims that cross-pollinated plants are taller
+on average.
+
+Is this alternative one-sided or two-sided?
+`r mcq(c(answer = "One-sided", "Two-sided"))`
+
+`r hide("Explanation")`
+One-sided. Darwin's question was specifically whether cross-pollination
+*increases* height, not merely whether it changes height. The
+alternative specifies a direction: $\mu_d > 0$.
+`r unhide()`
+
+Notice that the hypotheses say nothing about the fifteen plants Darwin
+actually grew. They are claims about what would happen across all
+possible pairs of plants, of which Darwin observed fifteen.
+
+### What comes next
+
+In the workshop you will generate data under the null hypothesis and
+use it to judge whether the observed difference is surprising. The
+formal name for that judgment is a **p-value**. Before class, complete
+the commitment task and self-test below.
+
+
+## Commitment task {#sec-commitment}
+
+::: {.callout-warning}
+## Bring this to class
+
+Write down, in one or two sentences, what you currently think
+"statistically significant" means. Do not look it up. There is no
+mark for this and no correct answer is expected — the point is to
+have something concrete to revise in the workshop.
+
+Bring what you wrote to the session.
+:::
+
+
+## Self-test {#sec-selftest}
+
+::: {.webex-check .webex-box}
+
+**1.** You have a 95% confidence interval of [3.8 - 4.6] for the
+difference in height. A colleague claims the true difference is zero.
+Does your interval answer whether they are wrong, and if not, what
+would?
+
+```{r}
+#| echo: false
+opts_exit2 <- sample(c(
+  "Yes — zero is excluded from the 95% confidence interval, so the data provide evidence against a zero effect.",
+  answer = "The interval excludes zero, which at the 5% level is consistent with rejecting the null hypothesis of a zero effect.",
+  "No — a confidence interval cannot tell us anything about zero."
+))
+```
+
+`r longmcq(opts_exit2)`
+
+**2.** A null hypothesis is a statement about
+`r mcq(c("a sample", answer = "a population", "a test statistic"))`.
+
+**3.** A researcher asks whether a new fertiliser changes crop yield
+compared to the current fertiliser. The appropriate alternative
+hypothesis is `r mcq(c("one-sided", answer = "two-sided"))`.
+
+`r hide("Explanation")`
+The question asks whether yield *changes*, not whether it increases or
+decreases. A non-directional question calls for a two-sided
+alternative.
+`r unhide()`
+
+**4.** In Darwin's maize experiment, the paired difference is defined
+as the height of the `r mcq(c(answer = "cross-pollinated", "self-pollinated"))`
+plant minus the height of the
+`r mcq(c("cross-pollinated", answer = "self-pollinated"))` plant.
+
+**5.** The choice between a one-sided and two-sided alternative should
+be made `r mcq(c(answer = "before looking at the data", "after looking at the data", "after computing the p-value"))`.
+
+`r hide("Explanation")`
+The choice between a one-sided and two-sided test should be made before looking at the data, because choosing the direction after seeing the result can bias the inference and inflate the false-positive rate. The direction should instead be determined by the research question and scientific rationale in advance.
+`r unhide()`
+
+:::

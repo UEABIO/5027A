@@ -34,43 +34,30 @@ book:
     header: ''
     footer: ''
   margin-header: ''
-  page-footer: CC-BY (2025) Philip Leftwich
+  page-footer: CC-BY (2026) Philip Leftwich
   chapters:
-  - part: "Weekly Sessions"
-    chapters:
     - index.qmd
-    - 04-penguin-project.qmd
-    - weekone.qmd
-    - 05-dplyr.qmd
-    - weektwo.qmd
-    - 07-data-insights.qmd
-    - weekthree.qmd
-    - 08-inferential-statistics.qmd
-    - 09-linear-models.qmd
-    - weekfour.qmd
-    - 11-regression.qmd
-    - weekfive.qmd
-    - 12-ANOVA.qmd
-    - weeksix.qmd
-    - model-assumptions.qmd
-  - part: "Summary tables"
-    chapters:
-    - summary-table.qmd
-  - part: "Data Visualisation"
-    chapters:
-    - ggplot.qmd
-    - customising-plots.qmd
-    - visualising-models.qmd
-    - advanced_ggplot.qmd
-  - part: "Reproducible Reports"
-    chapters:
-    - quarto.qmd
-    - quarto-reference.qmd
-  appendices:
-  - r-basics.qmd
-  - projects.qmd
-  - tidy-data.qmd
-  - references.qmd
+    - part: "Week One"
+      chapters:
+        - session-01-pre.qmd
+        - session-01-workshop.qmd
+        - session-01-computation.qmd
+    - part: "Week Two"
+      chapters:
+        - session-02-pre.qmd
+        - session-02-workshop.qmd
+        - session-02-computation.qmd
+    - part: "Week Three"
+      chapters:
+        - session-03-pre.qmd
+        - session-03-workshop.qmd
+        - session-03-computation.qmd
+    - part: "Week Four"
+      chapters:
+        - session-04-pre.qmd
+        - session-04-workshop.qmd
+        - session-04-computation.qmd
+
 bibliography:
   - include/packages.bib
   - include/references.bib

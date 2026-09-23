@@ -1,0 +1,157 @@
+# Calculating t {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+This page summarises what we covered in the first hour of Session 4.
+Use it for revision; the full activities were worked through in class.
+
+**Progression:** null hypothesis → simulate under H₀ → null
+distribution → observed statistic → p-value → **estimate ± SE →
+coefficient table → the linear model as generalisation.**
+
+## Retrieval and ranking: round 1 {#sec-ranking-1}
+
+We began with three scenarios. In each, the difference between two
+group means was the same (2.0 units), but the standard error of that
+difference varied:
+
+| Scenario | Difference | SE  |
+|----------|-----------|-----|
+| A        | 2.0       | 0.5 |
+| B        | 2.0       | 1.0 |
+| C        | 2.0       | 2.0 |
+
+Each bench ranked the three by strength of evidence for a real
+difference. Most benches arrived at A > B > C: the same difference is
+more convincing when measured more precisely.
+
+::: {.webex-check .webex-box}
+**Check your understanding.** In Scenario C, the t-statistic is
+`r fitb(1)`.
+
+`r hide("Explanation")`
+t = 2.0 / 2.0 = 1.0. Compare this with Scenario A, where t = 4.0.
+The ratio, not the estimate alone, determines the evidence.
+`r unhide()`
+:::
+
+## Retrieval and ranking: round 2 {#sec-ranking-2}
+
+The second round held the standard error constant and varied the
+difference:
+
+| Scenario | Difference | SE  |
+|----------|-----------|-----|
+| D        | 0.5       | 1.0 |
+| E        | 2.0       | 1.0 |
+| F        | 5.0       | 1.0 |
+
+Benches ranked D < E < F. A larger difference, at the same level of
+precision, provides stronger evidence.
+
+::: {.callout-note}
+## The rule
+The strength of evidence depends on the ratio of the estimate to its
+standard error. This ratio is the **t-statistic**, and it is the
+number the coefficient table reports. Round 1 showed that precision
+matters; round 2 showed that the size of the difference matters. The
+t-statistic captures both.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** Two studies report the same t-statistic
+of 3.0. Study 1 has a difference of 6.0 and an SE of 2.0. Study 2
+has a difference of 0.3 and an SE of 0.1. Do the two studies provide
+the same strength of evidence against the null?
+
+`r mcq(c(answer = "Yes — the t-statistic is the same, so the evidence against the null is the same", "No — Study 1 has a larger difference so it provides stronger evidence", "No — Study 2 has a smaller SE so it provides stronger evidence"))`
+
+`r hide("Explanation")`
+The t-statistic determines the p-value, so the two studies provide
+the same strength of evidence against the null hypothesis that the
+difference is zero. Whether the biological effect is important is a
+separate question — that depends on the magnitude of the difference,
+not on the t-value. This distinction was previewed in Session 3
+(item 3.14: significance is not importance).
+`r unhide()`
+:::
+
+## Reading a coefficient table on paper {#sec-coeftable}
+
+We then read a coefficient table from a study comparing wing length
+across three *Drosophila* species (A, B, C), with species A as the
+reference level:
+
+|             | Estimate | Std. Error | t value | Pr(>|t|) |
+|-------------|----------|------------|---------|----------|
+| (Intercept) | 2.10     | 0.08       | 26.25   | < 0.001  |
+| speciesB    | 0.35     | 0.11       | 3.18    | 0.004    |
+| speciesC    | −0.12    | 0.11       | −1.09   | 0.284    |
+
+We identified: the intercept is the mean wing length of species A;
+the coefficient for speciesB is the estimated difference between B
+and A (B is 0.35 mm longer); the coefficient for speciesC is the
+estimated difference between C and A (C is 0.12 mm shorter, but the
+evidence is weak). The table has three rows: one intercept plus one
+row per non-reference level.
+
+::: {.webex-check .webex-box}
+**Check your understanding.** What is the estimated mean wing length
+of species B?
+
+`r fitb(2.45)`
+
+`r hide("Explanation")`
+The mean of species B is the intercept plus the coefficient for
+speciesB: 2.10 + 0.35 = 2.45. To recover the mean of any level,
+add its coefficient to the intercept.
+`r unhide()`
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** The table does not include a direct
+comparison between species B and species C. Why not?
+
+`r hide("Answer")`
+The model reports every level's difference from the reference (A),
+not every pairwise comparison. To compare B and C, you could change
+the reference level (Session 6) or compute the contrast from the
+existing coefficients: 0.35 − (−0.12) = 0.47. The linear model
+framework handles this, but the default table shows only differences
+from the reference.
+`r unhide()`
+:::
+
+## The connection to Sessions 2 and 3 {#sec-connection}
+
+In Sessions 2 and 3 you worked with the paired differences in
+Darwin's maize data. You computed the mean difference, its standard
+error, and its confidence interval (Session 2), and tested whether
+the difference was large enough to reject the null (Session 3). The
+intercept-only linear model `lm(difference ~ 1)` produces the same
+numbers in the coefficient table. The t-statistic in that table is
+the same ratio — estimate divided by standard error — that you used
+in the ranking exercise.
+
+The advantage of the linear model is that the same framework extends
+to three groups (the paper exercise above), continuous predictors,
+and combinations of both. You will use this extension in Sessions 6
+and 7.
+
+## Exit ticket {#sec-exit}
+
+The question posed at the end of the session:
+
+> You receive a collaborator's spreadsheet to analyse. The "species"
+> column contains entries recorded as "Drosophila", "drosophila",
+> "D. melanogaster", and "Dros.". You fit
+> `lm(wing_length ~ species, data = df)` and get four coefficients
+> for species (plus the intercept). Is the model answering the
+> question you intended, and what should you do before fitting it?

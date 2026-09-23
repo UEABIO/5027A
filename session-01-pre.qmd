@@ -1,0 +1,228 @@
+# Probability - Pre-Reading {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+
+Complete this material before your first workshop session. It carries the vocabulary you will need in the room.
+
+## Video: population, sample, and what a variable is {#sec-video}
+
+::: {.callout-note}
+## Watch before class
+
+{{< video https://www.youtube.com/embed/oI3hZJqXJuc >}}
+
+After watching, you should be able to state the difference between a population and a sample.
+:::
+
+## Reading: probability and the sampling idea {#sec-reading}
+
+### Two directions of reasoning
+
+Probability and statistics get talked about together a lot. They are closely related but not identical concepts. Probability theory is the "doctrine of chances"[^1]. It's a branch of mathematics that tells you how often different kinds of events will happen. 
+
+[^1]: [Why probability probably doesn’t exist (but it is useful to act like it does)](https://www.nature.com/articles/d41586-024-04096-5)
+
+The following are simple examples of things you can answer using
+probability theory:
+
+- If both parents are heterozygous (Aa), what fraction of offspring
+  show the recessive phenotype? `r fitb(c("1/4", "0.25", ".25"), ignore_case = TRUE)`
+
+`r hide("Explanation")` The cross Aa × Aa gives genotypes AA, Aa, aA,
+and aa with equal probability. Only aa (one out of four) shows the
+recessive phenotype. `r unhide()`
+
+- If a clutch has eight eggs and each is equally likely to be male or
+  female, how likely is it that all eight are female?
+  `r fitb(c("1/256", "0.0039", "0.004", ".0039", ".004"), ignore_case = TRUE)`
+
+`r hide("Explanation")` Each egg has probability 1/2 of being female,
+and the eggs are independent, so the probability that all eight are
+female is (1/2)^8^ = 1/256 ≈ 0.004. `r unhide()`
+
+- A seabird lays two eggs. Each hatches independently with probability
+  0.8. What is the probability that both hatch?
+  `r fitb(c("0.64", ".64"), ignore_case = TRUE)`
+
+`r hide("Explanation")` The two events are independent, so the
+probability that both occur is 0.8 × 0.8 = 0.64. `r unhide()`
+
+Statistics works in the opposite direction to probability. In probability you *know* the process that generates data and you work out what the data are likely to look like. In statistics you have the data and you work backwards to *learn* how it was generated. 
+
+A coin is fair — what proportion of heads will I see in 100 flips? That is probability. I saw 73 heads in 100 flips — is the coin fair? That is statistics. Every method in this course is a tool for reasoning backwards from data to the process that produced them.
+
+### What probability means in this course
+
+The word "probability" can mean several things. This course uses the **frequentist definition**: the probability of an event is the proportion of times it occurs in a long run of identical repetitions. Flip a fair coin ten times and you might see seven heads. Flip it a hundred times and the proportion of heads will be closer to one-half. Flip it ten thousand times and closer still. Our working definition of probability *is* that long-run proportion.
+
+::: {.callout-note}
+## Interactive demonstration
+
+{{< include _coin-widget.qmd >}}
+:::
+
+The crucial feature of the frequentist definition is that it says nothing about any single flip. It tells you what happens when you repeat the same process many times. That idea — *what would happen if we repeated the process many times* — is key to our statistics.
+
+## Random variables, distributions, and the sample space
+
+A **variable** is a quantity that differs between observations: the mass of a bean, the height of a plant, the number of colonies on a plate. When the value you observe depends on chance (which bean you happened to pick, which plant you happened to measure), the variable is a **random variable**.
+
+The **sample space** is the set of all values a random variable can take. For a coin it is {heads, tails}. For the mass of a bean it is every positive real number, though in practice the masses cluster within a limited range. A **probability distribution** assigns a probability to each subset of the sample space. It tells you **how likely each value, or each range of values, is**.
+
+You can think of a probability distribution as a shape. Where the shape is tall, values are common; where it is low, values are rare. Different processes produce different shapes. A fair die gives a flat shape (each face equally likely) known as the *uniform distribution*. The masses of beans from a single variety give a shape that rises to a peak and tails off — most beans are near the middle, few are very light or very heavy known as the *normal distribution*.
+
+## The normal distribution
+
+One distribution matters more than any other in this course. The **normal distribution** (also called the Gaussian distribution) is a symmetric, bell-shaped curve defined by two numbers: its mean (the centre) and its standard deviation (the width). Many biological measurements are approximately normal: heights, masses, concentrations, log-transformed counts.
+
+### The 68-95-99.7 rule
+
+The **68-95-99.7 rule** summarises how probability is spread across a normal distribution:
+
+- About 68% of values fall within one standard deviation of the mean.
+- About 95% fall within two standard deviations.
+- About 99.7% fall within three standard deviations.
+
+```{r}
+#| label: fig-normal-rule
+#| echo: false
+#| fig-cap: "The normal distribution with mean (0) and standard deviation (1). The x axis corresponds to the value of some variable, and the y axis tells us something about how likely we are to observe that value."
+#| fig-align: center
+#| out-width: "80%"
+
+x <- seq(-4, 4, length.out = 400)
+y <- dnorm(x)
+
+ggplot(tibble(x, y), aes(x, y)) +
+  geom_area(
+    data = tibble(x, y) |> filter(abs(x) <= 3),
+    fill = "#4477AA", alpha = 0.12
+  ) +
+  geom_area(
+    data = tibble(x, y) |> filter(abs(x) <= 2),
+    fill = "#4477AA", alpha = 0.15
+  ) +
+  geom_area(
+    data = tibble(x, y) |> filter(abs(x) <= 1),
+    fill = "#4477AA", alpha = 0.20
+  ) +
+  geom_line(linewidth = 0.8) +
+  annotate("text", x = 0, y = 0.15, label = "68%", size = 5) +
+  annotate("text", x = 1.5, y = 0.04, label = "95%", size = 4) +
+  annotate("text", x = 2.5, y = 0.015, label = "99.7%", size = 3.5) +
+  scale_x_continuous(
+    breaks = -3:3,
+    labels = c("-3", "-2", "-1", "0", "+1", "+2", "+3")
+  ) +
+  labs(x = NULL, y = "Density") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.minor = element_blank())
+```
+
+This rule gives you a rough sense of what is ordinary and what is surprising. If a single observation is three standard deviations from the mean of its distribution, it is unusual. You will use this intuition repeatedly.
+
+## The sampling distribution of the mean
+
+So far the examples have been bean masses, which are roughly normal. In the workshop you will use a variable that is not: reaction time, which has a long right tail because a slow trial can be very slow but a fast trial cannot be faster than about 150 ms.
+
+Suppose every student in your class has recorded their reaction time in a shared spreadsheet. You draw a random sample of 6 students and compute the mean of their reaction times. Now draw another 6, and compute the mean again. Each sample gives a different mean — not because anything changed, but because chance determined which students you happened to pick.
+
+If you repeated this process many times and plotted all the sample means on a histogram, you would see a distribution. That distribution is the **sampling distribution of the sample mean**. Three things about it are important enough to state now, though we will develop them further in later sessions:
+
+1. **Centre.** The sampling distribution is centred on the population mean. On average, the sample mean is correct.
+
+2. **Width.** The sampling distribution is narrower than the distribution of individual values. Averaging reduces the variability.
+
+3. **Shape.** The sampling distribution tends to be approximately normal, even when the individual values are not. You will see this in today's workshop, and the next session.
+
+The sampling distribution is one of our **most important concepts**. Everything that follows — *standard errors*, *confidence intervals*, *p-values* — are a consequence of the fact that a statistic computed from a random sample is itself random.
+
+So each roll of the die is random, even if the distribution of values follows a known probability distribution
+
+::: {.callout-tip}
+## Bring a device
+
+In the workshop you will measure your own reaction time using the [Human Benchmark](https://humanbenchmark.com/tests/reactiontime) reaction-time test. Bring a laptop or phone with a browser. The test runs five trials and reports your average in milliseconds; that single average is the number you will use.
+:::
+
+::: {.callout-note collapse="true"}
+
+<iframe 
+  src="sampling.html"
+  width="100%"
+  height="1200"
+  style="border: none;">
+</iframe>
+
+:::
+
+## Primer: the unit of observation {#sec-primer}
+
+Before you collect data, you need to know what counts as one independent observation. Getting this wrong inflates your sample size and with it every claim you make.
+
+Consider a physiologist who measures blood glucose in 10 mice, taking
+three blood drops from each mouse. She has `r fitb("30")` numbers, but
+she does not have 30 independent observations. The three drops from one
+mouse come from the same animal under the same conditions. They will be
+more alike than drops from different mice. The independent unit of
+observation is the `r fitb(c("mouse", "Mouse"), ignore_case = TRUE)`,
+and the sample size is `r fitb("10")`, not 30. The three drops per
+mouse are **technical replicates** — repeated measurements of the same
+unit — and they tell you about measurement precision, not about the
+population of mice.
+
+Now consider a marine biologist who records the shell length of 50
+mussels collected from a single rocky shore. Each mussel is a separate
+organism, so the independent unit of observation is the
+`r fitb(c("mussel", "Mussel"), ignore_case = TRUE)`, and the sample
+size is `r fitb("50")`. (Whether those 50 mussels tell you about
+mussels in general, or only about mussels on that particular shore, is
+a different question — one about the population the sample represents,
+not about what counts as one observation.)
+
+The rule is: two observations are independent if knowing the value of one tells you nothing about the value of the other, beyond what you already knew from the population. When multiple measurements come from the same biological unit — the same mouse, the same plant, the same Petri dish — they are not independent of one another, and the unit, not the measurement, is the observation.
+
+Bring this vocabulary to the workshop. You will need it in the first ten minutes.
+
+## Self-test {#sec-selftest}
+
+::: {.webex-check .webex-box}
+
+```{r}
+#| echo: false
+opts_pop <- sample(c(
+  answer = "the entire group of individuals or values about which you want to draw conclusions",
+  "the group of individuals you actually measured",
+  "the subset of data you analyse in R"
+))
+```
+
+**1.** A population is `r longmcq(opts_pop)`.
+
+**2.** Under the frequentist definition, the probability of an event is its long-run `r fitb("proportion", ignore_case = TRUE)` across many identical repetitions.
+
+**3.** If a measurement is normally distributed, approximately `r fitb("95")` per cent of values lie within two standard deviations of the mean.
+
+```{r}
+#| echo: false
+opts_sd <- sample(c(
+  "narrower than the raw data distribution",
+  "wider than the raw data distribution",
+  answer = "centred on the population mean and narrower than the raw data distribution",
+  "centred on the sample mean and wider than the raw data distribution"
+))
+```
+
+**4.** The sampling distribution of the sample mean is `r longmcq(opts_sd)`.
+
+**5.** A researcher takes four leaf samples from each of six plants and measures chlorophyll concentration. The independent unit of observation is the `r fitb(c("plant", "Plant"), ignore_case = TRUE)`, and the sample size is `r fitb("6")`.
+
+:::

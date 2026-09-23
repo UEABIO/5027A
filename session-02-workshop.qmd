@@ -1,0 +1,220 @@
+# Building the confidence interval {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+This page summarises what we covered in the first hour of Session 2.
+Use it for revision; the full activities were worked through in class.
+
+**Progression:** SD of the data → SE of the mean → confidence interval.
+
+## Recovering the mechanism from Session 1 {#sec-board-recovery}
+
+We began by returning to the photograph of the Session 1 board. Each
+dot on that board was one group's sample mean from the bean tub, and
+the spread of dots was the sampling distribution of the mean.
+
+Two numbers were displayed alongside the photograph:
+
+- the standard deviation of the individual bean weights (from the tub),
+- the standard deviation of the class means (from the dots on the board).
+
+The first number was larger than the second. Averaging cancels out
+extreme values: a mean of twenty beans cannot be as extreme as the most
+extreme single bean, so the class means clustered more tightly than the
+raw weights.
+
+::: {.callout-note}
+## The rule
+The standard deviation of the sampling distribution of the mean is the
+**standard error of the mean** (SE). It is not a separate quantity from
+the standard deviation; it is what you get when you compute the SD of
+the sample means rather than the SD of the individual values.
+
+From a single sample, the SE is computed directly from the sample SD:
+
+$$
+\text{SE} = \frac{\text{SD}}{\sqrt{n}}
+$$
+:::
+
+The Session 1 board made the SE physical. We did not compute it, because
+we already had it: it was the spread of the dots the class had drawn.
+
+::: {.webex-check .webex-box}
+
+**Check your understanding.** A colleague reports the standard deviation
+of blood pressure readings from 100 patients. This number describes
+`r mcq(c(answer = "the spread of readings across patients", "the precision of the sample mean", "the width of a 95% confidence interval"))`.
+
+`r hide("Explanation")`
+
+The SD of the readings describes how variable blood pressure is from
+one patient to the next. The SE (which is $\text{SD}/\sqrt{100}$)
+would describe the precision of the sample mean.
+
+`r unhide()`
+
+:::
+
+## Computing the standard error for Darwin's maize {#sec-se-maize}
+
+We then applied the formula to the dataset introduced in the pre-class
+reading: the 15 paired height differences from Darwin's maize
+experiment.
+
+You were given the standard deviation of the 15 differences (4.72
+inches). At the bench you computed the standard error as:
+
+$$
+\text{SE} = \frac{4.72}{\sqrt{15}} \approx 1.22 \text{ inches}
+$$
+
+This is what the sampling distribution of the mean difference would
+look like if Darwin had repeated the whole experiment many times, each
+time with 15 new pairs. The sample means would be spread around the
+true mean with a standard deviation of about 1.22 inches.
+
+This number is the same quantity you saw as the spread of dots on the
+Session 1 board, but computed from a single sample rather than from
+many.
+
+::: {.webex-check .webex-box}
+
+**Check your understanding.** A dataset has SD = 8 and $n$ = 64. The SE
+is `r fitb(1)`.
+
+`r hide("Explanation")`
+
+$\text{SE} = 8 / \sqrt{64} = 8 / 8 = 1$.
+
+`r unhide()`
+
+:::
+
+## From standard error to confidence interval {#sec-se-to-ci}
+
+We paused to think about what the SE is a ruler for. The point estimate
+is the mean of the 15 differences. The SE tells us how far this
+estimate is likely to sit from the true mean. The question is: what
+range of values for the true mean is consistent with the estimate we
+obtained?
+
+The sampling distribution of the mean is approximately normal, and 95%
+of a normal distribution lies within about two standard deviations of
+its centre. Since the SE is the standard deviation of the sampling
+distribution, we get:
+
+- 95% of sample means fall within about 2 × SE of the true mean.
+- Equivalently: the true mean falls within about 2 × SE of about 95% of
+  sample means.
+
+The second statement is what the confidence interval expresses.
+
+## Constructing the confidence interval {#sec-ci-construction}
+
+::: {.callout-note}
+## The formula
+A 95% confidence interval for the mean is:
+
+$$
+\bar{x} \pm 1.96 \times \text{SE}
+$$
+
+where $\bar{x}$ is the sample mean and SE is the standard error. The
+multiplier 1.96 is the exact value from the normal distribution that
+puts 95% of the distribution within $\pm 1.96$ SDs of the centre; the
+value 2 is close enough for a quick check. For small samples we use a
+slightly larger multiplier from the t-distribution, introduced in
+Session 3.
+:::
+
+Substituting the Darwin numbers on the board:
+
+$$
+95\% \text{ CI} = 2.62 \pm 1.96 \times 1.22 \approx [0.2, 5.0] \text{ inches}
+$$
+
+Every quantity in this interval was built from what you already had.
+The sample mean (2.62) is the average of the 15 differences. The SE
+(1.22) is $\text{SD}/\sqrt{15}$. The multiplier (1.96) comes from the
+normal distribution.
+
+::: {.webex-check .webex-box}
+
+**Check your understanding.** A study reports a mean of 12.0, an SD of
+6.0, and $n$ = 36. The SE is `r fitb(1)` and the approximate 95% CI
+runs from `r fitb(10)` to `r fitb(14)`.
+
+`r hide("Explanation")`
+
+$\text{SE} = 6.0/\sqrt{36} = 1.0$. The 95% CI is $12.0 \pm 1.96 \times
+1.0$, which is approximately 10.0 to 14.0.
+
+`r unhide()`
+
+:::
+
+## Consolidation: the first eight pairs {#sec-consolidation}
+
+To fix the mechanism, we repeated the construction on a subset of
+Darwin's data: the first eight pairs only. You were given the mean and
+SD of these eight differences and, at the bench, computed:
+
+1. the SE (SD divided by $\sqrt{8}$),
+2. the 95% CI (mean $\pm$ 1.96 $\times$ SE).
+
+The resulting interval was **wider** than the interval from all 15
+pairs. This is not a mistake. It reflects the $\sqrt{n}$ relationship
+directly: with fewer observations, the SE is larger, so the interval is
+wider. Hour 2 confirms this pattern by simulation.
+
+::: {.webex-check .webex-box}
+
+**Check your understanding.** If you compute a 95% CI from a smaller
+subset of the same dataset (same SD, smaller $n$), the interval will
+typically be
+`r mcq(c(answer = "wider", "narrower", "unchanged"))`.
+
+`r hide("Explanation")`
+
+Decreasing $n$ increases the SE ($\text{SE} = \text{SD}/\sqrt{n}$), so
+the interval gets wider. This is the same $\sqrt{n}$ relationship you
+will confirm by simulation in hour 2.
+
+`r unhide()`
+
+:::
+
+## What the confidence interval does not claim {#sec-ci-warnings}
+
+We closed hour 1 by flagging three plausible-sounding interpretations
+of "95% confidence", all of which are wrong. The correct interpretation,
+and why these three fail, is the topic of hour 2, where the coverage
+simulation makes the 95% claim concrete. Keep the answer you wrote for
+the pre-class commitment task to hand; you will use it in hour 2.
+
+The three claims to be wary of:
+
+- 95% probability that the true mean lies in this specific interval,
+- 95% of the data lie in this interval,
+- 95% chance that a future sample mean will fall in this interval.
+
+Each of these is a natural first guess. None is what a frequentist
+confidence interval says.
+
+## Exit ticket {#sec-exit}
+
+The question posed at the end of the session (end of hour 2):
+
+> You have a 95% confidence interval of [0.2, 5.0] for the mean
+> difference in height between cross-fertilised and self-fertilised
+> maize. A colleague claims the true difference is zero: that
+> cross-fertilisation has no effect. Does your interval answer whether
+> they are wrong, and if not, what would you need?

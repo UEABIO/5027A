@@ -1,0 +1,340 @@
+# Simulating sampling distributions {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+
+```{r}
+#| include: false
+
+set.seed(20260825)
+
+# Right-skewed population of student reaction times (ms), one value per student
+rt_population <- round(200 + rgamma(500, shape = 3, rate = 1 / 20))
+pop_mean <- mean(rt_population)
+```
+
+This session reproduces what you did with the class reaction-time sheet, then extends it. The simulated population is a class of 500 students rather than 30, which lets us take many more samples than the room allowed. 
+
+## Reproduce the draw in code {#sec-code-draw}
+
+The code below draws a random sample of 20 students from the population and computes the mean of their reaction times. In the workshop you used 6; we start with 20 here and change it later.
+
+:::{.task}
+::::{.task-header}
+**Task: predict, then run**
+::::
+
+::::{.task-container}
+
+Read the code below. Before you run it, predict: will the sample mean be exactly equal to the population mean? Write your prediction down.
+
+::::
+:::
+
+
+```{r, include = FALSE}
+my_sample <- sample(rt_population, size = 20)
+mean(my_sample)
+```
+
+```{r, eval = FALSE}
+#| label: single-draw
+my_sample <- sample(rt_population, size = 20)
+mean(my_sample)
+```
+
+Now repeat the draw many times and collect the means. This builds the same distribution you saw on the board, but with more repetitions.
+
+```{r}
+#| label: fig-sampling-dist
+#| fig-cap: "Sampling distribution of the mean from 1,000 repeated samples of 20 students."
+
+sample_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20)
+  mean(s)
+})
+
+ggplot(tibble(sample_mean = sample_means), aes(x = sample_mean)) +
+  geom_histogram(binwidth = 2, fill = "#4477AA", colour = "white") +
+  geom_vline(
+    xintercept = pop_mean,
+    linetype = "dashed", colour = "#EE6677", linewidth = 0.8
+  ) +
+  labs(x = "Sample mean (ms)", y = "Count") +
+  theme_minimal(base_size = 13)
+```
+
+:::{.task}
+::::{.task-header}
+**Task: change the sample size**
+::::
+
+::::{.task-container}
+
+In the code above, change `size = 20` to `size = 50`. 
+
+**Before you run it, predict:** will the histogram get wider, narrower, or stay the same? Run the code and check.
+
+Now change it to `size = 6`, the sample size you used in the workshop, and compare the width with the spread of means on the class board.
+
+::::
+:::
+
+## Axis exercise {#sec-axes}
+
+The figure below shows two histograms. One shows the distribution of individual reaction times (all 500 students in the population). The other shows the sampling distribution you just built.
+
+```{r}
+#| label: fig-thousand
+#| echo: false
+#| fig-cap: "Top: distribution of individual reaction times. Bottom: sampling distribution of the mean (n = 20, 1,000 repetitions)."
+#| fig-align: center
+#| warning: false
+
+p_raw <- ggplot(tibble(rt = rt_population), aes(x = rt)) +
+  geom_histogram(binwidth = 10, fill = "#CCBB44", colour = "white") +
+  labs(x = "Individual reaction time (ms)", y = "Count", title = "Individual values") +
+  theme_minimal(base_size = 12)+
+  scale_x_continuous(limits = c(150, 500))
+
+p_means <- ggplot(tibble(sample_mean = sample_means), aes(x = sample_mean)) +
+  geom_histogram(binwidth = 2, fill = "#4477AA", colour = "white") +
+  labs(x = "Sample mean (ms)", y = "Count", title = "Sample means (n = 20)") +
+  theme_minimal(base_size = 12)+
+  scale_x_continuous(limits = c(150, 500))
+
+patchwork::wrap_plots(p_raw/p_means)
+```
+
+:::{.task}
+::::{.task-header}
+**Task: read the axes**
+::::
+
+::::{.task-container}
+
+Look at @fig-thousand and answer the following questions.
+
+1. On the **top** histogram, what does one bar represent?
+
+`r hide("Answer")` Each bar is a count of individual students whose reaction time falls in that range. One "observation" on this histogram is one student. `r unhide()`
+
+2. On the **bottom** histogram, what does one bar represent?
+
+`r hide("Answer")` Each bar is a count of sample means that fell in that range. One "observation" on this histogram is the mean of a sample of 20 students — not a single student. `r unhide()`
+
+3. Why is the top histogram wider than the bottom?
+
+`r hide("Answer")` Averaging 20 students reduces the variability. Extreme individual values are diluted by the other 19 students in the sample. The distribution of means is always narrower than the distribution of individual values. `r unhide()`
+
+::::
+:::
+
+## Generalise beyond the mean {#sec-median}
+
+The sampling distribution idea is not special to the mean. Any statistic computed from a random sample is itself random.
+
+:::{.task}
+::::{.task-header}
+**Task: one-word edit**
+::::
+
+::::{.task-container}
+
+In the sampling distribution code from @sec-code-draw, change `mean(s)` to `median(s)`. Run the code. The histogram you see is the sampling distribution of the **median**. The shape may differ from the mean's, but the principle is the same: a statistic varies from sample to sample.
+
+::::
+:::
+
+## Bias contrast {#sec-bias}
+
+:::{.task}
+::::{.task-header}
+**Task: predict before you look**
+::::
+
+::::{.task-container}
+
+Suppose that entering a score on the class sheet had been optional, and students were more likely to enter it the faster it was (because those are the scores people are pleased with). 
+
+**Write down your prediction:** will the distribution of sample means shift left, shift right, or stay in the same place?
+
+::::
+:::
+
+The code below simulates both a blind draw and a speed-biased draw. In the biased version, each student's probability of being selected falls off steeply with their reaction time, so fast students are drawn far more often than slow ones.
+
+```{r}
+#| label: fig-bias
+#| echo: false
+#| fig-cap: "Sampling distributions from blind (left) and speed-biased (right) draws."
+
+blind_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20)
+  mean(s)
+})
+
+# Faster students more likely to have entered a score
+biased_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20, prob = exp(-rt_population / 25))
+  mean(s)
+})
+
+bind_rows(
+  tibble(sample_mean = blind_means, draw = "Blind"),
+  tibble(sample_mean = biased_means, draw = "Speed-biased")
+) |>
+  ggplot(aes(x = sample_mean)) +
+  geom_histogram(binwidth = 2, fill = "#4477AA", colour = "white") +
+  geom_vline(
+    xintercept = pop_mean,
+    linetype = "dashed", colour = "#EE6677", linewidth = 0.8
+  ) +
+  facet_wrap(~draw) +
+  labs(x = "Sample mean (ms)", y = "Count") +
+  theme_minimal(base_size = 13)
+```
+
+:::{.task}
+::::{.task-header}
+**Task: interpret the contrast**
+::::
+
+::::{.task-container}
+
+Look at @fig-bias. The dashed line is the population mean.
+
+1. Which draw produces a sampling distribution centred on the population mean? `r mcq(c(answer = "Blind", "Speed-biased"))`
+
+2. Which problem — imprecision or bias — is visible in the speed-biased panel? `r mcq(c("Imprecision", answer = "Bias"))`
+
+3. If you increased the sample size from 20 to 200, would the bias in the right panel disappear? `r torf(FALSE)`
+
+`r hide("Why?")` Bias is a property of the sampling method, not the sample size. Drawing 200 students with a preference for fast ones still underestimates the mean. More data make the estimate more precise (the histogram gets narrower) but do not correct a systematic error in how the sample was collected. `r unhide()`
+
+::::
+:::
+
+The code that generates the blind draw is:
+
+```{r}
+#| eval: false
+blind_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20)
+  mean(s)
+})
+```
+
+The biased draw adds `prob = exp(-rt_population / 25)`, which weights selection heavily towards faster students:
+
+```{r}
+#| eval: false
+biased_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20, prob = exp(-rt_population / 25))
+  mean(s)
+})
+```
+
+:::{.task}
+::::{.task-header}
+**Task: read the code**
+::::
+
+::::{.task-container}
+
+Compare the two code blocks above. The only difference is the `prob` argument. State in one sentence what that argument does and why it creates bias.
+
+`r hide("Hint")`
+Use R's inbuilt help functions first trying typing `help(sample)` or `??sample` into the **Console**
+`r unhide()`
+
+`r hide("Model answer")` The `prob` argument makes each student's **probability of selection decrease steeply with their reaction time**, so faster students are drawn far more often. This shifts the sampling distribution below the true population mean — the same effect as a sheet that only the students with fast scores bothered to fill in. `r unhide()`
+
+::::
+:::
+
+## Stretch: the generating process (optional) {#sec-stretch}
+
+So far the population has been a fixed sheet of 500 students. But in
+practice you rarely know every member of the population. Instead you
+assume the data come from a **process** described by a distribution.
+
+:::{.task}
+::::{.task-header}
+**Task: swap the population for a process**
+::::
+
+::::{.task-container}
+
+The code below plots the distribution of individual values from the
+reaction-time sheet. Change `rt_population` to `rexp(500, rate = 1)`
+and run it.
+
+```{r}
+#| eval: false
+ggplot(tibble(x = rt_population), aes(x = x)) +
+  geom_histogram(bins = 30, fill = "#CCBB44", colour = "white") +
+  labs(x = "Individual value", y = "Count") +
+  theme_minimal(base_size = 13)
+```
+
+- Are the individual values normally distributed? `r torf(FALSE)`
+
+Now make the same substitution in the sampling distribution code from
+@sec-code-draw: replace `sample(rt_population, size = 20)` with
+`rexp(20, rate = 1)`.
+
+```{r}
+#| eval: false
+sample_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20)
+  mean(s)
+})
+
+ggplot(tibble(sample_mean = sample_means), aes(x = sample_mean)) +
+  geom_histogram(bins = 30, fill = "#4477AA", colour = "white") +
+  labs(x = "Sample mean", y = "Count") +
+  theme_minimal(base_size = 13)
+```
+
+- Is the sampling distribution of their mean approximately normal?
+  `r torf(TRUE)`
+
+The same substitution in two places, and two histograms to compare.
+The individual values are strongly right-skewed, but the means pile
+up into an approximately normal shape. Session 2 names this result.
+
+::::
+:::
+
+## Exit ticket {#sec-exit}
+
+:::{.task}
+::::{.task-header}
+**Task: exit question**
+::::
+
+::::{.task-container}
+
+Write your answer on paper before you leave. This question is deliberately unanswerable from today's material alone — we will pick this up next time.
+
+> You have one sample mean of 272 ms from 6 students. What else do you need before you can say how far this is likely to be from the population mean?
+
+::::
+:::
+
+
+## Reading {#sec-reading}
+
+- ["Sampling Distribution: Definition, Formula & Examples"](statisticsbyjim.com/hypothesis-testing/sampling-distribution/). 
+
+Covers what a sampling distribution is, uses a repeated-sampling simulation with apples, shows histograms of sample means, and demonstrates how the distribution changes with sample size. 
+
+- ["Sample Statistics Are Always Wrong (to Some Extent)!"](statisticsbyjim.com/basics/sample-statistics-wrong/).

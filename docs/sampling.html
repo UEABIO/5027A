@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The sampling distribution of the mean</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #FAFAF8;
+    color: #2B2B2B;
+    padding: 2rem 1rem 4rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    color: #1a1a1a;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #777;
+    margin-bottom: 2.5rem;
+  }
+
+  .panel {
+    margin-bottom: 2.8rem;
+  }
+
+  .panel-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4477AA;
+    margin-bottom: 0.5rem;
+  }
+
+  .panel-caption {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #444;
+    margin-top: 0.6rem;
+    max-width: 560px;
+  }
+
+  .panel-caption strong {
+    color: #2B2B2B;
+  }
+
+  svg { display: block; margin: 0 auto; }
+
+  .bean { transition: opacity 0.2s; }
+
+  .property-row {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    margin-bottom: 1.6rem;
+  }
+
+  .property-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+  }
+
+  .property-text {
+    font-size: 0.93rem;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  .property-text strong {
+    display: block;
+    font-size: 1rem;
+    color: #2B2B2B;
+    margin-bottom: 0.15rem;
+  }
+
+  .takeaway {
+    border-top: 2px solid #4477AA;
+    padding-top: 1.2rem;
+    margin-top: 1rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    line-height: 1.5;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>The sampling distribution of the mean</h1>
+<p class="subtitle">A picture explainer</p>
+
+<!-- PANEL 1: THE TUB -->
+<div class="panel">
+  <div class="panel-label">Start here</div>
+  <svg viewBox="0 0 600 180" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- tub shape -->
+    <path d="M80,40 L60,160 Q300,190 540,160 L520,40 Q300,10 80,40 Z"
+          fill="#E8E4DB" stroke="#BBB5A8" stroke-width="1.5"/>
+    <ellipse cx="300" cy="40" rx="222" ry="28" fill="#D9D4C8" stroke="#BBB5A8" stroke-width="1.5"/>
+    <!-- beans: varied sizes and hues to show variability -->
+    <ellipse cx="140" cy="90" rx="12" ry="8" fill="#8B6F4E" transform="rotate(-15,140,90)"/>
+    <ellipse cx="180" cy="110" rx="15" ry="9" fill="#A0845C" transform="rotate(20,180,110)"/>
+    <ellipse cx="210" cy="80" rx="9" ry="6" fill="#7A5F3E" transform="rotate(-30,210,80)"/>
+    <ellipse cx="250" cy="100" rx="14" ry="9" fill="#96784A" transform="rotate(10,250,100)"/>
+    <ellipse cx="290" cy="85" rx="11" ry="7" fill="#B09060" transform="rotate(-5,290,85)"/>
+    <ellipse cx="320" cy="115" rx="16" ry="10" fill="#8B6F4E" transform="rotate(25,320,115)"/>
+    <ellipse cx="355" cy="90" rx="10" ry="7" fill="#A0845C" transform="rotate(-20,355,90)"/>
+    <ellipse cx="390" cy="105" rx="13" ry="8" fill="#7A5F3E" transform="rotate(15,390,105)"/>
+    <ellipse cx="420" cy="80" rx="11" ry="7" fill="#96784A" transform="rotate(-10,420,80)"/>
+    <ellipse cx="450" cy="100" rx="14" ry="9" fill="#B09060" transform="rotate(5,450,100)"/>
+    <ellipse cx="165" cy="130" rx="10" ry="7" fill="#96784A" transform="rotate(30,165,130)"/>
+    <ellipse cx="230" cy="125" rx="13" ry="8" fill="#B09060" transform="rotate(-25,230,125)"/>
+    <ellipse cx="280" cy="130" rx="11" ry="7" fill="#8B6F4E" transform="rotate(12,280,130)"/>
+    <ellipse cx="340" cy="135" rx="12" ry="8" fill="#A0845C" transform="rotate(-8,340,135)"/>
+    <ellipse cx="400" cy="125" rx="15" ry="9" fill="#7A5F3E" transform="rotate(18,400,125)"/>
+    <ellipse cx="460" cy="120" rx="10" ry="6" fill="#96784A" transform="rotate(-22,460,120)"/>
+    <!-- label -->
+    <text x="300" y="170" text-anchor="middle" font-size="13" fill="#888" font-family="DM Sans, sans-serif">500 beans, all different masses</text>
+  </svg>
+  <p class="panel-caption">A large tub of beans. Every bean has a mass. Together they are the <strong>population</strong>.</p>
+</div>
+
+<!-- PANEL 2: ONE SCOOP -->
+<div class="panel">
+  <div class="panel-label">Scoop once</div>
+  <svg viewBox="0 0 600 140" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- hand/scoop shape -->
+    <path d="M40,70 Q60,20 120,30 L200,30 Q220,30 220,50 L220,90 Q220,110 200,110 L120,110 Q60,110 40,70 Z"
+          fill="#E0D8CC" stroke="#BBB5A8" stroke-width="1.5"/>
+    <!-- small cluster of beans in scoop -->
+    <ellipse cx="100" cy="60" rx="10" ry="7" fill="#8B6F4E" transform="rotate(-10,100,60)"/>
+    <ellipse cx="125" cy="55" rx="11" ry="7" fill="#A0845C" transform="rotate(15,125,55)"/>
+    <ellipse cx="150" cy="65" rx="9" ry="6" fill="#96784A" transform="rotate(-20,150,65)"/>
+    <ellipse cx="175" cy="58" rx="10" ry="7" fill="#7A5F3E" transform="rotate(8,175,58)"/>
+    <ellipse cx="110" cy="80" rx="10" ry="7" fill="#B09060" transform="rotate(25,110,80)"/>
+    <ellipse cx="140" cy="85" rx="11" ry="7" fill="#8B6F4E" transform="rotate(-15,140,85)"/>
+    <ellipse cx="170" cy="80" rx="9" ry="6" fill="#A0845C" transform="rotate(5,170,80)"/>
+    <text x="130" y="130" text-anchor="middle" font-size="12" fill="#888" font-family="DM Sans, sans-serif">20 beans</text>
+    <!-- arrow -->
+    <line x1="250" y1="70" x2="350" y2="70" stroke="#4477AA" stroke-width="2" marker-end="url(#arr)"/>
+    <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8" fill="none" stroke="#4477AA" stroke-width="1.5"/>
+    </marker></defs>
+    <!-- mean result -->
+    <rect x="370" y="42" rx="8" width="180" height="56" fill="#4477AA" opacity="0.1" stroke="#4477AA" stroke-width="1.5"/>
+    <text x="460" y="64" text-anchor="middle" font-size="13" fill="#4477AA" font-weight="700" font-family="DM Sans, sans-serif">mean = 4.1 g</text>
+    <text x="460" y="84" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">one number</text>
+  </svg>
+  <p class="panel-caption">Pick 20 beans at random. Weigh them. Compute the mean. You get <strong>one number</strong>.</p>
+</div>
+
+<!-- PANEL 3: MANY SCOOPS -->
+<div class="panel">
+  <div class="panel-label">Scoop again and again</div>
+  <svg viewBox="0 0 600 160" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- repeated means as a stream of numbers -->
+    <rect x="30" y="20" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="80" y="43" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">3.8 g</text>
+
+    <rect x="145" y="20" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="195" y="43" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">4.3 g</text>
+
+    <rect x="260" y="20" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="310" y="43" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">4.0 g</text>
+
+    <rect x="375" y="20" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="425" y="43" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">4.5 g</text>
+
+    <rect x="490" y="20" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="540" y="43" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">3.7 g</text>
+
+    <!-- second row -->
+    <rect x="30" y="66" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="80" y="89" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">4.1 g</text>
+
+    <rect x="145" y="66" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="195" y="89" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">3.9 g</text>
+
+    <rect x="260" y="66" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="310" y="89" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">4.2 g</text>
+
+    <rect x="375" y="66" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="425" y="89" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">3.6 g</text>
+
+    <rect x="490" y="66" rx="6" width="100" height="36" fill="#4477AA" opacity="0.08" stroke="#4477AA" stroke-width="1"/>
+    <text x="540" y="89" text-anchor="middle" font-size="13" fill="#4477AA" font-family="DM Sans, sans-serif">4.4 g</text>
+
+    <!-- dots for "and more" -->
+    <text x="300" y="130" text-anchor="middle" font-size="15" fill="#999" font-family="DM Sans, sans-serif">· · ·  hundreds more  · · ·</text>
+    <text x="300" y="152" text-anchor="middle" font-size="12" fill="#888" font-family="DM Sans, sans-serif">each number is one sample mean from 20 beans</text>
+  </svg>
+  <p class="panel-caption">Put the beans back, draw another 20, compute the mean again. Every scoop gives a <strong>different number</strong>, because different beans land in your hand.</p>
+</div>
+
+<!-- PANEL 4: THE HISTOGRAM -->
+<div class="panel">
+  <div class="panel-label">Plot them all</div>
+  <svg viewBox="0 0 600 240" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- axis -->
+    <line x1="60" y1="200" x2="540" y2="200" stroke="#BBB" stroke-width="1.5"/>
+    <!-- tick marks and labels -->
+    <line x1="120" y1="200" x2="120" y2="205" stroke="#BBB" stroke-width="1"/>
+    <text x="120" y="220" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">3.4</text>
+    <line x1="200" y1="200" x2="200" y2="205" stroke="#BBB" stroke-width="1"/>
+    <text x="200" y="220" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">3.6</text>
+    <line x1="280" y1="200" x2="280" y2="205" stroke="#BBB" stroke-width="1"/>
+    <text x="280" y="220" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">3.8</text>
+    <line x1="360" y1="200" x2="360" y2="205" stroke="#BBB" stroke-width="1"/>
+    <text x="360" y="220" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">4.0</text>
+    <line x1="440" y1="200" x2="440" y2="205" stroke="#BBB" stroke-width="1"/>
+    <text x="440" y="220" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">4.2</text>
+    <line x1="520" y1="200" x2="520" y2="205" stroke="#BBB" stroke-width="1"/>
+    <text x="520" y="220" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">4.4</text>
+    <text x="340" y="238" text-anchor="middle" font-size="11" fill="#888" font-family="DM Sans, sans-serif">sample mean (g)</text>
+
+    <!-- histogram bars, bell-shaped distribution -->
+    <rect x="108" y="188" width="24" height="12" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="148" y="180" width="24" height="20" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="188" y="165" width="24" height="35" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="228" y="140" width="24" height="60" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="268" y="110" width="24" height="90" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="308" y="75" width="24" height="125" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="348" y="60" width="24" height="140" fill="#4477AA" opacity="0.8" rx="1"/>
+    <rect x="388" y="80" width="24" height="120" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="428" y="115" width="24" height="85" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="468" y="148" width="24" height="52" fill="#4477AA" opacity="0.7" rx="1"/>
+    <rect x="508" y="175" width="24" height="25" fill="#4477AA" opacity="0.7" rx="1"/>
+
+    <!-- population mean line -->
+    <line x1="360" y1="45" x2="360" y2="200" stroke="#EE6677" stroke-width="2" stroke-dasharray="6,4"/>
+    <text x="360" y="38" text-anchor="middle" font-size="12" fill="#EE6677" font-weight="600" font-family="DM Sans, sans-serif">population mean</text>
+  </svg>
+  <p class="panel-caption">Stack up all the sample means on a histogram. This is the <strong>sampling distribution</strong>. The dashed line is the true population mean.</p>
+</div>
+
+<!-- PANEL 5: THREE PROPERTIES -->
+<div class="panel">
+  <div class="panel-label">Three things to notice</div>
+
+  <div class="property-row">
+    <svg class="property-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+      <!-- target/bullseye for "centred" -->
+      <circle cx="28" cy="28" r="24" fill="none" stroke="#4477AA" stroke-width="2" opacity="0.25"/>
+      <circle cx="28" cy="28" r="14" fill="none" stroke="#4477AA" stroke-width="2" opacity="0.5"/>
+      <circle cx="28" cy="28" r="5" fill="#4477AA"/>
+    </svg>
+    <div class="property-text">
+      <strong>Centred on the truth</strong>
+      The sampling distribution sits on top of the population mean. On average, the sample mean is correct.
+    </div>
+  </div>
+
+  <div class="property-row">
+    <svg class="property-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+      <!-- squeeze arrows for "narrower" -->
+      <line x1="4" y1="28" x2="18" y2="28" stroke="#4477AA" stroke-width="2.5" marker-end="url(#nar)"/>
+      <line x1="52" y1="28" x2="38" y2="28" stroke="#4477AA" stroke-width="2.5" marker-end="url(#nar)"/>
+      <defs><marker id="nar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#4477AA" stroke-width="1.5"/>
+      </marker></defs>
+      <rect x="22" y="16" width="12" height="24" rx="3" fill="#4477AA" opacity="0.2" stroke="#4477AA" stroke-width="1.5"/>
+    </svg>
+    <div class="property-text">
+      <strong>Narrower than the raw data</strong>
+      Averaging 20 beans dilutes extreme values. The spread of sample means is always less than the spread of individual beans.
+    </div>
+  </div>
+
+  <div class="property-row">
+    <svg class="property-icon" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+      <!-- bell curve for "normal shape" -->
+      <path d="M4,46 Q14,44 18,36 Q22,24 28,10 Q34,24 38,36 Q42,44 52,46"
+            fill="none" stroke="#4477AA" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <div class="property-text">
+      <strong>Bell-shaped</strong>
+      Even when individual bean masses are skewed, the sample means pile up into an approximately normal curve.
+    </div>
+  </div>
+</div>
+
+<!-- TAKEAWAY -->
+<div class="takeaway">
+  A statistic computed from a random sample is itself random. Everything that follows in this course — standard errors, confidence intervals, p-values — rests on this fact.
+</div>
+
+</body>
+</html>

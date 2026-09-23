@@ -1,0 +1,244 @@
+# Estimation and uncertainty - Pre-Reading  {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+Complete this material before your workshop session. It carries the
+vocabulary you will need in the room.
+
+## Video: from sample to estimate {#sec-video}
+
+::: {.callout-note}
+## Watch before class
+
+{{< video https://www.youtube.com/embed/vikkiwjQqfU?si=CD3yn8c-NpWWMTHG >}}
+
+After watching, you should be able to state that the sample mean is a
+point estimate of the population mean.
+:::
+
+## Reading: estimation and uncertainty {#sec-reading}
+
+### From sample to estimate {#sec-point-estimate}
+
+In Session 1 you built a sampling distribution on the board. Every group
+drew a sample from the same population and computed a mean, and the
+class saw that each mean was different. The board showed how sample means
+vary — and that they cluster around the population mean.
+
+Now turn the reasoning around. In practice you do not know the
+population mean. You have one sample and one mean. That single number is
+your **point estimate** of the population mean — the best single guess
+you can make from the data you have.
+
+A point estimate is not the population value. It is one draw from the
+sampling distribution you saw on the board. The question this session
+answers is: how far away from the population mean is your estimate
+likely to be?
+
+The answer depends on two things: how variable the individual values
+are, and how many of them you measured. The next two sections make that
+precise.
+
+### Darwin's maize {#sec-darwin}
+
+The dataset we use for the next three sessions comes from an experiment
+by Charles Darwin, reported in 1876 and later reanalysed by R. A.
+Fisher.
+
+Darwin grew 15 pairs of *Zea mays* (maize) plants. Within each pair,
+one plant was **cross-fertilised** (pollen from a different plant) and
+one was **self-fertilised** (pollen from the same plant). The two plants
+in each pair were grown in the same pot, so any difference in growing
+conditions was shared. Darwin then measured the final height of every
+plant, in inches.
+
+The biological question is whether cross-fertilisation produces taller
+plants. The statistical question — which we will reach in Session 3 — is
+whether the observed difference in height is larger than you would
+expect from chance alone. For now, the dataset gives us a concrete set
+of measurements to work with when we distinguish different ways of
+summarising uncertainty.
+
+`r hide("Check your understanding")`
+
+Darwin paired each cross-fertilised plant with a self-fertilised plant
+in the same pot. Why?
+
+The pairing controls for differences between pots (soil, light,
+watering). Any difference in height within a pair can be attributed to
+the fertilisation treatment rather than to the growing environment.
+
+`r unhide()`
+
+### The standard deviation {#sec-sd}
+
+Imagine you compute the difference in height (cross minus self) for each
+of Darwin's 15 pairs. Some differences are large and positive, some are
+small, and a couple are negative. The **standard deviation** (SD)
+measures how spread out those 15 differences are around their mean.
+
+A large SD means the individual values are widely dispersed; a small SD
+means they cluster tightly. The SD is a property of the data: it
+describes how variable the individuals are. Measuring more individuals
+does not make them less variable — a population with variable members
+remains variable regardless of how many you sample.
+
+The standard deviation is computed as:
+
+$$
+\text{SD} = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2}
+$$
+
+where $\bar{x}$ is the sample mean and $n$ is the sample size. You do
+not need to compute this by hand; `sd()` in R does it. What matters is
+the interpretation: the SD tells you about the spread of the individual
+values, not about the precision of the mean.
+
+The SD describes the `r mcq(c(answer = "spread of the individual values", "precision of the sample mean", "width of the confidence interval"))`.
+
+`r hide("Explanation")`
+
+The SD measures how far individual observations typically fall from the
+mean. It says nothing about the precision of the mean itself — that is
+the job of the standard error.
+
+`r unhide()`
+
+### The standard error {#sec-se}
+
+The **standard error** (SE) measures something different: how precisely
+your sample mean estimates the population mean. You saw in Session 1
+that repeating the sampling process gives a different mean each time.
+The standard error is the standard deviation of that sampling
+distribution — it quantifies how much your estimate would typically
+shift if you ran the study again with a new sample of the same size.
+
+The standard error is computed from the standard deviation:
+
+$$
+\text{SE} = \frac{\text{SD}}{\sqrt{n}}
+$$
+
+This formula says two things. First, the SE inherits the variability of
+the data (through SD). Second, it shrinks with sample size (through
+$\sqrt{n}$). Both are intuitive: more variable data produce a less
+precise estimate, and more data produce a more precise one.
+
+The critical distinction is this: **the SD describes the data; the SE
+describes the estimate.** The SD tells you how spread out the individual
+heights are. The SE tells you how much the mean height would change if
+you repeated the experiment. They answer different questions, and
+confusing them is the single most common error in reading biological
+papers.
+
+The SE describes the `r mcq(c("spread of the individual values", answer = "precision of the sample mean", "probability that the null hypothesis is true"))`.
+
+`r hide("Explanation")`
+
+The SE measures how much the sample mean would vary across repeated
+studies. It describes the estimate, not the data.
+
+`r unhide()`
+
+### The square-root-of-*n* relationship {#sec-sqrt-n}
+
+The $\sqrt{n}$ in the denominator of the SE formula has a concrete
+consequence. Suppose Darwin had measured 60 pairs instead of 15 — four
+times as many. The SD would remain roughly the same (the plants are no
+less variable), but the SE would be halved, because $\sqrt{60} = 2
+\times \sqrt{15}$. Four times the data gives twice the precision, not
+four times.
+
+This is the **law of diminishing returns for sample size**: each
+additional observation contributes less to precision than the one before
+it. Doubling the sample size does not double the precision; it improves
+it by a factor of $\sqrt{2} \approx 1.4$.
+
+If you quadruple the sample size, the SE is `r mcq(c("quartered", answer = "halved", "unchanged", "doubled"))`.
+
+`r hide("Explanation")`
+
+$\text{SE} = \text{SD}/\sqrt{n}$. Replacing $n$ with $4n$ gives
+$\text{SD}/\sqrt{4n} = \text{SD}/(2\sqrt{n})$, which is half the
+original SE.
+
+`r unhide()`
+
+## Commitment task {#sec-commitment}
+
+Before you come to class, write one or two sentences on what you
+currently think it means to say that a confidence interval is "95%
+confident". Do not look this up: use whatever intuition you already
+have from prior encounters with the phrase, from other courses, from
+papers you have read, or from general usage. Bring the paper (or the
+note on your phone) to class.
+
+There is no right answer at this stage. The point is to have your
+current thinking on paper before the workshop, so you can see how it
+changes once you have built the interval yourself and seen the
+mechanism that gives it the 95%.
+
+## Self-test {#sec-selftest}
+
+::: {.webex-check .webex-box}
+
+**1.** You have one sample mean of 4.2 g from 20 beans. What else do
+you need before you can say how far this is likely to be from the
+population mean?
+
+You need the `r fitb(c("standard error", "SE", "standard error of the mean"), ignore_case = TRUE)` of the sample mean.
+
+`r hide("Explanation")`
+
+The sample mean alone tells you nothing about how precise it is. You
+need the standard error, which requires the standard deviation of the
+data and the sample size. This was the exit question from Session 1; the
+reading above resolves it.
+
+`r unhide()`
+
+**2.** The standard deviation measures the spread of the
+`r fitb(c("data", "individual values", "observations", "individual observations"), ignore_case = TRUE)`.
+The standard error measures the precision of the
+`r fitb(c("sample mean", "mean", "estimate"), ignore_case = TRUE)`.
+
+**3.** A study reports SD = 8 and $n$ = 16. The standard error is
+`r fitb(2)`.
+
+`r hide("Explanation")`
+
+$\text{SE} = \text{SD}/\sqrt{n} = 8/\sqrt{16} = 8/4 = 2$.
+
+`r unhide()`
+
+```{r}
+#| echo: false
+opts_sd_se <- sample(c(
+  answer = "The SD stays roughly the same; the SE decreases.",
+  "Both the SD and the SE decrease.",
+  "The SD decreases; the SE stays the same.",
+  "Both the SD and the SE stay the same."
+))
+```
+
+**4.** If you increase the sample size from 20 to 80, what happens to
+the SD and the SE?
+
+`r longmcq(opts_sd_se)`
+
+`r hide("Explanation")`
+
+The SD describes how variable the individual values are. That does not
+change when you measure more of them. The SE shrinks with $\sqrt{n}$,
+so quadrupling the sample size halves the SE.
+
+`r unhide()`
+
+:::

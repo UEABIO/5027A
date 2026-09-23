@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Statistical skills for Biologists">
+<title>P-value simulation – 5027A</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./session-04-pre.html" rel="next">
+<link href="./session-03-workshop.html" rel="prev">
+<link href="./images/logos/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b754b9fd3853d7e56faef54c29c5d52b.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-de8274a4d1ecc1e6aaeaf6e5564b5074.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b754b9fd3853d7e56faef54c29c5d52b.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e0a43ceb7c9e63dd117097429fd00833.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d7d11905500e7839d0ae783f44cd34c1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e0a43ceb7c9e63dd117097429fd00833.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+</head>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-03-pre.html">Week Three</a></li><li class="breadcrumb-item"><a href="./session-03-computation.html">P-value simulation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">5027A</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Week One</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-01-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability - Pre-Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-01-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random sampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-01-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulating sampling distributions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Week Two</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-02-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimation and uncertainty - Pre-Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-02-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building the confidence interval</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-02-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulating uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week Three</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-03-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hypotheses - Pre-Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-03-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Null distributions and what a p-value is</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-03-computation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">P-value simulation</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Week Four</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-04-pre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The linear model - Pre-reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-04-workshop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calculating t</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./session-04-computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#sec-permutation" id="toc-sec-permutation" class="nav-link active" data-scroll-target="#sec-permutation">Coded permutation with prediction</a>
+  <ul class="collapse">
+<li><a href="#three-edits" id="toc-three-edits" class="nav-link" data-scroll-target="#three-edits">Three edits</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-composition" id="toc-sec-composition" class="nav-link" data-scroll-target="#sec-composition">Short composition: one-sided p-value</a></li>
+  <li><a href="#sec-analytic" id="toc-sec-analytic" class="nav-link" data-scroll-target="#sec-analytic">The analytic shortcut</a></li>
+  <li><a href="#sec-alpha" id="toc-sec-alpha" class="nav-link" data-scroll-target="#sec-alpha">Alpha and error, by simulation</a></li>
+  <li><a href="#sec-threshold" id="toc-sec-threshold" class="nav-link" data-scroll-target="#sec-threshold">Change the threshold</a></li>
+  <li><a href="#sec-significance" id="toc-sec-significance" class="nav-link" data-scroll-target="#sec-significance">Significance is not importance</a></li>
+  <li><a href="#sec-exit" id="toc-sec-exit" class="nav-link" data-scroll-target="#sec-exit">Cumulative spine and exit ticket</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-03-pre.html">Week Three</a></li><li class="breadcrumb-item"><a href="./session-03-computation.html">P-value simulation</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">P-value simulation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>In hour 1 you built a null distribution by flipping signs on cards. This hour reproduces that procedure in code, then compares it with the analytic shortcut.</p>
+<section id="sec-permutation" class="level2"><h2 class="anchored" data-anchor-id="sec-permutation">Coded permutation with prediction</h2>
+<p>The code below implements the sign-flip randomisation from hour 1. It flips signs at random on the fifteen paired differences, computes the mean, and repeats this 1 000 times to build a null distribution. The two-sided p-value is then computed as the proportion of null distribution values at least as far from zero as the observed mean.</p>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: predict before running</strong></p>
+</div>
+<div class="task-container">
+<p>Before you run the code, write down your answers to both questions:</p>
+<ol type="1">
+<li>What is the observed mean difference? (You can compute this from the fifteen values, or recall it from hour 1.)</li>
+<li>Roughly what p-value do you expect? Use the board from hour 1 as your guide.</li>
+</ol>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>differences <span class="ot">&lt;-</span> darwin<span class="sc">$</span>difference</span>
+<span id="cb1-2"><a href="#cb1-2"></a>observed <span class="ot">&lt;-</span> <span class="fu">mean</span>(differences)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>n_shuffles <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>null_dist <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_shuffles, {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  signs <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="fu">length</span>(differences), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">mean</span>(differences <span class="sc">*</span> signs)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>})</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Two-sided p-value</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>p_two <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(null_dist) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed))</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="fu">cat</span>(<span class="st">"Observed mean difference:"</span>, <span class="fu">round</span>(observed, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Observed mean difference: 2.617 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">cat</span>(<span class="st">"Two-sided p-value:      "</span>, <span class="fu">round</span>(p_two, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Two-sided p-value:       0.072 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-null-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-null-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-03-computation_files/figure-html/fig-null-distribution-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-null-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Null distribution of the mean paired difference under random sign-flipping. The dashed lines mark the observed mean and its mirror.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: check your prediction</strong></p>
+</div>
+<div class="task-container">
+<p>Compare the output with your prediction. Where does the observed mean sit relative to the null distribution in <a href="#fig-null-distribution" class="quarto-xref">Figure&nbsp;<span>1</span></a>?</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>The observed mean difference is approximately 2.62 inches. Most of the null distribution sits near zero, because sign-flipping centres the distribution at zero under H<sub>0</sub>. The observed value falls in the tail.</p>
+</div>
+</div>
+</div>
+<section id="three-edits" class="level3"><h3 class="anchored" data-anchor-id="three-edits">Three edits</h3>
+<p>You will now make three changes to the permutation code above. Each edit is specified; make them one at a time and re-run after each.</p>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: increase the number of shuffles</strong></p>
+</div>
+<div class="task-container">
+<p>Change <code>n_shuffles &lt;- 1000</code> to <code>n_shuffles &lt;- 10000</code>.</p>
+<p>Before you run it, predict: will the p-value change substantially, or will it be similar?</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>The p-value should be similar but more stable. With more shuffles the estimate of the p-value becomes more precise, but the underlying proportion it estimates does not change.</p>
+</div>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: compute the one-sided p-value</strong></p>
+</div>
+<div class="task-container">
+<p>The current code computes a two-sided p-value:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>p_two <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(null_dist) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Change this line to compute the one-sided p-value, counting only values <em>at least as large</em> as the observed mean (not the mirror). Replace the line with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>p_one <span class="ot">&lt;-</span> <span class="fu">mean</span>(null_dist <span class="sc">&gt;=</span> observed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Before you run it, predict: will the one-sided p-value be larger or smaller than the two-sided value?</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>Smaller. The two-sided p-value counts both tails; the one-sided p-value counts only one. For a symmetric null distribution, the one-sided value is approximately half the two-sided value.</p>
+</div>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: change the statistic to the median</strong></p>
+</div>
+<div class="task-container">
+<p>The code currently uses the mean as the test statistic. Change both occurrences of <code>mean</code> (the observed statistic and the statistic inside <code>replicate</code>) to <code>median</code>.</p>
+<p>Before you run it, predict: will the p-value change?</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>It may change. The median is a different summary of the data and responds differently to extreme values. The null distribution changes shape because it is now built from medians rather than means. The permutation logic is the same — only the statistic differs.</p>
+</div>
+</div>
+</div>
+</section></section><section id="sec-composition" class="level2"><h2 class="anchored" data-anchor-id="sec-composition">Short composition: one-sided p-value</h2>
+<p>Reset your code so that it uses 10 000 shuffles, the mean as the statistic, and the two-sided p-value. The null distribution object <code>null_dist</code> now holds 10 000 sign-flipped means.</p>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: write the one-sided p-value computation</strong></p>
+</div>
+<div class="task-container">
+<p>Here is the two-sided p-value line:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p_two <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(null_dist) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using this as a model, write two or three lines of code that:</p>
+<ol type="1">
+<li>Compute the one-sided p-value (proportion of null distribution values greater than or equal to <code>observed</code>).</li>
+<li>Print the result with <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>.</li>
+</ol>
+<p>Write your code from scratch in the space below. Do not copy and paste the two-sided line and edit it — write it yourself, using the model as a reference.</p>
+<div class="webex-solution">
+<button>
+Model answer
+</button>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p_one <span class="ot">&lt;-</span> <span class="fu">mean</span>(null_dist <span class="sc">&gt;=</span> observed)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">cat</span>(<span class="st">"One-sided p-value:"</span>, <span class="fu">round</span>(p_one, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The key change: remove <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code> from both sides of the comparison. You are no longer asking “how far from zero in either direction?” but “how often does the null distribution exceed the observed value?”</p>
+</div>
+</div>
+</div>
+</section><section id="sec-analytic" class="level2"><h2 class="anchored" data-anchor-id="sec-analytic">The analytic shortcut</h2>
+<p>The sign-flip permutation requires no assumptions about the shape of the data. It builds the null distribution directly from the observed values. There is a shortcut: if you assume the paired differences come from a <strong>normal distribution</strong>, then the null distribution has a known mathematical form — the <strong>t-distribution</strong>. The <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function uses this shortcut.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">t.test</span>(darwin<span class="sc">$</span>difference, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  darwin$difference
+t = 2.148, df = 14, p-value = 0.02485
+alternative hypothesis: true mean is greater than 0
+95 percent confidence interval:
+ 0.4710482       Inf
+sample estimates:
+mean of x 
+ 2.616667 </code></pre>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: read the output</strong></p>
+</div>
+<div class="task-container">
+<p>The <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> output contains several numbers. Identify each of the following in the printed output:</p>
+<ol type="1">
+<li>The test statistic (labelled <code>t</code>).</li>
+<li>The degrees of freedom (labelled <code>df</code>).</li>
+<li>The p-value.</li>
+<li>The estimated mean of the differences.</li>
+</ol>
+<p>Which of these four have you already computed yourself in this session, and which are new?</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>The test statistic and degrees of freedom are new — you have not computed either by hand or in code today. The p-value corresponds to the one-sided permutation p-value you wrote in <a href="session-04-computation.html#sec-composition" class="quarto-xref"><span>Composition task: fit the unpaired model</span></a> (though the exact value differs because <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> uses the t-distribution rather than simulation). The estimated mean matches the <code>observed</code> value you computed at the start of <a href="#sec-permutation" class="quarto-xref"><span>Coded permutation with prediction</span></a>.</p>
+</div>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: compare p-values</strong></p>
+</div>
+<div class="task-container">
+<p>Compare the p-value from <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> with the one-sided p-value from your permutation.</p>
+<ol type="1">
+<li><p>Are they similar?</p></li>
+<li><p>Why might they differ slightly?</p></li>
+<li><p>Why might we use the t-distribution rather than generating a null distribution by simulation every time?</p></li>
+</ol>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<ol type="1">
+<li>They should be broadly similar.</li>
+<li>The permutation p-value is an estimate based on a finite number of shuffles; the t-test p-value is exact under its assumptions. Additionally, the t-test assumes normally distributed differences, which may not hold exactly.</li>
+<li>The parametric assumption (normality of the differences) allows the null distribution to be computed mathematically rather than simulated. That assumption gives us a shortcut, rather than having to brute force a distribution through simulation. When the assumption holds, the two approaches agree. When it does not, the permutation can give a more trustworthy answer.</li>
+</ol>
+</div>
+</div>
+</div>
+</section><section id="sec-alpha" class="level2"><h2 class="anchored" data-anchor-id="sec-alpha">Alpha and error, by simulation</h2>
+<p>What happens when the null hypothesis is actually true? The simulation below runs two thousand studies in which there is genuinely no effect (the true mean difference is zero). For each study, it draws fifteen differences from a normal distribution centred at zero, runs a t-test, and records whether the p-value falls below 0.05.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5"></a>n_studies <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a>simulated <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="at">study =</span> <span class="dv">1</span><span class="sc">:</span>n_studies,</span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="at">p_value =</span> <span class="fu">replicate</span>(n_studies, {</span>
+<span id="cb11-10"><a href="#cb11-10"></a>    fake_differences <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(</span>
+<span id="cb11-11"><a href="#cb11-11"></a>      <span class="dv">15</span>,</span>
+<span id="cb11-12"><a href="#cb11-12"></a>      <span class="at">mean =</span> <span class="dv">0</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>      <span class="at">sd =</span> <span class="fu">sd</span>(darwin<span class="sc">$</span>difference)</span>
+<span id="cb11-14"><a href="#cb11-14"></a>    )</span>
+<span id="cb11-15"><a href="#cb11-15"></a></span>
+<span id="cb11-16"><a href="#cb11-16"></a>    <span class="fu">t.test</span>(fake_differences, <span class="at">mu =</span> <span class="dv">0</span>)<span class="sc">$</span>p.value</span>
+<span id="cb11-17"><a href="#cb11-17"></a>  })</span>
+<span id="cb11-18"><a href="#cb11-18"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-19"><a href="#cb11-19"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-20"><a href="#cb11-20"></a>    <span class="at">significant =</span> p_value <span class="sc">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb11-21"><a href="#cb11-21"></a>  )</span>
+<span id="cb11-22"><a href="#cb11-22"></a></span>
+<span id="cb11-23"><a href="#cb11-23"></a><span class="co"># Summary</span></span>
+<span id="cb11-24"><a href="#cb11-24"></a><span class="fu">cat</span>(</span>
+<span id="cb11-25"><a href="#cb11-25"></a>  <span class="st">"Studies where p &lt; 0.05:"</span>,</span>
+<span id="cb11-26"><a href="#cb11-26"></a>  <span class="fu">sum</span>(simulated<span class="sc">$</span>significant),</span>
+<span id="cb11-27"><a href="#cb11-27"></a>  <span class="st">"out of"</span>,</span>
+<span id="cb11-28"><a href="#cb11-28"></a>  n_studies,</span>
+<span id="cb11-29"><a href="#cb11-29"></a>  <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb11-30"><a href="#cb11-30"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Studies where p &lt; 0.05: 90 out of 2000 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">cat</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="st">"Proportion:"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">round</span>(<span class="fu">mean</span>(simulated<span class="sc">$</span>significant), <span class="dv">4</span>),</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="st">"</span><span class="sc">\n</span><span class="st">"</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Proportion: 0.045 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Visualise the p-value distribution</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(simulated, <span class="fu">aes</span>(<span class="at">x =</span> p_value)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="at">binwidth =</span> <span class="fl">0.025</span>,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>    <span class="at">boundary =</span> <span class="dv">0</span>,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>    <span class="at">colour =</span> <span class="st">"white"</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="at">xintercept =</span> <span class="fl">0.05</span>,</span>
+<span id="cb15-10"><a href="#cb15-10"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb15-14"><a href="#cb15-14"></a>    <span class="st">"text"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15"></a>    <span class="at">x =</span> <span class="fl">0.05</span>,</span>
+<span id="cb15-16"><a href="#cb15-16"></a>    <span class="at">y =</span> <span class="cn">Inf</span>,</span>
+<span id="cb15-17"><a href="#cb15-17"></a>    <span class="at">label =</span> <span class="st">"α = 0.05"</span>,</span>
+<span id="cb15-18"><a href="#cb15-18"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
+<span id="cb15-19"><a href="#cb15-19"></a>    <span class="at">vjust =</span> <span class="fl">1.5</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-22"><a href="#cb15-22"></a>    <span class="at">title =</span> <span class="st">"False positives under the null hypothesis"</span>,</span>
+<span id="cb15-23"><a href="#cb15-23"></a>    <span class="at">subtitle =</span> <span class="fu">paste0</span>(</span>
+<span id="cb15-24"><a href="#cb15-24"></a>      n_studies,</span>
+<span id="cb15-25"><a href="#cb15-25"></a>      <span class="st">" simulated studies; n = 15 per study"</span></span>
+<span id="cb15-26"><a href="#cb15-26"></a>    ),</span>
+<span id="cb15-27"><a href="#cb15-27"></a>    <span class="at">x =</span> <span class="st">"p-value"</span>,</span>
+<span id="cb15-28"><a href="#cb15-28"></a>    <span class="at">y =</span> <span class="st">"Number of simulated studies"</span></span>
+<span id="cb15-29"><a href="#cb15-29"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-30"><a href="#cb15-30"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session-03-computation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: interpret the false-alarm rate</strong></p>
+</div>
+<div class="task-container">
+<ol type="1">
+<li><p>In every one of these two thousand studies, the null hypothesis was true. How many studies nevertheless produced a p-value below 0.05?</p></li>
+<li><p>What name do we give to this threshold?</p></li>
+<li><p>What name do we give to the error of rejecting a true null hypothesis?</p></li>
+</ol>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<ol type="1">
+<li><p>Approximately 100 (5% of 2 000), though the exact count will vary because the simulation is random.</p></li>
+<li><p><strong>Alpha</strong> (<span class="math inline">\(\alpha\)</span>): a threshold chosen in advance, below which the p-value is declared significant. It is a property of the procedure, not of the data.</p></li>
+<li><p><strong>Type I error</strong>: rejecting the null hypothesis when it is in fact true. The long-run rate of Type I errors equals alpha.</p></li>
+</ol>
+<p>A <strong>Type II error</strong> is the reverse: failing to reject the null hypothesis when it is in fact false. This is developed further in later sessions.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Forward link
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Anything that inflates the effective sample size — such as treating non-independent observations as independent — inflates the Type I error rate. This is the subject of Session 8.</p>
+</div>
+</div>
+</section><section id="sec-threshold" class="level2"><h2 class="anchored" data-anchor-id="sec-threshold">Change the threshold</h2>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: change alpha from 0.05 to 0.01</strong></p>
+</div>
+<div class="task-container">
+<p>In the alpha simulation above, the threshold is set at 0.05. Change it to 0.01.</p>
+<p>Before you run it, predict: roughly how many of the two thousand studies will now produce a p-value below 0.01?</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>Approximately 20 (1% of 2 000). The false-positive rate tracks the threshold: if you set alpha at 0.01, about 1% of studies in which the null is true will clear it. This confirms that alpha is a property of the procedure — you choose how often you are willing to be wrong.</p>
+</div>
+</div>
+</div>
+</section><section id="sec-significance" class="level2"><h2 class="anchored" data-anchor-id="sec-significance">Significance is not importance</h2>
+<p>A p-value depends on sample size. With enough data, a trivially small effect can produce a tiny p-value. Biological importance does not depend on sample size — a difference of 0.01 mm in plant height is biologically negligible regardless of how precisely you estimate it.</p>
+<p>Consider two experiments on the same species:</p>
+<ul>
+<li>
+<strong>Experiment A</strong>: mean difference = 0.05 mm, SE = 0.01, n = 10 000, p &lt; 0.001.</li>
+<li>
+<strong>Experiment B</strong>: mean difference = 3.2 mm, SE = 1.8, n = 12, p = 0.09.</li>
+</ul>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: which result matters?</strong></p>
+</div>
+<div class="task-container">
+<p>Before reading on, write down your answer: which experiment has produced the more biologically important result, A or B? Give your reason in one sentence.</p>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<p>Experiment B. The effect in A (0.05 mm) is trivially small; it reaches statistical significance only because the enormous sample size makes the standard error tiny. The effect in B (3.2 mm) is large enough to be biologically meaningful, but the small sample leaves too much uncertainty to clear the 0.05 threshold. Statistical significance tells you that an effect is unlikely to be zero. It does not tell you that the effect matters.</p>
+</div>
+</div>
+</div>
+</section><section id="sec-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-exit">Cumulative spine and exit ticket</h2>
+<p>Session 1 established that a statistic is random. Session 2 showed how to quantify uncertainty from a single sample. This session showed how to judge whether a specific claim is supported. Session 4 asks how this generalises when the comparison involves more than two conditions.</p>
+<div class="task">
+<div class="task-header">
+<p><strong>Task: exit question</strong></p>
+</div>
+<div class="task-container">
+<p>Write your answer on paper before you leave. This question is deliberately unanswerable from today’s material alone — we will pick this up next time.</p>
+<blockquote class="blockquote">
+<p>You tested whether two pollination treatments differ in maize height and obtained a coefficient of 1.2 with a standard error of 0.5. A third pollination treatment now enters the study. Can you still use a single difference of means, and if not, what do you need?</p>
+</blockquote>
+</div>
+</div>
+</section><section id="reading" class="level2"><h2 class="anchored" data-anchor-id="reading">Reading</h2>
+<ul>
+<li><p><a href="statisticsbyjim.com/hypothesis-testing/hypothesis-testing/">“Hypothesis Testing and the Null Hypothesis”</a>.</p></li>
+<li><p><a href="statisticsbyjim.com/hypothesis-testing/interpreting-p-values/">“Understanding P-values”</a>.</p></li>
+<li><p><a href="statisticsbyjim.com/hypothesis-testing/statistical-significance/">“Statistical Significance”</a>.</p></li>
+</ul>
+
+
+</section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./session-03-workshop.html" class="pagination-link" aria-label="Null distributions and what a p-value is">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Null distributions and what a p-value is</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./session-04-pre.html" class="pagination-link" aria-label="The linear model - Pre-reading">
+        <span class="nav-page-text">The linear model - Pre-reading</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CC-BY (2026) Philip Leftwich</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>
