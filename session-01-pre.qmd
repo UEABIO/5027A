@@ -207,9 +207,19 @@ opts_pop <- sample(c(
 
 **1.** A population is `r longmcq(opts_pop)`.
 
-**2.** Under the frequentist definition, the probability of an event is its long-run `r fitb("proportion", ignore_case = TRUE)` across many identical repetitions.
+```{r}
+#| echo: false
+opts_long_run <- sample(c(
+ answer = "Proportion",
+ "Most common value",
+ "Expected value",
+ "Maximum likelihood"
+))
+```
 
-**3.** If a measurement is normally distributed, approximately `r fitb("95")` per cent of values lie within two standard deviations of the mean.
+**2.** Under the frequentist definition, the probability of an event is its long-run `r longmcq(opts_long_run)` across many identical repetitions.
+
+**3.** If a measurement is normally distributed, approximately `r fitb("95")` per cent of values lie within **two** standard deviations of the mean.
 
 ```{r}
 #| echo: false
