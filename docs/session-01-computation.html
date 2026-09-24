@@ -580,6 +580,46 @@ Answer
 </div>
 <p>The code below simulates both a blind draw and a speed-biased draw. In the biased version, each student’s probability of being selected falls off steeply with their reaction time, so fast students are drawn far more often than slow ones.</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#| fig-cap: "Sampling distributions from blind (left) and speed-biased (right) draws."</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>blind_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">mean</span>(s)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>})</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># Faster students more likely to have entered a score</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>biased_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb3-12"><a href="#cb3-12"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fu">exp</span>(<span class="sc">-</span>rt_population <span class="sc">/</span> <span class="dv">25</span>))</span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="fu">mean</span>(s)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>})</span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb3-17"><a href="#cb3-17"></a>  <span class="fu">tibble</span>(<span class="at">sample_mean =</span> blind_means, <span class="at">draw =</span> <span class="st">"Blind"</span>),</span>
+<span id="cb3-18"><a href="#cb3-18"></a>  <span class="fu">tibble</span>(<span class="at">sample_mean =</span> biased_means, <span class="at">draw =</span> <span class="st">"Speed-biased"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample_mean)) <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"#4477AA"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    <span class="at">xintercept =</span> pop_mean,</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"#EE6677"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>draw) <span class="sc">+</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample mean (ms)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="session-01-computation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="webex-solution">
+<button>
+Answer
+</button>
+<div class="cell">
 <div class="cell-output-display">
 <div id="fig-bias" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-bias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -588,6 +628,7 @@ Answer
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Sampling distributions from blind (left) and speed-biased (right) draws.
 </figcaption></figure>
+</div>
 </div>
 </div>
 </div>
@@ -618,17 +659,17 @@ Why?
 </div>
 <p>The code that generates the blind draw is:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>blind_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">mean</span>(s)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>blind_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">mean</span>(s)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The biased draw adds <code>prob = exp(-rt_population / 25)</code>, which weights selection heavily towards faster students:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>biased_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fu">exp</span>(<span class="sc">-</span>rt_population <span class="sc">/</span> <span class="dv">25</span>))</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">mean</span>(s)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>biased_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fu">exp</span>(<span class="sc">-</span>rt_population <span class="sc">/</span> <span class="dv">25</span>))</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">mean</span>(s)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="task">
 <div class="task-header">
@@ -657,12 +698,14 @@ Model answer
 <p><strong>Task: swap the population for a process</strong></p>
 </div>
 <div class="task-container">
-<p>The code below plots the distribution of individual values from the reaction-time sheet. Change <code>rt_population</code> to <code>rexp(500, rate = 1)</code> and run it.</p>
+<p>So far you have sampled from a fixed list of 500 students. In real research you almost never have the whole population. Instead, you assume the data come from a <strong>process</strong>: a rule that can generate as many values as you ask for.</p>
+<p><code>rexp(n, rate = 1)</code> is one such process. Each time it runs, it produces <code>n</code> new random values. Most are small and a few are much larger, so the shape is skewed to the right, like reaction times. The values sit around 1 rather than around 250 ms, so expect the numbers on the x-axis to change.</p>
+<p><strong>Step 1: look at individual values.</strong> In the code below, replace <code>rt_population</code> with <code>rexp(500, rate = 1)</code>. This swaps the 500 students for 500 values made by the process. Run it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">x =</span> rt_population), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"#CCBB44"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Individual value"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">x =</span> rt_population), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"#CCBB44"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Individual value"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Are the individual values normally distributed? <select class="webex-select"><option value="blank"></option>
@@ -670,25 +713,30 @@ Model answer
 <option value="answer">FALSE</option></select>
 </li>
 </ul>
-<p>Now make the same substitution in the sampling distribution code from <a href="#sec-code-draw" class="quarto-xref"><span>Reproduce the draw in code</span></a>: replace <code>sample(rt_population, size = 20)</code> with <code>rexp(20, rate = 1)</code>.</p>
+<p><strong>Step 2: look at the means.</strong> Go back to the sampling distribution code from <a href="#sec-code-draw" class="quarto-xref"><span>Reproduce the draw in code</span></a>. Right now each repeat picks 20 students from the list. Replace <code>sample(rt_population, size = 20)</code> with <code>rexp(20, rate = 1)</code>, so each repeat generates 20 fresh values from the process instead. Run it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">mean</span>(s)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>})</span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">sample_mean =</span> sample_means), <span class="fu">aes</span>(<span class="at">x =</span> sample_mean)) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"#4477AA"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(rt_population, <span class="at">size =</span> <span class="dv">20</span>)   <span class="co"># &lt;- replace this line's right-hand side</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">mean</span>(s)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>})</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(<span class="at">sample_mean =</span> sample_means), <span class="fu">aes</span>(<span class="at">x =</span> sample_mean)) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"#4477AA"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li>Is the sampling distribution of their mean approximately normal? <select class="webex-select"><option value="blank"></option>
+<li>Is the sampling distribution of the mean approximately normal? <select class="webex-select"><option value="blank"></option>
 <option value="answer">TRUE</option>
 <option value="">FALSE</option></select>
 </li>
 </ul>
-<p>The same substitution in two places, and two histograms to compare. The individual values are strongly right-skewed, but the means pile up into an approximately normal shape. Session 2 names this result.</p>
+<div class="webex-solution">
+<button>
+What just happened?
+</button>
+<p>Both histograms come from the same process. The individual values are strongly skewed to the right, but when you average them in groups of 20, the means pile up into a roughly symmetrical, bell-shaped distribution. This is no coincidence, and we will explore this more next time.</p>
+</div>
 </div>
 </div>
 </section><section id="sec-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-exit">Exit ticket</h2>

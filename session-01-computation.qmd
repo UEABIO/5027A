@@ -171,6 +171,41 @@ Suppose that entering a score on the class sheet had been optional, and students
 
 The code below simulates both a blind draw and a speed-biased draw. In the biased version, each student's probability of being selected falls off steeply with their reaction time, so fast students are drawn far more often than slow ones.
 
+
+```{r}
+
+#| echo: true
+#| eval: false
+#| fig-cap: "Sampling distributions from blind (left) and speed-biased (right) draws."
+
+blind_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20)
+  mean(s)
+})
+
+# Faster students more likely to have entered a score
+biased_means <- replicate(1000, {
+  s <- sample(rt_population, size = 20, prob = exp(-rt_population / 25))
+  mean(s)
+})
+
+bind_rows(
+  tibble(sample_mean = blind_means, draw = "Blind"),
+  tibble(sample_mean = biased_means, draw = "Speed-biased")
+) |>
+  ggplot(aes(x = sample_mean)) +
+  geom_histogram(binwidth = 2, fill = "#4477AA", colour = "white") +
+  geom_vline(
+    xintercept = pop_mean,
+    linetype = "dashed", colour = "#EE6677", linewidth = 0.8
+  ) +
+  facet_wrap(~draw) +
+  labs(x = "Sample mean (ms)", y = "Count") +
+  theme_minimal(base_size = 13)
+```
+
+`r hide("Answer")`
+
 ```{r}
 #| label: fig-bias
 #| echo: false
@@ -201,6 +236,8 @@ bind_rows(
   labs(x = "Sample mean (ms)", y = "Count") +
   theme_minimal(base_size = 13)
 ```
+
+`r unhide()`
 
 :::{.task}
 ::::{.task-header}
@@ -273,9 +310,18 @@ assume the data come from a **process** described by a distribution.
 
 ::::{.task-container}
 
-The code below plots the distribution of individual values from the
-reaction-time sheet. Change `rt_population` to `rexp(500, rate = 1)`
-and run it.
+So far you have sampled from a fixed list of 500 students. In real research
+you almost never have the whole population. Instead, you assume the data
+come from a **process**: a rule that can generate as many values as you ask for.
+
+`rexp(n, rate = 1)` is one such process. Each time it runs, it produces `n`
+new random values. Most are small and a few are much larger, so the shape is
+skewed to the right, like reaction times. The values sit around 1 rather than
+around 250 ms, so expect the numbers on the x-axis to change.
+
+**Step 1: look at individual values.** In the code below, replace
+`rt_population` with `rexp(500, rate = 1)`. This swaps the 500 students for
+500 values made by the process. Run it.
 
 ```{r}
 #| eval: false
@@ -287,14 +333,15 @@ ggplot(tibble(x = rt_population), aes(x = x)) +
 
 - Are the individual values normally distributed? `r torf(FALSE)`
 
-Now make the same substitution in the sampling distribution code from
-@sec-code-draw: replace `sample(rt_population, size = 20)` with
-`rexp(20, rate = 1)`.
+**Step 2: look at the means.** Go back to the sampling distribution code
+from @sec-code-draw. Right now each repeat picks 20 students from the list.
+Replace `sample(rt_population, size = 20)` with `rexp(20, rate = 1)`, so each
+repeat generates 20 fresh values from the process instead. Run it.
 
 ```{r}
 #| eval: false
 sample_means <- replicate(1000, {
-  s <- sample(rt_population, size = 20)
+  s <- sample(rt_population, size = 20)   # <- replace this line's right-hand side
   mean(s)
 })
 
@@ -304,12 +351,14 @@ ggplot(tibble(sample_mean = sample_means), aes(x = sample_mean)) +
   theme_minimal(base_size = 13)
 ```
 
-- Is the sampling distribution of their mean approximately normal?
-  `r torf(TRUE)`
+- Is the sampling distribution of the mean approximately normal? `r torf(TRUE)`
 
-The same substitution in two places, and two histograms to compare.
-The individual values are strongly right-skewed, but the means pile
-up into an approximately normal shape. Session 2 names this result.
+`r hide("What just happened?")`
+Both histograms come from the same process. The individual values are
+strongly skewed to the right, but when you average them in groups of 20, the
+means pile up into a roughly symmetrical, bell-shaped distribution. This is
+no coincidence, and we will explore this more next time.
+`r unhide()`
 
 ::::
 :::
