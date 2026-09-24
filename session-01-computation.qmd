@@ -173,7 +173,6 @@ The code below simulates both a blind draw and a speed-biased draw. In the biase
 
 
 ```{r}
-
 #| echo: true
 #| eval: false
 #| fig-cap: "Sampling distributions from blind (left) and speed-biased (right) draws."
