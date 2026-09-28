@@ -57,6 +57,11 @@ book:
         - session-04-pre.qmd
         - session-04-workshop.qmd
         - session-04-computation.qmd
+  appendices:
+  - projects.qmd
+  - import_penguins_data.qmd
+  - import_data.qmd
+
 
 bibliography:
   - include/packages.bib

@@ -984,5 +984,280 @@
       "Week Four",
       "Linear models in R"
     ]
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Appendix A — Project workflows",
+    "section": "",
+    "text": "A.1 Learning Objectives\nBy the end of this chapter, you will be able to:\nIn RStudio, a project is a way to organize your work . It’s a fundamental concept designed to enhance your workflow by providing a structured and efficient means of managing your R-related tasks and files.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Project workflows</span>"
+    ]
+  },
+  {
+    "objectID": "projects.html#learning-objectives",
+    "href": "projects.html#learning-objectives",
+    "title": "Appendix A — Project workflows",
+    "section": "",
+    "text": "Explain why tidy, well-structured projects make your R work more reproducible and easier to share.\nUse the fs (R-fs?) package to create and navigate folders within an R project.\nSet up a basic project structure with directories for data, scripts, and outputs.\nSet project settings for a script-oriented workflow\n\n\n\n\n\n\n\nTipQuestion: How do you organise your R workflow?\n\n\n\n\nDo your different analyses sit in different organised folders?\nDo you actively use R projects or know what they are for?",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Project workflows</span>"
+    ]
+  },
+  {
+    "objectID": "projects.html#why-r-projects-are-useful",
+    "href": "projects.html#why-r-projects-are-useful",
+    "title": "Appendix A — Project workflows",
+    "section": "\nA.2 Why R projects are useful:",
+    "text": "A.2 Why R projects are useful:\n1. Organized File Structure: R projects encourage you to maintain a well-organized file structure for your work. Instead of having scattered R scripts, data files, and figures, you create a dedicated folder for each project. This folder typically contains all project-related materials, including data, code, figures, notes, and any other relevant files.\n2. Working Directory Management: When you open an R project in RStudio, it automatically sets the working directory to the project’s folder. This ensures that all file paths are relative to the project’s location. This working directory intentionality eliminates the need for setting working directories manually or using absolute paths in your code.\n3. Portability and Collaboration: R projects make your work more portable and collaborative. Since all paths are relative to the project folder, the project can be easily shared with others. It ensures that the code works consistently across different computers and for other users, promoting collaboration and reproducibility.\n4. RStudio Integration: RStudio integrates project management seamlessly. You can designate a folder as an R project, and RStudio leaves a .Rproj file in that folder to store project-specific settings. When you double-click on this file, it opens a fresh instance of RStudio with the project’s working directory and file browser pointed at the project folder.\n5. Efficient Workflow: RStudio provides various menu options and keyboard shortcuts for managing projects. This includes the ability to open existing projects, switch between projects, and even launch multiple instances of RStudio for different projects.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Project workflows</span>"
+    ]
+  },
+  {
+    "objectID": "projects.html#setting-up-a-new-project",
+    "href": "projects.html#setting-up-a-new-project",
+    "title": "Appendix A — Project workflows",
+    "section": "\nA.3 Setting up a new project",
+    "text": "A.3 Setting up a new project\nYou should start a new R project when you begin working on a distinct task, research project, or analysis. This ensures that your work is well-organized, and it’s especially beneficial when you need to collaborate, share, or revisit the project later.\n\n\nYour turn\n\n\nSet up our first R Project:\n\n1. Go to “File” in the RStudio menu.\n2. Select “New Project…”\n3. Choose a project type or create a new directory for the project.\n4. Click “Create Project.”\n5. Give it a name “Penguins”\n\nThe new project will be created with a .Rproj file. You can open it by double-clicking on this file or by using the “File” menu in RStudio.\n\n\n\n\n\n\n\n\nWarning\n\n\n\nIt is very important to NEVER to move the .Rproj file, this may prevent your workspace from opening properly.\n\n\nMore on projects can be found in the R4DS book.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Project workflows</span>"
+    ]
+  },
+  {
+    "objectID": "projects.html#build-a-project-structure",
+    "href": "projects.html#build-a-project-structure",
+    "title": "Appendix A — Project workflows",
+    "section": "\nA.4 Build a Project Structure",
+    "text": "A.4 Build a Project Structure\nLet’s create a clean folder structure - we can do this in several ways:\n\n\n\n\nAn example of a typical R project set-up\n\n\n\n\n\nIDE\nBase R\nfs\n\n\n\n\n\nCreate the following folders using the + New Folder button in the Files tab\n\ndata/raw\ndata/clean\nscripts\noutputs\n\n\n\n\n\n\n\nMaking folders\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nR is case-sensitive and whitespace-sensitive so type everything EXACTLY as printed here\n\n\n\n\n\n# dir.create makes directories\n# unless specified it is not \"recursive\"\n\ndir.create(\"data/raw\",\n           recursive = TRUE) \n\ndir.create(\"data/clean\",\n           recursive = TRUE)\n\ndir.create(\"scripts\")\n\ndir.create(\"outputs\") \n\n\n\n\n# Load the package\nlibrary(fs)\n\n# Create standard folders\ndir_create(\"data\", c(\"raw\", \"clean\"))   # creates dir recursively as standard\ndir_create(\"scripts\")       # for your R code\ndir_create(\"outputs\")    # for figures and plots\n\nRun fs::dir_tree() to generate a nicely formatted directory tree and is a great sanity check before and after file manipulation\nThe fs (R-fs?) package is a great OS agnostic package and one that works safely (it will not overwrite files or folders unless explicitly asked).\n\n\n\nHaving these separate subfolders within our project helps keep things tidy, means it’s harder to lose things, and lets you easily tell R exactly where to go to retrieve data.\nYou might want also want to keep any information (wider reading) you have gathered that is relevant to your project.\n\n\nYour turn\n\n\nTry creating subdirectories for the outputs folder\n\n\nSolution\n\n\nsubdir &lt;- c(\"figures\", \"talks\", \"reports\")\n\nfs::dir_create(\"outputs\", subdir)",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Project workflows</span>"
+    ]
+  },
+  {
+    "objectID": "projects.html#blank-slates",
+    "href": "projects.html#blank-slates",
+    "title": "Appendix A — Project workflows",
+    "section": "\nA.5 Blank slates",
+    "text": "A.5 Blank slates\nWhen working on data analysis and coding projects in R, it’s crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies.\nHidden dependencies are elements in your R session that might not be immediately apparent but can significantly impact the reliability and predictability of your work.\nFor example many data analysis scripts start with the command rm(list = ls()). While this command clears user-created objects from the workspace, it leaves hidden dependencies as it does not reset the R session, and can cause issues such as:\n\nHidden Dependencies: Users might unintentionally rely on packages or settings applied in the current session.\nIncomplete Reset: Package attachments made with library() persist, and customized options remain set.\nWorking Directory: The working directory is not affected, potentially causing path-related problems in future scripts.\n\n\n\nYour turn\n\n\n\nRun some simple R code in your console:\n\n\nlibrary(tidyverse)\n\nb &lt;- 3\nc &lt;- 2\n\na &lt;- b + c\n\n\nYou should see messages indicating tidyverse has loaded as a package (if installed).\n\n\nYou should see a, b and c in your “Environment” Pane you can also run the command ls() in your console\n\n\nType the command rm(list =ls()) in your console\n\n\nYou should see your Environment pane is now empty\n\n\nRe-run the command library(tidyverse) or check the Packages pane\n\n\nYou should see that this did nothing to the state of your packages\n\n\n\n\nA.5.1 Restart R sessions\nRStudio projects can handle a clean workspace automatically.\n\nGo to Tools - Project Options - General\nUnder Workspace set all .RData options to No\nSelection Session - Restart R (Ctrl + Shift + F10)\n\n\n\n\n\n\n\n\n\n\n\nQuestion\n\n\nWhich feels safer and more reproducible for long-term work?\n\nrm(list=ls())\nSetting up a Blank Slate R Environment",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Project workflows</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html",
+    "href": "import_penguins_data.html",
+    "title": "Appendix B — Import penguins data",
+    "section": "",
+    "text": "B.1 Learning Objectives",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#learning-objectives",
+    "href": "import_penguins_data.html#learning-objectives",
+    "title": "Appendix B — Import penguins data",
+    "section": "",
+    "text": "This chapter covers an ideal workflow for importing data into R",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#access-our-data",
+    "href": "import_penguins_data.html#access-our-data",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.2 Access our data",
+    "text": "B.2 Access our data\nNow that we have a project workspace, we are ready to import some data.\n\nUse the link below to open a page in your browser with the data open\nRight-click Save As to download in csv format to your computer (Make a note of where the file is being downloaded to e.g. Downloads)\n\n\n\n\n Download penguin data as csv",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#meet-the-penguins",
+    "href": "import_penguins_data.html#meet-the-penguins",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.3 Meet the Penguins",
+    "text": "B.3 Meet the Penguins\n\n\n\n\n\n\n\n\nThis data, taken from the palmerpenguins package was originally published by Gorman et al. (2014).\nThe palmer penguins data contains size measurements, clutch observations, and blood isotope ratios for three penguin species observed on three islands in the Palmer Archipelago, Antarctica over a study period of three years.\n\n\n\n\nTop image: Penguins data viewed in Excel, Bottom image: Penguins data in native csv format\n\n\n\nIn raw format, each line of a CSV is separated by commas for different values. When you open this in a spreadsheet program like Excel it automatically converts those comma-separated values into tables and columns.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#make-sure-our-data-is-in-the-correct-directory",
+    "href": "import_penguins_data.html#make-sure-our-data-is-in-the-correct-directory",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.4 Make sure our data is in the correct directory",
+    "text": "B.4 Make sure our data is in the correct directory\n\nThe data is now in your Downloads folder on your computer (by default)\nMove/copy/save it to the data/raw sub directory of your RStudio Project.\n\n\n\n\n\nHighlighted the buttons to upload files, and more options",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#make-a-script",
+    "href": "import_penguins_data.html#make-a-script",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.5 Make a script",
+    "text": "B.5 Make a script\nLet’s now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures.\n\n\nYour turn\n\n\nSet your Rstudio theme to something that works for you:\n\nUse the File &gt; New Script menu item and select an R Script.\nAdd the following:\n\n\n#___________________________----\n# SET UP ----\n# An analysis of the bill dimensions of male and female \n# Adelie, Gentoo and Chinstrap penguins\n\n# Data first published in  Gorman, KB, TD Williams, and WR Fraser. \n# 2014. \n# “Ecological Sexual Dimorphism and Environmental Variability \n# Within a Community of Antarctic Penguins (Genus Pygoscelis).” \n# PLos One 9 (3): e90081.\n# https://doi.org/10.1371/journal.pone.0090081. \n#__________________________----\n\n\n\n\n\n\n\n\n\nTipOrganising a script\n\n\n\n\n\nWhy do we need scripts to be organised?\nScripts are a human readable record of our analysis - we need them to be organised, consistent, and well-documented.\nWell organised scripts are useful in that provide a reference for what you did - think of them as the analysis equivalent of a lab notebook. The more detail provided in the form of comments, the more context we have. The more organised they are, the easier it is to find the sections we need to review. Just like a lab notebook they should be written as though someone else will be reading them.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#add-packages",
+    "href": "import_penguins_data.html#add-packages",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.6 Add Packages",
+    "text": "B.6 Add Packages\nNext load the following add-on package to the R script, just underneath these comments. Tidyverse isn’t actually one package, but a bundle of many different packages that play well together - for example it includes ggplot2 a package for making figures (Wickham (2023)).\n\n\nYour turn\n\n\n\nAdd the following to your script:\n\n\nNote you may need to run install.packages() to download and set up packages the first time you make a new project.\n\n\n# PACKAGES ----\nlibrary(tidyverse) # tidy data packages\nlibrary(here) # organised file paths\nlibrary(janitor) # cleans variable names\n#__________________________----\n\n\nSave this file inside the scripts folder and call it 01_import_penguins_data.R\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nClick on the document outline button (top right of script pane). This will show you how the use of the visual outline\nAllows us to build a series of headers and subheaders, this is very useful when using longer scripts.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#read-in-data",
+    "href": "import_penguins_data.html#read-in-data",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.7 Read in data",
+    "text": "B.7 Read in data\nNow we can read in the data. To do this we will use the function readr::read_csv() that allows us to read in .csv files. There are also functions that allow you to read in .xlsx files and other formats like .json, however in this course we will only use .csv files.\nWe are also using here::here(), Müller (2020). The here package helps you load and save files in your project without worrying about changing your working directory, by always starting from the project’s main folder.\n\nFirst, we will create an object called penguins_raw that contains the data in the penguins_raw.csv file.\n\n\n\nYour turn\n\n\n\nAdd the following to your script, and check the document outline:\n\n\n# IMPORT DATA ----\n\npenguins_raw &lt;- read_csv(here(\"data\", \"raw\", \"penguins_raw.csv\"))\n\n# check the data has loaded\npenguins_raw\n#__________________________----\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstudyName\nSample Number\nSpecies\nRegion\nIsland\nStage\nIndividual ID\nClutch Completion\nDate Egg\nCulmen Length (mm)\nCulmen Depth (mm)\nFlipper Length (mm)\nBody Mass (g)\nSex\nDelta 15 N (o/oo)\nDelta 13 C (o/oo)\nComments\n\n\n\nPAL0708\n1\nAdelie Penguin (Pygoscelis adeliae)\nAnvers\nTorgersen\nAdult, 1 Egg Stage\nN1A1\nYes\n11/11/2007\n39.1\n18.7\n181\n3750\nMALE\nNA\nNA\nNot enough blood for isotopes.\n\n\nPAL0708\n2\nAdelie Penguin (Pygoscelis adeliae)\nAnvers\nTorgersen\nAdult, 1 Egg Stage\nN1A2\nYes\n11/11/2007\n39.5\n17.4\n186\n3800\nFEMALE\n8.94956\n-24.69454\nNA\n\n\nPAL0708\n3\nAdelie Penguin (Pygoscelis adeliae)\nAnvers\nTorgersen\nAdult, 1 Egg Stage\nN2A1\nYes\n16/11/2007\n40.3\n18.0\n195\n3250\nFEMALE\n8.36821\n-25.33302\nNA\n\n\nPAL0708\n4\nAdelie Penguin (Pygoscelis adeliae)\nAnvers\nTorgersen\nAdult, 1 Egg Stage\nN2A2\nYes\n16/11/2007\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nAdult not sampled.\n\n\nPAL0708\n5\nAdelie Penguin (Pygoscelis adeliae)\nAnvers\nTorgersen\nAdult, 1 Egg Stage\nN3A1\nYes\n16/11/2007\n36.7\n19.3\n193\n3450\nFEMALE\n8.76651\n-25.32426\nNA\n\n\nPAL0708\n6\nAdelie Penguin (Pygoscelis adeliae)\nAnvers\nTorgersen\nAdult, 1 Egg Stage\nN3A2\nYes\n16/11/2007\n39.3\n20.6\n190\n3650\nMALE\n8.66496\n-25.29805\nNA\n\n\n\n\n\n\n\nCheck your script\n\n\n\nSolution\n\n\n#___________________________----\n# SET UP ----\n# An analysis of the bill dimensions of male and female \n# Adelie, Gentoo and Chinstrap penguins\n\n# Data first published in  Gorman, KB, TD Williams, and WR Fraser. \n# 2014. \n# “Ecological Sexual Dimorphism and Environmental Variability \n# Within a Community of Antarctic Penguins (Genus Pygoscelis).” \n# PLos One 9 (3): e90081.\n# https://doi.org/10.1371/journal.pone.0090081. \n#__________________________----\n\n# PACKAGES ----\nlibrary(tidyverse) # tidy data packages\nlibrary(here) # organised file paths\nlibrary(janitor) # cleans variable names\n#__________________________----\n\n# IMPORT DATA ----\npenguins_raw &lt;- read_csv(here(\"data\", \"raw\", \"penguins_raw.csv\"))\n\n# check the data has loaded, prints first 10 rows of dataframe\npenguins_raw\n#__________________________----",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#running-a-script-from-console",
+    "href": "import_penguins_data.html#running-a-script-from-console",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.8 Running a script from console",
+    "text": "B.8 Running a script from console\nNow that we have made a very simple script, we can check our blank slates set-up and that our script runs without errors:\n\n\nYour turn\n\n\n\nRestart your R session - (does your Environment clear?)\nUsing the source() function in your console type the filepath of your script and hit enter.\n\n\n\nSolution\n\n\nsource(\"scripts/01_import_penguins_data.R\") # must specify dir\n\n# source(here::here(\"scripts\", \"01_import_penguins_data.R\"))\n# using here",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_penguins_data.html#summary",
+    "href": "import_penguins_data.html#summary",
+    "title": "Appendix B — Import penguins data",
+    "section": "\nB.9 Summary",
+    "text": "B.9 Summary\nIn this chapter we have:\n\nSet up our raw data in an organised subdirectory\nMade safe filepaths to our data\nImported into R\nChecked basic data import\n\n\n\n\n\nGorman, K., Williams, T., & Fraser, W. (2014). Ecological sexual dimorphism and environmental variability within a community of antarctic penguins (genus pygoscelis). PLos One, 9(3), e90081. https://doi.org/10.1371/journal.pone.0090081\n\n\nMüller, K. (2020). Here: A simpler way to find your files. https://here.r-lib.org/\n\n\nWickham, H. (2023). Tidyverse: Easily install and load the tidyverse. https://tidyverse.tidyverse.org",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Import penguins data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html",
+    "href": "import_data.html",
+    "title": "Appendix C — Reading data",
+    "section": "",
+    "text": "C.1 Learning Objectives\nThis section covers different methods for importing and exporting data in R, by the end of this chapter you will be able to:",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#learning-objectives",
+    "href": "import_data.html#learning-objectives",
+    "title": "Appendix C — Reading data",
+    "section": "",
+    "text": "Import CSV and Excel files using base R, readr, and readxl.\nExplain the difference between data frames and tibbles.\nUse the here package for reproducible file paths (no setwd()!).\nPaste small tables using datapasta.\nSave and reload individual R objects with .RDS files.\nUse purrr::map() to read many data files automatically.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#readr",
+    "href": "import_data.html#readr",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.2 readr\n",
+    "text": "C.2 readr\n\nIf you’ve used R before, you might wonder why we’re not using read.csv(). There are a few good reasons to favour readr functions over the base equivalents:\n\nThey are typically much faster (~10x) than their base equivalents. Long running jobs have a progress bar, so you can see what’s happening. If you’re looking for raw speed, try data.table::fread(). It doesn’t fit quite so well into the tidyverse, but it can be quite a bit faster.\nThey produce tibbles, which do not use row names and do not alter column names. Base read.csv() converts non-syntactic names by default (e.g. Body Mass (g) becomes Body.Mass..g.). Before R 4.0.0, base functions also converted character vectors to factors by default; this is no longer the case.\n\n\n\nFeature\nBase data.frame\n\nTidyverse tibble\n\n\n\n\nPrinting\nPrints all rows\nPrints compactly\n\n\nColumn names\nAltered to be syntactic\nKept as in the file\n\n\nSubsetting\nMay simplify results\nKeeps consistent structure\n\n\nCreated by\nread.csv()\nread_csv()\n\n\n\n\nC.2.1 useful options\n\nreadr::read_csv(here::here(\"data\", \"raw\", \"penguins_raw.csv\"),\n         col_types = cols(`Body Mass (g)` = col_double(),\n                          `Sex` = readr::col_factor(levels = c(\"MALE\", \"FEMALE\")),\n                          `Date Egg` = readr::col_date(\"%d/%m/%Y\")))\n\n# Fixing character strings as factors\n# Fixing dates at import requires you to specify date orders and separators",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#importing-from-excel",
+    "href": "import_data.html#importing-from-excel",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.3 Importing from excel",
+    "text": "C.3 Importing from excel\nThis example assumes you have opened penguins_raw.csv in Excel and saved a copy as an Excel workbook (penguins_raw.xlsx) in data/raw.\n\nlibrary(readxl)\npenguins_rawxl &lt;- read_excel(here::here(\"data\", \"raw\", \"penguins_raw.xlsx\"), sheet = 1)\n\n\nC.3.1 useful options\n\n\n\n\n\n\n\nArgument\nUse\nExample\n\n\n\nsheet\nSelect by name or number\nsheet = 2\n\n\nrange\nImport only part of sheet\nrange = \"A1:D20\"\n\n\nskip\nIgnore header rows\nskip = 2\n\n\ncol_names\nSet your own names\ncol_names = c(\"id\", \"age\", \"group\")\n\n\ncol_types\nSet column types manually\ncol_types = c(\"text\", \"numeric\", \"guess\")\n\n\nna\nDefine missing values\nna = c(\"\", \"NA\", \"missing\")",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#filepaths",
+    "href": "import_data.html#filepaths",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.4 Filepaths",
+    "text": "C.4 Filepaths\nTo maintain a clean and efficient workflow in R, it’s advisable to avoid using setwd() at the beginning of each script. This practice promotes the use of safe file paths and is particularly important for projects with multiple collaborators or when working across different computers.\n\n\n\n\n\n\nImportant\n\n\n\nWhy we use projects\n\n\n\nC.4.1 Absolute vs. Relative Paths:\nWhile absolute file paths provide an explicit way to locate resources, they have significant drawbacks, such as incompatibility and reduced reproducibility. Relative file paths, on the other hand, are relative to the current working directory, making them shorter, more portable, and more reproducible.\nAn Absolute file path is a path that contains the entire path to a file or directory starting from your Home directory and ending at the file or directory you wish to access e.g.\nC:/home/your-username/project/data/penguins_raw.csv\n\nIf you share files, another user won’t have the same directory structure as you, so they will need to recreate the file paths\nIf you alter your directory structure, you’ll need to rewrite the paths\nAn absolute file path will likely be longer than a relative path, more of the backslashes will need to be edited, so there is more scope for error.\n\nA Relative filepath is the path that is relative to the working directory location on your computer.\nWhen you use RStudio Projects, wherever the .Rproj file is located is set to the working directory. This means that if the .Rproj file is located in your project folder then the relative path to your data is:\ndata/penguins_raw.csv\nThis filepath is shorter and it means you could share your project with someone else and the script would run without any editing.\n\nC.4.2 The here Package:\nTo further enhance this organization and ensure that file paths are independent of specific working directories, the here package comes into play. The here::here() function provided by this package Müller (2020) builds file paths relative to the top-level directory of your project.\nIn the project structure set up in Appendix A you have raw data files in the data/raw directory, scripts in the scripts directory, and you want to save processed data in the data/clean directory.\nTo access this data using a relative filepath we need:\n\nraw_data &lt;- read.csv(\"data/raw/penguins_raw.csv\")\n\nTo access this data with here we provide the directories and desired file, and here() builds the required filepath starting at the top level of our project each time\n\nlibrary(here)\n\nraw_data &lt;- read.csv(here(\"data\", \"raw\", \"penguins_raw.csv\"))",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#datapasta",
+    "href": "import_data.html#datapasta",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.5 datapasta\n",
+    "text": "C.5 datapasta\n\nThe datapasta package lets you paste small tables directly into R — perfect for quick tests or examples.\n\nlibrary(datapasta)\n# Copy a small table (e.g. from Excel), then run:\ndpasta()\n\nIt automatically pastes code like this:\ntribble(\n  ~id, ~age, ~group,\n  1, 23, \"control\",\n  2, 27, \"treatment\"\n)",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#r-data-types",
+    "href": "import_data.html#r-data-types",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.6 R data types",
+    "text": "C.6 R data types\n.RDS files, or R Data Serialization file, is a binary file format in R used to save individual R objects.\n\n# Create some sample data\nmy_data &lt;- data.frame(\n  ID = 1:3,\n  Name = c(\"Alice\", \"Bob\", \"Charlie\"),\n  Score = c(95, 87, 92)\n)\n\n# Save the data frame to an .RDS file\nsaveRDS(my_data, file = \"data/clean/my_data.RDS\")\n\n# Remove the object from the environment\nrm(my_data)\n\n# Load the data frame from the .RDS file\nloaded_data &lt;- readRDS(\"data/clean/my_data.RDS\")\n\n# Access the loaded data\nprint(loaded_data)\n\n\n\nYour turn\n\n\n\nRun the code above\nCheck your data/clean subdir\n\n\nC.6.1 Question\nWhen might saving data to RDS file format be useful?",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#reading-multiple-files",
+    "href": "import_data.html#reading-multiple-files",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.7 Reading multiple files",
+    "text": "C.7 Reading multiple files\n\n\n\n\n\n\nImportant\n\n\n\nThis section uses several concepts we haven’t really been introduced to yet. Including writing functions, iterative programming and string matching.\n\n\nHere we actually start with a complete dataframe, and first iterate to split it into one dataframe per species, each saved as a separate csv file.\nwalk2 operates in the same way as map2 - but is the preferred option here as it is “silent”\n\npenguins_raw &lt;- read_csv(here(\"data\", \"raw\", \"penguins_raw.csv\"))\n\nfs::dir_create(\"data/many_files\")\n\nunique_species &lt;- penguins_raw |&gt; \n  distinct(Species) |&gt; \n  pull()\n\npeng_samples &lt;- map(unique_species, \n                    ~ filter(penguins_raw, `Species`==.x)\n                    )\n\nwalk2(peng_samples, unique_species, \n      ~ write_csv(.x, glue::glue(\"data/many_files/{.y}.csv\"))\n      )\n\n\nC.7.1 Create a vector of file paths\nNow, to create a vector of file paths, we’ll use the dir_ls() function from the fs package. This function allows us to identify and list all the files with a specific extension in a directory. In this example, we’re looking for CSV files in the “data/many_files” directory.\n\nlist_files &lt;- fs::dir_ls(path = \"data/many_files\", glob = \"*.csv\")\n\ndata/many_files/Adelie Penguin (Pygoscelis adeliae).csv\ndata/many_files/Chinstrap penguin (Pygoscelis antarctica).csv\ndata/many_files/Gentoo penguin (Pygoscelis papua).csv\n\nC.7.2 Read multiple files\nNow that we have obtained the file paths, we can proceed to load the files into R. The tidyverse approach is to use map() from the purrr package to read each file into a list of data frames, then list_rbind() to combine them into a single data frame. (map_dfr(), which you may see in older code, was superseded by this pattern in purrr 1.0.0.) In the following code, .x represents the file name or path. To read and output the actual content of the CSV files (not just the filenames), you should include .x (the path) within a readr function. While this example deals with CSV files, this approach works similarly for other rectangular file formats.\n\npenguins_data_test &lt;- map(list_files, ~ read_csv(.x)) |&gt; \n  list_rbind()\n\nFor csv files specifically, read_csv() (readr 2.0.0 onwards) also accepts a vector of file paths directly, and id adds a column recording which file each row came from:\n\npenguins_data_test &lt;- read_csv(list_files, id = \"file\")\n\n\nC.7.3 Selecting files\nNow, to filter and choose specific files for reading, we’ll use the str_detect() function from the stringr package in R. This function allows us to search for specific patterns within our vector of file paths and select files that match our criteria.\nThe negate argument ensures that we only select files that either do or don’t match the pattern. This work is made easier when we have good naming conventions.\n\nlist_files[str_detect(list_files, pattern = \"Gentoo\",\nnegate = TRUE)]\n\ndata/many_files/Adelie Penguin (Pygoscelis adeliae).csv\ndata/many_files/Chinstrap penguin (Pygoscelis antarctica).csv",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
+  },
+  {
+    "objectID": "import_data.html#summary",
+    "href": "import_data.html#summary",
+    "title": "Appendix C — Reading data",
+    "section": "\nC.8 Summary",
+    "text": "C.8 Summary\n\nImport data using readr and readxl.\nUnderstand tibbles vs data frames.\nKeep file paths reproducible with here().\nPaste, save, and reload data flexibly.\nAutomate imports with purrr::map().\n\n\n\n\n\nMüller, K. (2020). Here: A simpler way to find your files. https://here.r-lib.org/",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Reading data</span>"
+    ]
   }
 ]

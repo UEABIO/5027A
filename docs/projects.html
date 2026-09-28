@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>Hypotheses - Pre-Reading – 5027A</title>
+<title>Appendix A — Project workflows – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,6 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -26,8 +61,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./session-03-workshop.html" rel="next">
-<link href="./session-02-computation.html" rel="prev">
+<link href="./import_penguins_data.html" rel="next">
+<link href="./session-04-computation.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -69,32 +104,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+}</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
@@ -269,7 +279,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-03-pre.html">Week Three</a></li><li class="breadcrumb-item"><a href="./session-03-pre.html">Hypotheses - Pre-Reading</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./projects.html">Appendices</a></li><li class="breadcrumb-item"><a href="./projects.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Project workflows</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -359,16 +369,16 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Week Three</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./session-03-pre.html" class="sidebar-item-text sidebar-link active">
+  <a href="./session-03-pre.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hypotheses - Pre-Reading</span></a>
   </div>
 </li>
@@ -417,16 +427,16 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./projects.html" class="sidebar-item-text sidebar-link">
+  <a href="./projects.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Project workflows</span></span></a>
   </div>
 </li>
@@ -452,23 +462,21 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#sec-video" id="toc-sec-video" class="nav-link active" data-scroll-target="#sec-video">Video: hypotheses as population claims</a></li>
+<li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">A.1</span> Learning Objectives</a></li>
+  <li><a href="#why-r-projects-are-useful" id="toc-why-r-projects-are-useful" class="nav-link" data-scroll-target="#why-r-projects-are-useful"><span class="header-section-number">A.2</span> Why R projects are useful:</a></li>
+  <li><a href="#setting-up-a-new-project" id="toc-setting-up-a-new-project" class="nav-link" data-scroll-target="#setting-up-a-new-project"><span class="header-section-number">A.3</span> Setting up a new project</a></li>
+  <li><a href="#build-a-project-structure" id="toc-build-a-project-structure" class="nav-link" data-scroll-target="#build-a-project-structure"><span class="header-section-number">A.4</span> Build a Project Structure</a></li>
   <li>
-<a href="#sec-reading" id="toc-sec-reading" class="nav-link" data-scroll-target="#sec-reading">Reading: hypotheses and the measurement</a>
+<a href="#blank-slates" id="toc-blank-slates" class="nav-link" data-scroll-target="#blank-slates"><span class="header-section-number">A.5</span> Blank slates</a>
   <ul class="collapse">
-<li><a href="#hypotheses-are-claims-about-populations" id="toc-hypotheses-are-claims-about-populations" class="nav-link" data-scroll-target="#hypotheses-are-claims-about-populations">Hypotheses are claims about populations</a></li>
-  <li><a href="#directionality" id="toc-directionality" class="nav-link" data-scroll-target="#directionality">Directionality</a></li>
-  <li><a href="#the-measurement-darwins-maize-data" id="toc-the-measurement-darwins-maize-data" class="nav-link" data-scroll-target="#the-measurement-darwins-maize-data">The measurement: Darwin’s maize data</a></li>
-  <li><a href="#what-comes-next" id="toc-what-comes-next" class="nav-link" data-scroll-target="#what-comes-next">What comes next</a></li>
+<li><a href="#restart-r-sessions" id="toc-restart-r-sessions" class="nav-link" data-scroll-target="#restart-r-sessions"><span class="header-section-number">A.5.1</span> Restart R sessions</a></li>
   </ul>
 </li>
-  <li><a href="#sec-commitment" id="toc-sec-commitment" class="nav-link" data-scroll-target="#sec-commitment">Commitment task</a></li>
-  <li><a href="#sec-selftest" id="toc-sec-selftest" class="nav-link" data-scroll-target="#sec-selftest">Self-test</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-03-pre.html">Week Three</a></li><li class="breadcrumb-item"><a href="./session-03-pre.html">Hypotheses - Pre-Reading</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Hypotheses - Pre-Reading</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./projects.html">Appendices</a></li><li class="breadcrumb-item"><a href="./projects.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Project workflows</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-workflow" class="quarto-section-identifier">Appendix A — Project workflows</span></h1>
 </div>
 
 
@@ -482,133 +490,252 @@ window.Quarto = {
   
 
 
-</header><p>Complete this material before your workshop session.</p>
-<section id="sec-video" class="level2"><h2 class="anchored" data-anchor-id="sec-video">Video: hypotheses as population claims</h2>
-<div class="callout callout-style-default callout-note callout-titled">
+</header><section id="learning-objectives" class="level2" data-number="A.1"><h2 data-number="A.1" class="anchored" data-anchor-id="learning-objectives">
+<span class="header-section-number">A.1</span> Learning Objectives</h2>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li><p>Explain why tidy, well-structured projects make your R work more reproducible and easier to share.</p></li>
+<li><p>Use the <code>fs</code> <span class="citation" data-cites="R-fs">(<a href="#ref-R-fs" role="doc-biblioref"><strong>R-fs?</strong></a>)</span> package to create and navigate folders within an R project.</p></li>
+<li><p>Set up a basic project structure with directories for data, scripts, and outputs.</p></li>
+<li><p>Set project settings for a script-oriented workflow</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Watch before class
+<span class="screen-reader-only">Tip</span><strong>Question:</strong> How do you organise your R workflow?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/0oc49DyA3hU?si=M0ckNvFNjXlw_S7x" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<p>After watching, you should be able to write a null and an alternative hypothesis as statements about a population.</p>
-</div>
-</div>
-<p>The video introduces the idea that a statistical hypothesis is a claim about a population, not about a sample. It covers:</p>
 <ul>
-<li>The <strong>null hypothesis</strong>, written H<sub>0</sub>, and the <strong>alternative hypothesis</strong>, written H<sub>1</sub>.</li>
-<li>Why the null is a specific, testable claim (usually of no effect or no difference) while the alternative states what you would conclude if the null were rejected.</li>
-<li>What it means for an alternative to be <strong>directional</strong> (one-sided) or <strong>non-directional</strong> (two-sided).</li>
+<li><p>Do your different analyses sit in different organised folders?</p></li>
+<li><p>Do you <em>actively</em> use R projects or know what they are for?</p></li>
 </ul>
-<p>The video does not cover alpha, significance thresholds, or p-values. Those appear in the workshop.</p>
-</section><section id="sec-reading" class="level2"><h2 class="anchored" data-anchor-id="sec-reading">Reading: hypotheses and the measurement</h2>
-<section id="hypotheses-are-claims-about-populations" class="level3"><h3 class="anchored" data-anchor-id="hypotheses-are-claims-about-populations">Hypotheses are claims about populations</h3>
-<p>In the last session you estimated a population quantity from a single sample and quantified your uncertainty with a confidence interval. That interval told you <em>where the population value plausibly lies</em>. It did not tell you whether a specific claim about the population is supported by the data. That is the job of a hypothesis test.</p>
-<p>A <strong>statistical hypothesis</strong> is a precise claim about a population parameter. You always work with two hypotheses as a pair.</p>
-<p>The <strong>null hypothesis</strong> (H<sub>0</sub>) states that there is no effect, no difference, or no relationship in the population. It is the claim you will try to reject. The null must be specific enough to generate predictions: if H<sub>0</sub> is true, what data would you expect?</p>
-<p>The <strong>alternative hypothesis</strong> (H<sub>1</sub>) states that the population parameter differs from the null value. It is what you conclude if the data are sufficiently unlikely under H<sub>0</sub>.</p>
-<p>A hypothesis is always about the population. A statement about what happened in your sample is a description, not a hypothesis.</p>
-<p>Is the following a valid null hypothesis?</p>
-<p>“The mean of my sample is 5.2.” <select class="webex-select"><option value="blank"></option>
-<option value="">TRUE</option>
-<option value="answer">FALSE</option></select></p>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>No.&nbsp;A hypothesis is a claim about a population parameter, not a description of a sample quantity. The sample mean is a known number; there is nothing to test.</p>
 </div>
-</section><section id="directionality" class="level3"><h3 class="anchored" data-anchor-id="directionality">Directionality</h3>
-<p>The alternative hypothesis can be <strong>non-directional</strong> (two-sided) or <strong>directional</strong> (one-sided).</p>
-<p>A two-sided alternative states that the population parameter differs from the null value, without specifying the direction. For a population mean <span class="math inline">\(\mu\)</span>:</p>
-<p><span class="math display">\[H_0: \mu = 0 \qquad H_1: \mu \neq 0\]</span></p>
-<p>A one-sided alternative specifies the direction of the difference:</p>
-<p><span class="math display">\[H_0: \mu = 0 \qquad H_1: \mu &gt; 0\]</span></p>
-<p>The choice between one-sided and two-sided is made before looking at the data. It follows from the research question, not from the results.</p>
-<p>A researcher asks: “Does this drug affect blood pressure?” Which alternative is appropriate?</p>
-<div id="radio_VONMOJEPKJ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VONMOJEPKJ" value=""><span>It depends on the results</span></label><label><input type="radio" autocomplete="off" name="radio_VONMOJEPKJ" value="answer"><span>Two-sided, because the question asks whether the treatment has an effect without specifying a direction</span></label><label><input type="radio" autocomplete="off" name="radio_VONMOJEPKJ" value=""><span>One-sided, because the question specifies a direction</span></label>
 </div>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>The question asks whether the drug <em>affects</em> blood pressure, not whether it raises or lowers it. That is a two-sided question. If the question were “Does this drug <em>lower</em> blood pressure?”, the alternative would be one-sided.</p>
+<p>In RStudio, a project is a way to organize your work . It’s a fundamental concept designed to enhance your workflow by providing a structured and efficient means of managing your R-related tasks and files.</p>
+</section><section id="why-r-projects-are-useful" class="level2" data-number="A.2"><h2 data-number="A.2" class="anchored" data-anchor-id="why-r-projects-are-useful">
+<span class="header-section-number">A.2</span> Why R projects are useful:</h2>
+<p><strong>1. Organized File Structure:</strong> R projects encourage you to maintain a well-organized file structure for your work. Instead of having scattered R scripts, data files, and figures, you create a dedicated folder for each project. This folder typically contains all project-related materials, including data, code, figures, notes, and any other relevant files.</p>
+<p><strong>2. Working Directory Management:</strong> When you open an R project in RStudio, it automatically sets the working directory to the project’s folder. This ensures that all file paths are relative to the project’s location. This working directory intentionality eliminates the need for setting working directories manually or using absolute paths in your code.</p>
+<p><strong>3. Portability and Collaboration:</strong> R projects make your work more portable and collaborative. Since all paths are relative to the project folder, the project can be easily shared with others. It ensures that the code works consistently across different computers and for other users, promoting collaboration and reproducibility.</p>
+<p><strong>4. RStudio Integration:</strong> RStudio integrates project management seamlessly. You can designate a folder as an R project, and RStudio leaves a <code>.Rproj</code> file in that folder to store project-specific settings. When you double-click on this file, it opens a fresh instance of RStudio with the project’s working directory and file browser pointed at the project folder.</p>
+<p><strong>5. Efficient Workflow:</strong> RStudio provides various menu options and keyboard shortcuts for managing projects. This includes the ability to open existing projects, switch between projects, and even launch multiple instances of RStudio for different projects.</p>
+</section><section id="setting-up-a-new-project" class="level2" data-number="A.3"><h2 data-number="A.3" class="anchored" data-anchor-id="setting-up-a-new-project">
+<span class="header-section-number">A.3</span> Setting up a new project</h2>
+<p>You should start a new R project when you begin working on a distinct task, research project, or analysis. This ensures that your work is well-organized, and it’s especially beneficial when you need to collaborate, share, or revisit the project later.</p>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
 </div>
-</section><section id="the-measurement-darwins-maize-data" class="level3"><h3 class="anchored" data-anchor-id="the-measurement-darwins-maize-data">The measurement: Darwin’s maize data</h3>
-<p>You already know this dataset from last time. Darwin grew fifteen pairs of maize plants, one cross-pollinated and one self-pollinated in each pair, and measured their heights. For each pair, the quantity of interest is the <strong>paired difference</strong>: the height of the cross-pollinated plant minus the height of the self-pollinated plant.</p>
-<p>The question is whether cross-pollination increases height. Stated as hypotheses about the population mean of the paired differences, <span class="math inline">\(\mu_d\)</span>:</p>
-<p><span class="math display">\[H_0: \mu_d = 0 \qquad H_1: \mu_d &gt; 0\]</span></p>
-<p>H<sub>0</sub> claims that cross-pollination makes no difference to height in the population. H<sub>1</sub> claims that cross-pollinated plants are taller on average.</p>
-<p>Is this alternative one-sided or two-sided? <select class="webex-select"><option value="blank"></option>
-<option value="answer">One-sided</option>
-<option value="">Two-sided</option></select></p>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>One-sided. Darwin’s question was specifically whether cross-pollination <em>increases</em> height, not merely whether it changes height. The alternative specifies a direction: <span class="math inline">\(\mu_d &gt; 0\)</span>.</p>
+<div class="task-container">
+<p>Set up our first R Project:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox">1. Go to “File” in the RStudio menu.</label></p></li>
+<li><p><label><input type="checkbox">2. Select “New Project…”</label></p></li>
+<li><p><label><input type="checkbox">3. Choose a project type or create a new directory for the project.</label></p></li>
+<li><p><label><input type="checkbox">4. Click “Create Project.”</label></p></li>
+<li><p><label><input type="checkbox">5. Give it a name “Penguins”</label></p></li>
+</ul>
+<p>The new project will be created with a .Rproj file. You can open it by double-clicking on this file or by using the “File” menu in RStudio.</p>
 </div>
-<p>Notice that the hypotheses say nothing about the fifteen plants Darwin actually grew. They are claims about what would happen across all possible pairs of plants, of which Darwin observed fifteen.</p>
-</section><section id="what-comes-next" class="level3"><h3 class="anchored" data-anchor-id="what-comes-next">What comes next</h3>
-<p>In the workshop you will generate data under the null hypothesis and use it to judge whether the observed difference is surprising. The formal name for that judgment is a <strong>p-value</strong>. Before class, complete the commitment task and self-test below.</p>
-</section></section><section id="sec-commitment" class="level2"><h2 class="anchored" data-anchor-id="sec-commitment">Commitment task</h2>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Bring this to class
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Write down, in one or two sentences, what you currently think “statistically significant” means. Do not look it up. There is no mark for this and no correct answer is expected — the point is to have something concrete to revise in the workshop.</p>
-<p>Bring what you wrote to the session.</p>
+<p>It is very important to NEVER to move the .Rproj file, this may prevent your workspace from opening properly.</p>
 </div>
 </div>
-</section><section id="sec-selftest" class="level2"><h2 class="anchored" data-anchor-id="sec-selftest">Self-test</h2>
-<div class="webex-check webex-box">
-<p><strong>1.</strong> You have a 95% confidence interval of [3.8 - 4.6] for the difference in height. A colleague claims the true difference is zero. Does your interval answer whether they are wrong, and if not, what would?</p>
-<div id="radio_UYKRVHHLVD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_UYKRVHHLVD" value="answer"><span>The interval excludes zero, which at the 5% level is consistent with rejecting the null hypothesis of a zero effect.</span></label><label><input type="radio" autocomplete="off" name="radio_UYKRVHHLVD" value=""><span>Yes — zero is excluded from the 95% confidence interval, so the data provide evidence against a zero effect.</span></label><label><input type="radio" autocomplete="off" name="radio_UYKRVHHLVD" value=""><span>No — a confidence interval cannot tell us anything about zero.</span></label>
+<p>More on projects can be found in the <a href="https://r4ds.had.co.nz/workflow-projects.html">R4DS</a> book.</p>
+</section><section id="build-a-project-structure" class="level2" data-number="A.4"><h2 data-number="A.4" class="anchored" data-anchor-id="build-a-project-structure">
+<span class="header-section-number">A.4</span> Build a Project Structure</h2>
+<p>Let’s create a clean folder structure - we can do this in several ways:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/project.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>An example of a typical R project set-up</figcaption></figure>
 </div>
-<p><strong>2.</strong> A null hypothesis is a statement about <select class="webex-select"><option value="blank"></option>
-<option value="">a sample</option>
-<option value="answer">a population</option>
-<option value="">a test statistic</option></select>.</p>
-<p><strong>3.</strong> A researcher asks whether a new fertiliser changes crop yield compared to the current fertiliser. The appropriate alternative hypothesis is <select class="webex-select"><option value="blank"></option>
-<option value="">one-sided</option>
-<option value="answer">two-sided</option></select>.</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="" aria-current="page">IDE</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Base R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href=""><code>fs</code></a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ul>
+<li>
+<p>Create the following folders using the + New Folder button in the Files tab</p>
+<ul>
+<li>data/raw</li>
+<li>data/clean</li>
+<li>scripts</li>
+<li>outputs</li>
+</ul>
+</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/new-folders.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Making folders</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R is case-sensitive and whitespace-sensitive so type everything EXACTLY as printed here</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># dir.create makes directories</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># unless specified it is not "recursive"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">dir.create</span>(<span class="st">"data/raw"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>           <span class="at">recursive =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">dir.create</span>(<span class="st">"data/clean"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>           <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">dir.create</span>(<span class="st">"scripts"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">dir.create</span>(<span class="st">"outputs"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load the package</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(fs)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Create standard folders</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">dir_create</span>(<span class="st">"data"</span>, <span class="fu">c</span>(<span class="st">"raw"</span>, <span class="st">"clean"</span>))   <span class="co"># creates dir recursively as standard</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">dir_create</span>(<span class="st">"scripts"</span>)       <span class="co"># for your R code</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">dir_create</span>(<span class="st">"outputs"</span>)    <span class="co"># for figures and plots</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run <code><a href="https://fs.r-lib.org/reference/dir_tree.html">fs::dir_tree()</a></code> to generate a nicely formatted directory tree and is a great sanity check before and after file manipulation</p>
+<p>The <code>fs</code> <span class="citation" data-cites="R-fs">(<a href="#ref-R-fs" role="doc-biblioref"><strong>R-fs?</strong></a>)</span> package is a great OS agnostic package and one that works safely (it will not overwrite files or folders unless explicitly asked).</p>
+</div>
+</div>
+</div>
+<p>Having these separate subfolders within our project helps keep things tidy, means it’s harder to lose things, and lets you easily tell R exactly where to go to retrieve data.</p>
+<p>You might want also want to keep any information (wider reading) you have gathered that is relevant to your project.</p>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
+</div>
+<div class="task-container">
+<p>Try creating subdirectories for the outputs folder</p>
 <div class="webex-solution">
 <button>
-Explanation
+Solution
 </button>
-<p>The question asks whether yield <em>changes</em>, not whether it increases or decreases. A non-directional question calls for a two-sided alternative.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>subdir <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"figures"</span>, <span class="st">"talks"</span>, <span class="st">"reports"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"outputs"</span>, subdir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>4.</strong> In Darwin’s maize experiment, the paired difference is defined as the height of the <select class="webex-select"><option value="blank"></option>
-<option value="answer">cross-pollinated</option>
-<option value="">self-pollinated</option></select> plant minus the height of the <select class="webex-select"><option value="blank"></option>
-<option value="">cross-pollinated</option>
-<option value="answer">self-pollinated</option></select> plant.</p>
-<p><strong>5.</strong> The choice between a one-sided and two-sided alternative should be made <select class="webex-select"><option value="blank"></option>
-<option value="answer">before looking at the data</option>
-<option value="">after looking at the data</option>
-<option value="">after computing the p-value</option></select>.</p>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>The choice between a one-sided and two-sided test should be made before looking at the data, because choosing the direction after seeing the result can bias the inference and inflate the false-positive rate. The direction should instead be determined by the research question and scientific rationale in advance.</p>
+</div>
+</div>
+</div>
+</section><section id="blank-slates" class="level2" data-number="A.5"><h2 data-number="A.5" class="anchored" data-anchor-id="blank-slates">
+<span class="header-section-number">A.5</span> Blank slates</h2>
+<p>When working on data analysis and coding projects in R, it’s crucial to ensure that your analysis remains clean, reproducible, and free from hidden dependencies.</p>
+<p>Hidden dependencies are elements in your R session that might not be immediately apparent but can significantly impact the reliability and predictability of your work.</p>
+<p>For example many data analysis scripts start with the command <code>rm(list = ls())</code>. While this command clears user-created objects from the workspace, it leaves hidden dependencies as it does not reset the R session, and can cause issues such as:</p>
+<ul>
+<li><p><strong>Hidden Dependencies:</strong> Users might unintentionally rely on packages or settings applied in the current session.</p></li>
+<li><p><strong>Incomplete Reset:</strong> Package attachments made with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> persist, and customized options remain set.</p></li>
+<li><p><strong>Working Directory:</strong> The working directory is not affected, potentially causing path-related problems in future scripts.</p></li>
+</ul>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
+</div>
+<div class="task-container">
+<ul class="task-list">
+<li><label><input type="checkbox">Run some simple R code in your console:</label></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>c <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>a <span class="ot">&lt;-</span> b <span class="sc">+</span> c</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p>You should see messages indicating tidyverse has loaded as a package (if installed).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>You should see a, b and c in your “Environment” Pane you can also run the command <code><a href="https://rdrr.io/r/base/ls.html">ls()</a></code> in your console</p>
+</blockquote>
+<ul class="task-list">
+<li><label><input type="checkbox">Type the command <code>rm(list =ls())</code> in your console</label></li>
+</ul>
+<blockquote class="blockquote">
+<p>You should see your Environment pane is now empty</p>
+</blockquote>
+<ul class="task-list">
+<li><label><input type="checkbox">Re-run the command <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> or check the Packages pane</label></li>
+</ul>
+<blockquote class="blockquote">
+<p>You should see that this did nothing to the state of your packages</p>
+</blockquote>
+</div>
+</div>
+<section id="restart-r-sessions" class="level3" data-number="A.5.1"><h3 data-number="A.5.1" class="anchored" data-anchor-id="restart-r-sessions">
+<span class="header-section-number">A.5.1</span> Restart R sessions</h3>
+<p>RStudio projects can handle a clean workspace automatically.</p>
+<ul>
+<li><p>Go to <strong>Tools - Project Options - General</strong></p></li>
+<li><p>Under <em>Workspace</em> set all .RData options to <strong>No</strong></p></li>
+<li><p>Selection Session - Restart R (Ctrl + Shift + F10)</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="images/rstudio-workspace.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="task">
+<div class="task-header">
+<p>Question</p>
+</div>
+<div class="task-container">
+<p>Which feels safer and more reproducible for long-term work?</p>
+<ul>
+<li><p><code>rm(list=ls())</code></p></li>
+<li><p>Setting up a Blank Slate R Environment</p></li>
+</ul>
 </div>
 </div>
 
 
-</section></main><!-- /main --><script>
+</section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -1253,13 +1380,13 @@ window.onresize = move_sidebar;
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./session-02-computation.html" class="pagination-link" aria-label="Simulating uncertainty">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Simulating uncertainty</span>
+      <a href="./session-04-computation.html" class="pagination-link" aria-label="Linear models in R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear models in R</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./session-03-workshop.html" class="pagination-link" aria-label="Null distributions and what a p-value is">
-        <span class="nav-page-text">Null distributions and what a p-value is</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./import_penguins_data.html" class="pagination-link" aria-label="Import penguins data">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Import penguins data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

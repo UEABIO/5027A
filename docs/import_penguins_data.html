@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>Hypotheses - Pre-Reading – 5027A</title>
+<title>Appendix B — Import penguins data – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,7 +18,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -26,8 +81,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./session-03-workshop.html" rel="next">
-<link href="./session-02-computation.html" rel="prev">
+<link href="./import_data.html" rel="next">
+<link href="./projects.html" rel="prev">
 <link href="./images/logos/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -69,32 +124,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+}</script><script src="site_libs/font-awesome-6.7.2/js/script.js"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
@@ -269,7 +299,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-03-pre.html">Week Three</a></li><li class="breadcrumb-item"><a href="./session-03-pre.html">Hypotheses - Pre-Reading</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./projects.html">Appendices</a></li><li class="breadcrumb-item"><a href="./import_penguins_data.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Import penguins data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -359,16 +389,16 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Week Three</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./session-03-pre.html" class="sidebar-item-text sidebar-link active">
+  <a href="./session-03-pre.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hypotheses - Pre-Reading</span></a>
   </div>
 </li>
@@ -417,13 +447,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./projects.html" class="sidebar-item-text sidebar-link">
@@ -432,7 +462,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import_penguins_data.html" class="sidebar-item-text sidebar-link">
+  <a href="./import_penguins_data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Import penguins data</span></span></a>
   </div>
 </li>
@@ -452,23 +482,20 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#sec-video" id="toc-sec-video" class="nav-link active" data-scroll-target="#sec-video">Video: hypotheses as population claims</a></li>
-  <li>
-<a href="#sec-reading" id="toc-sec-reading" class="nav-link" data-scroll-target="#sec-reading">Reading: hypotheses and the measurement</a>
-  <ul class="collapse">
-<li><a href="#hypotheses-are-claims-about-populations" id="toc-hypotheses-are-claims-about-populations" class="nav-link" data-scroll-target="#hypotheses-are-claims-about-populations">Hypotheses are claims about populations</a></li>
-  <li><a href="#directionality" id="toc-directionality" class="nav-link" data-scroll-target="#directionality">Directionality</a></li>
-  <li><a href="#the-measurement-darwins-maize-data" id="toc-the-measurement-darwins-maize-data" class="nav-link" data-scroll-target="#the-measurement-darwins-maize-data">The measurement: Darwin’s maize data</a></li>
-  <li><a href="#what-comes-next" id="toc-what-comes-next" class="nav-link" data-scroll-target="#what-comes-next">What comes next</a></li>
-  </ul>
-</li>
-  <li><a href="#sec-commitment" id="toc-sec-commitment" class="nav-link" data-scroll-target="#sec-commitment">Commitment task</a></li>
-  <li><a href="#sec-selftest" id="toc-sec-selftest" class="nav-link" data-scroll-target="#sec-selftest">Self-test</a></li>
+<li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">B.1</span> Learning Objectives</a></li>
+  <li><a href="#access-our-data" id="toc-access-our-data" class="nav-link" data-scroll-target="#access-our-data"><span class="header-section-number">B.2</span> Access our data</a></li>
+  <li><a href="#meet-the-penguins" id="toc-meet-the-penguins" class="nav-link" data-scroll-target="#meet-the-penguins"><span class="header-section-number">B.3</span> Meet the Penguins</a></li>
+  <li><a href="#make-sure-our-data-is-in-the-correct-directory" id="toc-make-sure-our-data-is-in-the-correct-directory" class="nav-link" data-scroll-target="#make-sure-our-data-is-in-the-correct-directory"><span class="header-section-number">B.4</span> Make sure our data is in the correct directory</a></li>
+  <li><a href="#make-a-script" id="toc-make-a-script" class="nav-link" data-scroll-target="#make-a-script"><span class="header-section-number">B.5</span> Make a script</a></li>
+  <li><a href="#add-packages" id="toc-add-packages" class="nav-link" data-scroll-target="#add-packages"><span class="header-section-number">B.6</span> Add Packages</a></li>
+  <li><a href="#read-in-data" id="toc-read-in-data" class="nav-link" data-scroll-target="#read-in-data"><span class="header-section-number">B.7</span> Read in data</a></li>
+  <li><a href="#running-a-script-from-console" id="toc-running-a-script-from-console" class="nav-link" data-scroll-target="#running-a-script-from-console"><span class="header-section-number">B.8</span> Running a script from console</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">B.9</span> Summary</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-03-pre.html">Week Three</a></li><li class="breadcrumb-item"><a href="./session-03-pre.html">Hypotheses - Pre-Reading</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Hypotheses - Pre-Reading</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./projects.html">Appendices</a></li><li class="breadcrumb-item"><a href="./import_penguins_data.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Import penguins data</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-meet-penguins" class="quarto-section-identifier">Appendix B — Import penguins data</span></h1>
 </div>
 
 
@@ -482,132 +509,416 @@ window.Quarto = {
   
 
 
-</header><p>Complete this material before your workshop session.</p>
-<section id="sec-video" class="level2"><h2 class="anchored" data-anchor-id="sec-video">Video: hypotheses as population claims</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Watch before class
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/0oc49DyA3hU?si=M0ckNvFNjXlw_S7x" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<p>After watching, you should be able to write a null and an alternative hypothesis as statements about a population.</p>
-</div>
-</div>
-<p>The video introduces the idea that a statistical hypothesis is a claim about a population, not about a sample. It covers:</p>
+</header><section id="learning-objectives" class="level2" data-number="B.1"><h2 data-number="B.1" class="anchored" data-anchor-id="learning-objectives">
+<span class="header-section-number">B.1</span> Learning Objectives</h2>
 <ul>
-<li>The <strong>null hypothesis</strong>, written H<sub>0</sub>, and the <strong>alternative hypothesis</strong>, written H<sub>1</sub>.</li>
-<li>Why the null is a specific, testable claim (usually of no effect or no difference) while the alternative states what you would conclude if the null were rejected.</li>
-<li>What it means for an alternative to be <strong>directional</strong> (one-sided) or <strong>non-directional</strong> (two-sided).</li>
+<li>This chapter covers an ideal workflow for importing data into R</li>
+</ul></section><section id="access-our-data" class="level2" data-number="B.2"><h2 data-number="B.2" class="anchored" data-anchor-id="access-our-data">
+<span class="header-section-number">B.2</span> Access our data</h2>
+<p>Now that we have a project workspace, we are ready to import some data.</p>
+<ul>
+<li><p>Use the link below to open a page in your browser with the data open</p></li>
+<li><p>Right-click Save As to download in csv format to your computer (Make a note of <strong>where</strong> the file is being downloaded to e.g.&nbsp;Downloads)</p></li>
 </ul>
-<p>The video does not cover alpha, significance thresholds, or p-values. Those appear in the workshop.</p>
-</section><section id="sec-reading" class="level2"><h2 class="anchored" data-anchor-id="sec-reading">Reading: hypotheses and the measurement</h2>
-<section id="hypotheses-are-claims-about-populations" class="level3"><h3 class="anchored" data-anchor-id="hypotheses-are-claims-about-populations">Hypotheses are claims about populations</h3>
-<p>In the last session you estimated a population quantity from a single sample and quantified your uncertainty with a confidence interval. That interval told you <em>where the population value plausibly lies</em>. It did not tell you whether a specific claim about the population is supported by the data. That is the job of a hypothesis test.</p>
-<p>A <strong>statistical hypothesis</strong> is a precise claim about a population parameter. You always work with two hypotheses as a pair.</p>
-<p>The <strong>null hypothesis</strong> (H<sub>0</sub>) states that there is no effect, no difference, or no relationship in the population. It is the claim you will try to reject. The null must be specific enough to generate predictions: if H<sub>0</sub> is true, what data would you expect?</p>
-<p>The <strong>alternative hypothesis</strong> (H<sub>1</sub>) states that the population parameter differs from the null value. It is what you conclude if the data are sufficiently unlikely under H<sub>0</sub>.</p>
-<p>A hypothesis is always about the population. A statement about what happened in your sample is a description, not a hypothesis.</p>
-<p>Is the following a valid null hypothesis?</p>
-<p>“The mean of my sample is 5.2.” <select class="webex-select"><option value="blank"></option>
-<option value="">TRUE</option>
-<option value="answer">FALSE</option></select></p>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>No.&nbsp;A hypothesis is a claim about a population parameter, not a description of a sample quantity. The sample mean is a known number; there is nothing to test.</p>
+<div class="cell">
+<div class="cell-output-display">
+<a href="https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/penguins_raw.csv">
+<button class="btn btn-success"><i class="fa fa-save"></i> Download penguin data as csv</button>
+</a>
 </div>
-</section><section id="directionality" class="level3"><h3 class="anchored" data-anchor-id="directionality">Directionality</h3>
-<p>The alternative hypothesis can be <strong>non-directional</strong> (two-sided) or <strong>directional</strong> (one-sided).</p>
-<p>A two-sided alternative states that the population parameter differs from the null value, without specifying the direction. For a population mean <span class="math inline">\(\mu\)</span>:</p>
-<p><span class="math display">\[H_0: \mu = 0 \qquad H_1: \mu \neq 0\]</span></p>
-<p>A one-sided alternative specifies the direction of the difference:</p>
-<p><span class="math display">\[H_0: \mu = 0 \qquad H_1: \mu &gt; 0\]</span></p>
-<p>The choice between one-sided and two-sided is made before looking at the data. It follows from the research question, not from the results.</p>
-<p>A researcher asks: “Does this drug affect blood pressure?” Which alternative is appropriate?</p>
-<div id="radio_VONMOJEPKJ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VONMOJEPKJ" value=""><span>It depends on the results</span></label><label><input type="radio" autocomplete="off" name="radio_VONMOJEPKJ" value="answer"><span>Two-sided, because the question asks whether the treatment has an effect without specifying a direction</span></label><label><input type="radio" autocomplete="off" name="radio_VONMOJEPKJ" value=""><span>One-sided, because the question specifies a direction</span></label>
 </div>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>The question asks whether the drug <em>affects</em> blood pressure, not whether it raises or lowers it. That is a two-sided question. If the question were “Does this drug <em>lower</em> blood pressure?”, the alternative would be one-sided.</p>
+</section><section id="meet-the-penguins" class="level2" data-number="B.3"><h2 data-number="B.3" class="anchored" data-anchor-id="meet-the-penguins">
+<span class="header-section-number">B.3</span> Meet the Penguins</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="images/gorman-penguins.jpg" class="img-fluid figure-img" style="width:80.0%" alt="Photo of three penguin species, Chinstrap, Gentoo, Adelie"></p>
+</figure>
 </div>
-</section><section id="the-measurement-darwins-maize-data" class="level3"><h3 class="anchored" data-anchor-id="the-measurement-darwins-maize-data">The measurement: Darwin’s maize data</h3>
-<p>You already know this dataset from last time. Darwin grew fifteen pairs of maize plants, one cross-pollinated and one self-pollinated in each pair, and measured their heights. For each pair, the quantity of interest is the <strong>paired difference</strong>: the height of the cross-pollinated plant minus the height of the self-pollinated plant.</p>
-<p>The question is whether cross-pollination increases height. Stated as hypotheses about the population mean of the paired differences, <span class="math inline">\(\mu_d\)</span>:</p>
-<p><span class="math display">\[H_0: \mu_d = 0 \qquad H_1: \mu_d &gt; 0\]</span></p>
-<p>H<sub>0</sub> claims that cross-pollination makes no difference to height in the population. H<sub>1</sub> claims that cross-pollinated plants are taller on average.</p>
-<p>Is this alternative one-sided or two-sided? <select class="webex-select"><option value="blank"></option>
-<option value="answer">One-sided</option>
-<option value="">Two-sided</option></select></p>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>One-sided. Darwin’s question was specifically whether cross-pollination <em>increases</em> height, not merely whether it changes height. The alternative specifies a direction: <span class="math inline">\(\mu_d &gt; 0\)</span>.</p>
 </div>
-<p>Notice that the hypotheses say nothing about the fifteen plants Darwin actually grew. They are claims about what would happen across all possible pairs of plants, of which Darwin observed fifteen.</p>
-</section><section id="what-comes-next" class="level3"><h3 class="anchored" data-anchor-id="what-comes-next">What comes next</h3>
-<p>In the workshop you will generate data under the null hypothesis and use it to judge whether the observed difference is surprising. The formal name for that judgment is a <strong>p-value</strong>. Before class, complete the commitment task and self-test below.</p>
-</section></section><section id="sec-commitment" class="level2"><h2 class="anchored" data-anchor-id="sec-commitment">Commitment task</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
+</div>
+<p>This data, taken from the <code>palmerpenguins</code> package was originally published by <span class="citation" data-cites="Antarctic">Gorman et al. (<a href="#ref-Antarctic" role="doc-biblioref">2014</a>)</span>.</p>
+<p>The palmer penguins data contains size measurements, clutch observations, and blood isotope ratios for three penguin species observed on three islands in the Palmer Archipelago, Antarctica over a study period of three years.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/excel_csv.png" class="img-fluid figure-img" style="width:80.0%" alt="excel view, csv view"></p>
+<figcaption>Top image: Penguins data viewed in Excel, Bottom image: Penguins data in native csv format</figcaption></figure>
+</div>
+</div>
+</div>
+<p>In raw format, each line of a CSV is separated by commas for different values. When you open this in a spreadsheet program like Excel it automatically converts those comma-separated values into tables and columns.</p>
+</section><section id="make-sure-our-data-is-in-the-correct-directory" class="level2" data-number="B.4"><h2 data-number="B.4" class="anchored" data-anchor-id="make-sure-our-data-is-in-the-correct-directory">
+<span class="header-section-number">B.4</span> Make sure our data is in the correct directory</h2>
+<ul>
+<li><p>The data is now in your Downloads folder on your computer (by default)</p></li>
+<li><p>Move/copy/save it to the <code>data/raw</code> sub directory of your RStudio Project.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/upload.png" class="img-fluid figure-img" style="width:80.0%" alt="File tab"></p>
+<figcaption>Highlighted the buttons to upload files, and more options</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="make-a-script" class="level2" data-number="B.5"><h2 data-number="B.5" class="anchored" data-anchor-id="make-a-script">
+<span class="header-section-number">B.5</span> Make a script</h2>
+<p>Let’s now create a new R script file in which we will write instructions and store comments for manipulating data, developing tables and figures.</p>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
+</div>
+<div class="task-container">
+<p>Set your Rstudio theme to something that works for you:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox">Use the <code>File &gt; New Script</code> menu item and select an R Script.</label></p></li>
+<li><p><label><input type="checkbox">Add the following:</label></p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#___________________________----</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># SET UP ----</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># An analysis of the bill dimensions of male and female </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Adelie, Gentoo and Chinstrap penguins</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Data first published in  Gorman, KB, TD Williams, and WR Fraser. </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># 2014. </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># “Ecological Sexual Dimorphism and Environmental Variability </span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Within a Community of Antarctic Penguins (Genus Pygoscelis).” </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># PLos One 9 (3): e90081.</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># https://doi.org/10.1371/journal.pone.0090081. </span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#__________________________----</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Organising a script
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Why do we need scripts to be organised?</p>
+<p>Scripts are a human readable record of our analysis - we need them to be organised, consistent, and well-documented.</p>
+<p>Well organised scripts are useful in that provide a reference for what you did - think of them as the analysis equivalent of a lab notebook. The more detail provided in the form of comments, the more context we have. The more organised they are, the easier it is to find the sections we need to review. Just like a lab notebook they should be written as though someone else will be reading them.</p>
+</div>
+</div>
+</div>
+</section><section id="add-packages" class="level2" data-number="B.6"><h2 data-number="B.6" class="anchored" data-anchor-id="add-packages">
+<span class="header-section-number">B.6</span> Add Packages</h2>
+<p>Next load the following add-on package to the R script, just underneath these comments. Tidyverse isn’t actually one package, but a bundle of many different packages that play well together - for example it <em>includes</em> <code>ggplot2</code> a package for making figures (<span class="citation" data-cites="R-tidyverse">Wickham (<a href="#ref-R-tidyverse" role="doc-biblioref">2023</a>)</span>).</p>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
+</div>
+<div class="task-container">
+<ul class="task-list">
+<li><label><input type="checkbox">Add the following to your script:</label></li>
+</ul>
+<blockquote class="blockquote">
+<p>Note you may need to run <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> to download and set up packages the first time you make a new project.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># PACKAGES ----</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse) <span class="co"># tidy data packages</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(here) <span class="co"># organised file paths</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(janitor) <span class="co"># cleans variable names</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#__________________________----</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul class="task-list">
+<li><label><input type="checkbox">Save this file inside the <strong>scripts</strong> folder and call it <code>01_import_penguins_data.R</code></label></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Bring this to class
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Write down, in one or two sentences, what you currently think “statistically significant” means. Do not look it up. There is no mark for this and no correct answer is expected — the point is to have something concrete to revise in the workshop.</p>
-<p>Bring what you wrote to the session.</p>
+<p>Click on the document outline button (top right of script pane). This will show you how the use of the visual outline</p>
+<p>Allows us to build a series of headers and subheaders, this is very useful when using longer scripts.</p>
 </div>
 </div>
-</section><section id="sec-selftest" class="level2"><h2 class="anchored" data-anchor-id="sec-selftest">Self-test</h2>
-<div class="webex-check webex-box">
-<p><strong>1.</strong> You have a 95% confidence interval of [3.8 - 4.6] for the difference in height. A colleague claims the true difference is zero. Does your interval answer whether they are wrong, and if not, what would?</p>
-<div id="radio_UYKRVHHLVD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_UYKRVHHLVD" value="answer"><span>The interval excludes zero, which at the 5% level is consistent with rejecting the null hypothesis of a zero effect.</span></label><label><input type="radio" autocomplete="off" name="radio_UYKRVHHLVD" value=""><span>Yes — zero is excluded from the 95% confidence interval, so the data provide evidence against a zero effect.</span></label><label><input type="radio" autocomplete="off" name="radio_UYKRVHHLVD" value=""><span>No — a confidence interval cannot tell us anything about zero.</span></label>
+</section><section id="read-in-data" class="level2" data-number="B.7"><h2 data-number="B.7" class="anchored" data-anchor-id="read-in-data">
+<span class="header-section-number">B.7</span> Read in data</h2>
+<p>Now we can read in the data. To do this we will use the function <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> that allows us to read in .csv files. There are also functions that allow you to read in .xlsx files and other formats like .json, however in this course we will only use .csv files.</p>
+<p>We are also using <code><a href="https://here.r-lib.org/reference/here.html">here::here()</a></code>, <span class="citation" data-cites="R-here">Müller (<a href="#ref-R-here" role="doc-biblioref">2020</a>)</span>. The here package helps you load and save files in your project without worrying about changing your working directory, by always starting from the project’s main folder.</p>
+<ul>
+<li>First, we will create an object called <code>penguins_raw</code> that contains the data in the <code>penguins_raw.csv</code> file.</li>
+</ul>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
 </div>
-<p><strong>2.</strong> A null hypothesis is a statement about <select class="webex-select"><option value="blank"></option>
-<option value="">a sample</option>
-<option value="answer">a population</option>
-<option value="">a test statistic</option></select>.</p>
-<p><strong>3.</strong> A researcher asks whether a new fertiliser changes crop yield compared to the current fertiliser. The appropriate alternative hypothesis is <select class="webex-select"><option value="blank"></option>
-<option value="">one-sided</option>
-<option value="answer">two-sided</option></select>.</p>
+<div class="task-container">
+<ul class="task-list">
+<li><label><input type="checkbox">Add the following to your script, and check the document outline:</label></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># IMPORT DATA ----</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"penguins_raw.csv"</span>))</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># check the data has loaded</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>penguins_raw</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#__________________________----</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 12%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 10%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">studyName</th>
+<th style="text-align: right;">Sample Number</th>
+<th style="text-align: left;">Species</th>
+<th style="text-align: left;">Region</th>
+<th style="text-align: left;">Island</th>
+<th style="text-align: left;">Stage</th>
+<th style="text-align: left;">Individual ID</th>
+<th style="text-align: left;">Clutch Completion</th>
+<th style="text-align: left;">Date Egg</th>
+<th style="text-align: right;">Culmen Length (mm)</th>
+<th style="text-align: right;">Culmen Depth (mm)</th>
+<th style="text-align: right;">Flipper Length (mm)</th>
+<th style="text-align: right;">Body Mass (g)</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: right;">Delta 15 N (o/oo)</th>
+<th style="text-align: right;">Delta 13 C (o/oo)</th>
+<th style="text-align: left;">Comments</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PAL0708</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Adelie Penguin (Pygoscelis adeliae)</td>
+<td style="text-align: left;">Anvers</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adult, 1 Egg Stage</td>
+<td style="text-align: left;">N1A1</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">11/11/2007</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+<td style="text-align: left;">MALE</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">Not enough blood for isotopes.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAL0708</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Adelie Penguin (Pygoscelis adeliae)</td>
+<td style="text-align: left;">Anvers</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adult, 1 Egg Stage</td>
+<td style="text-align: left;">N1A2</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">11/11/2007</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">FEMALE</td>
+<td style="text-align: right;">8.94956</td>
+<td style="text-align: right;">-24.69454</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAL0708</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Adelie Penguin (Pygoscelis adeliae)</td>
+<td style="text-align: left;">Anvers</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adult, 1 Egg Stage</td>
+<td style="text-align: left;">N2A1</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">16/11/2007</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+<td style="text-align: left;">FEMALE</td>
+<td style="text-align: right;">8.36821</td>
+<td style="text-align: right;">-25.33302</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAL0708</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Adelie Penguin (Pygoscelis adeliae)</td>
+<td style="text-align: left;">Anvers</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adult, 1 Egg Stage</td>
+<td style="text-align: left;">N2A2</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">16/11/2007</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">Adult not sampled.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAL0708</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Adelie Penguin (Pygoscelis adeliae)</td>
+<td style="text-align: left;">Anvers</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adult, 1 Egg Stage</td>
+<td style="text-align: left;">N3A1</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">16/11/2007</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+<td style="text-align: left;">FEMALE</td>
+<td style="text-align: right;">8.76651</td>
+<td style="text-align: right;">-25.32426</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAL0708</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Adelie Penguin (Pygoscelis adeliae)</td>
+<td style="text-align: left;">Anvers</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: left;">Adult, 1 Egg Stage</td>
+<td style="text-align: left;">N3A2</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">16/11/2007</td>
+<td style="text-align: right;">39.3</td>
+<td style="text-align: right;">20.6</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">3650</td>
+<td style="text-align: left;">MALE</td>
+<td style="text-align: right;">8.66496</td>
+<td style="text-align: right;">-25.29805</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul class="task-list">
+<li><label><input type="checkbox">Check your script</label></li>
+</ul>
 <div class="webex-solution">
 <button>
-Explanation
+Solution
 </button>
-<p>The question asks whether yield <em>changes</em>, not whether it increases or decreases. A non-directional question calls for a two-sided alternative.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#___________________________----</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># SET UP ----</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># An analysis of the bill dimensions of male and female </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># Adelie, Gentoo and Chinstrap penguins</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co"># Data first published in  Gorman, KB, TD Williams, and WR Fraser. </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># 2014. </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co"># “Ecological Sexual Dimorphism and Environmental Variability </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co"># Within a Community of Antarctic Penguins (Genus Pygoscelis).” </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># PLos One 9 (3): e90081.</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co"># https://doi.org/10.1371/journal.pone.0090081. </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#__________________________----</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co"># PACKAGES ----</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="fu">library</span>(tidyverse) <span class="co"># tidy data packages</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="fu">library</span>(here) <span class="co"># organised file paths</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="fu">library</span>(janitor) <span class="co"># cleans variable names</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#__________________________----</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co"># IMPORT DATA ----</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>penguins_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"penguins_raw.csv"</span>))</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co"># check the data has loaded, prints first 10 rows of dataframe</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>penguins_raw</span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#__________________________----</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>4.</strong> In Darwin’s maize experiment, the paired difference is defined as the height of the <select class="webex-select"><option value="blank"></option>
-<option value="answer">cross-pollinated</option>
-<option value="">self-pollinated</option></select> plant minus the height of the <select class="webex-select"><option value="blank"></option>
-<option value="">cross-pollinated</option>
-<option value="answer">self-pollinated</option></select> plant.</p>
-<p><strong>5.</strong> The choice between a one-sided and two-sided alternative should be made <select class="webex-select"><option value="blank"></option>
-<option value="answer">before looking at the data</option>
-<option value="">after looking at the data</option>
-<option value="">after computing the p-value</option></select>.</p>
+</div>
+</div>
+</div>
+</section><section id="running-a-script-from-console" class="level2" data-number="B.8"><h2 data-number="B.8" class="anchored" data-anchor-id="running-a-script-from-console">
+<span class="header-section-number">B.8</span> Running a script from console</h2>
+<p>Now that we have made a very simple script, we can check our blank slates set-up and that our script runs without errors:</p>
+<div class="task">
+<div class="task-header">
+<p>Your turn</p>
+</div>
+<div class="task-container">
+<ul class="task-list">
+<li><p><label><input type="checkbox">Restart your R session - (does your Environment clear?)</label></p></li>
+<li><p><label><input type="checkbox">Using the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function in your console type the filepath of your script and hit <code>enter</code>.</label></p></li>
+</ul>
 <div class="webex-solution">
 <button>
-Explanation
+Solution
 </button>
-<p>The choice between a one-sided and two-sided test should be made before looking at the data, because choosing the direction after seeing the result can bias the inference and inflate the false-positive rate. The direction should instead be determined by the research question and scientific rationale in advance.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">source</span>(<span class="st">"scripts/01_import_penguins_data.R"</span>) <span class="co"># must specify dir</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># source(here::here("scripts", "01_import_penguins_data.R"))</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># using here </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
+</div>
+</div>
+</section><section id="summary" class="level2" data-number="B.9"><h2 data-number="B.9" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">B.9</span> Summary</h2>
+<p>In this chapter we have:</p>
+<ul>
+<li><p>Set up our raw data in an organised subdirectory</p></li>
+<li><p>Made safe filepaths to our data</p></li>
+<li><p>Imported into R</p></li>
+<li><p>Checked basic data import</p></li>
+</ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-Antarctic" class="csl-entry" role="listitem">
+Gorman, K., Williams, T., &amp; Fraser, W. (2014). Ecological sexual dimorphism and environmental variability within a community of antarctic penguins (genus pygoscelis). <em>PLos One</em>, <em>9</em>(3), e90081. <a href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a>
+</div>
+<div id="ref-R-here" class="csl-entry" role="listitem">
+Müller, K. (2020). <em>Here: A simpler way to find your files</em>. <a href="https://here.r-lib.org/">https://here.r-lib.org/</a>
+</div>
+<div id="ref-R-tidyverse" class="csl-entry" role="listitem">
+Wickham, H. (2023). <em>Tidyverse: Easily install and load the tidyverse</em>. <a href="https://tidyverse.tidyverse.org">https://tidyverse.tidyverse.org</a>
+</div>
+</div>
 </section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
@@ -1253,13 +1564,13 @@ window.onresize = move_sidebar;
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./session-02-computation.html" class="pagination-link" aria-label="Simulating uncertainty">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Simulating uncertainty</span>
+      <a href="./projects.html" class="pagination-link" aria-label="Project workflows">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Project workflows</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./session-03-workshop.html" class="pagination-link" aria-label="Null distributions and what a p-value is">
-        <span class="nav-page-text">Null distributions and what a p-value is</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./import_data.html" class="pagination-link" aria-label="Reading data">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Reading data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
