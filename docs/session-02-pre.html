@@ -453,6 +453,7 @@ window.Quarto = {
    
   <ul>
 <li><a href="#sec-video" id="toc-sec-video" class="nav-link active" data-scroll-target="#sec-video">Video: from sample to estimate</a></li>
+  <li><a href="#learning-outcomes." id="toc-learning-outcomes." class="nav-link" data-scroll-target="#learning-outcomes.">Learning outcomes.</a></li>
   <li>
 <a href="#sec-reading" id="toc-sec-reading" class="nav-link" data-scroll-target="#sec-reading">Reading: estimation and uncertainty</a>
   <ul class="collapse">
@@ -499,7 +500,15 @@ window.Quarto = {
 <p>After watching, you should be able to state that the sample mean is a point estimate of the population mean.</p>
 </div>
 </div>
-</section><section id="sec-reading" class="level2"><h2 class="anchored" data-anchor-id="sec-reading">Reading: estimation and uncertainty</h2>
+</section><section id="learning-outcomes." class="level2"><h2 class="anchored" data-anchor-id="learning-outcomes.">Learning outcomes.</h2>
+<p><strong>By the end of this week you should be able to:</strong></p>
+<ol type="1">
+<li><p>explain the difference between the SD of the data and the SE of the mean, and why the SE is smaller;</p></li>
+<li><p>calculate the SE of a mean from a sample SD and sample size;</p></li>
+<li><p>construct an approximate 95% CI as mean ± 1.96 × SE, and say where each part comes from;</p></li>
+<li><p>predict and explain how the width of a CI changes with sample size;</p></li>
+<li><p>recognise three common misreadings of “95% confidence”.</p></li>
+</ol></section><section id="sec-reading" class="level2"><h2 class="anchored" data-anchor-id="sec-reading">Reading: estimation and uncertainty</h2>
 <section id="sec-point-estimate" class="level3"><h3 class="anchored" data-anchor-id="sec-point-estimate">From sample to estimate</h3>
 <p>In Session 1 you built a sampling distribution on the board. Every group drew a sample from the same population and computed a mean, and the class saw that each mean was different. The board showed how sample means vary — and that they cluster around the population mean.</p>
 <p>Now turn the reasoning around. In practice you do not know the population mean. You have one sample and one mean. That single number is your <strong>point estimate</strong> of the population mean — the best single guess you can make from the data you have.</p>
@@ -509,6 +518,97 @@ window.Quarto = {
 <p>The dataset we use for the next three sessions comes from an experiment by Charles Darwin, reported in 1876 and later reanalysed by R. A. Fisher.</p>
 <p>Darwin grew 15 pairs of <em>Zea mays</em> (maize) plants. Within each pair, one plant was <strong>cross-fertilised</strong> (pollen from a different plant) and one was <strong>self-fertilised</strong> (pollen from the same plant). The two plants in each pair were grown in the same pot, so any difference in growing conditions was shared. Darwin then measured the final height of every plant, in inches.</p>
 <p>The biological question is whether cross-fertilisation produces taller plants. The statistical question — which we will reach in Session 3 — is whether the observed difference in height is larger than you would expect from chance alone. For now, the dataset gives us a concrete set of measurements to work with when we distinguish different ways of summarising uncertainty.</p>
+<div id="tbl-maize" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-maize-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Height (inches) of cross-fertilised and self-fertilised maize plants in each of Darwin’s 15 pairs.
+</figcaption><div aria-describedby="tbl-maize-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead><tr class="header">
+<th style="text-align: right;">Pair</th>
+<th style="text-align: right;">Cross</th>
+<th style="text-align: right;">Self</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">23.5</td>
+<td style="text-align: right;">17.375</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">20.375</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">19.125</td>
+<td style="text-align: right;">18.375</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">21.5</td>
+<td style="text-align: right;">18.625</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">22.125</td>
+<td style="text-align: right;">18.625</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">20.375</td>
+<td style="text-align: right;">15.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">18.25</td>
+<td style="text-align: right;">16.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">21.625</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">23.25</td>
+<td style="text-align: right;">16.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">22.125</td>
+<td style="text-align: right;">12.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">15.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">18</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 <div class="webex-solution">
 <button>
 Check your understanding
@@ -589,8 +689,8 @@ Explanation
 <p><span class="math inline">\(\text{SE} = \text{SD}/\sqrt{n} = 8/\sqrt{16} = 8/4 = 2\)</span>.</p>
 </div>
 <p><strong>4.</strong> If you increase the sample size from 20 to 80, what happens to the SD and the SE?</p>
-<div id="radio_YFOBGTZFMN" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YFOBGTZFMN" value=""><span>Both the SD and the SE stay the same.</span></label><label><input type="radio" autocomplete="off" name="radio_YFOBGTZFMN" value="answer"><span>The SD stays roughly the same; the SE decreases.</span></label><label><input type="radio" autocomplete="off" name="radio_YFOBGTZFMN" value=""><span>The SD decreases; the SE stays the same.</span></label><label><input type="radio" autocomplete="off" name="radio_YFOBGTZFMN" value=""><span>Both the SD and the SE decrease.</span></label>
+<div id="radio_GFMGMBGVJA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GFMGMBGVJA" value=""><span>Both the SD and the SE stay the same.</span></label><label><input type="radio" autocomplete="off" name="radio_GFMGMBGVJA" value=""><span>The SD decreases; the SE stays the same.</span></label><label><input type="radio" autocomplete="off" name="radio_GFMGMBGVJA" value="answer"><span>The SD stays roughly the same; the SE decreases.</span></label><label><input type="radio" autocomplete="off" name="radio_GFMGMBGVJA" value=""><span>Both the SD and the SE decrease.</span></label>
 </div>
 <div class="webex-solution">
 <button>

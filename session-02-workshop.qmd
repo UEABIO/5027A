@@ -16,36 +16,36 @@ Use it for revision; the full activities were worked through in class.
 
 ## Recovering the mechanism from Session 1 {#sec-board-recovery}
 
-We began by returning to the photograph of the Session 1 board. Each
-dot on that board was one group's sample mean from the bean tub, and
-the spread of dots was the sampling distribution of the mean.
+We began by returning to the photograph of the Session 1 board. Row 1 showed
+every student's own reaction time. Row 3 showed the means of random samples of
+6 students drawn from the container of slips, and the spread of the Row 3 dots
+was a small picture of the sampling distribution of the mean.
 
 Two numbers were displayed alongside the photograph:
 
-- the standard deviation of the individual bean weights (from the tub),
-- the standard deviation of the class means (from the dots on the board).
+- the SD of the individual reaction times ms,
 
-The first number was larger than the second. Averaging cancels out
-extreme values: a mean of twenty beans cannot be as extreme as the most
-extreme single bean, so the class means clustered more tightly than the
-raw weights.
+- the SD of the random-sample means
+
+The first was larger. Averaging cancels out extreme values: a mean of six
+students cannot be as extreme as the most extreme single student, so the sample
+means cluster more tightly than the individual times. We used Row 3 rather than
+the Row 2 bench means because the benches were not random samples and were of
+different sizes.
 
 ::: {.callout-note}
 ## The rule
 The standard deviation of the sampling distribution of the mean is the
-**standard error of the mean** (SE). It is not a separate quantity from
-the standard deviation; it is what you get when you compute the SD of
-the sample means rather than the SD of the individual values.
-
-From a single sample, the SE is computed directly from the sample SD:
+**standard error of the mean** (SE). It is still a standard deviation, but of a
+different distribution: the distribution of sample means rather than of
+individual values. From a single sample, the SE is estimated from the sample SD:
 
 $$
 \text{SE} = \frac{\text{SD}}{\sqrt{n}}
 $$
 :::
 
-The Session 1 board made the SE physical. We did not compute it, because
-we already had it: it was the spread of the dots the class had drawn.
+
 
 ::: {.webex-check .webex-box}
 
@@ -76,14 +76,33 @@ $$
 \text{SE} = \frac{4.72}{\sqrt{15}} \approx 1.22 \text{ inches}
 $$
 
-This is what the sampling distribution of the mean difference would
-look like if Darwin had repeated the whole experiment many times, each
-time with 15 new pairs. The sample means would be spread around the
-true mean with a standard deviation of about 1.22 inches.
+If Darwin repeated the whole experiment many times, each time with 15 new
+pairs, the mean differences would be centred on the true mean difference and
+would have a standard deviation of about 1.22 inches. @fig-maize-sampling shows
+the curve you sketched in class. Darwin's own mean of 2.62 inches is one point
+somewhere under this curve; because the true mean is unknown, we cannot say
+where.
 
-This number is the same quantity you saw as the spread of dots on the
-Session 1 board, but computed from a single sample rather than from
-many.
+```{r, echo = FALSE, eval = TRUE}
+
+#| label: fig-maize-sampling
+#| fig-cap: "Sampling distribution of the mean difference for samples of 15 pairs. The centre is the unknown true mean; the shaded region is the middle 95%."
+#| echo: false
+se_maize <- 4.72 / sqrt(15)
+curve_df <- tibble(x = seq(-4, 4, length.out = 400) * se_maize) |>
+  mutate(density = dnorm(x, sd = se_maize))
+
+ggplot(curve_df, aes(x, density)) +
+  geom_area(data = filter(curve_df, abs(x) <= 1.96 * se_maize), fill = "grey85") +
+  geom_line() +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  scale_x_continuous(breaks = c(-2, -1, 0, 1, 2) * se_maize,
+                     labels = c("−2 SE", "−1 SE", "true mean", "+1 SE", "+2 SE")) +
+  labs(x = "Mean difference (1 SE = 1.22 inches)", y = NULL) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+
+```
+
 
 ::: {.webex-check .webex-box}
 
@@ -150,7 +169,7 @@ normal distribution.
 
 **Check your understanding.** A study reports a mean of 12.0, an SD of
 6.0, and $n$ = 36. The SE is `r fitb(1)` and the approximate 95% CI
-runs from `r fitb(10)` to `r fitb(14)`.
+runs from `r fitb(10, tol = .1)` to `r fitb(14, tol = .1)`.
 
 `r hide("Explanation")`
 
@@ -208,6 +227,13 @@ The three claims to be wary of:
 
 Each of these is a natural first guess. None is what a frequentist
 confidence interval says.
+
+## Predictions for hour 2 {#sec-predictions}
+
+At the end of the hour you wrote predictions on Part F of the worksheet: the
+shape and centre of 10,000 sample means, the SE for $n$ = 5, 20, 80 and 320, the
+number of misses among 200 intervals, and the effect of a 99% multiplier. Bring
+them, and your sketches, to hour 2. Each one is tested there.
 
 ## Exit ticket {#sec-exit}
 
