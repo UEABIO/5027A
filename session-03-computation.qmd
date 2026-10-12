@@ -21,7 +21,8 @@ darwin <- read_csv(here("files", "darwin.csv")) |>
   mutate(difference = cross - self)
 ```
 
-In hour 1 you built a null distribution by flipping signs on cards.
+In hour 1 you built a null distribution by flipping coins to assign
+the signs of Darwin's differences.
 This hour reproduces that procedure in code, then compares it with
 the analytic shortcut.
 
@@ -45,8 +46,8 @@ Before you run the code, write down your answers to both questions:
 
 1. What is the observed mean difference? (You can compute this from
    the fifteen values, or recall it from hour 1.)
-2. Roughly what p-value do you expect? Use the board from hour 1 as
-   your guide.
+2. Roughly what p-value do you expect? Use the class estimate and the exact
+   value (0.053) from hour 1 as your guide.
 
 ::::
 :::
@@ -98,7 +99,9 @@ sit relative to the null distribution in @fig-null-distribution?
 The observed mean difference is approximately 2.62 inches. Most of
 the null distribution sits near zero, because sign-flipping centres
 the distribution at zero under H~0~. The observed value falls in the
-tail.
+tail. Your p-value will be close to, but rarely equal to, the exact
+value of 0.053 from hour 1, because 1 000 shuffles are only a sample
+of the 32 768 possible assignments.
 `r unhide()`
 
 ::::
@@ -124,7 +127,9 @@ will it be similar?
 `r hide("Answer")`
 The p-value should be similar but more stable. With more shuffles the
 estimate of the p-value becomes more precise, but the underlying
-proportion it estimates does not change.
+proportion it estimates does not change. With 10 000 shuffles the
+estimate will usually lie within about 0.005 of the exact value,
+0.053.
 `r unhide()`
 
 ::::
@@ -187,7 +192,7 @@ permutation logic is the same — only the statistic differs.
 :::
 
 
-## Short composition: one-sided p-value {#sec-composition}
+## Short composition: one-sided p-value {#sec-s3-composition}
 
 Reset your code so that it uses 10 000 shuffles, the mean as the
 statistic, and the two-sided p-value. The null distribution object
@@ -221,7 +226,7 @@ model as a reference.
 ```{r}
 #| eval: false
 p_one <- mean(null_dist >= observed)
-cat("One-sided p-value:", round(p_one, 4), "\n")
+cat("One-sided p-value:", round(p_one, digits = 4), "\n")
 ```
 
 The key change: remove `abs()` from both sides of the comparison.
@@ -235,8 +240,9 @@ You are no longer asking "how far from zero in either direction?" but
 
 ## The analytic shortcut {#sec-analytic}
 
-The sign-flip permutation requires no assumptions about the shape of
-the data. It builds the null distribution directly from the observed
+The sign-flip permutation does not assume that the differences are
+normally distributed, although it does assume that, under H~0~, each
+difference is equally likely to be positive or negative. It builds the null distribution directly from the observed
 values. There is a shortcut: if you assume the paired differences
 come from a **normal distribution**, then the null distribution has a known
 mathematical form — the **t-distribution**. The `t.test()` function
@@ -270,7 +276,7 @@ session, and which are new?
 `r hide("Answer")`
 The test statistic and degrees of freedom are new — you have not
 computed either by hand or in code today. The p-value corresponds to
-the one-sided permutation p-value you wrote in @sec-composition
+the one-sided permutation p-value you wrote in @sec-s3-composition
 (though the exact value differs because `t.test()` uses the
 t-distribution rather than simulation). The estimated mean matches
 the `observed` value you computed at the start of @sec-permutation.
@@ -416,8 +422,8 @@ ggplot(simulated, aes(x = p_value)) +
    hypothesis?
 
 `r hide("Answer")`
-1. Approximately 100 (5% of 2 000), though the exact count will vary
-   because the simulation is random.
+1. Approximately 100 (5% of 2 000), though the exact count will vary because the simulation is random.
+   This run gave `r sum(simulated$significant)`.
    
 2. **Alpha** ($\alpha$): a threshold chosen in advance, below which
    the p-value is declared significant. It is a property of the
@@ -472,15 +478,15 @@ the procedure — you choose how often you are willing to be wrong.
 
 A p-value depends on sample size. With enough data, a trivially small
 effect can produce a tiny p-value. Biological importance does not
-depend on sample size — a difference of 0.01 mm in plant height is
+depend on sample size — a difference of 0.05 mm in plant height is
 biologically negligible regardless of how precisely you estimate it.
 
 Consider two experiments on the same species:
 
-- **Experiment A**: mean difference = 0.05 mm, SE = 0.01, n = 10 000,
+- **Experiment A**: mean difference = 0.05 mm, SE = 0.01 mm, n = 10 000,
   p < 0.001.
-- **Experiment B**: mean difference = 3.2 mm, SE = 1.8, n = 12,
-  p = 0.09.
+- **Experiment B**: mean difference = 32 mm, SE = 18 mm, n = 12,
+  p = 0.10.
 
 :::{.task}
 ::::{.task-header}
@@ -494,11 +500,13 @@ produced the more biologically important result, A or B? Give your
 reason in one sentence.
 
 `r hide("Answer")`
-Experiment B. The effect in A (0.05 mm) is trivially small; it
-reaches statistical significance only because the enormous sample
-size makes the standard error tiny. The effect in B (3.2 mm) is
-large enough to be biologically meaningful, but the small sample
-leaves too much uncertainty to clear the 0.05 threshold. Statistical
+Experiment B, with a caveat. The effect in A (0.05 mm) is trivially
+small; it reaches statistical significance only because the enormous
+sample size makes the standard error tiny. The estimate in B (32 mm)
+is large enough to matter biologically, but its 95% confidence
+interval (roughly −8 to 72 mm) includes zero. B points to a
+potentially important effect that needs a larger study; it has not
+shown that the effect exists. Statistical
 significance tells you that an effect is unlikely to be zero. It does
 not tell you that the effect matters.
 `r unhide()`
@@ -507,7 +515,7 @@ not tell you that the effect matters.
 :::
 
 
-## Cumulative spine and exit ticket {#sec-exit}
+## Cumulative spine and exit ticket {#sec-s3-hour2-exit}
 
 Session 1 established that a statistic is random. Session 2 showed
 how to quantify uncertainty from a single sample. This session showed
@@ -537,10 +545,10 @@ pick this up next time.
 
 ## Reading 
 
-- ["Hypothesis Testing and the Null Hypothesis"](statisticsbyjim.com/hypothesis-testing/hypothesis-testing/). 
+- ["Hypothesis Testing and the Null Hypothesis"](https://statisticsbyjim.com/hypothesis-testing/hypothesis-testing/). 
 
 
-- ["Understanding P-values"](statisticsbyjim.com/hypothesis-testing/interpreting-p-values/).
+- ["Understanding P-values"](https://statisticsbyjim.com/hypothesis-testing/interpreting-p-values/).
 
-- ["Statistical Significance"](statisticsbyjim.com/hypothesis-testing/statistical-significance/).
+- ["Statistical Significance"](https://statisticsbyjim.com/hypothesis-testing/statistical-significance/).
 

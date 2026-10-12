@@ -493,12 +493,12 @@ window.Quarto = {
 <li><a href="#three-edits" id="toc-three-edits" class="nav-link" data-scroll-target="#three-edits">Three edits</a></li>
   </ul>
 </li>
-  <li><a href="#sec-composition" id="toc-sec-composition" class="nav-link" data-scroll-target="#sec-composition">Short composition: one-sided p-value</a></li>
+  <li><a href="#sec-s3-composition" id="toc-sec-s3-composition" class="nav-link" data-scroll-target="#sec-s3-composition">Short composition: one-sided p-value</a></li>
   <li><a href="#sec-analytic" id="toc-sec-analytic" class="nav-link" data-scroll-target="#sec-analytic">The analytic shortcut</a></li>
   <li><a href="#sec-alpha" id="toc-sec-alpha" class="nav-link" data-scroll-target="#sec-alpha">Alpha and error, by simulation</a></li>
   <li><a href="#sec-threshold" id="toc-sec-threshold" class="nav-link" data-scroll-target="#sec-threshold">Change the threshold</a></li>
   <li><a href="#sec-significance" id="toc-sec-significance" class="nav-link" data-scroll-target="#sec-significance">Significance is not importance</a></li>
-  <li><a href="#sec-exit" id="toc-sec-exit" class="nav-link" data-scroll-target="#sec-exit">Cumulative spine and exit ticket</a></li>
+  <li><a href="#sec-s3-hour2-exit" id="toc-sec-s3-hour2-exit" class="nav-link" data-scroll-target="#sec-s3-hour2-exit">Cumulative spine and exit ticket</a></li>
   <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a></li>
   </ul></nav>
     </div>
@@ -518,7 +518,7 @@ window.Quarto = {
   
 
 
-</header><p>In hour 1 you built a null distribution by flipping signs on cards. This hour reproduces that procedure in code, then compares it with the analytic shortcut.</p>
+</header><p>In hour 1 you built a null distribution by flipping coins to assign the signs of Darwin’s differences. This hour reproduces that procedure in code, then compares it with the analytic shortcut.</p>
 <section id="sec-permutation" class="level2"><h2 class="anchored" data-anchor-id="sec-permutation">Coded permutation with prediction</h2>
 <p>The code below implements the sign-flip randomisation from hour 1. It flips signs at random on the fifteen paired differences, computes the mean, and repeats this 1 000 times to build a null distribution. The two-sided p-value is then computed as the proportion of null distribution values at least as far from zero as the observed mean.</p>
 <div class="task">
@@ -529,7 +529,7 @@ window.Quarto = {
 <p>Before you run the code, write down your answers to both questions:</p>
 <ol type="1">
 <li>What is the observed mean difference? (You can compute this from the fifteen values, or recall it from hour 1.)</li>
-<li>Roughly what p-value do you expect? Use the board from hour 1 as your guide.</li>
+<li>Roughly what p-value do you expect? Use the class estimate and the exact value (0.053) from hour 1 as your guide.</li>
 </ol>
 </div>
 </div>
@@ -578,7 +578,7 @@ Figure&nbsp;1: Null distribution of the mean paired difference under random sign
 <button>
 Answer
 </button>
-<p>The observed mean difference is approximately 2.62 inches. Most of the null distribution sits near zero, because sign-flipping centres the distribution at zero under H<sub>0</sub>. The observed value falls in the tail.</p>
+<p>The observed mean difference is approximately 2.62 inches. Most of the null distribution sits near zero, because sign-flipping centres the distribution at zero under H<sub>0</sub>. The observed value falls in the tail. Your p-value will be close to, but rarely equal to, the exact value of 0.053 from hour 1, because 1 000 shuffles are only a sample of the 32 768 possible assignments.</p>
 </div>
 </div>
 </div>
@@ -595,7 +595,7 @@ Answer
 <button>
 Answer
 </button>
-<p>The p-value should be similar but more stable. With more shuffles the estimate of the p-value becomes more precise, but the underlying proportion it estimates does not change.</p>
+<p>The p-value should be similar but more stable. With more shuffles the estimate of the p-value becomes more precise, but the underlying proportion it estimates does not change. With 10 000 shuffles the estimate will usually lie within about 0.005 of the exact value, 0.053.</p>
 </div>
 </div>
 </div>
@@ -632,7 +632,7 @@ Answer
 </div>
 </div>
 </div>
-</section></section><section id="sec-composition" class="level2"><h2 class="anchored" data-anchor-id="sec-composition">Short composition: one-sided p-value</h2>
+</section></section><section id="sec-s3-composition" class="level2"><h2 class="anchored" data-anchor-id="sec-s3-composition">Short composition: one-sided p-value</h2>
 <p>Reset your code so that it uses 10 000 shuffles, the mean as the statistic, and the two-sided p-value. The null distribution object <code>null_dist</code> now holds 10 000 sign-flipped means.</p>
 <div class="task">
 <div class="task-header">
@@ -655,14 +655,14 @@ Model answer
 </button>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p_one <span class="ot">&lt;-</span> <span class="fu">mean</span>(null_dist <span class="sc">&gt;=</span> observed)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">cat</span>(<span class="st">"One-sided p-value:"</span>, <span class="fu">round</span>(p_one, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">cat</span>(<span class="st">"One-sided p-value:"</span>, <span class="fu">round</span>(p_one, <span class="at">digits =</span> <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The key change: remove <code><a href="https://rdrr.io/r/base/MathFun.html">abs()</a></code> from both sides of the comparison. You are no longer asking “how far from zero in either direction?” but “how often does the null distribution exceed the observed value?”</p>
 </div>
 </div>
 </div>
 </section><section id="sec-analytic" class="level2"><h2 class="anchored" data-anchor-id="sec-analytic">The analytic shortcut</h2>
-<p>The sign-flip permutation requires no assumptions about the shape of the data. It builds the null distribution directly from the observed values. There is a shortcut: if you assume the paired differences come from a <strong>normal distribution</strong>, then the null distribution has a known mathematical form — the <strong>t-distribution</strong>. The <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function uses this shortcut.</p>
+<p>The sign-flip permutation does not assume that the differences are normally distributed, although it does assume that, under H<sub>0</sub>, each difference is equally likely to be positive or negative. It builds the null distribution directly from the observed values. There is a shortcut: if you assume the paired differences come from a <strong>normal distribution</strong>, then the null distribution has a known mathematical form — the <strong>t-distribution</strong>. The <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function uses this shortcut.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">t.test</span>(darwin<span class="sc">$</span>difference, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -696,7 +696,7 @@ mean of x
 <button>
 Answer
 </button>
-<p>The test statistic and degrees of freedom are new — you have not computed either by hand or in code today. The p-value corresponds to the one-sided permutation p-value you wrote in <a href="session-04-computation.html#sec-composition" class="quarto-xref"><span>Composition task: fit the unpaired model</span></a> (though the exact value differs because <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> uses the t-distribution rather than simulation). The estimated mean matches the <code>observed</code> value you computed at the start of <a href="#sec-permutation" class="quarto-xref"><span>Coded permutation with prediction</span></a>.</p>
+<p>The test statistic and degrees of freedom are new — you have not computed either by hand or in code today. The p-value corresponds to the one-sided permutation p-value you wrote in <a href="#sec-s3-composition" class="quarto-xref"><span>Short composition: one-sided p-value</span></a> (though the exact value differs because <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> uses the t-distribution rather than simulation). The estimated mean matches the <code>observed</code> value you computed at the start of <a href="#sec-permutation" class="quarto-xref"><span>Coded permutation with prediction</span></a>.</p>
 </div>
 </div>
 </div>
@@ -821,7 +821,7 @@ Answer
 Answer
 </button>
 <ol type="1">
-<li><p>Approximately 100 (5% of 2 000), though the exact count will vary because the simulation is random.</p></li>
+<li><p>Approximately 100 (5% of 2 000), though the exact count will vary because the simulation is random. This run gave 90.</p></li>
 <li><p><strong>Alpha</strong> (<span class="math inline">\(\alpha\)</span>): a threshold chosen in advance, below which the p-value is declared significant. It is a property of the procedure, not of the data.</p></li>
 <li><p><strong>Type I error</strong>: rejecting the null hypothesis when it is in fact true. The long-run rate of Type I errors equals alpha.</p></li>
 </ol>
@@ -859,13 +859,13 @@ Answer
 </div>
 </div>
 </section><section id="sec-significance" class="level2"><h2 class="anchored" data-anchor-id="sec-significance">Significance is not importance</h2>
-<p>A p-value depends on sample size. With enough data, a trivially small effect can produce a tiny p-value. Biological importance does not depend on sample size — a difference of 0.01 mm in plant height is biologically negligible regardless of how precisely you estimate it.</p>
+<p>A p-value depends on sample size. With enough data, a trivially small effect can produce a tiny p-value. Biological importance does not depend on sample size — a difference of 0.05 mm in plant height is biologically negligible regardless of how precisely you estimate it.</p>
 <p>Consider two experiments on the same species:</p>
 <ul>
 <li>
-<strong>Experiment A</strong>: mean difference = 0.05 mm, SE = 0.01, n = 10 000, p &lt; 0.001.</li>
+<strong>Experiment A</strong>: mean difference = 0.05 mm, SE = 0.01 mm, n = 10 000, p &lt; 0.001.</li>
 <li>
-<strong>Experiment B</strong>: mean difference = 3.2 mm, SE = 1.8, n = 12, p = 0.09.</li>
+<strong>Experiment B</strong>: mean difference = 32 mm, SE = 18 mm, n = 12, p = 0.10.</li>
 </ul>
 <div class="task">
 <div class="task-header">
@@ -877,11 +877,11 @@ Answer
 <button>
 Answer
 </button>
-<p>Experiment B. The effect in A (0.05 mm) is trivially small; it reaches statistical significance only because the enormous sample size makes the standard error tiny. The effect in B (3.2 mm) is large enough to be biologically meaningful, but the small sample leaves too much uncertainty to clear the 0.05 threshold. Statistical significance tells you that an effect is unlikely to be zero. It does not tell you that the effect matters.</p>
+<p>Experiment B, with a caveat. The effect in A (0.05 mm) is trivially small; it reaches statistical significance only because the enormous sample size makes the standard error tiny. The estimate in B (32 mm) is large enough to matter biologically, but its 95% confidence interval (roughly −8 to 72 mm) includes zero. B points to a potentially important effect that needs a larger study; it has not shown that the effect exists. Statistical significance tells you that an effect is unlikely to be zero. It does not tell you that the effect matters.</p>
 </div>
 </div>
 </div>
-</section><section id="sec-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-exit">Cumulative spine and exit ticket</h2>
+</section><section id="sec-s3-hour2-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-s3-hour2-exit">Cumulative spine and exit ticket</h2>
 <p>Session 1 established that a statistic is random. Session 2 showed how to quantify uncertainty from a single sample. This session showed how to judge whether a specific claim is supported. Session 4 asks how this generalises when the comparison involves more than two conditions.</p>
 <div class="task">
 <div class="task-header">
@@ -896,9 +896,9 @@ Answer
 </div>
 </section><section id="reading" class="level2"><h2 class="anchored" data-anchor-id="reading">Reading</h2>
 <ul>
-<li><p><a href="statisticsbyjim.com/hypothesis-testing/hypothesis-testing/">“Hypothesis Testing and the Null Hypothesis”</a>.</p></li>
-<li><p><a href="statisticsbyjim.com/hypothesis-testing/interpreting-p-values/">“Understanding P-values”</a>.</p></li>
-<li><p><a href="statisticsbyjim.com/hypothesis-testing/statistical-significance/">“Statistical Significance”</a>.</p></li>
+<li><p><a href="https://statisticsbyjim.com/hypothesis-testing/hypothesis-testing/">“Hypothesis Testing and the Null Hypothesis”</a>.</p></li>
+<li><p><a href="https://statisticsbyjim.com/hypothesis-testing/interpreting-p-values/">“Understanding P-values”</a>.</p></li>
+<li><p><a href="https://statisticsbyjim.com/hypothesis-testing/statistical-significance/">“Statistical Significance”</a>.</p></li>
 </ul>
 
 

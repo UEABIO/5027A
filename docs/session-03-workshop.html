@@ -457,7 +457,7 @@ window.Quarto = {
   <li><a href="#sec-reveal" id="toc-sec-reveal" class="nav-link" data-scroll-target="#sec-reveal">The reveal and the count</a></li>
   <li><a href="#sec-four-statements" id="toc-sec-four-statements" class="nav-link" data-scroll-target="#sec-four-statements">Four statements</a></li>
   <li><a href="#sec-link-session1" id="toc-sec-link-session1" class="nav-link" data-scroll-target="#sec-link-session1">Link to Session 1</a></li>
-  <li><a href="#sec-exit" id="toc-sec-exit" class="nav-link" data-scroll-target="#sec-exit">Exit ticket</a></li>
+  <li><a href="#sec-s3-hour1-exit" id="toc-sec-s3-hour1-exit" class="nav-link" data-scroll-target="#sec-s3-hour1-exit">Exit ticket</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -490,7 +490,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A hypothesis is a claim about a population parameter, never a description of a sample. The null hypothesis states no effect or no difference. The alternative states what you would conclude if the null were rejected. The choice of directionality follows from the research question and is fixed before looking at the data.</p>
+<p>A hypothesis is a claim about a population parameter, never a description of a sample. The null hypothesis states no effect or no difference. The alternative states what you would conclude if the null were rejected. The choice of directionality follows from the research question and is fixed before looking at the data. Use a directional alternative only if a result in the other direction would lead to the same conclusion as no effect.</p>
 </div>
 </div>
 <div class="webex-check webex-box">
@@ -505,14 +505,14 @@ Explanation
 </div>
 </div>
 </section><section id="sec-shuffle" class="level2"><h2 class="anchored" data-anchor-id="sec-shuffle">The shuffle</h2>
-<p>We used Darwin’s fifteen paired differences to build a null distribution by hand. If the null hypothesis is true and cross-pollination has no effect, then each paired difference is equally likely to be positive or negative — the sign carries no information. The physical procedure was:</p>
+<p>We used Darwin’s fifteen paired differences to build a null distribution by hand. If the null hypothesis is true and cross-fertilisation has no effect, then each paired difference is equally likely to be positive or negative — the sign carries no information. The procedure was:</p>
 <ol type="1">
-<li>Each bench received fifteen cards showing the observed paired differences.</li>
-<li>For each card, a coin flip decided whether to keep the original sign or reverse it.</li>
-<li>The mean of the fifteen sign-flipped differences was computed and posted on the board.</li>
-<li>Each bench repeated this three times.</li>
+<li>Each student worked from a table of the fifteen observed paired differences, given in eighths of an inch (the resolution of Darwin’s measurements) with the value in inches in brackets.</li>
+<li>For each difference, a flip in the coin-flip app decided whether to keep the original sign (heads) or reverse it (tails).</li>
+<li>The sum of the fifteen sign-flipped differences was computed, checked by a partner and posted on the board. The sum keeps the arithmetic in whole numbers; the mean is the sum divided by 15, so both put the shuffles in the same order.</li>
+<li>Each student repeated this twice.</li>
 </ol>
-<p>The class board accumulated these means into a distribution of values that could arise if the null hypothesis were true. This distribution is the <strong>null distribution</strong>.</p>
+<p>The class board accumulated these sums into a distribution of values that could arise if the null hypothesis were true. This distribution is the <strong>null distribution</strong>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -523,21 +523,21 @@ Explanation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A <strong>null distribution</strong> is the distribution of a test statistic under the assumption that the null hypothesis is true. Each value on the board represents one outcome from a world in which cross-pollination has no effect. The observed mean difference is then compared against this distribution.</p>
+<p>A <strong>null distribution</strong> is the distribution of a test statistic under the assumption that the null hypothesis is true. Each value on the board represents one outcome from a world in which cross-fertilisation has no effect. The observed sum is then compared against this distribution. Strictly, the shuffle assumes that under H<sub>0</sub> each difference is as likely to be positive as negative, which is a slightly stronger claim than saying only that the population mean difference is zero.</p>
 </div>
 </div>
 <div class="webex-check webex-box">
 <p><strong>Check your understanding.</strong> In the sign-flip procedure, what justifies flipping the sign of a paired difference?</p>
-<div id="radio_HQRPHFMLIK" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HQRPHFMLIK" value=""><span>The differences are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_HQRPHFMLIK" value=""><span>Flipping signs increases the sample size</span></label><label><input type="radio" autocomplete="off" name="radio_HQRPHFMLIK" value="answer"><span>If the null hypothesis is true, each difference is equally likely to be positive or negative</span></label>
+<div id="radio_RRJBNEJRUF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RRJBNEJRUF" value=""><span>Flipping signs increases the sample size</span></label><label><input type="radio" autocomplete="off" name="radio_RRJBNEJRUF" value=""><span>The differences are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_RRJBNEJRUF" value="answer"><span>If the null hypothesis is true, each difference is equally likely to be positive or negative</span></label>
 </div>
 </div>
 </section><section id="sec-reveal" class="level2"><h2 class="anchored" data-anchor-id="sec-reveal">The reveal and the count</h2>
-<p>The observed mean difference was marked on the board. We then counted how many of the class-generated values were at least as far from zero as the observed value, in both directions (because a value equally extreme in the negative direction would be equally surprising under the null). That count, divided by the total number of shuffles, was the <strong>p-value</strong>.</p>
+<p>The observed sum, 314 eighths (39.25 inches), was marked on the board. Dividing it by 15 and then by 8 gives the mean difference of 2.62 inches used in Session 2 and in hour 2. We then counted how many of the class-generated values were at least as far from zero as the observed value, in both directions (because a value equally extreme in the negative direction would be equally surprising under the null). That count, divided by the total number of shuffles, was the <strong>p-value</strong>.</p>
 <p>Two points were stated explicitly at this moment:</p>
 <ol type="1">
 <li>The two-tail count follows from the alternative hypothesis written before the data were seen. A one-sided alternative would count only one direction.</li>
-<li>The class proportion is an estimate of a quantity defined over all possible sign-flip assignments, not just the ones the class happened to produce.</li>
+<li>The class proportion is an estimate of a quantity defined over all possible sign-flip assignments, not just the ones the class happened to produce. Listing all <span class="math inline">\(2^{15} = 32\,768\)</span> assignments gives 1 726 at least as extreme as the observed sum: an exact two-sided p-value of 1 726 / 32 768 ≈ 0.053.</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -553,7 +553,7 @@ Explanation
 </div>
 </div>
 <div class="webex-check webex-box">
-<p><strong>Check your understanding.</strong> The class produced 90 shuffled means. Seven were at least as extreme as the observed difference (in either direction). The two-sided p-value is <input class="webex-solveme nospaces" data-tol="0.005" size="18" data-answer="[&quot;0.0777777777777778&quot;,&quot;.0777777777777778&quot;]">.</p>
+<p><strong>Check your understanding.</strong> The class produced 90 shuffled sums. Seven were at least as extreme as the observed sum (in either direction). The two-sided p-value is <input class="webex-solveme nospaces" data-tol="0.005" size="18" data-answer="[&quot;0.0777777777777778&quot;,&quot;.0777777777777778&quot;]">.</p>
 <div class="webex-solution">
 <button>
 Explanation
@@ -566,11 +566,11 @@ Explanation
 <p>The four statements, in the form used in class:</p>
 <p>Which of the following correctly states what a p-value is?</p>
 <div class="webex-check webex-box">
-<div id="radio_COYLUHPGQD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_COYLUHPGQD" value="answer"><span>The probability of observing data at least as extreme as the actual data, assuming the null hypothesis is true</span></label><label><input type="radio" autocomplete="off" name="radio_COYLUHPGQD" value=""><span>The probability that the null hypothesis is true</span></label><label><input type="radio" autocomplete="off" name="radio_COYLUHPGQD" value=""><span>The probability that the result was due to chance</span></label><label><input type="radio" autocomplete="off" name="radio_COYLUHPGQD" value=""><span>The probability that a replication study would produce the same result</span></label>
+<div id="radio_DLNAVUDXRV" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value=""><span>The probability that the result was due to chance</span></label><label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value=""><span>The probability that a replication study would produce the same result</span></label><label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value="answer"><span>The probability of observing data at least as extreme as the actual data, assuming the null hypothesis is true</span></label><label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value=""><span>The probability that the null hypothesis is true</span></label>
 </div>
 </div>
-<p>The key asymmetry: a p-value gives the probability of the data given a hypothesis, not the probability of a hypothesis given the data. This was linked back to the Bayesian stub from Session 2 — the second reading of an interval answers a different question, and computing the probability that a hypothesis is true requires a prior, which the frequentist framework does not supply.</p>
+<p>The key asymmetry: a p-value gives the probability of the data given a hypothesis, not the probability of a hypothesis given the data. Because the p-value is calculated by assuming H<sub>0</sub> is true, it cannot also be the probability that H<sub>0</sub> is true. Reversing a conditional probability changes its value: the probability that a person speaks English, given that they are the UK Prime Minister, is close to 1; the probability that a person is the UK Prime Minister, given that they speak English, is close to 0.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -585,7 +585,7 @@ Explanation
 </div>
 </div>
 </section><section id="sec-link-session1" class="level2"><h2 class="anchored" data-anchor-id="sec-link-session1">Link to Session 1</h2>
-<p>We noted that both Session 1 and Session 3 built a distribution of class-generated values on the board. In Session 1, the spread came from <em>which beans were drawn</em> — sampling variability from a real population. In Session 3, the spread came from <em>which signs were assigned</em> — the variability of a null distribution constructed under H<sub>0</sub>. The two distributions answer different questions: Session 1 asked how much a statistic varies across samples; Session 3 asks how much a statistic varies <strong>when the null hypothesis is true</strong>.</p>
+<p>We noted that both Session 1 and Session 3 built a distribution of class-generated values on the board. In Session 1, the spread in Row 3 (means of random samples of 6 students’ reaction times) came from <em>which students were drawn</em> — sampling variability, with the class as the population. In Session 3, the spread came from <em>which signs were assigned</em> — the variability of a null distribution constructed under H<sub>0</sub>. The two distributions answer different questions: Session 1 asked how much a statistic varies across samples; Session 3 asks how much a statistic varies <strong>when the null hypothesis is true</strong>.</p>
 <div class="webex-check webex-box">
 <p><strong>Check your understanding.</strong> The board distribution in Session 1 represents <select class="webex-select"><option value="blank"></option>
 <option value="answer">sampling variability</option>
@@ -593,10 +593,10 @@ Explanation
 <option value="">sampling variability</option>
 <option value="answer">the null distribution</option></select>.</p>
 </div>
-</section><section id="sec-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-exit">Exit ticket</h2>
+</section><section id="sec-s3-hour1-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-s3-hour1-exit">Exit ticket</h2>
 <p>The question posed at the end of the session:</p>
 <blockquote class="blockquote">
-<p>You tested whether two groups differ and got a coefficient of 1.2 with a standard error of 0.5. A third group now enters the study. Can you still use a single difference of means, and if not, what do you need?</p>
+<p>A paper reports p = 0.03 for a difference in mean seed mass between two fertiliser treatments. In one sentence, starting with “If”, say what this p-value means.</p>
 </blockquote>
 
 
