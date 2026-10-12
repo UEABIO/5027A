@@ -60,8 +60,9 @@ information. The procedure was:
 1. Each student worked from a table of the fifteen observed paired
    differences, given in eighths of an inch (the resolution of
    Darwin's measurements) with the value in inches in brackets.
-2. For each difference, a flip in the coin-flip app decided whether
-   to keep the original sign (heads) or reverse it (tails).
+2. For each difference, a flip of the coin-flip app in the Week 1
+   pre-reading decided whether to keep the original sign (heads,
+   positive) or reverse it (tails, negative).
 3. The sum of the fifteen sign-flipped differences was computed,
    checked by a partner and posted on the board. The sum keeps the
    arithmetic in whole numbers; the mean is the sum divided by 15, so
@@ -105,32 +106,43 @@ opts_flip <- sample(c(
 
 ## The reveal and the count {#sec-reveal}
 
-The observed sum, 314 eighths (39.25 inches), was marked on the
-board. Dividing it by 15 and then by 8 gives the mean difference of
-2.62 inches used in Session 2 and in hour 2. We then counted
-how many of the class-generated values were at least as far from zero
-as the observed value, in both directions (because a value equally
-extreme in the negative direction would be equally surprising under
-the null). That count, divided by the total number of shuffles, was
-the **p-value**.
+The board showed the sums you get when cross-fertilisation has no
+effect. The question was how unusual Darwin's real sum, 314 eighths
+of an inch (39.25 inches), is compared with these.
 
-Two points were stated explicitly at this moment:
+A sum counts as **at least as extreme** as Darwin's if it is at least
+as far from zero: 314 or more, or −314 or less. We counted both
+directions because the alternative hypothesis, written before the
+data were collected, was that cross-fertilisation changes height in
+either direction. If the cross-fertilised plants had been much
+shorter, that would have been just as surprising under H~0~. Had the
+alternative been "cross-fertilised plants are taller", we would have
+counted only sums of 314 or more.
 
-1. The two-tail count follows from the alternative hypothesis written
-   before the data were seen. A one-sided alternative would count
-   only one direction.
-2. The class proportion is an estimate of a quantity defined over all
-   possible sign-flip assignments, not just the ones the class happened
-   to produce. Listing all $2^{15} = 32\,768$ assignments gives 1 726
-   at least as extreme as the observed sum: an exact two-sided p-value
-   of 1 726 / 32 768 ≈ 0.053.
+The class p-value was the number of sums at least as extreme as 314,
+divided by the total number of sums on the board.
+
+The board held only a small sample of the possible shuffles. Each of
+the 15 coins can land two ways, so there are $2^{15} = 32\,768$
+different shuffles in total. Working through all of them, 1 726 give a
+sum at least as extreme as 314, so the exact two-sided p-value is
+1 726 / 32 768 ≈ 0.053. In words: if cross-fertilisation had no
+effect, about 5 in every 100 random shuffles would give a sum at least
+as extreme as Darwin's. The class p-value is an estimate of this
+number.
+
+The computer in hour 2 works with the mean difference in inches
+rather than the sum in eighths: 314 ÷ 15 ÷ 8 = 2.62 inches. The mean
+is just the sum rescaled, so the p-value is the same.
 
 ::: {.callout-note}
 ## The rule
 The **p-value** is the proportion of values in the null distribution
-that are at least as extreme as the observed statistic. It is
-computed with respect to the alternative hypothesis stated before the
-data were examined.
+that are at least as extreme as the observed statistic. A small
+p-value means the observed result would be unusual if the null
+hypothesis were true. Which values count as "at least as extreme"
+depends on the alternative hypothesis, which is fixed before the data
+are seen.
 :::
 
 ::: {.webex-check .webex-box}
@@ -191,28 +203,6 @@ the actual data, assuming the null hypothesis is true. It is not the
 probability that the null is true, not the probability that the result
 was due to chance, and not the probability that a replication would
 produce the same result.
-:::
-
-
-## Link to Session 1 {#sec-link-session1}
-
-We noted that both Session 1 and Session 3 built a distribution of
-class-generated values on the board. In Session 1, the spread in Row 3
-(means of random samples of 6 students' reaction times) came from
-*which students were drawn* — sampling variability, with the class as
-the population. In Session 3, the spread came from *which signs were
-assigned* — the variability of a null distribution constructed under
-H~0~. The two distributions answer different questions: Session 1
-asked how much a statistic varies across samples; Session 3 asks how
-much a statistic varies **when the null hypothesis is true**.
-
-::: {.webex-check .webex-box}
-
-**Check your understanding.** The board distribution in Session 1
-represents `r mcq(c(answer = "sampling variability", "the null distribution"))`.
-The board distribution in Session 3 represents
-`r mcq(c("sampling variability", answer = "the null distribution"))`.
-
 :::
 
 

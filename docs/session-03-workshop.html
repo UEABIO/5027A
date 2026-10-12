@@ -456,7 +456,6 @@ window.Quarto = {
   <li><a href="#sec-shuffle" id="toc-sec-shuffle" class="nav-link" data-scroll-target="#sec-shuffle">The shuffle</a></li>
   <li><a href="#sec-reveal" id="toc-sec-reveal" class="nav-link" data-scroll-target="#sec-reveal">The reveal and the count</a></li>
   <li><a href="#sec-four-statements" id="toc-sec-four-statements" class="nav-link" data-scroll-target="#sec-four-statements">Four statements</a></li>
-  <li><a href="#sec-link-session1" id="toc-sec-link-session1" class="nav-link" data-scroll-target="#sec-link-session1">Link to Session 1</a></li>
   <li><a href="#sec-s3-hour1-exit" id="toc-sec-s3-hour1-exit" class="nav-link" data-scroll-target="#sec-s3-hour1-exit">Exit ticket</a></li>
   </ul></nav>
     </div>
@@ -508,7 +507,7 @@ Explanation
 <p>We used Darwin’s fifteen paired differences to build a null distribution by hand. If the null hypothesis is true and cross-fertilisation has no effect, then each paired difference is equally likely to be positive or negative — the sign carries no information. The procedure was:</p>
 <ol type="1">
 <li>Each student worked from a table of the fifteen observed paired differences, given in eighths of an inch (the resolution of Darwin’s measurements) with the value in inches in brackets.</li>
-<li>For each difference, a flip in the coin-flip app decided whether to keep the original sign (heads) or reverse it (tails).</li>
+<li>For each difference, a flip of the coin-flip app in the Week 1 pre-reading decided whether to keep the original sign (heads, positive) or reverse it (tails, negative).</li>
 <li>The sum of the fifteen sign-flipped differences was computed, checked by a partner and posted on the board. The sum keeps the arithmetic in whole numbers; the mean is the sum divided by 15, so both put the shuffles in the same order.</li>
 <li>Each student repeated this twice.</li>
 </ol>
@@ -528,17 +527,16 @@ Explanation
 </div>
 <div class="webex-check webex-box">
 <p><strong>Check your understanding.</strong> In the sign-flip procedure, what justifies flipping the sign of a paired difference?</p>
-<div id="radio_RRJBNEJRUF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_RRJBNEJRUF" value=""><span>Flipping signs increases the sample size</span></label><label><input type="radio" autocomplete="off" name="radio_RRJBNEJRUF" value=""><span>The differences are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_RRJBNEJRUF" value="answer"><span>If the null hypothesis is true, each difference is equally likely to be positive or negative</span></label>
+<div id="radio_AHAHDRKWPQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AHAHDRKWPQ" value="answer"><span>If the null hypothesis is true, each difference is equally likely to be positive or negative</span></label><label><input type="radio" autocomplete="off" name="radio_AHAHDRKWPQ" value=""><span>The differences are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_AHAHDRKWPQ" value=""><span>Flipping signs increases the sample size</span></label>
 </div>
 </div>
 </section><section id="sec-reveal" class="level2"><h2 class="anchored" data-anchor-id="sec-reveal">The reveal and the count</h2>
-<p>The observed sum, 314 eighths (39.25 inches), was marked on the board. Dividing it by 15 and then by 8 gives the mean difference of 2.62 inches used in Session 2 and in hour 2. We then counted how many of the class-generated values were at least as far from zero as the observed value, in both directions (because a value equally extreme in the negative direction would be equally surprising under the null). That count, divided by the total number of shuffles, was the <strong>p-value</strong>.</p>
-<p>Two points were stated explicitly at this moment:</p>
-<ol type="1">
-<li>The two-tail count follows from the alternative hypothesis written before the data were seen. A one-sided alternative would count only one direction.</li>
-<li>The class proportion is an estimate of a quantity defined over all possible sign-flip assignments, not just the ones the class happened to produce. Listing all <span class="math inline">\(2^{15} = 32\,768\)</span> assignments gives 1 726 at least as extreme as the observed sum: an exact two-sided p-value of 1 726 / 32 768 ≈ 0.053.</li>
-</ol>
+<p>The board showed the sums you get when cross-fertilisation has no effect. The question was how unusual Darwin’s real sum, 314 eighths of an inch (39.25 inches), is compared with these.</p>
+<p>A sum counts as <strong>at least as extreme</strong> as Darwin’s if it is at least as far from zero: 314 or more, or −314 or less. We counted both directions because the alternative hypothesis, written before the data were collected, was that cross-fertilisation changes height in either direction. If the cross-fertilised plants had been much shorter, that would have been just as surprising under H<sub>0</sub>. Had the alternative been “cross-fertilised plants are taller”, we would have counted only sums of 314 or more.</p>
+<p>The class p-value was the number of sums at least as extreme as 314, divided by the total number of sums on the board.</p>
+<p>The board held only a small sample of the possible shuffles. Each of the 15 coins can land two ways, so there are <span class="math inline">\(2^{15} = 32\,768\)</span> different shuffles in total. Working through all of them, 1 726 give a sum at least as extreme as 314, so the exact two-sided p-value is 1 726 / 32 768 ≈ 0.053. In words: if cross-fertilisation had no effect, about 5 in every 100 random shuffles would give a sum at least as extreme as Darwin’s. The class p-value is an estimate of this number.</p>
+<p>The computer in hour 2 works with the mean difference in inches rather than the sum in eighths: 314 ÷ 15 ÷ 8 = 2.62 inches. The mean is just the sum rescaled, so the p-value is the same.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -549,7 +547,7 @@ Explanation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <strong>p-value</strong> is the proportion of values in the null distribution that are at least as extreme as the observed statistic. It is computed with respect to the alternative hypothesis stated before the data were examined.</p>
+<p>The <strong>p-value</strong> is the proportion of values in the null distribution that are at least as extreme as the observed statistic. A small p-value means the observed result would be unusual if the null hypothesis were true. Which values count as “at least as extreme” depends on the alternative hypothesis, which is fixed before the data are seen.</p>
 </div>
 </div>
 <div class="webex-check webex-box">
@@ -566,8 +564,8 @@ Explanation
 <p>The four statements, in the form used in class:</p>
 <p>Which of the following correctly states what a p-value is?</p>
 <div class="webex-check webex-box">
-<div id="radio_DLNAVUDXRV" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value=""><span>The probability that the result was due to chance</span></label><label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value=""><span>The probability that a replication study would produce the same result</span></label><label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value="answer"><span>The probability of observing data at least as extreme as the actual data, assuming the null hypothesis is true</span></label><label><input type="radio" autocomplete="off" name="radio_DLNAVUDXRV" value=""><span>The probability that the null hypothesis is true</span></label>
+<div id="radio_GCSQLSNXOO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GCSQLSNXOO" value=""><span>The probability that a replication study would produce the same result</span></label><label><input type="radio" autocomplete="off" name="radio_GCSQLSNXOO" value="answer"><span>The probability of observing data at least as extreme as the actual data, assuming the null hypothesis is true</span></label><label><input type="radio" autocomplete="off" name="radio_GCSQLSNXOO" value=""><span>The probability that the null hypothesis is true</span></label><label><input type="radio" autocomplete="off" name="radio_GCSQLSNXOO" value=""><span>The probability that the result was due to chance</span></label>
 </div>
 </div>
 <p>The key asymmetry: a p-value gives the probability of the data given a hypothesis, not the probability of a hypothesis given the data. Because the p-value is calculated by assuming H<sub>0</sub> is true, it cannot also be the probability that H<sub>0</sub> is true. Reversing a conditional probability changes its value: the probability that a person speaks English, given that they are the UK Prime Minister, is close to 1; the probability that a person is the UK Prime Minister, given that they speak English, is close to 0.</p>
@@ -583,15 +581,6 @@ Explanation
 <div class="callout-body-container callout-body">
 <p>A p-value is the probability of observing data at least as extreme as the actual data, assuming the null hypothesis is true. It is not the probability that the null is true, not the probability that the result was due to chance, and not the probability that a replication would produce the same result.</p>
 </div>
-</div>
-</section><section id="sec-link-session1" class="level2"><h2 class="anchored" data-anchor-id="sec-link-session1">Link to Session 1</h2>
-<p>We noted that both Session 1 and Session 3 built a distribution of class-generated values on the board. In Session 1, the spread in Row 3 (means of random samples of 6 students’ reaction times) came from <em>which students were drawn</em> — sampling variability, with the class as the population. In Session 3, the spread came from <em>which signs were assigned</em> — the variability of a null distribution constructed under H<sub>0</sub>. The two distributions answer different questions: Session 1 asked how much a statistic varies across samples; Session 3 asks how much a statistic varies <strong>when the null hypothesis is true</strong>.</p>
-<div class="webex-check webex-box">
-<p><strong>Check your understanding.</strong> The board distribution in Session 1 represents <select class="webex-select"><option value="blank"></option>
-<option value="answer">sampling variability</option>
-<option value="">the null distribution</option></select>. The board distribution in Session 3 represents <select class="webex-select"><option value="blank"></option>
-<option value="">sampling variability</option>
-<option value="answer">the null distribution</option></select>.</p>
 </div>
 </section><section id="sec-s3-hour1-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-s3-hour1-exit">Exit ticket</h2>
 <p>The question posed at the end of the session:</p>
