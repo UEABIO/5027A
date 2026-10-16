@@ -414,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./session-04-workshop.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Calculating t</span></a>
+ <span class="menu-text">The t-distribution as a shortcut</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -462,13 +462,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#sec-data" id="toc-sec-data" class="nav-link active" data-scroll-target="#sec-data">The paired differences</a></li>
-  <li><a href="#sec-fit" id="toc-sec-fit" class="nav-link" data-scroll-target="#sec-fit">Fit the intercept-only model</a></li>
-  <li><a href="#sec-summary" id="toc-sec-summary" class="nav-link" data-scroll-target="#sec-summary">Read the coefficient table</a></li>
-  <li><a href="#sec-ci" id="toc-sec-ci" class="nav-link" data-scroll-target="#sec-ci">Confidence interval from the model</a></li>
-  <li><a href="#sec-compare-ttest" id="toc-sec-compare-ttest" class="nav-link" data-scroll-target="#sec-compare-ttest">Compare with the one-sample t-test</a></li>
-  <li><a href="#sec-composition" id="toc-sec-composition" class="nav-link" data-scroll-target="#sec-composition">Composition task: fit the unpaired model</a></li>
-  <li><a href="#sec-exit" id="toc-sec-exit" class="nav-link" data-scroll-target="#sec-exit">Exit ticket</a></li>
+<li><a href="#sec-s4-data" id="toc-sec-s4-data" class="nav-link active" data-scroll-target="#sec-s4-data">The paired differences</a></li>
+  <li><a href="#sec-s4-fit" id="toc-sec-s4-fit" class="nav-link" data-scroll-target="#sec-s4-fit">Fit the intercept-only model</a></li>
+  <li><a href="#sec-s4-summary" id="toc-sec-s4-summary" class="nav-link" data-scroll-target="#sec-s4-summary">Read the coefficient table</a></li>
+  <li><a href="#sec-s4-ci" id="toc-sec-s4-ci" class="nav-link" data-scroll-target="#sec-s4-ci">Confidence interval from the model</a></li>
+  <li><a href="#sec-s4-compare-ttest" id="toc-sec-s4-compare-ttest" class="nav-link" data-scroll-target="#sec-s4-compare-ttest">Compare with the one-sample t-test</a></li>
+  <li><a href="#sec-s4-composition" id="toc-sec-s4-composition" class="nav-link" data-scroll-target="#sec-s4-composition">Composition task: fit the unpaired model</a></li>
+  <li><a href="#sec-s4-hour2-exit" id="toc-sec-s4-hour2-exit" class="nav-link" data-scroll-target="#sec-s4-hour2-exit">Exit ticket</a></li>
   <li>
 <a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a>
   <ul class="collapse">
@@ -494,9 +494,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>In hour 1 you ranked scenarios by strength of evidence and arrived at the t-statistic as the ratio of estimate to standard error. Here you fit the linear model in R and read its coefficient table.</p>
-<p>The data are the same paired differences you have worked with since Session 2: the height of the cross-pollinated plant minus the height of the self-pollinated plant within each pot.</p>
-<section id="sec-data" class="level2"><h2 class="anchored" data-anchor-id="sec-data">The paired differences</h2>
+</header><p>In hour 1 you saw why the t-statistic, the estimate divided by its standard error, can be compared with the t-distribution instead of building a full permutation null distribution, and drew a comparison of two group means as a line. Here you fit the linear model in R and read its coefficient table, which reports those coefficients with their t-statistics and p-values.</p>
+<p>The data are the same paired differences you have worked with since Session 2: the height of the cross-fertilised plant minus the height of the self-fertilised plant within each pair.</p>
+<section id="sec-s4-data" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-data">The paired differences</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: inspect the paired differences</strong></p>
@@ -507,14 +507,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>darwin_diff <span class="sc">|&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">select</span>(pair, Cross, Self, difference)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">select</span>(pair, cross, self, difference)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: right;">pair</th>
-<th style="text-align: right;">Cross</th>
-<th style="text-align: right;">Self</th>
+<th style="text-align: right;">cross</th>
+<th style="text-align: right;">self</th>
 <th style="text-align: right;">difference</th>
 </tr></thead>
 <tbody>
@@ -613,7 +613,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="sec-fit" class="level2"><h2 class="anchored" data-anchor-id="sec-fit">Fit the intercept-only model</h2>
+</section><section id="sec-s4-fit" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-fit">Fit the intercept-only model</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: predict the intercept</strong></p>
@@ -626,7 +626,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>lsmodel1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(difference <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> darwin_diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The formula <code>difference ~ 1</code> means “fit an intercept only.” The intercept is the mean of the paired differences. The coefficient table tests whether that mean differs from zero — the same question the permutation test in Session 3 answered.</p>
-</section><section id="sec-summary" class="level2"><h2 class="anchored" data-anchor-id="sec-summary">Read the coefficient table</h2>
+</section><section id="sec-s4-summary" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-summary">Read the coefficient table</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: read the summary output</strong></p>
@@ -643,9 +643,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Answer
 </button>
 <ol type="1">
-<li>The estimate is the mean of the fifteen paired differences — the average advantage of cross-pollination over self-pollination within a pot.</li>
-<li>The t-value is the estimate divided by its standard error. A larger absolute t-value means the estimate is further from zero in standard-error units, just as in the ranking exercise.</li>
-<li>Check the p-value. If it is below 0.05, there is evidence that the mean difference is not zero, consistent with the permutation test from Session 3.</li>
+<li>The estimate is the mean of the fifteen paired differences — the average advantage of cross-fertilisation over self-fertilisation within a pair.</li>
+<li>The t-value is the estimate divided by its standard error. A larger absolute t-value means the estimate is further from zero in standard-error units, just as in the ranking exercise. It matches the value you calculated by hand in hour 1 (about 2.15).</li>
+<li>The p-value is 0.0497, just below 0.05. The exact permutation p-value from hour 1 was 0.053, just above it; your Session 3 simulations estimated that value. The two methods answer the same question and give almost the same answer: the evidence is borderline either way, and 0.05 should not be treated as a bright line.</li>
 </ol>
 </div>
 </div>
@@ -718,7 +718,7 @@ Residual standard error: 4.718 on 14 degrees of freedom</code></pre>
 </div>
 </div>
 </div>
-</section><section id="sec-ci" class="level2"><h2 class="anchored" data-anchor-id="sec-ci">Confidence interval from the model</h2>
+</section><section id="sec-s4-ci" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-ci">Confidence interval from the model</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: obtain and interpret the confidence interval</strong></p>
@@ -727,15 +727,15 @@ Residual standard error: 4.718 on 14 degrees of freedom</code></pre>
 <p>Run the code below. The output is a 95% confidence interval for the mean paired difference.</p>
 <ol type="1">
 <li>Does this interval include zero?</li>
-<li>Compare it with the confidence interval you computed in Session 2. Are the values the same (or very close)?</li>
+<li>Compare it with the confidence interval you computed in Session 2 (about 0.23 to 5.0 inches). Why is the model’s interval wider?</li>
 </ol>
 <div class="webex-solution">
 <button>
 Answer
 </button>
 <ol type="1">
-<li>If the interval does not include zero, this is consistent with the p-value being below 0.05.</li>
-<li>The values should match or be very close. The linear model and the manual computation from Session 2 use the same formula: estimate ± critical value × SE.</li>
+<li>No, but only just: the lower limit is about 0.004 inches. This is consistent with a p-value just below 0.05.</li>
+<li>You met this in hour 1. In Session 2 you used estimate ± 1.96 × SE. The model uses estimate ± 2.14 × SE. The larger multiplier comes from the t-distribution with 14 degrees of freedom: because the SE is itself estimated from only fifteen values, the interval is widened to allow for that extra uncertainty. As the sample size grows, the multiplier gets closer to 1.96.</li>
 </ol>
 </div>
 </div>
@@ -795,6 +795,13 @@ Answer
 </div>
 </div>
 </div>
+<p>The multiplier the model uses for a 95% interval with 14 degrees of freedom:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.144787</code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -805,11 +812,11 @@ Answer
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>From the linear model on paired differences: “Cross-pollinated maize plants were taller on average than self-pollinated plants, with a mean paired difference of 2.62 inches (95% CI: 0.004, 5.22; t(14) = 2.15, p = 0.05).”</p>
+<p>From the linear model on paired differences: “Cross-fertilised maize plants were taller on average than self-fertilised plants, with a mean paired difference of 2.62 inches (95% CI: 0.004, 5.23; t(14) = 2.15, p = 0.0497).”</p>
 <p>Note: the degrees of freedom are 14 (fifteen pairs minus one), not 28. Match the values to your output.</p>
 </div>
 </div>
-</section><section id="sec-compare-ttest" class="level2"><h2 class="anchored" data-anchor-id="sec-compare-ttest">Compare with the one-sample t-test</h2>
+</section><section id="sec-s4-compare-ttest" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-compare-ttest">Compare with the one-sample t-test</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: confirm the equivalence</strong></p>
@@ -820,7 +827,7 @@ Answer
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">t.test</span>(darwin_diff<span class="sc">$</span>difference, <span class="at">mu =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">t.test</span>(darwin_diff<span class="sc">$</span>difference, <span class="at">mu =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -835,15 +842,15 @@ mean of x
  2.616667 </code></pre>
 </div>
 </div>
-</section><section id="sec-composition" class="level2"><h2 class="anchored" data-anchor-id="sec-composition">Composition task: fit the unpaired model</h2>
+</section><section id="sec-s4-composition" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-composition">Composition task: fit the unpaired model</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: write an <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> call for the unpaired comparison</strong></p>
 </div>
 <div class="task-container">
 <p>You have just fitted a model that respects the paired design:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>lsmodel1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(difference <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> darwin_diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Now write an <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> call that ignores the pairing entirely: model height as a function of pollination type, using the original <code>darwin</code> data frame. Assign the result to <code>lsmodel2</code> and run <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> on it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>lsmodel1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(difference <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> darwin_diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now write an <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> call that ignores the pairing entirely: model height as a function of fertilisation type, using the original <code>darwin</code> data frame. Assign the result to <code>lsmodel2</code> and run <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> on it.</p>
 <div class="webex-solution">
 <button>
 Hint
@@ -854,23 +861,30 @@ Hint
 <button>
 Model answer
 </button>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>lsmodel2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> type, <span class="at">data =</span> darwin)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">summary</span>(lsmodel2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>lsmodel2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> type, <span class="at">data =</span> darwin)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">summary</span>(lsmodel2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
+<p>By default, R uses the first level of <code>type</code> in alphabetical order, Cross, as the <strong>reference level</strong>. In <code>lsmodel2</code> the intercept is the mean height of the cross-fertilised plants, and <code>typeSelf</code> is the difference between the self-fertilised mean and that reference.</p>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: compare the two models</strong></p>
 </div>
 <div class="task-container">
-<p>Look at the coefficient table for <code>lsmodel2</code>.</p>
-<p>What does the <code>typeSelf</code> coefficient estimate? Is this the same quantity as the intercept of <code>lsmodel1</code>?</p>
+<p>Look at the coefficient table for <code>lsmodel2</code>. Compare the estimates with the line you drew in hour 1, and the standard error with your hour 1 prediction.</p>
+<ol type="1">
+<li>What does the <code>typeSelf</code> coefficient estimate? Is this the same quantity as the intercept of <code>lsmodel1</code>?</li>
+<li>Compare the standard error and p-value for <code>typeSelf</code> with those for the intercept of <code>lsmodel1</code>. Which model gives the smaller standard error? Does that make it the better model?</li>
+</ol>
 <div class="webex-solution">
 <button>
 Answer
 </button>
-<p>The <code>typeSelf</code> coefficient estimates the difference in mean height between self-pollinated and cross-pollinated plants — the same quantity as the intercept of <code>lsmodel1</code>, but with the opposite sign (Self minus Cross rather than Cross minus Self). The absolute value is the same.</p>
+<ol type="1">
+<li>The <code>typeSelf</code> coefficient estimates the difference in mean height between self-fertilised and cross-fertilised plants — the same quantity as the intercept of <code>lsmodel1</code>, but with the opposite sign (Self minus Cross rather than Cross minus Self). The absolute value is the same.</li>
+<li>The unpaired model gives the smaller standard error (about 1.07, against 1.22) and the smaller p-value (about 0.021, against 0.0497). In Darwin’s maize, the heights of the two plants in a pair were slightly negatively correlated, so pairing did not reduce the variation. The unpaired model is still the wrong model: it treats the thirty plants as thirty independent observations, which the design says they are not. Choosing a model because it gives a smaller p-value is a form of p-hacking.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -884,10 +898,10 @@ Answer
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Darwin paired his plants by parent because genetic lineage might play a large role in natural variance in height. By computing the difference <em>within each pair</em>, the paired analysis minimises this source of variation and isolates the effect of pollination type. The unpaired analysis ignores this structure. The lesson: a model should respect the design that generated the data.</p>
+<p>Darwin grew his plants in matched pairs, one cross-fertilised and one self-fertilised, so that the two plants in a pair shared growing conditions. Pairing is designed to remove variation between pairs and isolate the effect of fertilisation type. In Darwin’s maize it did not reduce the standard error, but the paired analysis is still the correct one, because it matches how the data were generated. The lesson: a model should respect the design that generated the data, whichever model gives the smaller p-value.</p>
 </div>
 </div>
-</section><section id="sec-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-exit">Exit ticket</h2>
+</section><section id="sec-s4-hour2-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-hour2-exit">Exit ticket</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: exit question</strong></p>
@@ -895,7 +909,7 @@ Answer
 <div class="task-container">
 <p>Write your answer on paper before you leave. This question is deliberately unanswerable from today’s material alone — we will pick this up next time.</p>
 <blockquote class="blockquote">
-<p>You receive a collaborator’s spreadsheet to analyse. The “species” column contains entries recorded as “Drosophila”, “drosophila”, “D. melanogaster”, and “Dros.”. You fit <code>lm(wing_length ~ species, data = df)</code> and get four coefficients for species (plus the intercept). Is the model answering the question you intended, and what should you do before fitting it?</p>
+<p>You receive a collaborator’s spreadsheet to analyse. The “species” column contains entries recorded as “Drosophila”, “drosophila”, “D. melanogaster”, and “Dros.”. You fit <code>lm(wing_length ~ species, data = df)</code> and get three coefficients for species (plus the intercept). Is the model answering the question you intended, and what should you do before fitting it?</p>
 </blockquote>
 </div>
 </div>
@@ -905,8 +919,8 @@ Answer
 <li>The New Statistics with R, 2nd Edition, <strong>Chapter 6</strong> by Andy Hector</li>
 </ul></section><section id="online" class="level3"><h3 class="anchored" data-anchor-id="online">Online</h3>
 <ul>
-<li><p>[Everything is a Linear Model] (danielroelfs.com/posts/everything-is-a-linear-model/), by Daniel Roelfs</p></li>
-<li><p><a href="lindeloev.github.io/tests-as-linear/">Common statistical tests are linear models</a>, by Jonas Kristoffer Lindeløv - <em>Covers more than we got to today</em></p></li>
+<li><p><a href="https://danielroelfs.com/posts/everything-is-a-linear-model/">Everything is a Linear Model</a>, by Daniel Roelfs</p></li>
+<li><p><a href="https://lindeloev.github.io/tests-as-linear/">Common statistical tests are linear models</a>, by Jonas Kristoffer Lindeløv - <em>Covers more than we got to today</em></p></li>
 </ul>
 
 
@@ -1555,8 +1569,8 @@ window.onresize = move_sidebar;
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./session-04-workshop.html" class="pagination-link" aria-label="Calculating t">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Calculating t</span>
+      <a href="./session-04-workshop.html" class="pagination-link" aria-label="The t-distribution as a shortcut">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The t-distribution as a shortcut</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

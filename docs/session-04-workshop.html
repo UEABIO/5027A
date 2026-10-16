@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>Calculating t – 5027A</title>
+<title>The t-distribution as a shortcut – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -244,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-04-pre.html">Week Four</a></li><li class="breadcrumb-item"><a href="./session-04-workshop.html">Calculating t</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-04-pre.html">Week Four</a></li><li class="breadcrumb-item"><a href="./session-04-workshop.html">The t-distribution as a shortcut</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -379,7 +379,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./session-04-workshop.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Calculating t</span></a>
+ <span class="menu-text">The t-distribution as a shortcut</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -427,16 +427,16 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#sec-ranking-1" id="toc-sec-ranking-1" class="nav-link active" data-scroll-target="#sec-ranking-1">Retrieval and ranking: round 1</a></li>
-  <li><a href="#sec-ranking-2" id="toc-sec-ranking-2" class="nav-link" data-scroll-target="#sec-ranking-2">Retrieval and ranking: round 2</a></li>
-  <li><a href="#sec-coeftable" id="toc-sec-coeftable" class="nav-link" data-scroll-target="#sec-coeftable">Reading a coefficient table on paper</a></li>
-  <li><a href="#sec-connection" id="toc-sec-connection" class="nav-link" data-scroll-target="#sec-connection">The connection to Sessions 2 and 3</a></li>
-  <li><a href="#sec-exit" id="toc-sec-exit" class="nav-link" data-scroll-target="#sec-exit">Exit ticket</a></li>
+<li><a href="#sec-s4-ratio" id="toc-sec-s4-ratio" class="nav-link active" data-scroll-target="#sec-s4-ratio">Strength of evidence as a ratio</a></li>
+  <li><a href="#sec-s4-curve" id="toc-sec-s4-curve" class="nav-link" data-scroll-target="#sec-s4-curve">The shortcut curve</a></li>
+  <li><a href="#sec-s4-df" id="toc-sec-s4-df" class="nav-link" data-scroll-target="#sec-s4-df">Same t, different sample size</a></li>
+  <li><a href="#sec-s4-line" id="toc-sec-s4-line" class="nav-link" data-scroll-target="#sec-s4-line">From two means to a line</a></li>
+  <li><a href="#sec-s4-hour1-exit" id="toc-sec-s4-hour1-exit" class="nav-link" data-scroll-target="#sec-s4-hour1-exit">Exit ticket</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-04-pre.html">Week Four</a></li><li class="breadcrumb-item"><a href="./session-04-workshop.html">Calculating t</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Calculating t</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-04-pre.html">Week Four</a></li><li class="breadcrumb-item"><a href="./session-04-workshop.html">The t-distribution as a shortcut</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">The t-distribution as a shortcut</h1>
 </div>
 
 
@@ -451,70 +451,41 @@ ul.task-list li input[type="checkbox"] {
 
 
 </header><p>This page summarises what we covered in the first hour of Session 4. Use it for revision; the full activities were worked through in class.</p>
-<p><strong>Progression:</strong> null hypothesis → simulate under H₀ → null distribution → observed statistic → p-value → <strong>estimate ± SE → coefficient table → the linear model as generalisation.</strong></p>
-<section id="sec-ranking-1" class="level2"><h2 class="anchored" data-anchor-id="sec-ranking-1">Retrieval and ranking: round 1</h2>
-<p>We began with three scenarios. In each, the difference between two group means was the same (2.0 units), but the standard error of that difference varied:</p>
+<p><strong>Progression:</strong> estimate ÷ SE = t → read the p-value from the t-distribution, allowing for sample size → the coefficients of a linear model as a line.</p>
+<section id="sec-s4-ratio" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-ratio">Strength of evidence as a ratio</h2>
+<p>We compared six scenarios, each a difference between two group means with its standard error:</p>
 <table class="caption-top table">
 <thead><tr class="header">
 <th>Scenario</th>
-<th>Difference</th>
-<th>SE</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>A</td>
+<td>Difference</td>
+<td>2.0</td>
+<td>2.0</td>
 <td>2.0</td>
 <td>0.5</td>
-</tr>
-<tr class="even">
-<td>B</td>
 <td>2.0</td>
-<td>1.0</td>
-</tr>
-<tr class="odd">
-<td>C</td>
-<td>2.0</td>
-<td>2.0</td>
-</tr>
-</tbody>
-</table>
-<p>Each bench ranked the three by strength of evidence for a real difference. Most benches arrived at A &gt; B &gt; C: the same difference is more convincing when measured more precisely.</p>
-<div class="webex-check webex-box">
-<p><strong>Check your understanding.</strong> In Scenario C, the t-statistic is <input class="webex-solveme nospaces" size="1" data-answer="[&quot;1&quot;]">.</p>
-<div class="webex-solution">
-<button>
-Explanation
-</button>
-<p>t = 2.0 / 2.0 = 1.0. Compare this with Scenario A, where t = 4.0. The ratio, not the estimate alone, determines the evidence.</p>
-</div>
-</div>
-</section><section id="sec-ranking-2" class="level2"><h2 class="anchored" data-anchor-id="sec-ranking-2">Retrieval and ranking: round 2</h2>
-<p>The second round held the standard error constant and varied the difference:</p>
-<table class="caption-top table">
-<thead><tr class="header">
-<th>Scenario</th>
-<th>Difference</th>
-<th>SE</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>D</td>
-<td>0.5</td>
-<td>1.0</td>
-</tr>
-<tr class="even">
-<td>E</td>
-<td>2.0</td>
-<td>1.0</td>
-</tr>
-<tr class="odd">
-<td>F</td>
 <td>5.0</td>
+</tr>
+<tr class="even">
+<td>SE</td>
+<td>0.5</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>1.0</td>
+<td>1.0</td>
 <td>1.0</td>
 </tr>
 </tbody>
 </table>
-<p>Benches ranked D &lt; E &lt; F. A larger difference, at the same level of precision, provides stronger evidence.</p>
+<p>The same difference is more convincing when it is measured more precisely (A, B, C), and a larger difference is more convincing at the same precision (D, E, F). Scenarios B and E look equally convincing.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -525,83 +496,204 @@ Explanation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The strength of evidence depends on the ratio of the estimate to its standard error. This ratio is the <strong>t-statistic</strong>, and it is the number the coefficient table reports. Round 1 showed that precision matters; round 2 showed that the size of the difference matters. The t-statistic captures both.</p>
+<p>The strength of evidence depends on the size of the estimate compared with its standard error. This ratio is the <strong>t-statistic</strong>: t = estimate / standard error. A large t, positive or negative, means the estimate is many standard errors away from zero. Because the units cancel, t means the same thing whatever the units of the data.</p>
 </div>
 </div>
+<p>The study in the Session 3 exit question (coefficient 1.2, SE 0.5) has t = 2.4. Darwin’s mean paired difference (2.62 inches, SE 1.22) has t ≈ 2.15.</p>
 <div class="webex-check webex-box">
-<p><strong>Check your understanding.</strong> Two studies report the same t-statistic of 3.0. Study 1 has a difference of 6.0 and an SE of 2.0. Study 2 has a difference of 0.3 and an SE of 0.1. Do the two studies provide the same strength of evidence against the null?</p>
-<p><select class="webex-select"><option value="blank"></option>
-<option value="answer">Yes — the t-statistic is the same, so the evidence against the null is the same</option>
-<option value="">No — Study 1 has a larger difference so it provides stronger evidence</option>
-<option value="">No — Study 2 has a smaller SE so it provides stronger evidence</option></select></p>
+<p><strong>Check your understanding.</strong> In Scenario C, the t-statistic is <input class="webex-solveme nospaces" size="1" data-answer="[&quot;1&quot;]">.</p>
 <div class="webex-solution">
 <button>
 Explanation
 </button>
-<p>The t-statistic determines the p-value, so the two studies provide the same strength of evidence against the null hypothesis that the difference is zero. Whether the biological effect is important is a separate question — that depends on the magnitude of the difference, not on the t-value. This distinction was previewed in Session 3 (item 3.14: significance is not importance).</p>
+<p>t = 2.0 / 2.0 = 1.0. Compare this with Scenario A, where t = 4.0. The ratio, not the estimate alone, determines the evidence.</p>
 </div>
 </div>
-</section><section id="sec-coeftable" class="level2"><h2 class="anchored" data-anchor-id="sec-coeftable">Reading a coefficient table on paper</h2>
-<p>We then read a coefficient table from a study comparing wing length across three <em>Drosophila</em> species (A, B, C), with species A as the reference level:</p>
+</section><section id="sec-s4-curve" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-curve">The shortcut curve</h2>
+<p>In Session 3 we built a null distribution by flipping the signs of Darwin’s differences, and each run of shuffles gave a slightly different p-value. A computer can instead list every possible sign pattern: with 15 pairs there are 32 768, but with 30 pairs there would be over a billion. <a href="#fig-s4-perm-vs-t" class="quarto-xref">Figure&nbsp;<span>1</span></a> shows t for all 32 768 patterns, with the t-distribution for 14 degrees of freedom drawn over it. The curve comes from a formula: nobody had to shuffle anything to draw it.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-s4-perm-vs-t" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-s4-perm-vs-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-04-workshop_files/figure-html/fig-s4-perm-vs-t-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s4-perm-vs-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Bars: the null distribution of t from all 32 768 sign patterns of Darwin’s differences. Line: the t-distribution with 14 degrees of freedom. Dashed lines: Darwin’s t and its mirror.
+</figcaption></figure>
+</div>
+</div>
+</div>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 42%">
+<col style="width: 18%">
+</colgroup>
 <thead><tr class="header">
-<th></th>
-<th>Estimate</th>
-<th>Std. Error</th>
-<th>t value</th>
-<th>Pr(&gt;</th>
+<th>Method</th>
+<th>What you need</th>
+<th>Two-sided p-value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>(Intercept)</td>
-<td>2.10</td>
-<td>0.08</td>
-<td>26.25</td>
-<td>&lt; 0.001</td>
+<td>List all 32 768 sign patterns</td>
+<td>All 15 differences and a lot of computing</td>
+<td>0.053</td>
 </tr>
 <tr class="even">
-<td>speciesB</td>
-<td>0.35</td>
-<td>0.11</td>
-<td>3.18</td>
-<td>0.004</td>
-</tr>
-<tr class="odd">
-<td>speciesC</td>
-<td>−0.12</td>
-<td>0.11</td>
-<td>−1.09</td>
-<td>0.284</td>
+<td>Read the area from the t-distribution</td>
+<td>Just t = 2.15 and 14 degrees of freedom</td>
+<td>0.0497</td>
 </tr>
 </tbody>
 </table>
-<p>We identified: the intercept is the mean wing length of species A; the coefficient for speciesB is the estimated difference between B and A (B is 0.35 mm longer); the coefficient for speciesC is the estimated difference between C and A (C is 0.12 mm shorter, but the evidence is weak). The table has three rows: one intercept plus one row per non-reference level.</p>
+<p>The curve follows the bars closely, so the two p-values are almost the same. In Session 3, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> gave p = 0.025: that was one-sided, counting one tail only. Counting both tails doubles it, to about 0.050.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The rule
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the null hypothesis is true and the data are roughly normal, the null distribution of t follows a known curve: the <strong>t-distribution</strong>. So instead of building the null distribution, you calculate t and read the p-value from the curve. This is the shortcut that <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> and <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> use. With small samples that are skewed or contain extreme values, the curve can be a poor match, so plot your data before relying on the shortcut.</p>
+</div>
+</div>
+</section><section id="sec-s4-df" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-df">Same t, different sample size</h2>
+<p>The shape of the t-distribution depends on the <strong>degrees of freedom</strong> (df); for paired differences, df is the number of pairs minus one. The 95% multiplier is the value t must exceed for a two-sided p-value below 0.05:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>df</th>
+<th>3</th>
+<th>4</th>
+<th>14</th>
+<th>30</th>
+<th>100</th>
+<th>Very large</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>95% multiplier</td>
+<td>3.18</td>
+<td>2.78</td>
+<td>2.14</td>
+<td>2.04</td>
+<td>1.98</td>
+<td>1.96</td>
+</tr></tbody>
+</table>
+<p>Three studies all found a mean paired difference of 2.62 with an SE of 1.22, so all three had t = 2.15. They differed only in the number of pairs:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Study</th>
+<th>Pairs</th>
+<th>df</th>
+<th>95% multiplier</th>
+<th>t = 2.15 bigger?</th>
+<th>p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>X</td>
+<td>5</td>
+<td>4</td>
+<td>2.78</td>
+<td>No</td>
+<td>0.098</td>
+</tr>
+<tr class="even">
+<td>Y</td>
+<td>15</td>
+<td>14</td>
+<td>2.14</td>
+<td>Only just</td>
+<td>0.050</td>
+</tr>
+<tr class="odd">
+<td>Z</td>
+<td>101</td>
+<td>100</td>
+<td>1.98</td>
+<td>Yes</td>
+<td>0.034</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The rule
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The t-distribution allows for sample size. With few observations, the SE is itself estimated unreliably, so the t-distribution has heavier tails and t must clear a higher bar. The degrees of freedom set that bar. The same t can give p below 0.05 in a large study and not in a small one. As the sample grows, the multiplier approaches 1.96, the value used for confidence intervals in Session 2.</p>
+</div>
+</div>
 <div class="webex-check webex-box">
-<p><strong>Check your understanding.</strong> What is the estimated mean wing length of species B?</p>
-<p><input class="webex-solveme nospaces" size="4" data-answer="[&quot;2.45&quot;]"></p>
+<p><strong>Check your understanding.</strong> A study of 4 pairs finds t = 2.5. Is its two-sided p-value below 0.05?</p>
+<p><select class="webex-select"><option value="blank"></option>
+<option value="">Yes</option>
+<option value="answer">No</option></select></p>
 <div class="webex-solution">
 <button>
 Explanation
 </button>
-<p>The mean of species B is the intercept plus the coefficient for speciesB: 2.10 + 0.35 = 2.45. To recover the mean of any level, add its coefficient to the intercept.</p>
+<p>With 4 pairs, df = 3 and the 95% multiplier is 3.18. A t of 2.5 does not clear it, so p is above 0.05. With 31 pairs (df = 30, multiplier 2.04), the same t would give p below 0.05.</p>
+</div>
+</div>
+</section><section id="sec-s4-line" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-line">From two means to a line</h2>
+<p>To draw a comparison of two group means as a line, each group is given a number: Cross is x = 0 and Self is x = 1. Darwin’s mean heights were 20.19 inches (Cross) and 17.58 inches (Self).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-s4-line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-s4-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="session-04-workshop_files/figure-html/fig-s4-line-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s4-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Darwin’s two group means, coded x = 0 (Cross) and x = 1 (Self), joined by a straight line. The intercept is the Cross mean; the slope is the difference between the means.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The line has an intercept of 20.19 (its height at x = 0) and a slope of −2.62 (the change from x = 0 to x = 1). These are exactly the two estimates <code>lm(height ~ type)</code> reports in hour 2: <code>(Intercept)</code> = 20.19 and <code>typeSelf</code> = −2.62.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The rule
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Giving the groups the numbers 0 and 1 turns a comparison of two means into a straight line. The intercept is the mean of the group coded 0, the <strong>reference level</strong>. The slope is the difference between the two means. These are the two coefficients a linear model reports. The x-axis is a label, not a measurement: the line does not mean that height changes gradually between the groups.</p>
+</div>
+</div>
+<p>We then returned to the Session 3 exit question by adding an invented third treatment with a mean height of 19.00 inches. The model compares every treatment with the reference level, so it needs two differences: Self − Cross = −2.62 and Third − Cross = −1.19.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The rule
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each treatment is measured as its own step from the reference level. A model with three groups therefore reports an intercept and two coefficients, one for each treatment that is not the reference. A single difference of means is no longer enough. Models like this are fitted in Session 6.</p>
 </div>
 </div>
 <div class="webex-check webex-box">
-<p><strong>Check your understanding.</strong> The table does not include a direct comparison between species B and species C. Why not?</p>
-<div class="webex-solution">
-<button>
-Answer
-</button>
-<p>The model reports every level’s difference from the reference (A), not every pairwise comparison. To compare B and C, you could change the reference level (Session 6) or compute the contrast from the existing coefficients: 0.35 − (−0.12) = 0.47. The linear model framework handles this, but the default table shows only differences from the reference.</p>
+<p><strong>Check your understanding.</strong> A model compares four groups. How many coefficients does it report in addition to the intercept? <input class="webex-solveme nospaces" size="1" data-answer="[&quot;3&quot;]"></p>
 </div>
-</div>
-</section><section id="sec-connection" class="level2"><h2 class="anchored" data-anchor-id="sec-connection">The connection to Sessions 2 and 3</h2>
-<p>In Sessions 2 and 3 you worked with the paired differences in Darwin’s maize data. You computed the mean difference, its standard error, and its confidence interval (Session 2), and tested whether the difference was large enough to reject the null (Session 3). The intercept-only linear model <code>lm(difference ~ 1)</code> produces the same numbers in the coefficient table. The t-statistic in that table is the same ratio — estimate divided by standard error — that you used in the ranking exercise.</p>
-<p>The advantage of the linear model is that the same framework extends to three groups (the paper exercise above), continuous predictors, and combinations of both. You will use this extension in Sessions 6 and 7.</p>
-</section><section id="sec-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-exit">Exit ticket</h2>
+</section><section id="sec-s4-hour1-exit" class="level2"><h2 class="anchored" data-anchor-id="sec-s4-hour1-exit">Exit ticket</h2>
 <p>The question posed at the end of the session:</p>
 <blockquote class="blockquote">
-<p>You receive a collaborator’s spreadsheet to analyse. The “species” column contains entries recorded as “Drosophila”, “drosophila”, “D. melanogaster”, and “Dros.”. You fit <code>lm(wing_length ~ species, data = df)</code> and get four coefficients for species (plus the intercept). Is the model answering the question you intended, and what should you do before fitting it?</p>
+<p>Two studies both find t = 2.5. One has 4 pairs and the other has 31 pairs. Using the table of multipliers, which study has a two-sided p-value below 0.05? Explain why.</p>
 </blockquote>
 
 
