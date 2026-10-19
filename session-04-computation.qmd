@@ -16,11 +16,6 @@ set.seed(20260826)
 
 darwin <- read_csv(here("files", "darwin.csv"))
 
-# Compute paired differences (cross - self within each pair)
-darwin_diff <- darwin |>
-  pivot_wider(names_from = type, values_from = height) |>
-  janitor::clean_names() |>
-  mutate(difference = cross - self)
 ```
 
 In hour 1 you saw why the t-statistic, the estimate divided by its
@@ -51,6 +46,14 @@ the same values you used in Sessions 2 and 3.
 
 ```{r}
 #| label: show-differences
+
+
+# Compute paired differences (cross - self within each pair)
+darwin_diff <- darwin |>
+  pivot_wider(names_from = type, values_from = height) |>
+  janitor::clean_names() |>
+  mutate(difference = cross - self)
+
 
 darwin_diff |>
   select(pair, cross, self, difference)
