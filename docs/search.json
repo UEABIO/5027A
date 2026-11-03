@@ -997,6 +997,314 @@
     ]
   },
   {
+    "objectID": "session-05-pre.html",
+    "href": "session-05-pre.html",
+    "title": "Regression - Pre-reading",
+    "section": "",
+    "text": "Video: from two groups to a line\nComplete this material before your workshop session. It carries the vocabulary you will need in the room.",
+    "crumbs": [
+      "Week Six",
+      "Regression - Pre-reading"
+    ]
+  },
+  {
+    "objectID": "session-05-pre.html#sec-video",
+    "href": "session-05-pre.html#sec-video",
+    "title": "Regression - Pre-reading",
+    "section": "",
+    "text": "NoteWatch before class\n\n\n\n\nAfter watching, you should be able to explain what the slope of a regression line measures when the predictor is a measurement rather than a group label.",
+    "crumbs": [
+      "Week Six",
+      "Regression - Pre-reading"
+    ]
+  },
+  {
+    "objectID": "session-05-pre.html#sec-outcomes",
+    "href": "session-05-pre.html#sec-outcomes",
+    "title": "Regression - Pre-reading",
+    "section": "Learning outcomes",
+    "text": "Learning outcomes\nBy the end of this week you should be able to:\n\ninterpret the slope of a regression line as the change in the response for a one-unit increase in the predictor, in the units of the data;\ncalculate a fitted value and a residual by hand;\nexplain why least squares uses squared residuals to choose a line;\ninterpret the intercept, and explain how centring the predictor makes it meaningful;\nuse a residual plot to judge whether a straight line describes the data adequately;\nchoose between a confidence interval and a prediction interval, and recognise when a prediction is an extrapolation.",
+    "crumbs": [
+      "Week Six",
+      "Regression - Pre-reading"
+    ]
+  },
+  {
+    "objectID": "session-05-pre.html#sec-reading",
+    "href": "session-05-pre.html#sec-reading",
+    "title": "Regression - Pre-reading",
+    "section": "Reading: fitting a straight line",
+    "text": "Reading: fitting a straight line\nFrom two groups to a measurement\nIn Session 4 you coded Darwin’s two groups as x = 0 (Cross) and x = 1 (Self) and drew a line between their means. The intercept was the mean of the reference group, and the slope, −2.62 inches, was the difference between the two means. That x-axis was a label: no plant sits halfway between cross- and self-pollinated.\nIn regression, the predictor is a measurement. Every value between the observed ones means something, so the line describes how the response changes across the whole range of the predictor. The slope is now the change in the response for a one-unit increase in the predictor.\nThe model is fitted with the same function, and its output has the same coefficient table:\nlm(hardness ~ dens, data = janka)\nThe response goes on the left of the ~ and the predictor on the right. The row labelled (Intercept) is the intercept, and the row labelled dens is the slope.\nThe data\nThe workshop uses 36 samples of Australian timber. For each sample we have its density and its hardness on the Janka scale: the force needed to push a steel ball 0.444 inches in diameter halfway into the wood. Density is easy to measure; hardness needs a testing machine. The practical question is whether density can be used to predict hardness.\nThe equation of a line\nA straight line is described by two numbers:\n\\[ \\hat{y} = a + bx \\]\n\n\n\\(a\\), the intercept, is the value of the line at x = 0.\n\n\\(b\\), the slope, is the change in y for each one-unit increase in\n\n\n\n\n\n\\(\\hat{y}\\) (“y-hat”) is the fitted value: the value of y that the line predicts for a given x.\n\nFor example, if a = 2 and b = 0.5, then at x = 10 the line predicts \\(\\hat{y} = 2 + 0.5 \\times 10 = 7\\). The slope is measured in units of y per unit of x, so its units depend on how the variables were measured.\nResiduals\nReal data do not lie exactly on a line. The residual for each observation is the vertical distance between the observed value and the line:\n\\[ e = y - \\hat{y} \\]\nA point above the line has a positive residual and a point below it has a negative one. Continuing the example, if the observed value at x = 10 is 8, the residual is 8 − 7 = 1.\nYou can draw many different straight lines through the same points, and each gives a different set of residuals. In the workshop you will draw your own line through 8 timber samples, calculate its residuals, and work out with your partner how to decide whose line is best.\nWhat the coefficient table reports\nThe coefficient table has the same columns as in Session 4: estimate, standard error, t value and p-value. For the slope, t is still the estimate divided by its standard error, and the p-value tests whether the slope differs from zero. One thing changes: a straight line estimates two coefficients, the intercept and the slope, so the degrees of freedom are the number of observations minus 2.\nPredicting from a line\nOnce you have a line, you can predict y for any value of x. The data only tell you about the range of x that was measured, though. A prediction for a value of x outside that range is called extrapolation, and it is much less trustworthy: the line has been extended into a region where there are no observations to support it.",
+    "crumbs": [
+      "Week Six",
+      "Regression - Pre-reading"
+    ]
+  },
+  {
+    "objectID": "session-05-pre.html#sec-commitment",
+    "href": "session-05-pre.html#sec-commitment",
+    "title": "Regression - Pre-reading",
+    "section": "Commitment task",
+    "text": "Commitment task\n\n\n\n\n\n\nWarningBring this to class\n\n\n\nTwo people draw different straight lines through the same scatter of points. Write one or two sentences on how you would decide which line is better. Do not look this up. There is no mark for this and no correct answer is expected; the point is to have something concrete to revise in the workshop.\nBring what you wrote to the session, together with a calculator, a pencil and a ruler.",
+    "crumbs": [
+      "Week Six",
+      "Regression - Pre-reading"
+    ]
+  },
+  {
+    "objectID": "session-05-pre.html#sec-selftest",
+    "href": "session-05-pre.html#sec-selftest",
+    "title": "Regression - Pre-reading",
+    "section": "Self-test",
+    "text": "Self-test\n\n1. In lm(height ~ type) from Session 4, the slope was the difference between two group means. In lm(hardness ~ dens), the slope is:\n\nThe hardness of a sample with a density of zero.The ratio of mean hardness to mean density.The difference in mean hardness between dense and light timbers.The change in hardness for a one-unit increase in density.\n\n2. A line has a = 2 and b = 0.5. The fitted value at x = 10 is .\n3. On the same line, the observed value at x = 10 is 5.5. The residual is .\n\n\nExplanation\n\nThe residual is observed minus fitted: 5.5 − 7 = −1.5. It is negative because the point lies below the line.\n\n4. A point lies above the line. Its residual is \npositive\nnegative\nzero.\n5. A regression of hardness on density gives an intercept of −1160. Why can an intercept be a value that no real timber could have?\n\nIt means the relationship between density and hardness is not linear.It is the predicted hardness at a density of zero, which lies far outside the observed densities.It is the mean hardness of the lightest timber in the data.It shows that the model has been fitted with the variables the wrong way round.\n\n\n\nExplanation\n\nThe intercept is the height of the line at x = 0. No timber has a density near zero, so the line is being extended far beyond the data, where it can produce impossible values. The intercept is still needed to position the line. In the workshop you will see how centring the predictor gives an intercept you can interpret.\n\n6. A straight-line regression is fitted to 20 observations. The residual degrees of freedom are .\n7. The Janka data cover densities from 24.7 to 69.1. A prediction for a density of 90 is \nan extrapolation\nwithin the range of the data.\n\n\nExplanation\n\nA density of 90 is above the highest density measured, so the model has no observations there to support the prediction.",
+    "crumbs": [
+      "Week Six",
+      "Regression - Pre-reading"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html",
+    "href": "session-05-workshop.html",
+    "title": "Fitting the best straight line",
+    "section": "",
+    "text": "From labels to measurements\nThis page summarises what we covered in the first hour of the regression session. Use it for revision; the full activities were worked through in class.\nProgression: draw a line → measure how far each point misses it → choose the line that misses least → ask how precisely the slope is known → check whether a straight line is good enough → predict with the right interval.\nIn Session 4 the predictor was a label: Cross (x = 0) and Self (x = 1). The slope, −2.62 inches, was the difference between the two group means, and the line did not mean that height changes gradually between the groups. This session’s predictor is wood density, a measurement, and the response is timber hardness on the Janka scale.",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-labels",
+    "href": "session-05-workshop.html#sec-reg-labels",
+    "title": "Fitting the best straight line",
+    "section": "",
+    "text": "NoteThe rule\n\n\n\nWhen x is a measurement, the slope is the change in y for a one-unit increase in x. Values between the observed densities now mean something, so the line can be used for prediction within the range of the data. The model is fitted with the same function as in Session 4: lm(hardness ~ dens).\n\n\n\nCheck your understanding. A line has a slope of 0.5 hundred Janka units per unit of density. A sample of density 50 is expected to be  hundred Janka units harder than a sample of density 40.",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-eye",
+    "href": "session-05-workshop.html#sec-reg-eye",
+    "title": "Fitting the best straight line",
+    "section": "The best line by eye",
+    "text": "The best line by eye\nEveryone worked from the same 8 of the 36 samples, with hardness in hundreds of Janka units and both values rounded:\n\n\n\n\n\n\n\n\n\n\n\n\n\nSample\n1\n2\n3\n4\n5\n6\n7\n8\n\n\n\nDensity (x)\n25\n30\n39\n43\n48\n53\n60\n66\n\n\nHardness (y, hundreds)\n4.8\n5.9\n10.7\n12.7\n17.6\n18.8\n19.4\n32.6\n\n\n\nEach student drew a line by eye, read two points on it to calculate its slope, b = (y2 − y1) ÷ (x2 − x1), and intercept, a = y1 − b × x1, then calculated the fitted value, residual and squared residual for each sample. Partners compared their sums of squared residuals (SSR) to see whose line missed the points least.\n\n\n\n\n\n\n\nFigure 1: The 8 samples from the card, with the least-squares line. Dashed segments are the residuals: the vertical distances from each point to the line.\n\n\n\n\nThe residuals of a well-placed line add up to roughly zero, so their sum cannot tell two reasonable lines apart. Squaring each residual before adding makes every miss count, and makes large misses count most. Samples 7 and 8 have the largest residuals of the least-squares line in Figure 1, and together they contribute about 87% of its SSR.\n\n\n\n\n\n\nNoteThe rule\n\n\n\nA residual is the vertical distance from a point to the line: observed minus fitted, e = y − ŷ. Points above the line have positive residuals and points below it have negative ones. The method of least squares chooses the line with the smallest possible sum of squared residuals. This is what lm() does.\n\n\n\nCheck your understanding. A line has a = −12 and b = 0.6. For sample 5 (density 48, hardness 17.6), the fitted value is  and the residual is .\n\n\nExplanation\n\nŷ = −12 + 0.6 × 48 = 16.8, so e = 17.6 − 16.8 = 0.8. The point lies just above the line.",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-ls",
+    "href": "session-05-workshop.html#sec-reg-ls",
+    "title": "Fitting the best straight line",
+    "section": "The computer’s line",
+    "text": "The computer’s line\nR fitted the least-squares line to the same 8 samples:\n\n\nIntercept (a)\nSlope (b)\nSSR\n\n\n−12.06\n0.602\n52.7\n\n\nNo line drawn by eye can have a smaller SSR on these 8 samples, because least squares finds the minimum. R also fitted the model to all 36 samples, with hardness in its original units:\n\n\nTerm\nEstimate\nStandard error\n\n\n\n(Intercept)\n−1160.50\n108.58\n\n\ndens\n57.51\n2.28\n\n\n\nMultiplying the least-squares slope for the 8 samples (0.602 hundred Janka units) by 100 gives 60.2 Janka units per unit of density, close to the 57.51 from all 36 samples. The intercept, −1160.5, is the predicted hardness at a density of zero: an impossible value, because the densities in the data run from 24.7 to 69.1.\n\n\n\n\n\n\nNoteThe rule\n\n\n\nThe intercept is the height of the line at x = 0. When x = 0 is far outside the data, the intercept is not a value that could occur, but it is still needed to position the line. Subtracting the mean of x from every value, called centring, moves x = 0 to the middle of the data, so the intercept becomes the prediction at the mean of x. You do this in hour 2.",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-precision",
+    "href": "session-05-workshop.html#sec-reg-precision",
+    "title": "Fitting the best straight line",
+    "section": "How precisely is the slope known?",
+    "text": "How precisely is the slope known?\nThe slope from all 36 samples has t = 57.51 ÷ 2.28 ≈ 25.2. A straight line estimates two coefficients, so the residual degrees of freedom are 36 − 2 = 34, and the 95% multiplier is 2.03. The 95% confidence interval for the slope is 57.51 ± 2.03 × 2.28, which is 52.9 to 62.1 Janka units per unit of density.\nWe then discussed a classmate’s claim that a t this large proves that denser wood is harder because it is denser.\n\n\n\n\n\n\nNoteThe rule\n\n\n\nAs in Session 4, t = estimate ÷ SE, and the p-value is read from the t-distribution. With two coefficients, df = n − 2. The 95% confidence interval is the estimate ± multiplier × SE. A regression of observational data measures association: the t for the slope is exactly the t from a test of the correlation between the two variables. An argument about cause has to come from elsewhere, such as knowledge of wood structure or an experiment.\n\n\n\nCheck your understanding. A straight-line regression is fitted to 50 observations. The residual degrees of freedom are .",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-residuals",
+    "href": "session-05-workshop.html#sec-reg-residuals",
+    "title": "Fitting the best straight line",
+    "section": "Is a straight line good enough?",
+    "text": "Is a straight line good enough?\nA residual plot puts the predictor on the x-axis and the residuals on the y-axis. Each student plotted the 8 residuals from their own line, then matched four residual plots, similar to those in Figure 2, to the problem each one shows.\n\n\n\n\n\n\n\nFigure 2: Four residual plots, each from a different simulated data set. P: a curved relationship. Q: spread increasing with x. R: even scatter, so a straight line is adequate. S: one unusual point.\n\n\n\n\nWith only 8 points, it was hard to say whether any student’s sketch showed a real pattern. Random scatter in a small sample can look like a curve or a fan.\n\n\n\n\n\n\nNoteThe rule\n\n\n\nA linear model assumes that the relationship is a straight line, that the residuals have the same spread at every value of x, that they are roughly normally distributed, and that the observations are independent. A residual plot checks the first two at a glance. Patterns are hard to judge with few points; in hour 2 you check the residuals of all 36 samples.\n\n\n\nCheck your understanding. Which plot in Figure 2 suggests that the residuals do not have the same spread at every value of x? \nPlot P\nPlot Q\nPlot R\nPlot S",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-predict",
+    "href": "session-05-workshop.html#sec-reg-predict",
+    "title": "Fitting the best straight line",
+    "section": "Predicting a new sample",
+    "text": "Predicting a new sample\nThe model fitted to all 36 samples predicts a hardness of 1715 for a density of 50, with two different 95% intervals:\n\n\nInterval\nLower\nUpper\n\n\n\nConfidence interval for the mean\n1650\n1780\n\n\nPrediction interval for one new sample\n1337\n2093\n\n\n\nThe prediction interval is much wider because a single new sample varies around the line as well as the line itself being uncertain. For a density of 22 the model predicts a hardness of 105, with a 95% confidence interval of −22 to 231. That prediction is untrustworthy for two reasons: 22 lies below the lowest density in the data, and the interval includes impossible negative values.\n\n\n\n\n\n\nNoteThe rule\n\n\n\nA confidence interval describes uncertainty about the mean of y at a given x. A prediction interval describes where a single new observation is likely to fall, so it also includes the scatter of individual points around the line and is always wider. Predicting outside the range of x in the data is extrapolation: the model has no information there, and a straight line can produce impossible values.\n\n\n\nCheck your understanding. A timber merchant wants the likely hardness of one new plank with a density of 50. Which interval should you give them? \nThe confidence interval\nThe prediction interval",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-predictions",
+    "href": "session-05-workshop.html#sec-reg-predictions",
+    "title": "Fitting the best straight line",
+    "section": "Predictions for hour 2",
+    "text": "Predictions for hour 2\nAt the end of the hour you wrote predictions on Part G of the worksheet: the SSR that R would calculate for your own line, and which of plots P to S the residuals of all 36 samples would most resemble. Bring them, and your residual table and sketch, to hour 2. Each one is tested there.",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-workshop.html#sec-reg-exit",
+    "href": "session-05-workshop.html#sec-reg-exit",
+    "title": "Fitting the best straight line",
+    "section": "Exit ticket",
+    "text": "Exit ticket\nThe question posed at the end of the hour:\n\nTwo timber samples differ in density by 10 units. Using the slope and the 95% confidence interval from all 36 samples, how much harder do you expect the denser sample to be on average? Give the interval as well.",
+    "crumbs": [
+      "Week Six",
+      "Fitting the best straight line"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html",
+    "href": "session-05-computation.html",
+    "title": "1  Linear Regression",
+    "section": "",
+    "text": "1.1 Introduction\nIn hour 1 you drew a straight line through 8 timber samples by eye, measured how far each point missed it, and saw that least squares chooses the line with the smallest sum of squared residuals. In this workshop you will:\nThe model is the same linear model you used for Darwin’s maize, fitted with lm(). The only difference is that the predictor is a continuous measurement rather than a group label:\n\\[ y_i = a + b x_i + e_i \\]\nHere \\(a\\) is the intercept (the value of the line at \\(x = 0\\)) and \\(b\\) is the slope (the change in \\(y\\) for a one-unit increase in \\(x\\)). The line gives the fitted value, \\(\\hat{y} = a + bx\\), and \\(e_i = y_i - \\hat{y}_i\\) is the residual for sample \\(i\\): the vertical distance between the observed value and the line.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#introduction",
+    "href": "session-05-computation.html#introduction",
+    "title": "1  Linear Regression",
+    "section": "",
+    "text": "check your hand calculations in R\nfit the same model to all 36 samples and interpret it\nmake the intercept meaningful by centring\ncheck whether a straight line is good enough\nmake predictions with the right kind of interval.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#the-data",
+    "href": "session-05-computation.html#the-data",
+    "title": "1  Linear Regression",
+    "section": "\n1.2 The data",
+    "text": "1.2 The data\nThe data are 36 samples of Australian timber, with wood density (dens) and hardness on the Janka scale (hardness), the force needed to embed a 0.444 inch steel ball into the wood to half its diameter.\n\n\n\n Download Janka data as csv",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#set-up-and-check-the-data-5-minutes",
+    "href": "session-05-computation.html#set-up-and-check-the-data-5-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.3 Set up and check the data (5 minutes)",
+    "text": "1.3 Set up and check the data (5 minutes)\nStart your script by loading the packages below. Functions from broom are written with the package name in the code (for example broom::tidy()), so broom is not loaded.\n\nlibrary(tidyverse)\nlibrary(rstatix)\nlibrary(here)\nlibrary(performance)   # the see package must also be installed\n\n\n\nTask: check the data\n\n\nSave janka.csv in your data folder, then import it and check it before you analyse anything. Fill in the blanks to find the number of samples, the number of missing values in each column, and the range of density.\n\n\n\njanka &lt;- read_csv(here(\"data\", \"janka.csv\"))\n\nglimpse(janka)\n\njanka |&gt;\n  summarise(n = n(),\n            missing_dens = sum(is.na(____)),\n            missing_hardness = sum(is.na(____)),\n            min_dens = min(dens),\n            max_dens = ____)\n\n\nShow solutionjanka &lt;- read_csv(here(\"data\", \"janka.csv\"))\n\nglimpse(janka)\n\njanka |&gt;\n  summarise(n = n(),\n            missing_dens = sum(is.na(dens)),\n            missing_hardness = sum(is.na(hardness)),\n            min_dens = min(dens),\n            max_dens = max(dens))\n\n\nHow many samples are there? \nWhat is the range of wood density in the data? \n22.0 to 70.0\n24.7 to 69.1\n27.3 to 66.0\n45.7 to 69.1\nWrite the range down as a comment in your script. You will need it in Activity 7.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-1-plot-the-data-5-minutes",
+    "href": "session-05-computation.html#activity-1-plot-the-data-5-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.4 Activity 1: Plot the data (5 minutes)",
+    "text": "1.4 Activity 1: Plot the data (5 minutes)\n\n\nTask: predict, then run\n\n\nBefore you plot all 36 samples, look at your hour 1 card. Write a comment in your script: do you expect the full data set to look straighter, more curved, or about the same as your 8 points?\nThen make a scatter plot with density on the x-axis and hardness on the y-axis, and add a least-squares line with ggplot2::geom_smooth().\n\n\n\njanka |&gt;\n  ggplot(aes(x = ____, y = ____)) +\n  geom_point() +\n  geom_smooth(method = \"____\")\n\n\nShow solutionjanka |&gt;\n  ggplot(aes(x = dens, y = hardness)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n\nThe shaded band is the 95% confidence interval for the line. Where is it narrowest?\n\nAt the lowest densitiesNear the mean densityAt the highest densitiesIt has the same width everywhere\n\n\n\n\n\n\n\nTipWhy is the band narrowest in the middle?\n\n\n\n\n\nA least-squares line always passes through the point (mean of x, mean of y). Near that point, the only uncertainty is about the height of the line. Further away, uncertainty about the slope matters more, because a small change in slope moves the line further the further you are from the middle. So the band widens towards both ends.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-2-your-line-against-least-squares-10-minutes",
+    "href": "session-05-computation.html#activity-2-your-line-against-least-squares-10-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.5 Activity 2: Your line against least squares (10 minutes)",
+    "text": "1.5 Activity 2: Your line against least squares (10 minutes)\nThese are the 8 samples from your hour 1 card, with hardness in hundreds of Janka units. Run this chunk as it is.\n\ncard &lt;- tribble(\n  ~sample, ~dens, ~hardness_100,\n        1,    25,          4.8,\n        2,    30,          5.9,\n        3,    39,         10.7,\n        4,    43,         12.7,\n        5,    48,         17.6,\n        6,    53,         18.8,\n        7,    60,         19.4,\n        8,    66,         32.6\n)\n\n\n\nTask: check your hand calculation\n\n\nEnter the intercept and slope of your hand-drawn line from Part B of your worksheet, then calculate your residuals and SSR in R. The code does exactly what you did in the table on your worksheet.\n\n\n\nmy_a &lt;- ____   # your intercept from Part B\nmy_b &lt;- ____   # your slope from Part B\n\ncard |&gt;\n  mutate(predicted = my_a + my_b * dens,\n         residual = hardness_100 - predicted) |&gt;\n  summarise(sum_residuals = sum(residual),\n            ssr = sum(residual^2))\n\nDoes R’s SSR match the one you calculated by hand? If not, check your worksheet for the usual errors: a residual calculated as predicted minus observed, a sign lost when squaring a negative number, or a slip in one predicted value.\n\n\nTask: plot your own residuals\n\n\nMake a residual plot for your own line, with density on the x-axis and your residuals on the y-axis, and save it. Compare it with the sketch you drew in Part E of your worksheet: the points should be in the same places. If one is not, find out which of the two is wrong.\n\n\n\ncard |&gt;\n  mutate(predicted = my_a + my_b * dens,\n         residual = hardness_100 - predicted) |&gt;\n  ggplot(aes(x = ____, y = ____)) +\n  geom_point() +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  labs(title = paste0(\"My line: a = \", my_a, \", b = \", my_b),\n       x = \"Wood density\", y = \"Residual (hundreds)\")\n\nggsave(\"figures/my_residuals.png\", width = 6, height = 4)\n\n\nShow solutioncard |&gt;\n  mutate(predicted = my_a + my_b * dens,\n         residual = hardness_100 - predicted) |&gt;\n  ggplot(aes(x = dens, y = residual)) +\n  geom_point() +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  labs(title = paste0(\"My line: a = \", my_a, \", b = \", my_b),\n       x = \"Wood density\", y = \"Residual (hundreds)\")\n\nggsave(\"figures/my_residuals.png\", width = 6, height = 4)\n\n\nggplot2::ggsave() saves the most recent plot. It fails if the figures folder does not exist, so create the folder first.\n\n\n\n\n\n\nImportantRecord for Blackboard\n\n\n\n\nYour intercept, slope and hand-calculated SSR from Part B, and the SSR of your line as calculated in R.\nYour partner’s name and their SSR, from Part B, question 4.\nThe saved plot my_residuals.png.\nIf your hand and R values disagreed, the sample where they differed and the cause. If they agreed, the sample with the largest squared residual and roughly what share of your SSR it contributes.\n\n\n\nNow fit the least-squares line to the same 8 samples.\n\n\n\n\n\n\nWarning\n\n\n\nIn lm(), the response goes on the left of the ~ and the predictor on the right. Swap them and you fit a different line, one that predicts density from hardness.\n\n\n\ncard_model &lt;- lm(hardness_100 ~ dens, data = card)\n\n\n\nTask: write the code\n\n\nCalculate the SSR of card_model. Hint: broom::augment() adds a column of residuals called .resid. Use it in the same way as the residual column above.\n\n\n\nShow solutioncard_model |&gt;\n  broom::augment() |&gt;\n  summarise(sum_residuals = sum(.resid),\n            ssr = sum(.resid^2))\n\n\nThe least-squares SSR for these 8 samples is 52.7. The SSR of your own line must be:\n\nSmaller than 52.7Equal to or larger than 52.7Exactly 52.7It could be either, depending on how carefully you drew it\n\nThe residuals from card_model add up to zero (apart from rounding error). \nTRUE\nFALSE",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-3-fit-the-model-to-all-36-samples-8-minutes",
+    "href": "session-05-computation.html#activity-3-fit-the-model-to-all-36-samples-8-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.6 Activity 3: Fit the model to all 36 samples (8 minutes)",
+    "text": "1.6 Activity 3: Fit the model to all 36 samples (8 minutes)\n\njanka_ls1 &lt;- lm(hardness ~ dens, data = janka)\n\nsummary(janka_ls1)\n\nCheck that the estimates and standard errors match the table in Part C of your worksheet, and that the t value for dens matches the one you calculated in Part D.\nWhich statement correctly interprets the dens estimate?\n\nHardness is 57.5 times densityEach one-unit increase in density is associated with an average increase of 57.5 in Janka hardnessIncreasing the density of a sample by one unit will make it 57.5 units harderThe difference in mean hardness between two groups of wood is 57.5\n\nThe residual standard error is reported on how many degrees of freedom? \n14\n34\n35\n36\n\n\nTask: fill in the blanks\n\n\nIn hour 1, Part D, you were told that the t for the slope is the same as the t from a test of the correlation between the two variables. Use rstatix::cor_test() to check this, and compare the statistic column of its output with the t value for dens in your lm() summary.\n\n\n\njanka |&gt;\n  cor_test(____, ____)\n\n\nShow solutionjanka |&gt;\n  cor_test(dens, hardness)\n\n\nTrue or false: because we used lm() rather than rstatix::cor_test(), we now have evidence that density causes hardness. \nTRUE\nFALSE\n\n\n\n\n\n\nTipExplanation\n\n\n\n\n\nThe two tests give the same t because they are testing the same thing: whether there is a linear association. Choosing regression decides which variable we predict from which; it does not add evidence about cause. These samples were measured, not manipulated, so the analysis shows that denser timbers tend to be harder. A causal explanation would come from knowledge of wood structure or from an experiment.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-4-make-the-intercept-meaningful-5-minutes",
+    "href": "session-05-computation.html#activity-4-make-the-intercept-meaningful-5-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.7 Activity 4: Make the intercept meaningful (5 minutes)",
+    "text": "1.7 Activity 4: Make the intercept meaningful (5 minutes)\nThe intercept, −1160.5, is the predicted hardness at a density of zero. No timber has a density near zero, and no timber has negative hardness. As you saw in Part C, the intercept is far outside the data.\n\n\nTask: fill in the blanks\n\n\nCreate a mean-centred density variable by subtracting the mean density from every sample. Refit the model with it.\n\n\n\njanka_centred &lt;- janka |&gt;\n  mutate(dens_centred = ____)\n\ncentred_model &lt;- lm(____ ~ ____, data = janka_centred)\n\nsummary(centred_model)\n\n\nShow solutionjanka_centred &lt;- janka |&gt;\n  mutate(dens_centred = dens - mean(dens))\n\ncentred_model &lt;- lm(hardness ~ dens_centred, data = janka_centred)\n\nsummary(centred_model)\n\n\nWhich estimates changed when you centred density? \nOnly the intercept\nOnly the slope\nBoth\nNeither\nThe new intercept is:\n\nThe predicted hardness at a density of zeroThe predicted hardness of a sample of average densityThe mean density of the samplesThe change in hardness per unit of density\n\nWhat is the new intercept, to the nearest whole number?",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-5-how-precise-is-the-slope-5-minutes",
+    "href": "session-05-computation.html#activity-5-how-precise-is-the-slope-5-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.8 Activity 5: How precise is the slope? (5 minutes)",
+    "text": "1.8 Activity 5: How precise is the slope? (5 minutes)\n\n\nTask: fill in the blanks\n\n\nUse broom::tidy() to produce 95% confidence intervals for both coefficients of janka_ls1. Compare the interval for dens with the one you calculated by hand in Part D.\n\n\n\nbroom::tidy(janka_ls1, conf.int = ____)\n\n\nShow solutionbroom::tidy(janka_ls1, conf.int = TRUE)\n\n\nWhich statement about the 95% confidence interval for the slope (52.9 to 62.1) is correct?\n\nThe slope is at least 52.995% of timber samples have a slope between 52.9 and 62.1If we repeated the study many times, 95% of intervals calculated this way would contain the true slopeThere is a 95% chance that the next sample will have a slope in this range\n\nbroom::glance() reports statistics for the whole model.\n\nbroom::glance(janka_ls1)\n\nThe r.squared value is 0.95. What does it mean?\n\n95% of predictions from the model will be correctThe straight line accounts for 95% of the variation in hardness among these samplesDensity causes 95% of the hardness of woodThe slope is statistically significant at the 95% level\n\n\n\n\n\n\n\nTip\n\n\n\n\\(R^2\\) is a description of these data, not a verdict on the model. A high \\(R^2\\) does not show that a straight line is the right shape, and it does not tell you how precise a prediction for a new sample will be. Activities 6 and 7 deal with those questions.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-6-is-a-straight-line-good-enough-10-minutes",
+    "href": "session-05-computation.html#activity-6-is-a-straight-line-good-enough-10-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.9 Activity 6: Is a straight line good enough? (10 minutes)",
+    "text": "1.9 Activity 6: Is a straight line good enough? (10 minutes)\n\n\nTask: predict, then run\n\n\nIn Part G of your worksheet you predicted which residual plot (P, Q, R or S) the full data set would most resemble. Now make the residual plot for all 36 samples. Put density on the x-axis and the residuals on the y-axis. The ggplot2::geom_smooth() line traces any trend in the residuals.\n\n\n\njanka_ls1 |&gt;\n  broom::augment() |&gt;\n  ggplot(aes(x = ____, y = ____)) +\n  geom_point() +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  geom_smooth(se = FALSE)\n\n\nShow solutionjanka_ls1 |&gt;\n  broom::augment() |&gt;\n  ggplot(aes(x = dens, y = .resid)) +\n  geom_point() +\n  geom_hline(yintercept = 0, linetype = \"dashed\") +\n  geom_smooth(se = FALSE)\n\n\nperformance::check_model() produces a standard set of diagnostic plots in one step. Read the subtitle of each panel: it tells you what a good result looks like.\n\ncheck_model(janka_ls1)\n\nWhich description fits the residual plot best?\n\nEven scatter around zero, with the same spread at every densityResiduals fall steadily as density increasesA slight curve (residuals mostly positive at low and high densities, negative in between), with the largest residuals at high densitiesEven scatter apart from one unusual point\n\nWhich of the hour 1 plots does it most resemble?\n\nR onlyS onlyElements of both P (curve) and Q (spread increasing with x)None of them\n\n\n\n\n\n\n\nImportantRecord for Blackboard\n\n\n\nYour prediction from Part G, question 2 (P, Q, R or S), whether this residual plot matched it, and one feature of the plot that supports your answer, with the range of densities where it appears.\n\n\n\n\n\n\n\n\nTipWhat does this mean for the conclusions?\n\n\n\n\n\nThe positive association between density and hardness is not in doubt. The residual plot shows two problems with the straight-line description, though.\nFirst, the curve means the line slightly underpredicts hardness at both ends of the density range and overpredicts in the middle.\nSecond, the residuals are more spread out at high densities than at low ones. With only 36 samples this is suggestive rather than conclusive. If the spread does increase with density, the standard errors, confidence intervals and prediction intervals are unreliable, because they all assume the same spread at every density. Prediction intervals would be too wide for light timbers and too narrow for dense ones.\nRemedies, such as transforming hardness or using a model that allows the spread to change, are beyond this session. For now, the right response is to report the pattern and to be cautious about predictions at high densities.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-7-predicting-new-samples-10-minutes",
+    "href": "session-05-computation.html#activity-7-predicting-new-samples-10-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.10 Activity 7: Predicting new samples (10 minutes)",
+    "text": "1.10 Activity 7: Predicting new samples (10 minutes)\nbroom::augment() can make predictions for new values of the predictor. This code gives 95% confidence intervals for the mean hardness at three densities.\n\nnew_wood &lt;- tibble(dens = c(22, 50, 65))\n\nbroom::augment(janka_ls1, newdata = new_wood, interval = \"confidence\")\n\n\n\nTask: modify the code\n\n\nChange one argument to produce 95% prediction intervals instead. Compare both sets of intervals at a density of 50 with the table in Part F of your worksheet.\n\n\n\nShow solutionbroom::augment(janka_ls1, newdata = new_wood, interval = \"prediction\")\n\n\nA timber merchant wants to know the likely hardness of one new plank with a density of 50. Which interval should you give them? \nThe confidence interval\nThe prediction interval\nWhy should the prediction at a density of 22 be treated with caution?\n\nBecause it is a prediction intervalBecause 22 is outside the range of densities in the data, and the interval includes impossible negative hardness valuesBecause the slope is not statistically significantBecause the model was not centred\n\nSuppose the spread of the residuals does increase with density, as in your Activity 6 plot. Is the prediction interval at a density of 65 then too narrow, too wide or about right? \nToo narrow\nToo wide\nAbout right\n\n\n\n\n\n\nImportantRecord for Blackboard\n\n\n\nThe Blackboard test gives you a density. Replace the values in new_wood with that density and read off the limit of the 95% prediction interval that the question asks for (.lower or .upper). The test also gives you a straight line; enter its intercept and slope as my_a and my_b in your Activity 2 code and record its SSR.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#activity-8-write-the-results-5-minutes",
+    "href": "session-05-computation.html#activity-8-write-the-results-5-minutes",
+    "title": "1  Linear Regression",
+    "section": "\n1.11 Activity 8: Write the results (5 minutes)",
+    "text": "1.11 Activity 8: Write the results (5 minutes)\n\n\nTask: write the results\n\n\nWrite two or three sentences reporting this analysis as you would in the results section of a report. Include the slope with its confidence interval, the test statistic, \\(R^2\\), and anything the residual plot tells the reader. Then compare your version with the example.\n\n\n\n\n\n\n\n\nTipExample results paragraph\n\n\n\n\n\nTimber hardness increased with wood density (linear regression, n = 36). Each one-unit increase in density was associated with an increase of 57.5 Janka units (95% CI 52.9 to 62.1; t(34) = 25.2, p &lt; 0.001), and density accounted for 95% of the variation in hardness (\\(R^2\\) = 0.95). At the mean density of 45.7, predicted hardness was 1469 (95% CI 1407 to 1531). The residuals showed slight curvature and possibly greater spread at high densities, so predictions for the densest timbers should be treated with caution.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
+    "objectID": "session-05-computation.html#summary",
+    "href": "session-05-computation.html#summary",
+    "title": "1  Linear Regression",
+    "section": "\n1.12 Summary",
+    "text": "1.12 Summary\nLinear regression is the linear model you have already used, with a continuous predictor in place of a group label. Least squares chooses the line with the smallest sum of squared residuals. The slope is the change in the response for a one-unit increase in the predictor, and its t-statistic, p-value and confidence interval work exactly as they did for a difference between two means. The intercept is the value of the line at \\(x = 0\\); centring the predictor moves this to the mean, where it can be interpreted.\nA regression of observational data measures association, not cause. Its standard errors and intervals assume a straight-line relationship with constant spread, so always check a residual plot before relying on them. Use a confidence interval to describe the mean response at a given value of the predictor, and a prediction interval to describe a single new observation. Do not predict outside the range of the data.",
+    "crumbs": [
+      "Week Six",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Regression</span>"
+    ]
+  },
+  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Appendix A — Project workflows",

@@ -1,0 +1,216 @@
+# Regression - Pre-reading {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+Complete this material before your workshop session. It carries the
+vocabulary you will need in the room.
+
+## Video: from two groups to a line {#sec-video}
+
+::: {.callout-note}
+## Watch before class
+
+{{< video https://www.youtube.com/embed/aFDOzpTeg0s?si=KZvj853cmcHhfGA- >}}
+
+After watching, you should be able to explain what the slope of a
+regression line measures when the predictor is a measurement rather
+than a group label.
+:::
+
+## Learning outcomes {#sec-outcomes}
+
+**By the end of this week you should be able to:**
+
+1. interpret the slope of a regression line as the change in the
+   response for a one-unit increase in the predictor, in the units of
+   the data;
+
+2. calculate a fitted value and a residual by hand;
+
+3. explain why least squares uses squared residuals to choose a line;
+
+4. interpret the intercept, and explain how centring the predictor
+   makes it meaningful;
+
+5. use a residual plot to judge whether a straight line describes the
+   data adequately;
+
+6. choose between a confidence interval and a prediction interval, and
+   recognise when a prediction is an extrapolation.
+
+## Reading: fitting a straight line {#sec-reading}
+
+### From two groups to a measurement {#sec-groups-to-measurement}
+
+In Session 4 you coded Darwin's two groups as x = 0 (Cross) and x = 1
+(Self) and drew a line between their means. The intercept was the mean
+of the reference group, and the slope, −2.62 inches, was the difference
+between the two means. That x-axis was a label: no plant sits halfway
+between cross- and self-pollinated.
+
+In **regression**, the predictor is a measurement. Every value between
+the observed ones means something, so the line describes how the
+response changes across the whole range of the predictor. The slope is
+now the change in the response for a **one-unit increase** in the
+predictor.
+
+The model is fitted with the same function, and its output has the
+same coefficient table:
+
+```r
+lm(hardness ~ dens, data = janka)
+```
+
+The response goes on the left of the `~` and the predictor on the
+right. The row labelled `(Intercept)` is the intercept, and the row
+labelled `dens` is the slope.
+
+### The data {#sec-janka}
+
+The workshop uses 36 samples of Australian timber. For each sample we
+have its **density** and its **hardness** on the Janka scale: the force
+needed to push a steel ball 0.444 inches in diameter halfway into the
+wood. Density is easy to measure; hardness needs a testing machine. The
+practical question is whether density can be used to predict hardness.
+
+### The equation of a line {#sec-line}
+
+A straight line is described by two numbers:
+
+$$ \hat{y} = a + bx $$
+
+- $a$, the **intercept**, is the value of the line at x = 0.
+- $b$, the **slope**, is the change in y for each one-unit increase in
+  x.
+- $\hat{y}$ ("y-hat") is the **fitted value**: the value of y that the
+  line predicts for a given x.
+
+For example, if a = 2 and b = 0.5, then at x = 10 the line predicts
+$\hat{y} = 2 + 0.5 \times 10 = 7$. The slope is measured in units of y
+per unit of x, so its units depend on how the variables were measured.
+
+### Residuals {#sec-residuals}
+
+Real data do not lie exactly on a line. The **residual** for each
+observation is the vertical distance between the observed value and the
+line:
+
+$$ e = y - \hat{y} $$
+
+A point above the line has a positive residual and a point below it has
+a negative one. Continuing the example, if the observed value at x = 10
+is 8, the residual is 8 − 7 = 1.
+
+You can draw many different straight lines through the same points, and
+each gives a different set of residuals. In the workshop you will draw
+your own line through 8 timber samples, calculate its residuals, and
+work out with your partner how to decide whose line is best.
+
+### What the coefficient table reports {#sec-coef-table}
+
+The coefficient table has the same columns as in Session 4: estimate,
+standard error, t value and p-value. For the slope, t is still the
+estimate divided by its standard error, and the p-value tests whether
+the slope differs from zero. One thing changes: a straight line
+estimates two coefficients, the intercept and the slope, so the
+degrees of freedom are the number of observations minus 2.
+
+### Predicting from a line {#sec-predicting}
+
+Once you have a line, you can predict y for any value of x. The data
+only tell you about the range of x that was measured, though. A
+prediction for a value of x outside that range is called
+**extrapolation**, and it is much less trustworthy: the line has been
+extended into a region where there are no observations to support it.
+
+## Commitment task {#sec-commitment}
+
+::: {.callout-warning}
+## Bring this to class
+
+Two people draw different straight lines through the same scatter of
+points. Write one or two sentences on how you would decide which line
+is better. Do not look this up. There is no mark for this and no
+correct answer is expected; the point is to have something concrete to
+revise in the workshop.
+
+Bring what you wrote to the session, together with a calculator, a
+pencil and a ruler.
+:::
+
+## Self-test {#sec-selftest}
+
+::: {.webex-check .webex-box}
+
+**1.** In `lm(height ~ type)` from Session 4, the slope was the
+difference between two group means. In `lm(hardness ~ dens)`, the slope
+is:
+
+```{r}
+#| echo: false
+opts_slope <- sample(c(
+  answer = "The change in hardness for a one-unit increase in density.",
+  "The difference in mean hardness between dense and light timbers.",
+  "The ratio of mean hardness to mean density.",
+  "The hardness of a sample with a density of zero."
+))
+```
+
+`r longmcq(opts_slope)`
+
+**2.** A line has a = 2 and b = 0.5. The fitted value at x = 10 is
+`r fitb(7)`.
+
+**3.** On the same line, the observed value at x = 10 is 5.5. The
+residual is `r fitb(-1.5)`.
+
+`r hide("Explanation")`
+The residual is observed minus fitted: 5.5 − 7 = −1.5. It is negative
+because the point lies below the line.
+`r unhide()`
+
+**4.** A point lies above the line. Its residual is
+`r mcq(c(answer = "positive", "negative", "zero"))`.
+
+**5.** A regression of hardness on density gives an intercept of
+−1160. Why can an intercept be a value that no real timber could have?
+
+```{r}
+#| echo: false
+opts_intercept <- sample(c(
+  answer = "It is the predicted hardness at a density of zero, which lies far outside the observed densities.",
+  "It shows that the model has been fitted with the variables the wrong way round.",
+  "It is the mean hardness of the lightest timber in the data.",
+  "It means the relationship between density and hardness is not linear."
+))
+```
+
+`r longmcq(opts_intercept)`
+
+`r hide("Explanation")`
+The intercept is the height of the line at x = 0. No timber has a
+density near zero, so the line is being extended far beyond the data,
+where it can produce impossible values. The intercept is still needed
+to position the line. In the workshop you will see how centring the
+predictor gives an intercept you can interpret.
+`r unhide()`
+
+**6.** A straight-line regression is fitted to 20 observations. The
+residual degrees of freedom are `r fitb(18)`.
+
+**7.** The Janka data cover densities from 24.7 to 69.1. A prediction
+for a density of 90 is `r mcq(c(answer = "an extrapolation", "within the range of the data"))`.
+
+`r hide("Explanation")`
+A density of 90 is above the highest density measured, so the model has
+no observations there to support the prediction.
+`r unhide()`
+
+:::

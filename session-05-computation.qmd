@@ -1,0 +1,546 @@
+# Linear Regression {#sec-reg}
+
+```{r}
+#| include: false
+library(tidyverse)
+library(webexercises)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+```
+
+:::{.callout-important}
+## Before you start
+
+- Set this up as a new R project with organised folders (for example `data`, `scripts` and `figures`), and work in a script, not the console.
+- Keep your hour 1 worksheet next to you. You need your line from **Part B** in Activity 2.
+- This session is assessed by a Blackboard test. You will upload photographs of your completed hour 1 **Parts B, E and G** and one plot you make in this workshop, and enter values you produce here; these are marked **Record for Blackboard** below. Write your name and student number on your worksheet before you photograph it.
+- Most code chunks contain blanks (`____`) for you to fill in. Solutions are folded: try the task first, then open the fold to check.
+:::
+
+## Introduction
+
+In hour 1 you drew a straight line through 8 timber samples by eye, measured how far each point missed it, and saw that least squares chooses the line with the smallest sum of squared residuals. In this workshop you will:
+
+- check your hand calculations in R
+- fit the same model to all 36 samples and interpret it
+- make the intercept meaningful by centring
+- check whether a straight line is good enough
+- make predictions with the right kind of interval.
+
+The model is the same linear model you used for Darwin's maize, fitted with `lm()`. The only difference is that the predictor is a continuous measurement rather than a group label:
+
+$$ y_i = a + b x_i + e_i $$
+
+Here $a$ is the intercept (the value of the line at $x = 0$) and $b$ is the slope (the change in $y$ for a one-unit increase in $x$). The line gives the fitted value, $\hat{y} = a + bx$, and $e_i = y_i - \hat{y}_i$ is the residual for sample $i$: the vertical distance between the observed value and the line.
+
+## The data
+
+The data are 36 samples of Australian timber, with wood density (`dens`) and hardness on the Janka scale (`hardness`), the force needed to embed a 0.444 inch steel ball into the wood to half its diameter.
+
+```{r}
+#| echo: false
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/data-sci-v1/main/book/files/janka.csv",
+  button_label = "Download Janka data as csv",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+## Set up and check the data (5 minutes)
+
+Start your script by loading the packages below. Functions from broom are written with the package name in the code (for example `broom::tidy()`), so broom is not loaded.
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(rstatix)
+library(here)
+library(performance)   # the see package must also be installed
+```
+
+:::{.task}
+::::{.task-header}
+**Task: check the data**
+::::
+
+::::{.task-container}
+
+Save `janka.csv` in your `data` folder, then import it and check it before you analyse anything. Fill in the blanks to find the number of samples, the number of missing values in each column, and the range of density.
+
+::::
+:::
+
+```{r}
+#| eval: false
+janka <- read_csv(here("data", "janka.csv"))
+
+glimpse(janka)
+
+janka |>
+  summarise(n = n(),
+            missing_dens = sum(is.na(____)),
+            missing_hardness = sum(is.na(____)),
+            min_dens = min(dens),
+            max_dens = ____)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+janka <- read_csv(here("data", "janka.csv"))
+
+glimpse(janka)
+
+janka |>
+  summarise(n = n(),
+            missing_dens = sum(is.na(dens)),
+            missing_hardness = sum(is.na(hardness)),
+            min_dens = min(dens),
+            max_dens = max(dens))
+```
+
+How many samples are there? `r fitb(36)`
+
+What is the range of wood density in the data? `r mcq(c("22.0 to 70.0", answer = "24.7 to 69.1", "27.3 to 66.0", "45.7 to 69.1"))`
+
+Write the range down as a comment in your script. You will need it in Activity 7.
+
+## Activity 1: Plot the data (5 minutes)
+
+:::{.task}
+::::{.task-header}
+**Task: predict, then run**
+::::
+
+::::{.task-container}
+
+Before you plot all 36 samples, look at your hour 1 card. Write a comment in your script: do you expect the full data set to look straighter, more curved, or about the same as your 8 points?
+
+Then make a scatter plot with density on the x-axis and hardness on the y-axis, and add a least-squares line with `ggplot2::geom_smooth()`.
+
+::::
+:::
+
+```{r}
+#| eval: false
+janka |>
+  ggplot(aes(x = ____, y = ____)) +
+  geom_point() +
+  geom_smooth(method = "____")
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+janka |>
+  ggplot(aes(x = dens, y = hardness)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+The shaded band is the 95% confidence interval for the line. Where is it narrowest? `r longmcq(c("At the lowest densities", answer = "Near the mean density", "At the highest densities", "It has the same width everywhere"))`
+
+::: {.callout-tip collapse="true" title="Why is the band narrowest in the middle?"}
+A least-squares line always passes through the point (mean of x, mean of y). Near that point, the only uncertainty is about the height of the line. Further away, uncertainty about the slope matters more, because a small change in slope moves the line further the further you are from the middle. So the band widens towards both ends.
+:::
+
+## Activity 2: Your line against least squares (10 minutes)
+
+These are the 8 samples from your hour 1 card, with hardness in hundreds of Janka units. Run this chunk as it is.
+
+```{r}
+#| eval: false
+card <- tribble(
+  ~sample, ~dens, ~hardness_100,
+        1,    25,          4.8,
+        2,    30,          5.9,
+        3,    39,         10.7,
+        4,    43,         12.7,
+        5,    48,         17.6,
+        6,    53,         18.8,
+        7,    60,         19.4,
+        8,    66,         32.6
+)
+```
+
+:::{.task}
+::::{.task-header}
+**Task: check your hand calculation**
+::::
+
+::::{.task-container}
+
+Enter the intercept and slope of your hand-drawn line from Part B of your worksheet, then calculate your residuals and SSR in R. The code does exactly what you did in the table on your worksheet.
+
+::::
+:::
+
+```{r}
+#| eval: false
+my_a <- ____   # your intercept from Part B
+my_b <- ____   # your slope from Part B
+
+card |>
+  mutate(predicted = my_a + my_b * dens,
+         residual = hardness_100 - predicted) |>
+  summarise(sum_residuals = sum(residual),
+            ssr = sum(residual^2))
+```
+
+Does R's SSR match the one you calculated by hand? If not, check your worksheet for the usual errors: a residual calculated as predicted minus observed, a sign lost when squaring a negative number, or a slip in one predicted value.
+
+:::{.task}
+::::{.task-header}
+**Task: plot your own residuals**
+::::
+
+::::{.task-container}
+
+Make a residual plot for your own line, with density on the x-axis and your residuals on the y-axis, and save it. Compare it with the sketch you drew in Part E of your worksheet: the points should be in the same places. If one is not, find out which of the two is wrong.
+
+::::
+:::
+
+```{r}
+#| eval: false
+card |>
+  mutate(predicted = my_a + my_b * dens,
+         residual = hardness_100 - predicted) |>
+  ggplot(aes(x = ____, y = ____)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = paste0("My line: a = ", my_a, ", b = ", my_b),
+       x = "Wood density", y = "Residual (hundreds)")
+
+ggsave("figures/my_residuals.png", width = 6, height = 4)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+card |>
+  mutate(predicted = my_a + my_b * dens,
+         residual = hardness_100 - predicted) |>
+  ggplot(aes(x = dens, y = residual)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = paste0("My line: a = ", my_a, ", b = ", my_b),
+       x = "Wood density", y = "Residual (hundreds)")
+
+ggsave("figures/my_residuals.png", width = 6, height = 4)
+```
+
+`ggplot2::ggsave()` saves the most recent plot. It fails if the `figures` folder does not exist, so create the folder first.
+
+::: {.callout-important}
+## Record for Blackboard
+
+- Your intercept, slope and hand-calculated SSR from Part B, and the SSR of your line as calculated in R.
+- Your partner's name and their SSR, from Part B, question 4.
+- The saved plot `my_residuals.png`.
+- If your hand and R values disagreed, the sample where they differed and the cause. If they agreed, the sample with the largest squared residual and roughly what share of your SSR it contributes.
+:::
+
+Now fit the least-squares line to the same 8 samples.
+
+::: {.callout-warning}
+In `lm()`, the response goes on the left of the `~` and the predictor on the right. Swap them and you fit a different line, one that predicts density from hardness.
+:::
+
+```{r}
+#| eval: false
+card_model <- lm(hardness_100 ~ dens, data = card)
+```
+
+:::{.task}
+::::{.task-header}
+**Task: write the code**
+::::
+
+::::{.task-container}
+
+Calculate the SSR of `card_model`. Hint: `broom::augment()` adds a column of residuals called `.resid`. Use it in the same way as the `residual` column above.
+
+::::
+:::
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+card_model |>
+  broom::augment() |>
+  summarise(sum_residuals = sum(.resid),
+            ssr = sum(.resid^2))
+```
+
+The least-squares SSR for these 8 samples is 52.7. The SSR of your own line must be: `r longmcq(c("Smaller than 52.7", answer = "Equal to or larger than 52.7", "Exactly 52.7", "It could be either, depending on how carefully you drew it"))`
+
+The residuals from `card_model` add up to zero (apart from rounding error). `r torf(TRUE)`
+
+## Activity 3: Fit the model to all 36 samples (8 minutes)
+
+```{r}
+#| eval: false
+janka_ls1 <- lm(hardness ~ dens, data = janka)
+
+summary(janka_ls1)
+```
+
+Check that the estimates and standard errors match the table in Part C of your worksheet, and that the t value for `dens` matches the one you calculated in Part D.
+
+Which statement correctly interprets the `dens` estimate? `r longmcq(c("Hardness is 57.5 times density", answer = "Each one-unit increase in density is associated with an average increase of 57.5 in Janka hardness", "Increasing the density of a sample by one unit will make it 57.5 units harder", "The difference in mean hardness between two groups of wood is 57.5"))`
+
+The residual standard error is reported on how many degrees of freedom? `r mcq(c("14", answer = "34", "35", "36"))`
+
+:::{.task}
+::::{.task-header}
+**Task: fill in the blanks**
+::::
+
+::::{.task-container}
+
+In hour 1, Part D, you were told that the t for the slope is the same as the t from a test of the correlation between the two variables. Use `rstatix::cor_test()` to check this, and compare the `statistic` column of its output with the t value for `dens` in your `lm()` summary.
+
+::::
+:::
+
+```{r}
+#| eval: false
+janka |>
+  cor_test(____, ____)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+janka |>
+  cor_test(dens, hardness)
+```
+
+True or false: because we used `lm()` rather than `rstatix::cor_test()`, we now have evidence that density causes hardness. `r torf(FALSE)`
+
+::: {.callout-tip collapse="true" title="Explanation"}
+The two tests give the same t because they are testing the same thing: whether there is a linear association. Choosing regression decides which variable we predict from which; it does not add evidence about cause. These samples were measured, not manipulated, so the analysis shows that denser timbers tend to be harder. A causal explanation would come from knowledge of wood structure or from an experiment.
+:::
+
+## Activity 4: Make the intercept meaningful (5 minutes)
+
+The intercept, −1160.5, is the predicted hardness at a density of zero. No timber has a density near zero, and no timber has negative hardness. As you saw in Part C, the intercept is far outside the data.
+
+:::{.task}
+::::{.task-header}
+**Task: fill in the blanks**
+::::
+
+::::{.task-container}
+
+Create a mean-centred density variable by subtracting the mean density from every sample. Refit the model with it.
+
+::::
+:::
+
+```{r}
+#| eval: false
+janka_centred <- janka |>
+  mutate(dens_centred = ____)
+
+centred_model <- lm(____ ~ ____, data = janka_centred)
+
+summary(centred_model)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+janka_centred <- janka |>
+  mutate(dens_centred = dens - mean(dens))
+
+centred_model <- lm(hardness ~ dens_centred, data = janka_centred)
+
+summary(centred_model)
+```
+
+Which estimates changed when you centred density? `r mcq(c(answer = "Only the intercept", "Only the slope", "Both", "Neither"))`
+
+The new intercept is: `r longmcq(c("The predicted hardness at a density of zero", answer = "The predicted hardness of a sample of average density", "The mean density of the samples", "The change in hardness per unit of density"))`
+
+What is the new intercept, to the nearest whole number? `r fitb(1469, tol = 1)`
+
+## Activity 5: How precise is the slope? (5 minutes)
+
+:::{.task}
+::::{.task-header}
+**Task: fill in the blanks**
+::::
+
+::::{.task-container}
+
+Use `broom::tidy()` to produce 95% confidence intervals for both coefficients of `janka_ls1`. Compare the interval for `dens` with the one you calculated by hand in Part D.
+
+::::
+:::
+
+```{r}
+#| eval: false
+broom::tidy(janka_ls1, conf.int = ____)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+broom::tidy(janka_ls1, conf.int = TRUE)
+```
+
+Which statement about the 95% confidence interval for the slope (52.9 to 62.1) is correct? `r longmcq(c("The slope is at least 52.9", "95% of timber samples have a slope between 52.9 and 62.1", answer = "If we repeated the study many times, 95% of intervals calculated this way would contain the true slope", "There is a 95% chance that the next sample will have a slope in this range"))`
+
+`broom::glance()` reports statistics for the whole model.
+
+```{r}
+#| eval: false
+broom::glance(janka_ls1)
+```
+
+The `r.squared` value is 0.95. What does it mean? `r longmcq(c("95% of predictions from the model will be correct", answer = "The straight line accounts for 95% of the variation in hardness among these samples", "Density causes 95% of the hardness of wood", "The slope is statistically significant at the 95% level"))`
+
+::: {.callout-tip}
+$R^2$ is a description of these data, not a verdict on the model. A high $R^2$ does not show that a straight line is the right shape, and it does not tell you how precise a prediction for a new sample will be. Activities 6 and 7 deal with those questions.
+:::
+
+## Activity 6: Is a straight line good enough? (10 minutes)
+
+:::{.task}
+::::{.task-header}
+**Task: predict, then run**
+::::
+
+::::{.task-container}
+
+In Part G of your worksheet you predicted which residual plot (P, Q, R or S) the full data set would most resemble. Now make the residual plot for all 36 samples. Put density on the x-axis and the residuals on the y-axis. The `ggplot2::geom_smooth()` line traces any trend in the residuals.
+
+::::
+:::
+
+```{r}
+#| eval: false
+janka_ls1 |>
+  broom::augment() |>
+  ggplot(aes(x = ____, y = ____)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+janka_ls1 |>
+  broom::augment() |>
+  ggplot(aes(x = dens, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_smooth(se = FALSE)
+```
+
+`performance::check_model()` produces a standard set of diagnostic plots in one step. Read the subtitle of each panel: it tells you what a good result looks like.
+
+```{r}
+#| eval: false
+check_model(janka_ls1)
+```
+
+Which description fits the residual plot best? `r longmcq(c("Even scatter around zero, with the same spread at every density", "Residuals fall steadily as density increases", answer = "A slight curve (residuals mostly positive at low and high densities, negative in between), with the largest residuals at high densities", "Even scatter apart from one unusual point"))`
+
+Which of the hour 1 plots does it most resemble? `r longmcq(c("R only", "S only", answer = "Elements of both P (curve) and Q (spread increasing with x)", "None of them"))`
+
+::: {.callout-important}
+## Record for Blackboard
+
+Your prediction from Part G, question 2 (P, Q, R or S), whether this residual plot matched it, and one feature of the plot that supports your answer, with the range of densities where it appears.
+:::
+
+::: {.callout-tip collapse="true" title="What does this mean for the conclusions?"}
+The positive association between density and hardness is not in doubt. The residual plot shows two problems with the straight-line description, though.
+
+First, the curve means the line slightly underpredicts hardness at both ends of the density range and overpredicts in the middle.
+
+Second, the residuals are more spread out at high densities than at low ones. With only 36 samples this is suggestive rather than conclusive. If the spread does increase with density, the standard errors, confidence intervals and prediction intervals are unreliable, because they all assume the same spread at every density. Prediction intervals would be too wide for light timbers and too narrow for dense ones.
+
+Remedies, such as transforming hardness or using a model that allows the spread to change, are beyond this session. For now, the right response is to report the pattern and to be cautious about predictions at high densities.
+:::
+
+## Activity 7: Predicting new samples (10 minutes)
+
+`broom::augment()` can make predictions for new values of the predictor. This code gives 95% confidence intervals for the mean hardness at three densities.
+
+```{r}
+#| eval: false
+new_wood <- tibble(dens = c(22, 50, 65))
+
+broom::augment(janka_ls1, newdata = new_wood, interval = "confidence")
+```
+
+:::{.task}
+::::{.task-header}
+**Task: modify the code**
+::::
+
+::::{.task-container}
+
+Change one argument to produce 95% prediction intervals instead. Compare both sets of intervals at a density of 50 with the table in Part F of your worksheet.
+
+::::
+:::
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+broom::augment(janka_ls1, newdata = new_wood, interval = "prediction")
+```
+
+A timber merchant wants to know the likely hardness of one new plank with a density of 50. Which interval should you give them? `r mcq(c("The confidence interval", answer = "The prediction interval"))`
+
+Why should the prediction at a density of 22 be treated with caution? `r longmcq(c("Because it is a prediction interval", answer = "Because 22 is outside the range of densities in the data, and the interval includes impossible negative hardness values", "Because the slope is not statistically significant", "Because the model was not centred"))`
+
+Suppose the spread of the residuals does increase with density, as in your Activity 6 plot. Is the prediction interval at a density of 65 then too narrow, too wide or about right? `r mcq(c(answer = "Too narrow", "Too wide", "About right"))`
+
+::: {.callout-important}
+## Record for Blackboard
+
+The Blackboard test gives you a density. Replace the values in `new_wood` with that density and read off the limit of the 95% prediction interval that the question asks for (`.lower` or `.upper`). The test also gives you a straight line; enter its intercept and slope as `my_a` and `my_b` in your Activity 2 code and record its SSR.
+:::
+
+## Activity 8: Write the results (5 minutes)
+
+:::{.task}
+::::{.task-header}
+**Task: write the results**
+::::
+
+::::{.task-container}
+
+Write two or three sentences reporting this analysis as you would in the results section of a report. Include the slope with its confidence interval, the test statistic, $R^2$, and anything the residual plot tells the reader. Then compare your version with the example.
+
+::::
+:::
+
+::: {.callout-tip collapse="true" title="Example results paragraph"}
+Timber hardness increased with wood density (linear regression, n = 36). Each one-unit increase in density was associated with an increase of 57.5 Janka units (95% CI 52.9 to 62.1; t(34) = 25.2, p < 0.001), and density accounted for 95% of the variation in hardness ($R^2$ = 0.95). At the mean density of 45.7, predicted hardness was 1469 (95% CI 1407 to 1531). The residuals showed slight curvature and possibly greater spread at high densities, so predictions for the densest timbers should be treated with caution.
+:::
+
+## Summary
+
+Linear regression is the linear model you have already used, with a continuous predictor in place of a group label. Least squares chooses the line with the smallest sum of squared residuals. The slope is the change in the response for a one-unit increase in the predictor, and its t-statistic, p-value and confidence interval work exactly as they did for a difference between two means. The intercept is the value of the line at $x = 0$; centring the predictor moves this to the mean, where it can be interpreted.
+
+A regression of observational data measures association, not cause. Its standard errors and intervals assume a straight-line relationship with constant spread, so always check a residual plot before relying on them. Use a confidence interval to describe the mean response at a given value of the predictor, and a prediction interval to describe a single new observation. Do not predict outside the range of the data.

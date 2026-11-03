@@ -1,0 +1,274 @@
+# Fitting the best straight line {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+This page summarises what we covered in the first hour of the
+regression session. Use it for revision; the full activities were
+worked through in class.
+
+**Progression:** draw a line → measure how far each point misses it →
+choose the line that misses least → ask how precisely the slope is
+known → check whether a straight line is good enough → predict with
+the right interval.
+
+## From labels to measurements {#sec-reg-labels}
+
+In Session 4 the predictor was a label: Cross (x = 0) and Self
+(x = 1). The slope, −2.62 inches, was the difference between the two
+group means, and the line did not mean that height changes gradually
+between the groups. This session's predictor is wood density, a
+measurement, and the response is timber hardness on the Janka scale.
+
+::: {.callout-note}
+## The rule
+When x is a measurement, the slope is the change in y for a one-unit
+increase in x. Values between the observed densities now mean
+something, so the line can be used for prediction within the range of
+the data. The model is fitted with the same function as in Session 4:
+`lm(hardness ~ dens)`.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** A line has a slope of 0.5 hundred Janka
+units per unit of density. A sample of density 50 is expected to be
+`r fitb(5)` hundred Janka units harder than a sample of density 40.
+:::
+
+## The best line by eye {#sec-reg-eye}
+
+Everyone worked from the same 8 of the 36 samples, with hardness in
+hundreds of Janka units and both values rounded:
+
+| Sample                 | 1   | 2   | 3    | 4    | 5    | 6    | 7    | 8    |
+|------------------------|-----|-----|------|------|------|------|------|------|
+| Density (x)            | 25  | 30  | 39   | 43   | 48   | 53   | 60   | 66   |
+| Hardness (y, hundreds) | 4.8 | 5.9 | 10.7 | 12.7 | 17.6 | 18.8 | 19.4 | 32.6 |
+
+Each student drew a line by eye, read two points on it to calculate its
+slope, b = (y~2~ − y~1~) ÷ (x~2~ − x~1~), and intercept,
+a = y~1~ − b × x~1~, then calculated the fitted value, residual and
+squared residual for each sample. Partners compared their sums of
+squared residuals (SSR) to see whose line missed the points least.
+
+```{r}
+#| label: fig-reg-card
+#| echo: false
+#| fig-cap: "The 8 samples from the card, with the least-squares line. Dashed segments are the residuals: the vertical distances from each point to the line."
+
+card <- tibble(
+  sample = 1:8,
+  dens = c(25, 30, 39, 43, 48, 53, 60, 66),
+  hardness_100 = c(4.8, 5.9, 10.7, 12.7, 17.6, 18.8, 19.4, 32.6)
+)
+
+card_fit <- lm(hardness_100 ~ dens, data = card)
+
+broom::augment(card_fit, data = card) |>
+  ggplot(aes(x = dens, y = hardness_100)) +
+  geom_abline(intercept = coef(card_fit)[1], slope = coef(card_fit)[2],
+              linewidth = 1) +
+  geom_segment(aes(xend = dens, yend = .fitted), linetype = "dashed",
+               colour = "firebrick") +
+  geom_point(size = 3) +
+  geom_text(aes(label = sample), nudge_x = -1.5, nudge_y = 0.9) +
+  scale_x_continuous(limits = c(20, 70)) +
+  scale_y_continuous(limits = c(0, 35)) +
+  labs(x = "Wood density", y = "Janka hardness (hundreds)")
+```
+
+The residuals of a well-placed line add up to roughly zero, so their
+sum cannot tell two reasonable lines apart. Squaring each residual
+before adding makes every miss count, and makes large misses count
+most. Samples 7 and 8 have the largest residuals of the least-squares line
+in @fig-reg-card, and together they contribute about 87% of its SSR.
+
+::: {.callout-note}
+## The rule
+A residual is the vertical distance from a point to the line: observed
+minus fitted, e = y − ŷ. Points above the line have positive residuals
+and points below it have negative ones. The method of **least squares**
+chooses the line with the smallest possible sum of squared residuals.
+This is what `lm()` does.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** A line has a = −12 and b = 0.6. For
+sample 5 (density 48, hardness 17.6), the fitted value is
+`r fitb(16.8)` and the residual is `r fitb(0.8)`.
+
+`r hide("Explanation")`
+ŷ = −12 + 0.6 × 48 = 16.8, so e = 17.6 − 16.8 = 0.8. The point lies
+just above the line.
+`r unhide()`
+:::
+
+## The computer's line {#sec-reg-ls}
+
+R fitted the least-squares line to the same 8 samples:
+
+| Intercept (a) | Slope (b) | SSR  |
+|---------------|-----------|------|
+| −12.06        | 0.602     | 52.7 |
+
+No line drawn by eye can have a smaller SSR on these 8 samples, because
+least squares finds the minimum. R also fitted the model to all 36
+samples, with hardness in its original units:
+
+| Term        | Estimate | Standard error |
+|-------------|----------|----------------|
+| (Intercept) | −1160.50 | 108.58         |
+| dens        | 57.51    | 2.28           |
+
+Multiplying the least-squares slope for the 8 samples (0.602 hundred
+Janka units) by 100 gives 60.2 Janka units per unit of density, close
+to the 57.51 from all 36 samples. The intercept,
+−1160.5, is the predicted hardness at a density of zero: an impossible
+value, because the densities in the data run from 24.7 to 69.1.
+
+::: {.callout-note}
+## The rule
+The intercept is the height of the line at x = 0. When x = 0 is far
+outside the data, the intercept is not a value that could occur, but it
+is still needed to position the line. Subtracting the mean of x from
+every value, called **centring**, moves x = 0 to the middle of the
+data, so the intercept becomes the prediction at the mean of x. You do
+this in hour 2.
+:::
+
+## How precisely is the slope known? {#sec-reg-precision}
+
+The slope from all 36 samples has t = 57.51 ÷ 2.28 ≈ 25.2. A straight
+line estimates two coefficients, so the residual degrees of freedom
+are 36 − 2 = 34, and the 95% multiplier is 2.03. The 95% confidence
+interval for the slope is 57.51 ± 2.03 × 2.28, which is 52.9 to 62.1
+Janka units per unit of density.
+
+We then discussed a classmate's claim that a t this large proves that
+denser wood is harder *because* it is denser.
+
+::: {.callout-note}
+## The rule
+As in Session 4, t = estimate ÷ SE, and the p-value is read from the
+t-distribution. With two coefficients, df = n − 2. The 95% confidence
+interval is the estimate ± multiplier × SE. A regression of
+observational data measures association: the t for the slope is
+exactly the t from a test of the correlation between the two
+variables. An argument about cause has to come from elsewhere, such as
+knowledge of wood structure or an experiment.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** A straight-line regression is fitted to
+50 observations. The residual degrees of freedom are `r fitb(48)`.
+:::
+
+## Is a straight line good enough? {#sec-reg-residuals}
+
+A residual plot puts the predictor on the x-axis and the residuals on
+the y-axis. Each student plotted the 8 residuals from their own line,
+then matched four residual plots, similar to those in
+@fig-reg-patterns, to the problem each one shows.
+
+```{r}
+#| label: fig-reg-patterns
+#| echo: false
+#| fig-cap: "Four residual plots, each from a different simulated data set. P: a curved relationship. Q: spread increasing with x. R: even scatter, so a straight line is adequate. S: one unusual point."
+
+set.seed(11)
+x_vals <- sort(runif(40, 20, 70))
+
+tibble(
+  x = rep(x_vals, 4),                                      # was: x = rep(x, 4)
+  plot = rep(paste("Plot", c("P", "Q", "R", "S")), each = 40),
+  residual = c(
+    0.012 * (x_vals - 45)^2 - 2.5 + rnorm(40, 0, 0.9),     # was: (x - 45)^2
+    rnorm(40) * (0.15 + 0.07 * (x_vals - 20)),             # was: (x - 20)
+    rnorm(40, 0, 1.6),
+    replace(rnorm(40, 0, 1.1), 28, 7.2)
+  )
+)|>
+  ggplot(aes(x = x, y = residual)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "firebrick") +
+  geom_point() +
+  facet_wrap(~ plot) +
+  labs(x = "x", y = "Residual")
+```
+
+With only 8 points, it was hard to say whether any student's sketch
+showed a real pattern. Random scatter in a small sample can look like a
+curve or a fan.
+
+::: {.callout-note}
+## The rule
+A linear model assumes that the relationship is a straight line, that
+the residuals have the same spread at every value of x, that they are
+roughly normally distributed, and that the observations are
+independent. A residual plot checks the first two at a glance. Patterns
+are hard to judge with few points; in hour 2 you check the residuals of
+all 36 samples.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** Which plot in @fig-reg-patterns suggests
+that the residuals do not have the same spread at every value of x?
+`r mcq(c("Plot P", answer = "Plot Q", "Plot R", "Plot S"))`
+:::
+
+## Predicting a new sample {#sec-reg-predict}
+
+The model fitted to all 36 samples predicts a hardness of 1715 for a
+density of 50, with two different 95% intervals:
+
+| Interval                                | Lower | Upper |
+|-----------------------------------------|-------|-------|
+| Confidence interval for the mean        | 1650  | 1780  |
+| Prediction interval for one new sample  | 1337  | 2093  |
+
+The prediction interval is much wider because a single new sample
+varies around the line as well as the line itself being uncertain. For
+a density of 22 the model predicts a hardness of 105, with a 95%
+confidence interval of −22 to 231. That prediction is untrustworthy for
+two reasons: 22 lies below the lowest density in the data, and the
+interval includes impossible negative values.
+
+::: {.callout-note}
+## The rule
+A **confidence interval** describes uncertainty about the mean of y at
+a given x. A **prediction interval** describes where a single new
+observation is likely to fall, so it also includes the scatter of
+individual points around the line and is always wider. Predicting
+outside the range of x in the data is **extrapolation**: the model has
+no information there, and a straight line can produce impossible
+values.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** A timber merchant wants the likely
+hardness of one new plank with a density of 50. Which interval should
+you give them?
+`r mcq(c("The confidence interval", answer = "The prediction interval"))`
+:::
+
+## Predictions for hour 2 {#sec-reg-predictions}
+
+At the end of the hour you wrote predictions on Part G of the
+worksheet: the SSR that R would calculate for your own line, and which
+of plots P to S the residuals of all 36 samples would most resemble.
+Bring them, and your residual table and sketch, to hour 2. Each one is
+tested there.
+
+## Exit ticket {#sec-reg-exit}
+
+The question posed at the end of the hour:
+
+> Two timber samples differ in density by 10 units. Using the slope and
+> the 95% confidence interval from all 36 samples, how much harder do
+> you expect the denser sample to be on average? Give the interval as
+> well.
