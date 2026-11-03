@@ -1,4 +1,4 @@
-# Linear Regression {#sec-reg}
+# Linear Regression {.unnumbered}
 
 ```{r}
 #| include: false
@@ -6,6 +6,8 @@ library(tidyverse)
 library(webexercises)
 source("R/booktem_setup.R")
 source("R/my_setup.R")
+
+janka <- read_csv(here::here("files", "janka.csv"))
 ```
 
 :::{.callout-important}
@@ -91,6 +93,7 @@ janka |>
 #| eval: false
 #| code-fold: true
 #| code-summary: "Show solution"
+#| 
 janka <- read_csv(here("data", "janka.csv"))
 
 glimpse(janka)
@@ -118,7 +121,7 @@ Write the range down as a comment in your script. You will need it in Activity 7
 
 ::::{.task-container}
 
-Before you plot all 36 samples, look at your hour 1 card. Write a comment in your script: do you expect the full data set to look straighter, more curved, or about the same as your 8 points?
+Before you plot all 36 samples, look at your hour 1 data subset. Write a comment in your script: do you expect the full data set to look straighter, more curved, or about the same as your 8 points?
 
 Then make a scatter plot with density on the x-axis and hardness on the y-axis, and add a least-squares line with `ggplot2::geom_smooth()`.
 
@@ -151,11 +154,11 @@ A least-squares line always passes through the point (mean of x, mean of y). Nea
 
 ## Activity 2: Your line against least squares (10 minutes)
 
-These are the 8 samples from your hour 1 card, with hardness in hundreds of Janka units. Run this chunk as it is.
+These are the 8 samples from the first hour, with hardness in hundreds of Janka units. Run this chunk as it is.
 
 ```{r}
 #| eval: false
-card <- tribble(
+data_subset <- tribble(
   ~sample, ~dens, ~hardness_100,
         1,    25,          4.8,
         2,    30,          5.9,
@@ -185,7 +188,7 @@ Enter the intercept and slope of your hand-drawn line from Part B of your worksh
 my_a <- ____   # your intercept from Part B
 my_b <- ____   # your slope from Part B
 
-card |>
+data_subset |>
   mutate(predicted = my_a + my_b * dens,
          residual = hardness_100 - predicted) |>
   summarise(sum_residuals = sum(residual),
@@ -208,7 +211,8 @@ Make a residual plot for your own line, with density on the x-axis and your resi
 
 ```{r}
 #| eval: false
-card |>
+
+data_subset |>
   mutate(predicted = my_a + my_b * dens,
          residual = hardness_100 - predicted) |>
   ggplot(aes(x = ____, y = ____)) +
@@ -217,14 +221,15 @@ card |>
   labs(title = paste0("My line: a = ", my_a, ", b = ", my_b),
        x = "Wood density", y = "Residual (hundreds)")
 
-ggsave("figures/my_residuals.png", width = 6, height = 4)
+
 ```
 
 ```{r}
 #| eval: false
 #| code-fold: true
 #| code-summary: "Show solution"
-card |>
+
+data_subset |>
   mutate(predicted = my_a + my_b * dens,
          residual = hardness_100 - predicted) |>
   ggplot(aes(x = dens, y = residual)) +
@@ -233,19 +238,8 @@ card |>
   labs(title = paste0("My line: a = ", my_a, ", b = ", my_b),
        x = "Wood density", y = "Residual (hundreds)")
 
-ggsave("figures/my_residuals.png", width = 6, height = 4)
 ```
 
-`ggplot2::ggsave()` saves the most recent plot. It fails if the `figures` folder does not exist, so create the folder first.
-
-::: {.callout-important}
-## Record for Blackboard
-
-- Your intercept, slope and hand-calculated SSR from Part B, and the SSR of your line as calculated in R.
-- Your partner's name and their SSR, from Part B, question 4.
-- The saved plot `my_residuals.png`.
-- If your hand and R values disagreed, the sample where they differed and the cause. If they agreed, the sample with the largest squared residual and roughly what share of your SSR it contributes.
-:::
 
 Now fit the least-squares line to the same 8 samples.
 
@@ -255,7 +249,7 @@ In `lm()`, the response goes on the left of the `~` and the predictor on the rig
 
 ```{r}
 #| eval: false
-card_model <- lm(hardness_100 ~ dens, data = card)
+data_subset_model <- lm(hardness_100 ~ dens, data = data_subset)
 ```
 
 :::{.task}
@@ -265,7 +259,7 @@ card_model <- lm(hardness_100 ~ dens, data = card)
 
 ::::{.task-container}
 
-Calculate the SSR of `card_model`. Hint: `broom::augment()` adds a column of residuals called `.resid`. Use it in the same way as the `residual` column above.
+Calculate the SSR of `data_subset_model`. Hint: `broom::augment()` adds a column of residuals called `.resid`. Use it in the same way as the `residual` column above.
 
 ::::
 :::
@@ -274,7 +268,7 @@ Calculate the SSR of `card_model`. Hint: `broom::augment()` adds a column of res
 #| eval: false
 #| code-fold: true
 #| code-summary: "Show solution"
-card_model |>
+data_subset_model |>
   broom::augment() |>
   summarise(sum_residuals = sum(.resid),
             ssr = sum(.resid^2))
@@ -282,7 +276,7 @@ card_model |>
 
 The least-squares SSR for these 8 samples is 52.7. The SSR of your own line must be: `r longmcq(c("Smaller than 52.7", answer = "Equal to or larger than 52.7", "Exactly 52.7", "It could be either, depending on how carefully you drew it"))`
 
-The residuals from `card_model` add up to zero (apart from rounding error). `r torf(TRUE)`
+The residuals from `data_subset_model` add up to zero (apart from rounding error). `r torf(TRUE)`
 
 ## Activity 3: Fit the model to all 36 samples (8 minutes)
 
@@ -394,6 +388,7 @@ Use `broom::tidy()` to produce 95% confidence intervals for both coefficients of
 broom::tidy(janka_ls1, conf.int = ____)
 ```
 
+
 ```{r}
 #| eval: false
 #| code-fold: true
@@ -456,7 +451,7 @@ janka_ls1 |>
 
 ```{r}
 #| eval: false
-check_model(janka_ls1)
+performance::check_model(janka_ls1)
 ```
 
 Which description fits the residual plot best? `r longmcq(c("Even scatter around zero, with the same spread at every density", "Residuals fall steadily as density increases", answer = "A slight curve (residuals mostly positive at low and high densities, negative in between), with the largest residuals at high densities", "Even scatter apart from one unusual point"))`
@@ -515,13 +510,8 @@ Why should the prediction at a density of 22 be treated with caution? `r longmcq
 
 Suppose the spread of the residuals does increase with density, as in your Activity 6 plot. Is the prediction interval at a density of 65 then too narrow, too wide or about right? `r mcq(c(answer = "Too narrow", "Too wide", "About right"))`
 
-::: {.callout-important}
-## Record for Blackboard
 
-The Blackboard test gives you a density. Replace the values in `new_wood` with that density and read off the limit of the 95% prediction interval that the question asks for (`.lower` or `.upper`). The test also gives you a straight line; enter its intercept and slope as `my_a` and `my_b` in your Activity 2 code and record its SSR.
-:::
-
-## Activity 8: Write the results (5 minutes)
+## Activity 8: Write the results - Stretch Goal
 
 :::{.task}
 ::::{.task-header}

@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="Statistical skills for Biologists">
-<title>1&nbsp; Linear Regression – 5027A</title>
+<title>Linear Regression – 5027A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -304,7 +304,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-05-pre.html">Week Six</a></li><li class="breadcrumb-item"><a href="./session-05-computation.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-05-pre.html">Week Six</a></li><li class="breadcrumb-item"><a href="./session-05-computation.html">Linear Regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -474,7 +474,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./session-05-computation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></a>
+ <span class="menu-text">Linear Regression</span></a>
   </div>
 </li>
       </ul>
@@ -516,23 +516,23 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1.1</span> Introduction</a></li>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">1.2</span> The data</a></li>
-  <li><a href="#set-up-and-check-the-data-5-minutes" id="toc-set-up-and-check-the-data-5-minutes" class="nav-link" data-scroll-target="#set-up-and-check-the-data-5-minutes"><span class="header-section-number">1.3</span> Set up and check the data (5 minutes)</a></li>
-  <li><a href="#activity-1-plot-the-data-5-minutes" id="toc-activity-1-plot-the-data-5-minutes" class="nav-link" data-scroll-target="#activity-1-plot-the-data-5-minutes"><span class="header-section-number">1.4</span> Activity 1: Plot the data (5 minutes)</a></li>
-  <li><a href="#activity-2-your-line-against-least-squares-10-minutes" id="toc-activity-2-your-line-against-least-squares-10-minutes" class="nav-link" data-scroll-target="#activity-2-your-line-against-least-squares-10-minutes"><span class="header-section-number">1.5</span> Activity 2: Your line against least squares (10 minutes)</a></li>
-  <li><a href="#activity-3-fit-the-model-to-all-36-samples-8-minutes" id="toc-activity-3-fit-the-model-to-all-36-samples-8-minutes" class="nav-link" data-scroll-target="#activity-3-fit-the-model-to-all-36-samples-8-minutes"><span class="header-section-number">1.6</span> Activity 3: Fit the model to all 36 samples (8 minutes)</a></li>
-  <li><a href="#activity-4-make-the-intercept-meaningful-5-minutes" id="toc-activity-4-make-the-intercept-meaningful-5-minutes" class="nav-link" data-scroll-target="#activity-4-make-the-intercept-meaningful-5-minutes"><span class="header-section-number">1.7</span> Activity 4: Make the intercept meaningful (5 minutes)</a></li>
-  <li><a href="#activity-5-how-precise-is-the-slope-5-minutes" id="toc-activity-5-how-precise-is-the-slope-5-minutes" class="nav-link" data-scroll-target="#activity-5-how-precise-is-the-slope-5-minutes"><span class="header-section-number">1.8</span> Activity 5: How precise is the slope? (5 minutes)</a></li>
-  <li><a href="#activity-6-is-a-straight-line-good-enough-10-minutes" id="toc-activity-6-is-a-straight-line-good-enough-10-minutes" class="nav-link" data-scroll-target="#activity-6-is-a-straight-line-good-enough-10-minutes"><span class="header-section-number">1.9</span> Activity 6: Is a straight line good enough? (10 minutes)</a></li>
-  <li><a href="#activity-7-predicting-new-samples-10-minutes" id="toc-activity-7-predicting-new-samples-10-minutes" class="nav-link" data-scroll-target="#activity-7-predicting-new-samples-10-minutes"><span class="header-section-number">1.10</span> Activity 7: Predicting new samples (10 minutes)</a></li>
-  <li><a href="#activity-8-write-the-results-5-minutes" id="toc-activity-8-write-the-results-5-minutes" class="nav-link" data-scroll-target="#activity-8-write-the-results-5-minutes"><span class="header-section-number">1.11</span> Activity 8: Write the results (5 minutes)</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">1.12</span> Summary</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
+  <li><a href="#set-up-and-check-the-data-5-minutes" id="toc-set-up-and-check-the-data-5-minutes" class="nav-link" data-scroll-target="#set-up-and-check-the-data-5-minutes">Set up and check the data (5 minutes)</a></li>
+  <li><a href="#activity-1-plot-the-data-5-minutes" id="toc-activity-1-plot-the-data-5-minutes" class="nav-link" data-scroll-target="#activity-1-plot-the-data-5-minutes">Activity 1: Plot the data (5 minutes)</a></li>
+  <li><a href="#activity-2-your-line-against-least-squares-10-minutes" id="toc-activity-2-your-line-against-least-squares-10-minutes" class="nav-link" data-scroll-target="#activity-2-your-line-against-least-squares-10-minutes">Activity 2: Your line against least squares (10 minutes)</a></li>
+  <li><a href="#activity-3-fit-the-model-to-all-36-samples-8-minutes" id="toc-activity-3-fit-the-model-to-all-36-samples-8-minutes" class="nav-link" data-scroll-target="#activity-3-fit-the-model-to-all-36-samples-8-minutes">Activity 3: Fit the model to all 36 samples (8 minutes)</a></li>
+  <li><a href="#activity-4-make-the-intercept-meaningful-5-minutes" id="toc-activity-4-make-the-intercept-meaningful-5-minutes" class="nav-link" data-scroll-target="#activity-4-make-the-intercept-meaningful-5-minutes">Activity 4: Make the intercept meaningful (5 minutes)</a></li>
+  <li><a href="#activity-5-how-precise-is-the-slope-5-minutes" id="toc-activity-5-how-precise-is-the-slope-5-minutes" class="nav-link" data-scroll-target="#activity-5-how-precise-is-the-slope-5-minutes">Activity 5: How precise is the slope? (5 minutes)</a></li>
+  <li><a href="#activity-6-is-a-straight-line-good-enough-10-minutes" id="toc-activity-6-is-a-straight-line-good-enough-10-minutes" class="nav-link" data-scroll-target="#activity-6-is-a-straight-line-good-enough-10-minutes">Activity 6: Is a straight line good enough? (10 minutes)</a></li>
+  <li><a href="#activity-7-predicting-new-samples-10-minutes" id="toc-activity-7-predicting-new-samples-10-minutes" class="nav-link" data-scroll-target="#activity-7-predicting-new-samples-10-minutes">Activity 7: Predicting new samples (10 minutes)</a></li>
+  <li><a href="#activity-8-write-the-results---stretch-goal" id="toc-activity-8-write-the-results---stretch-goal" class="nav-link" data-scroll-target="#activity-8-write-the-results---stretch-goal">Activity 8: Write the results - Stretch Goal</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-05-pre.html">Week Six</a></li><li class="breadcrumb-item"><a href="./session-05-computation.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear Regression</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-reg" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear Regression</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./session-05-pre.html">Week Six</a></li><li class="breadcrumb-item"><a href="./session-05-computation.html">Linear Regression</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Linear Regression</h1>
 </div>
 
 
@@ -564,8 +564,7 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<section id="introduction" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">1.1</span> Introduction</h2>
+<section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In hour 1 you drew a straight line through 8 timber samples by eye, measured how far each point missed it, and saw that least squares chooses the line with the smallest sum of squared residuals. In this workshop you will:</p>
 <ul>
 <li>check your hand calculations in R</li>
@@ -577,8 +576,7 @@ window.Quarto = {
 <p>The model is the same linear model you used for Darwin’s maize, fitted with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>. The only difference is that the predictor is a continuous measurement rather than a group label:</p>
 <p><span class="math display">\[ y_i = a + b x_i + e_i \]</span></p>
 <p>Here <span class="math inline">\(a\)</span> is the intercept (the value of the line at <span class="math inline">\(x = 0\)</span>) and <span class="math inline">\(b\)</span> is the slope (the change in <span class="math inline">\(y\)</span> for a one-unit increase in <span class="math inline">\(x\)</span>). The line gives the fitted value, <span class="math inline">\(\hat{y} = a + bx\)</span>, and <span class="math inline">\(e_i = y_i - \hat{y}_i\)</span> is the residual for sample <span class="math inline">\(i\)</span>: the vertical distance between the observed value and the line.</p>
-</section><section id="the-data" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="the-data">
-<span class="header-section-number">1.2</span> The data</h2>
+</section><section id="the-data" class="level2"><h2 class="anchored" data-anchor-id="the-data">The data</h2>
 <p>The data are 36 samples of Australian timber, with wood density (<code>dens</code>) and hardness on the Janka scale (<code>hardness</code>), the force needed to embed a 0.444 inch steel ball into the wood to half its diameter.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -587,8 +585,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-</section><section id="set-up-and-check-the-data-5-minutes" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="set-up-and-check-the-data-5-minutes">
-<span class="header-section-number">1.3</span> Set up and check the data (5 minutes)</h2>
+</section><section id="set-up-and-check-the-data-5-minutes" class="level2"><h2 class="anchored" data-anchor-id="set-up-and-check-the-data-5-minutes">Set up and check the data (5 minutes)</h2>
 <p>Start your script by loading the packages below. Functions from broom are written with the package name in the code (for example <code><a href="https://generics.r-lib.org/reference/tidy.html">broom::tidy()</a></code>), so broom is not loaded.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -636,14 +633,13 @@ window.Quarto = {
 <option value="">27.3 to 66.0</option>
 <option value="">45.7 to 69.1</option></select></p>
 <p>Write the range down as a comment in your script. You will need it in Activity 7.</p>
-</section><section id="activity-1-plot-the-data-5-minutes" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="activity-1-plot-the-data-5-minutes">
-<span class="header-section-number">1.4</span> Activity 1: Plot the data (5 minutes)</h2>
+</section><section id="activity-1-plot-the-data-5-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-1-plot-the-data-5-minutes">Activity 1: Plot the data (5 minutes)</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: predict, then run</strong></p>
 </div>
 <div class="task-container">
-<p>Before you plot all 36 samples, look at your hour 1 card. Write a comment in your script: do you expect the full data set to look straighter, more curved, or about the same as your 8 points?</p>
+<p>Before you plot all 36 samples, look at your hour 1 data subset. Write a comment in your script: do you expect the full data set to look straighter, more curved, or about the same as your 8 points?</p>
 <p>Then make a scatter plot with density on the x-axis and hardness on the y-axis, and add a least-squares line with <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">ggplot2::geom_smooth()</a></code>.</p>
 </div>
 </div>
@@ -661,8 +657,8 @@ window.Quarto = {
 </details>
 </div>
 The shaded band is the 95% confidence interval for the line. Where is it narrowest?
-<div id="radio_HAMJMNCCSW" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HAMJMNCCSW" value=""><span>At the lowest densities</span></label><label><input type="radio" autocomplete="off" name="radio_HAMJMNCCSW" value="answer"><span>Near the mean density</span></label><label><input type="radio" autocomplete="off" name="radio_HAMJMNCCSW" value=""><span>At the highest densities</span></label><label><input type="radio" autocomplete="off" name="radio_HAMJMNCCSW" value=""><span>It has the same width everywhere</span></label>
+<div id="radio_OBKGVWRKWB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_OBKGVWRKWB" value=""><span>At the lowest densities</span></label><label><input type="radio" autocomplete="off" name="radio_OBKGVWRKWB" value="answer"><span>Near the mean density</span></label><label><input type="radio" autocomplete="off" name="radio_OBKGVWRKWB" value=""><span>At the highest densities</span></label><label><input type="radio" autocomplete="off" name="radio_OBKGVWRKWB" value=""><span>It has the same width everywhere</span></label>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Why is the band narrowest in the middle?">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -680,11 +676,10 @@ The shaded band is the 95% confidence interval for the line. Where is it narrowe
 </div>
 </div>
 </div>
-</section><section id="activity-2-your-line-against-least-squares-10-minutes" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="activity-2-your-line-against-least-squares-10-minutes">
-<span class="header-section-number">1.5</span> Activity 2: Your line against least squares (10 minutes)</h2>
-<p>These are the 8 samples from your hour 1 card, with hardness in hundreds of Janka units. Run this chunk as it is.</p>
+</section><section id="activity-2-your-line-against-least-squares-10-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-2-your-line-against-least-squares-10-minutes">Activity 2: Your line against least squares (10 minutes)</h2>
+<p>These are the 8 samples from the first hour, with hardness in hundreds of Janka units. Run this chunk as it is.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>card <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>data_subset <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb6-2"><a href="#cb6-2"></a>  <span class="sc">~</span>sample, <span class="sc">~</span>dens, <span class="sc">~</span>hardness_100,</span>
 <span id="cb6-3"><a href="#cb6-3"></a>        <span class="dv">1</span>,    <span class="dv">25</span>,          <span class="fl">4.8</span>,</span>
 <span id="cb6-4"><a href="#cb6-4"></a>        <span class="dv">2</span>,    <span class="dv">30</span>,          <span class="fl">5.9</span>,</span>
@@ -708,7 +703,7 @@ The shaded band is the 95% confidence interval for the line. Where is it narrowe
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>my_a <span class="ot">&lt;-</span> ____   <span class="co"># your intercept from Part B</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>my_b <span class="ot">&lt;-</span> ____   <span class="co"># your slope from Part B</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a>card <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>data_subset <span class="sc">|&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> my_a <span class="sc">+</span> my_b <span class="sc">*</span> dens,</span>
 <span id="cb7-6"><a href="#cb7-6"></a>         <span class="at">residual =</span> hardness_100 <span class="sc">-</span> predicted) <span class="sc">|&gt;</span></span>
 <span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">summarise</span>(<span class="at">sum_residuals =</span> <span class="fu">sum</span>(residual),</span>
@@ -724,48 +719,25 @@ The shaded band is the 95% confidence interval for the line. Where is it narrowe
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>card <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>data_subset <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> my_a <span class="sc">+</span> my_b <span class="sc">*</span> dens,</span>
 <span id="cb8-3"><a href="#cb8-3"></a>         <span class="at">residual =</span> hardness_100 <span class="sc">-</span> predicted) <span class="sc">|&gt;</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ____, <span class="at">y =</span> ____)) <span class="sc">+</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"My line: a = "</span>, my_a, <span class="st">", b = "</span>, my_b),</span>
-<span id="cb8-8"><a href="#cb8-8"></a>       <span class="at">x =</span> <span class="st">"Wood density"</span>, <span class="at">y =</span> <span class="st">"Residual (hundreds)"</span>)</span>
-<span id="cb8-9"><a href="#cb8-9"></a></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="fu">ggsave</span>(<span class="st">"figures/my_residuals.png"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-8"><a href="#cb8-8"></a>       <span class="at">x =</span> <span class="st">"Wood density"</span>, <span class="at">y =</span> <span class="st">"Residual (hundreds)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Show solution</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>card <span class="sc">|&gt;</span></span>
+<details class="code-fold"><summary>Show solution</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>data_subset <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">mutate</span>(<span class="at">predicted =</span> my_a <span class="sc">+</span> my_b <span class="sc">*</span> dens,</span>
 <span id="cb9-3"><a href="#cb9-3"></a>         <span class="at">residual =</span> hardness_100 <span class="sc">-</span> predicted) <span class="sc">|&gt;</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dens, <span class="at">y =</span> residual)) <span class="sc">+</span></span>
 <span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"My line: a = "</span>, my_a, <span class="st">", b = "</span>, my_b),</span>
-<span id="cb9-8"><a href="#cb9-8"></a>       <span class="at">x =</span> <span class="st">"Wood density"</span>, <span class="at">y =</span> <span class="st">"Residual (hundreds)"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9"></a></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="fu">ggsave</span>(<span class="st">"figures/my_residuals.png"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-8"><a href="#cb9-8"></a>       <span class="at">x =</span> <span class="st">"Wood density"</span>, <span class="at">y =</span> <span class="st">"Residual (hundreds)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-</div>
-<p><code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggplot2::ggsave()</a></code> saves the most recent plot. It fails if the <code>figures</code> folder does not exist, so create the folder first.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Record for Blackboard
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Your intercept, slope and hand-calculated SSR from Part B, and the SSR of your line as calculated in R.</li>
-<li>Your partner’s name and their SSR, from Part B, question 4.</li>
-<li>The saved plot <code>my_residuals.png</code>.</li>
-<li>If your hand and R values disagreed, the sample where they differed and the cause. If they agreed, the sample with the largest squared residual and roughly what share of your SSR it contributes.</li>
-</ul>
-</div>
 </div>
 <p>Now fit the least-squares line to the same 8 samples.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -782,32 +754,31 @@ Warning
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>card_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness_100 <span class="sc">~</span> dens, <span class="at">data =</span> card)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>data_subset_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness_100 <span class="sc">~</span> dens, <span class="at">data =</span> data_subset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: write the code</strong></p>
 </div>
 <div class="task-container">
-<p>Calculate the SSR of <code>card_model</code>. Hint: <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code> adds a column of residuals called <code>.resid</code>. Use it in the same way as the <code>residual</code> column above.</p>
+<p>Calculate the SSR of <code>data_subset_model</code>. Hint: <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code> adds a column of residuals called <code>.resid</code>. Use it in the same way as the <code>residual</code> column above.</p>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Show solution</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>card_model <span class="sc">|&gt;</span></span>
+<details class="code-fold"><summary>Show solution</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>data_subset_model <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>  broom<span class="sc">::</span><span class="fu">augment</span>() <span class="sc">|&gt;</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">summarise</span>(<span class="at">sum_residuals =</span> <span class="fu">sum</span>(.resid),</span>
 <span id="cb11-4"><a href="#cb11-4"></a>            <span class="at">ssr =</span> <span class="fu">sum</span>(.resid<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 The least-squares SSR for these 8 samples is 52.7. The SSR of your own line must be:
-<div id="radio_DGZPQASPAO" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_DGZPQASPAO" value=""><span>Smaller than 52.7</span></label><label><input type="radio" autocomplete="off" name="radio_DGZPQASPAO" value="answer"><span>Equal to or larger than 52.7</span></label><label><input type="radio" autocomplete="off" name="radio_DGZPQASPAO" value=""><span>Exactly 52.7</span></label><label><input type="radio" autocomplete="off" name="radio_DGZPQASPAO" value=""><span>It could be either, depending on how carefully you drew it</span></label>
+<div id="radio_CFEBSBYECE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_CFEBSBYECE" value=""><span>Smaller than 52.7</span></label><label><input type="radio" autocomplete="off" name="radio_CFEBSBYECE" value="answer"><span>Equal to or larger than 52.7</span></label><label><input type="radio" autocomplete="off" name="radio_CFEBSBYECE" value=""><span>Exactly 52.7</span></label><label><input type="radio" autocomplete="off" name="radio_CFEBSBYECE" value=""><span>It could be either, depending on how carefully you drew it</span></label>
 </div>
-<p>The residuals from <code>card_model</code> add up to zero (apart from rounding error). <select class="webex-select"><option value="blank"></option>
+<p>The residuals from <code>data_subset_model</code> add up to zero (apart from rounding error). <select class="webex-select"><option value="blank"></option>
 <option value="answer">TRUE</option>
 <option value="">FALSE</option></select></p>
-</section><section id="activity-3-fit-the-model-to-all-36-samples-8-minutes" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="activity-3-fit-the-model-to-all-36-samples-8-minutes">
-<span class="header-section-number">1.6</span> Activity 3: Fit the model to all 36 samples (8 minutes)</h2>
+</section><section id="activity-3-fit-the-model-to-all-36-samples-8-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-3-fit-the-model-to-all-36-samples-8-minutes">Activity 3: Fit the model to all 36 samples (8 minutes)</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>janka_ls1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(hardness <span class="sc">~</span> dens, <span class="at">data =</span> janka)</span>
 <span id="cb12-2"><a href="#cb12-2"></a></span>
@@ -815,8 +786,8 @@ The least-squares SSR for these 8 samples is 52.7. The SSR of your own line must
 </div>
 <p>Check that the estimates and standard errors match the table in Part C of your worksheet, and that the t value for <code>dens</code> matches the one you calculated in Part D.</p>
 Which statement correctly interprets the <code>dens</code> estimate?
-<div id="radio_NIETBWOZOR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_NIETBWOZOR" value=""><span>Hardness is 57.5 times density</span></label><label><input type="radio" autocomplete="off" name="radio_NIETBWOZOR" value="answer"><span>Each one-unit increase in density is associated with an average increase of 57.5 in Janka hardness</span></label><label><input type="radio" autocomplete="off" name="radio_NIETBWOZOR" value=""><span>Increasing the density of a sample by one unit will make it 57.5 units harder</span></label><label><input type="radio" autocomplete="off" name="radio_NIETBWOZOR" value=""><span>The difference in mean hardness between two groups of wood is 57.5</span></label>
+<div id="radio_KOXZIBIWNW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KOXZIBIWNW" value=""><span>Hardness is 57.5 times density</span></label><label><input type="radio" autocomplete="off" name="radio_KOXZIBIWNW" value="answer"><span>Each one-unit increase in density is associated with an average increase of 57.5 in Janka hardness</span></label><label><input type="radio" autocomplete="off" name="radio_KOXZIBIWNW" value=""><span>Increasing the density of a sample by one unit will make it 57.5 units harder</span></label><label><input type="radio" autocomplete="off" name="radio_KOXZIBIWNW" value=""><span>The difference in mean hardness between two groups of wood is 57.5</span></label>
 </div>
 <p>The residual standard error is reported on how many degrees of freedom? <select class="webex-select"><option value="blank"></option>
 <option value="">14</option>
@@ -844,7 +815,7 @@ Which statement correctly interprets the <code>dens</code> estimate?
 <option value="">TRUE</option>
 <option value="answer">FALSE</option></select></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Explanation">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -853,14 +824,13 @@ Which statement correctly interprets the <code>dens</code> estimate?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The two tests give the same t because they are testing the same thing: whether there is a linear association. Choosing regression decides which variable we predict from which; it does not add evidence about cause. These samples were measured, not manipulated, so the analysis shows that denser timbers tend to be harder. A causal explanation would come from knowledge of wood structure or from an experiment.</p>
 </div>
 </div>
 </div>
-</section><section id="activity-4-make-the-intercept-meaningful-5-minutes" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="activity-4-make-the-intercept-meaningful-5-minutes">
-<span class="header-section-number">1.7</span> Activity 4: Make the intercept meaningful (5 minutes)</h2>
+</section><section id="activity-4-make-the-intercept-meaningful-5-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-4-make-the-intercept-meaningful-5-minutes">Activity 4: Make the intercept meaningful (5 minutes)</h2>
 <p>The intercept, −1160.5, is the predicted hardness at a density of zero. No timber has a density near zero, and no timber has negative hardness. As you saw in Part C, the intercept is far outside the data.</p>
 <div class="task">
 <div class="task-header">
@@ -893,12 +863,11 @@ Which statement correctly interprets the <code>dens</code> estimate?
 <option value="">Both</option>
 <option value="">Neither</option></select></p>
 The new intercept is:
-<div id="radio_JSIQPJFDUQ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JSIQPJFDUQ" value=""><span>The predicted hardness at a density of zero</span></label><label><input type="radio" autocomplete="off" name="radio_JSIQPJFDUQ" value="answer"><span>The predicted hardness of a sample of average density</span></label><label><input type="radio" autocomplete="off" name="radio_JSIQPJFDUQ" value=""><span>The mean density of the samples</span></label><label><input type="radio" autocomplete="off" name="radio_JSIQPJFDUQ" value=""><span>The change in hardness per unit of density</span></label>
+<div id="radio_BKFTLQKQHY" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_BKFTLQKQHY" value=""><span>The predicted hardness at a density of zero</span></label><label><input type="radio" autocomplete="off" name="radio_BKFTLQKQHY" value="answer"><span>The predicted hardness of a sample of average density</span></label><label><input type="radio" autocomplete="off" name="radio_BKFTLQKQHY" value=""><span>The mean density of the samples</span></label><label><input type="radio" autocomplete="off" name="radio_BKFTLQKQHY" value=""><span>The change in hardness per unit of density</span></label>
 </div>
 <p>What is the new intercept, to the nearest whole number? <input class="webex-solveme nospaces" data-tol="1" size="4" data-answer="[&quot;1469&quot;]"></p>
-</section><section id="activity-5-how-precise-is-the-slope-5-minutes" class="level2" data-number="1.8"><h2 data-number="1.8" class="anchored" data-anchor-id="activity-5-how-precise-is-the-slope-5-minutes">
-<span class="header-section-number">1.8</span> Activity 5: How precise is the slope? (5 minutes)</h2>
+</section><section id="activity-5-how-precise-is-the-slope-5-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-5-how-precise-is-the-slope-5-minutes">Activity 5: How precise is the slope? (5 minutes)</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: fill in the blanks</strong></p>
@@ -915,16 +884,16 @@ The new intercept is:
 </details>
 </div>
 Which statement about the 95% confidence interval for the slope (52.9 to 62.1) is correct?
-<div id="radio_GUUFJSSPEE" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_GUUFJSSPEE" value=""><span>The slope is at least 52.9</span></label><label><input type="radio" autocomplete="off" name="radio_GUUFJSSPEE" value=""><span>95% of timber samples have a slope between 52.9 and 62.1</span></label><label><input type="radio" autocomplete="off" name="radio_GUUFJSSPEE" value="answer"><span>If we repeated the study many times, 95% of intervals calculated this way would contain the true slope</span></label><label><input type="radio" autocomplete="off" name="radio_GUUFJSSPEE" value=""><span>There is a 95% chance that the next sample will have a slope in this range</span></label>
+<div id="radio_XVIPVFLNJN" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_XVIPVFLNJN" value=""><span>The slope is at least 52.9</span></label><label><input type="radio" autocomplete="off" name="radio_XVIPVFLNJN" value=""><span>95% of timber samples have a slope between 52.9 and 62.1</span></label><label><input type="radio" autocomplete="off" name="radio_XVIPVFLNJN" value="answer"><span>If we repeated the study many times, 95% of intervals calculated this way would contain the true slope</span></label><label><input type="radio" autocomplete="off" name="radio_XVIPVFLNJN" value=""><span>There is a 95% chance that the next sample will have a slope in this range</span></label>
 </div>
 <p><code><a href="https://generics.r-lib.org/reference/glance.html">broom::glance()</a></code> reports statistics for the whole model.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(janka_ls1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 The <code>r.squared</code> value is 0.95. What does it mean?
-<div id="radio_WIWTLTIUZQ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_WIWTLTIUZQ" value=""><span>95% of predictions from the model will be correct</span></label><label><input type="radio" autocomplete="off" name="radio_WIWTLTIUZQ" value="answer"><span>The straight line accounts for 95% of the variation in hardness among these samples</span></label><label><input type="radio" autocomplete="off" name="radio_WIWTLTIUZQ" value=""><span>Density causes 95% of the hardness of wood</span></label><label><input type="radio" autocomplete="off" name="radio_WIWTLTIUZQ" value=""><span>The slope is statistically significant at the 95% level</span></label>
+<div id="radio_RGOBGYAARU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RGOBGYAARU" value=""><span>95% of predictions from the model will be correct</span></label><label><input type="radio" autocomplete="off" name="radio_RGOBGYAARU" value="answer"><span>The straight line accounts for 95% of the variation in hardness among these samples</span></label><label><input type="radio" autocomplete="off" name="radio_RGOBGYAARU" value=""><span>Density causes 95% of the hardness of wood</span></label><label><input type="radio" autocomplete="off" name="radio_RGOBGYAARU" value=""><span>The slope is statistically significant at the 95% level</span></label>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -939,8 +908,7 @@ Tip
 <p><span class="math inline">\(R^2\)</span> is a description of these data, not a verdict on the model. A high <span class="math inline">\(R^2\)</span> does not show that a straight line is the right shape, and it does not tell you how precise a prediction for a new sample will be. Activities 6 and 7 deal with those questions.</p>
 </div>
 </div>
-</section><section id="activity-6-is-a-straight-line-good-enough-10-minutes" class="level2" data-number="1.9"><h2 data-number="1.9" class="anchored" data-anchor-id="activity-6-is-a-straight-line-good-enough-10-minutes">
-<span class="header-section-number">1.9</span> Activity 6: Is a straight line good enough? (10 minutes)</h2>
+</section><section id="activity-6-is-a-straight-line-good-enough-10-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-6-is-a-straight-line-good-enough-10-minutes">Activity 6: Is a straight line good enough? (10 minutes)</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: predict, then run</strong></p>
@@ -968,15 +936,15 @@ Tip
 </div>
 <p><code><a href="https://easystats.github.io/performance/reference/check_model.html">performance::check_model()</a></code> produces a standard set of diagnostic plots in one step. Read the subtitle of each panel: it tells you what a good result looks like.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">check_model</span>(janka_ls1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>performance<span class="sc">::</span><span class="fu">check_model</span>(janka_ls1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 Which description fits the residual plot best?
-<div id="radio_JDGQQRYPHH" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JDGQQRYPHH" value=""><span>Even scatter around zero, with the same spread at every density</span></label><label><input type="radio" autocomplete="off" name="radio_JDGQQRYPHH" value=""><span>Residuals fall steadily as density increases</span></label><label><input type="radio" autocomplete="off" name="radio_JDGQQRYPHH" value="answer"><span>A slight curve (residuals mostly positive at low and high densities, negative in between), with the largest residuals at high densities</span></label><label><input type="radio" autocomplete="off" name="radio_JDGQQRYPHH" value=""><span>Even scatter apart from one unusual point</span></label>
+<div id="radio_DDRAUVLHLN" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_DDRAUVLHLN" value=""><span>Even scatter around zero, with the same spread at every density</span></label><label><input type="radio" autocomplete="off" name="radio_DDRAUVLHLN" value=""><span>Residuals fall steadily as density increases</span></label><label><input type="radio" autocomplete="off" name="radio_DDRAUVLHLN" value="answer"><span>A slight curve (residuals mostly positive at low and high densities, negative in between), with the largest residuals at high densities</span></label><label><input type="radio" autocomplete="off" name="radio_DDRAUVLHLN" value=""><span>Even scatter apart from one unusual point</span></label>
 </div>
 Which of the hour 1 plots does it most resemble?
-<div id="radio_BHHJRZYMDS" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_BHHJRZYMDS" value=""><span>R only</span></label><label><input type="radio" autocomplete="off" name="radio_BHHJRZYMDS" value=""><span>S only</span></label><label><input type="radio" autocomplete="off" name="radio_BHHJRZYMDS" value="answer"><span>Elements of both P (curve) and Q (spread increasing with x)</span></label><label><input type="radio" autocomplete="off" name="radio_BHHJRZYMDS" value=""><span>None of them</span></label>
+<div id="radio_CRAMLKLZTV" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_CRAMLKLZTV" value=""><span>R only</span></label><label><input type="radio" autocomplete="off" name="radio_CRAMLKLZTV" value=""><span>S only</span></label><label><input type="radio" autocomplete="off" name="radio_CRAMLKLZTV" value="answer"><span>Elements of both P (curve) and Q (spread increasing with x)</span></label><label><input type="radio" autocomplete="off" name="radio_CRAMLKLZTV" value=""><span>None of them</span></label>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -992,7 +960,7 @@ Which of the hour 1 plots does it most resemble?
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="What does this mean for the conclusions?">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1001,7 +969,7 @@ Which of the hour 1 plots does it most resemble?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The positive association between density and hardness is not in doubt. The residual plot shows two problems with the straight-line description, though.</p>
 <p>First, the curve means the line slightly underpredicts hardness at both ends of the density range and overpredicts in the middle.</p>
@@ -1010,8 +978,7 @@ Which of the hour 1 plots does it most resemble?
 </div>
 </div>
 </div>
-</section><section id="activity-7-predicting-new-samples-10-minutes" class="level2" data-number="1.10"><h2 data-number="1.10" class="anchored" data-anchor-id="activity-7-predicting-new-samples-10-minutes">
-<span class="header-section-number">1.10</span> Activity 7: Predicting new samples (10 minutes)</h2>
+</section><section id="activity-7-predicting-new-samples-10-minutes" class="level2"><h2 class="anchored" data-anchor-id="activity-7-predicting-new-samples-10-minutes">Activity 7: Predicting new samples (10 minutes)</h2>
 <p><code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code> can make predictions for new values of the predictor. This code gives 95% confidence intervals for the mean hardness at three densities.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>new_wood <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">dens =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">50</span>, <span class="dv">65</span>))</span>
@@ -1034,28 +1001,14 @@ Which of the hour 1 plots does it most resemble?
 <option value="">The confidence interval</option>
 <option value="answer">The prediction interval</option></select></p>
 Why should the prediction at a density of 22 be treated with caution?
-<div id="radio_ODWWBKATPZ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ODWWBKATPZ" value=""><span>Because it is a prediction interval</span></label><label><input type="radio" autocomplete="off" name="radio_ODWWBKATPZ" value="answer"><span>Because 22 is outside the range of densities in the data, and the interval includes impossible negative hardness values</span></label><label><input type="radio" autocomplete="off" name="radio_ODWWBKATPZ" value=""><span>Because the slope is not statistically significant</span></label><label><input type="radio" autocomplete="off" name="radio_ODWWBKATPZ" value=""><span>Because the model was not centred</span></label>
+<div id="radio_RVTCTLJFUT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RVTCTLJFUT" value=""><span>Because it is a prediction interval</span></label><label><input type="radio" autocomplete="off" name="radio_RVTCTLJFUT" value="answer"><span>Because 22 is outside the range of densities in the data, and the interval includes impossible negative hardness values</span></label><label><input type="radio" autocomplete="off" name="radio_RVTCTLJFUT" value=""><span>Because the slope is not statistically significant</span></label><label><input type="radio" autocomplete="off" name="radio_RVTCTLJFUT" value=""><span>Because the model was not centred</span></label>
 </div>
 <p>Suppose the spread of the residuals does increase with density, as in your Activity 6 plot. Is the prediction interval at a density of 65 then too narrow, too wide or about right? <select class="webex-select"><option value="blank"></option>
 <option value="answer">Too narrow</option>
 <option value="">Too wide</option>
 <option value="">About right</option></select></p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Record for Blackboard
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Blackboard test gives you a density. Replace the values in <code>new_wood</code> with that density and read off the limit of the 95% prediction interval that the question asks for (<code>.lower</code> or <code>.upper</code>). The test also gives you a straight line; enter its intercept and slope as <code>my_a</code> and <code>my_b</code> in your Activity 2 code and record its SSR.</p>
-</div>
-</div>
-</section><section id="activity-8-write-the-results-5-minutes" class="level2" data-number="1.11"><h2 data-number="1.11" class="anchored" data-anchor-id="activity-8-write-the-results-5-minutes">
-<span class="header-section-number">1.11</span> Activity 8: Write the results (5 minutes)</h2>
+</section><section id="activity-8-write-the-results---stretch-goal" class="level2"><h2 class="anchored" data-anchor-id="activity-8-write-the-results---stretch-goal">Activity 8: Write the results - Stretch Goal</h2>
 <div class="task">
 <div class="task-header">
 <p><strong>Task: write the results</strong></p>
@@ -1065,7 +1018,7 @@ Why should the prediction at a density of 22 be treated with caution?
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Example results paragraph">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1074,14 +1027,13 @@ Why should the prediction at a density of 22 be treated with caution?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Timber hardness increased with wood density (linear regression, n = 36). Each one-unit increase in density was associated with an increase of 57.5 Janka units (95% CI 52.9 to 62.1; t(34) = 25.2, p &lt; 0.001), and density accounted for 95% of the variation in hardness (<span class="math inline">\(R^2\)</span> = 0.95). At the mean density of 45.7, predicted hardness was 1469 (95% CI 1407 to 1531). The residuals showed slight curvature and possibly greater spread at high densities, so predictions for the densest timbers should be treated with caution.</p>
 </div>
 </div>
 </div>
-</section><section id="summary" class="level2" data-number="1.12"><h2 data-number="1.12" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">1.12</span> Summary</h2>
+</section><section id="summary" class="level2"><h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>Linear regression is the linear model you have already used, with a continuous predictor in place of a group label. Least squares chooses the line with the smallest sum of squared residuals. The slope is the change in the response for a one-unit increase in the predictor, and its t-statistic, p-value and confidence interval work exactly as they did for a difference between two means. The intercept is the value of the line at <span class="math inline">\(x = 0\)</span>; centring the predictor moves this to the mean, where it can be interpreted.</p>
 <p>A regression of observational data measures association, not cause. Its standard errors and intervals assume a straight-line relationship with constant spread, so always check a residual plot before relying on them. Use a confidence interval to describe the mean response at a given value of the predictor, and a prediction interval to describe a single new observation. Do not predict outside the range of the data.</p>
 
