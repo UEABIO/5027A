@@ -62,6 +62,11 @@ book:
         - session-05-pre.qmd
         - session-05-workshop.qmd
         - session-05-computation.qmd
+    - part: "Week Seven"
+      chapters:
+        - anova-pre.qmd
+        - anova-workshop.qmd
+        - anova-computation.qmd
   appendices:
   - projects.qmd
   - import_penguins_data.qmd

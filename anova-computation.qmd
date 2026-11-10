@@ -1,0 +1,372 @@
+# ANOVA {.unnumbered}
+
+```{r}
+#| include: false
+library(tidyverse)
+library(webexercises)
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+```
+
+:::{.callout-important}
+## Start here
+
+This page is for **hour 2**. Hour 1 is on paper. Finish the worksheet through the exit ticket first. When the paper work is done, follow the switch box at the end of the worksheet, then return to this page. If you have an agreed adjustment and used your computer in hour 1, carry straight on: log on to Posit Cloud in a new window.
+
+- Keep your worksheet beside you. Several activities send you back to it, as the table below shows.
+- Work in a script, not the console.
+- This session is assessed by a Blackboard test. You will upload photographs of your completed hour 1 **Parts B, C and D** (typed pages are accepted if you used a computer under an adjustment) and one plot you make in this workshop, and enter values you produce here; these are marked **Record for Blackboard** below. Write your name and student number on your worksheet before you photograph it.
+- Most code chunks contain blanks (`____`) for you to fill in. Solutions are folded: try the task first, then open the fold to check.
+:::
+
+| Worksheet part | Used in this workshop |
+|:---------------|:----------------------|
+| Part B: your card, SS total, SS residual, SS group | Activity 1 |
+| Part C: your ANOVA table, F and R² | Activities 1 and 2 |
+| Part D: your residual sketch and plots P to S | Activities 1 and 3 |
+| Part E: your predictions | Activities 2 and 3 |
+
+About 35 minutes of this hour is working time: setup (6), Activity 1 (8), Activity 2 (8) and Activity 3 (13). The rest is for explanation and checking. There is an optional extension at the end.
+
+## Introduction
+
+An ANOVA is a linear model with a categorical predictor. It splits the variation into $SS_{group}$, explained by the group means, and $SS_{residual}$, left over within the groups. Each is divided by its degrees of freedom to give a mean square, and F is their ratio:
+
+$$ F = \frac{MS_{group}}{MS_{residual}} = \frac{SS_{group}/(k-1)}{SS_{residual}/(N-k)} $$
+
+In this workshop you will check your hand calculation in R, read the ANOVA table for a real experiment, and build on last week by checking the model's residuals, including what one impossible value does to F.
+
+## The data
+
+The data come from an experiment on the development of frogspawn. Newly laid frogspawn from a pond in the Italian Alps was divided between water containers kept at 13 °C, 18 °C or 25 °C, with about 20 containers at each temperature. The number of days until the eggs hatched was recorded for each container.
+
+```{r}
+#| echo: false
+downloadthis::download_link(
+  link = "https://raw.githubusercontent.com/UEABIO/5027A/refs/heads/dev/files/frogs_messy_data.csv",
+  button_label = "Download frogs_messy_data as csv",
+  button_type = "success",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+## Set up and check the data (about 6 minutes)
+
+**Worksheet needed:** none.
+
+Set up your project in Posit Cloud:
+
+1. Log on to Posit Cloud and open your project for this session, or create a new RStudio project.
+2. In the Files pane, create two folders called `data` and `figures`.
+3. Download `frogs_messy_data.csv` with the button in the previous section, then upload it to the `data` folder (Files pane, Upload).
+4. Create a new R script (File, New File, R Script) and save it in the project. Type and run your code from the script.
+
+The file is untidy on purpose. You cleaned data like this in an earlier session, so the cleaning code is provided. Read it, then run it.
+
+
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(performance)   # the see and qqplotr packages must also be installed
+
+frogs_all <- read_csv("files/frogs_messy_data.csv") |>
+  rename(frogspawn_id = `Frogspawn sample id`) |>
+  mutate(Temperature18 = if_else(Temperature18 == "twentytwo", "22", Temperature18),
+         Temperature18 = as.numeric(Temperature18)) |>
+  distinct() |>
+  pivot_longer(Temperature13:Temperature25,
+               names_to = "temperature",
+               names_prefix = "Temperature",
+               values_to = "days") |>
+  drop_na(days) |>
+  mutate(temperature = factor(temperature))
+
+frogs_all |>
+  arrange(desc(days)) |>
+  head(3)
+```
+
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(performance) # the see and qqplotr packages must also be installed
+library(here)
+
+frogs_all <- read_csv(here("data","frogs_messy_data.csv")) |>
+  rename(frogspawn_id = `Frogspawn sample id`) |>
+  mutate(Temperature18 = if_else(Temperature18 == "twentytwo", "22", Temperature18),
+         Temperature18 = as.numeric(Temperature18)) |>
+  distinct() |>
+  pivot_longer(Temperature13:Temperature25,
+               names_to = "temperature",
+               names_prefix = "Temperature",
+               values_to = "days") |>
+  drop_na(days) |>
+  mutate(temperature = factor(temperature))
+
+frogs_all |>
+  arrange(desc(days)) |>
+  head(3)
+```
+
+How many rows does `frogs_all` have? `r fitb(63)`
+
+One hatching time, 999 days, is impossible. Which temperature does it belong to? `r mcq(c("13", "18", answer = "25"))`
+
+Keep `frogs_all` as it is, and create a second data frame without the impossible value. You use both in Activity 3.
+
+```{r}
+#| eval: false
+frogs <- frogs_all |>
+  filter(days < 900)
+```
+
+How many observations does `frogs` have? `r fitb(62)`
+
+## Activity 1: Your card in R (about 8 minutes)
+
+**Worksheet needed:** Part B (your card and sums of squares), Part C (your ANOVA table and F) and Part D (your residual sketch).
+
+:::{.task}
+::::{.task-header}
+**Task: check your hand calculation**
+::::
+
+::::{.task-container}
+
+Enter the 12 values from your card, in the order shown on the card, then fit a one-way ANOVA model. Compare the `anova()` table with the table you completed in Part C.
+
+::::
+:::
+
+```{r}
+#| eval: false
+#| 
+card <- tibble(
+  temperature = rep(c("13", "18", "25"), each = 4),
+  days = c(____)   # your 12 values
+)
+
+card_model <- lm(days ~ temperature, data = card)
+
+anova(card_model)
+```
+
+R reports the `temperature` row and the `Residuals` row, and no total row. Which row is your SS group? `r mcq(c(answer = "temperature", "Residuals", "Neither: SS group is not reported"))`
+
+Do R's Sum Sq, Mean Sq and F match your hand calculation? If not, check your worksheet for the usual errors: a squared value copied wrongly, or a residual column that does not add up to zero within each group.
+
+:::{.task}
+::::{.task-header}
+**Task: plot your own residuals**
+::::
+
+::::{.task-container}
+
+Make a residual plot for your card model, with the fitted values on the x-axis and the residuals on the y-axis, and save it. Compare it with the sketch you drew in Part D of your worksheet: the points should be in the same places. If one is not, find out which of the two is wrong.
+
+::::
+:::
+
+`broom::augment()` adds the fitted values (`.fitted`) and residuals (`.resid`) to the data.
+
+```{r}
+#| eval: false
+broom::augment(card_model) |>
+  ggplot(aes(x = ____, y = ____)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Card ____", x = "Fitted value (group mean)", y = "Residual")
+
+ggsave(here("figures","my_card_residuals.png"), width = 6, height = 4)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+broom::augment(card_model) |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Card A", x = "Fitted value (group mean)", y = "Residual")
+
+ggsave(here("figures","my_card_residuals.png"), width = 6, height = 4)
+```
+
+Replace `A` with your own card letter. `ggplot2::ggsave()` saves the most recent plot. It fails if the `figures` folder does not exist, so create the folder first.
+
+::: {.callout-important}
+## Record for Blackboard
+
+- Your card letter, and your hand-calculated SS total, SS group, SS residual and F.
+- The F value that R reports for your card.
+- Your partner's name and the F value they obtained. Partners share a card, so the values should agree.
+- The saved plot `my_card_residuals.png`, the size of the largest residual on your plot (ignoring sign), and one observation (its temperature group and days) that has it.
+- If your hand and R values disagreed, the sum of squares that differed and the cause. If they agreed, your R² from Part C and one sentence saying what it measures.
+:::
+
+## Activity 2: Read the ANOVA table for the frogs (about 8 minutes)
+
+**Worksheet needed:** Part C (the layout of your ANOVA table) and Part E, question 1 (your prediction of F).
+
+```{r}
+#| eval: false
+frogs_model <- lm(days ~ temperature, data = frogs)
+
+anova(frogs_model)
+
+frogs |>
+  group_by(temperature) |>
+  summarise(mean = mean(days), sd = sd(days))
+```
+
+:::{.task}
+::::{.task-header}
+**Task: fill in the blanks**
+::::
+
+::::{.task-container}
+
+Use the `Sum Sq` and `Df` columns of the ANOVA table to calculate $MS_{group}$, $MS_{residual}$ and F yourself, in the same order as in Part C of your worksheet. Check your answer against the `F value` column.
+
+::::
+:::
+
+```{r}
+#| eval: false
+ms_group    <- ____ / ____   # Sum Sq divided by Df, temperature row
+ms_residual <- ____ / ____   # Sum Sq divided by Df, Residuals row
+
+ms_group / ms_residual
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+ms_group    <- 1115.363 / 2
+ms_residual <- 65.105 / 59
+
+ms_group / ms_residual
+```
+
+What is F, to 1 decimal place? `r fitb(505.4, tol = 0.1)`
+
+Which statement describes F for this experiment? `r longmcq(c("The group means differ by about 505 days", "There is a 505% chance that the means are equal", answer = "The variation between the temperature means is about 505 times the variation within the temperature groups", "505 of the containers hatched later than expected"))`
+
+Was your Part E, question 1 prediction right? Note it in a comment in your script. Then compare the three standard deviations in the summary table with each other, and with the differences between the means. You check this properly in Activity 3.
+
+::: {.callout-important}
+## Record for Blackboard
+
+The F value for the cleaned frogs model (`frogs_model`), to 1 decimal place.
+:::
+
+## Activity 3: Check the model, and see what one value does (about 13 minutes)
+
+**Worksheet needed:** Part D (plots P to S) and Part E, question 2 (your prediction of the plots).
+
+Last week you used a residual plot to check whether a straight line was adequate. The same residuals check an ANOVA model, and the F-test and its intervals can only be trusted if the model is reasonable.
+
+:::{.task}
+::::{.task-header}
+**Task: predict, then run**
+::::
+
+::::{.task-container}
+
+Look at your Part E, question 2 prediction. Then produce the diagnostic plots for the cleaned model. Find the residuals against fitted values panel and the QQ panel, and decide whether your prediction was right.
+
+::::
+:::
+
+`performance::check_model()` draws the standard diagnostic plots in one step.
+
+```{r}
+#| eval: false
+check_model(frogs_model)
+```
+
+In the QQ plot panel, what do points close to the line suggest? `r longmcq(c("The residuals have equal spread in every group", answer = "The residuals are roughly normally distributed", "The groups have different means", "There are no outliers"))`
+
+Which panel from last week is not informative here? `r mcq(c("Normality of residuals", "Homogeneity of variance", answer = "Linearity", "Influential observations"))`
+
+The residuals show vertical stripes because every observation in a group has the same fitted value, its group mean. The days are whole numbers, so the plots also show steps. Neither is a problem. Decide for yourself whether the plots show a clear departure from normality or from equal spread.
+
+::: {.callout-tip collapse="true" title="What about independence?"}
+Independence cannot be checked from a plot, because it depends on the design. If several containers received spawn from the same clutch, their hatching times could be more alike than those of unrelated containers. The description of this experiment does not say how the spawn was divided, so you would ask, or state the assumption in your report.
+:::
+
+:::{.task}
+::::{.task-header}
+**Task: modify the code**
+::::
+
+::::{.task-container}
+
+In hour 1 you saw that F is signal divided by noise. Now see how much one impossible value changes it. Fit the same model to `frogs_all`, which still contains the 999, and compare the output with the cleaned model.
+
+::::
+:::
+
+```{r}
+#| eval: false
+frogs_all_model <- lm(____ ~ ____, data = frogs_all)
+
+anova(frogs_all_model)
+
+check_model(frogs_all_model)
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+frogs_all_model <- lm(days ~ temperature, data = frogs_all)
+
+anova(frogs_all_model)
+
+check_model(frogs_all_model)
+```
+
+What is F for the model that includes the 999, to 2 decimal places? `r fitb(0.71, tol = 0.01)`
+
+Compare the `Mean Sq` columns of the two ANOVA tables. Why did F fall from about 505 to below 1? `r longmcq(c("The impossible value made the temperature effect larger", "The impossible value changed the degrees of freedom", answer = "The impossible value inflated the residual mean square (the noise) far more than the group mean square (the signal)", "R automatically removes impossible values"))`
+
+::: {.callout-tip collapse="true" title="Is it acceptable to remove the 999?"}
+Yes, but for the right reason. Hatching cannot take 999 days, so the value is an error or a missing-value code, and it should be removed and the removal recorded in your script. An observation should not be removed because it spoils a result. If a value is possible but unusual, report the analysis with and without it, and say which you trust.
+:::
+
+::: {.callout-important}
+## Record for Blackboard
+
+- The F value for the model that includes the 999 (`frogs_all_model`), to 2 decimal places.
+- Your Part E, question 2 prediction. State whether the diagnostic plots for the cleaned model matched it, and describe one feature of the residuals against fitted values plot, naming the temperature group where it appears.
+:::
+
+## If you finish early (optional)
+
+::: {.callout-note collapse="true" title="Write the results"}
+`broom::tidy()` with `conf.int = TRUE` gives the group means and differences with 95% confidence intervals.
+
+```{r}
+#| eval: false
+broom::tidy(frogs_model, conf.int = TRUE)
+```
+
+Write three or four sentences reporting the cleaned analysis, including F with both degrees of freedom, the p-value, R², the means with intervals, and what the residual checks showed.
+
+Example: Increasing temperature reduced the time to hatching (one-way ANOVA: F(2, 59) = 505.4, p < 0.001, R² = 0.94). The mean hatching time was 26.6 days (95% CI 26.2 to 27.1) at 13 °C. It was 5.6 days shorter (95% CI 4.9 to 6.2) at 18 °C and 10.4 days shorter (95% CI 9.8 to 11.1) at 25 °C. After one impossible value (999 days) was removed, residual plots showed no clear departure from normality or equal variance.
+:::
+
+## Summary
+
+A one-way ANOVA splits the variation into $SS_{group}$ and $SS_{residual}$. Dividing each by its degrees of freedom gives mean squares, and $F = MS_{group} / MS_{residual}$ is signal divided by noise. A large F is evidence that the group means are not all equal, and $R^2 = SS_{group} / SS_{total}$ gives the proportion of variation explained.
+
+The F-test depends on the model's assumptions: roughly normal residuals, similar spread in every group, and independent observations. Check them with residual and QQ plots. One impossible value can inflate the residual mean square enough to hide a very large effect, which is why you check the data before you analyse them and the model afterwards. A significant F says that at least one group mean differs; it does not say which ones.

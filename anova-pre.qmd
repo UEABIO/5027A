@@ -1,0 +1,202 @@
+# ANOVA - Pre-reading {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+Complete this material before your workshop session. It carries the
+vocabulary you will need in the room.
+
+## Video: signal, noise and F {#sec-video}
+
+::: {.callout-note}
+## Watch before class
+
+{{< video https://www.youtube.com/embed/NF5_btOaCig?si=zfimq8cVBbFYanBg >}}
+
+> Note this is the same video from Week 4 - but worth rewatching! 
+
+After watching, you should be able to explain in one sentence what the
+F value in an ANOVA table compares.
+:::
+
+## Learning outcomes {#sec-outcomes}
+
+**By the end of this week you should be able to:**
+
+1. split the variation in a data set into a part explained by the
+   groups and a part left over within them;
+
+2. calculate degrees of freedom, mean squares and F by hand, interpret
+   F as signal divided by noise, and calculate R² from the sums of
+   squares;
+
+3. use residual plots and QQ plots to judge whether the assumptions of
+   an ANOVA model are reasonable, building on last week's residual
+   checks.
+
+## Reading: from group means to F {#sec-reading}
+
+### One model, one question {#sec-one-model}
+
+You have already fitted linear models with a categorical predictor. In
+Darwin's maize data the predictor had two levels, and the model
+compared the two group means. A **one-way ANOVA** is the same kind of
+model with one categorical predictor, whatever the number of groups. It
+asks a single question: do the group means differ by more than we would
+expect from the variation within the groups?
+
+### Splitting the variation {#sec-ss}
+
+Every observation sits some distance from the **grand mean**, the mean
+of all observations. That distance can be split into two parts:
+
+- the distance from the grand mean to the observation's **group mean**
+  (the part explained by the group), and
+- the distance from the group mean to the observation itself (the part
+  left over, which is the residual).
+
+For a group mean of 25, a grand mean of 20 and an observation of 28, the
+total distance is 8, of which 5 is explained by the group and 3 is the
+residual.
+
+Squaring these distances and adding them across all observations gives
+three **sums of squares**:
+
+$$ SS_{total} = SS_{group} + SS_{residual} $$
+
+$SS_{residual}$ is the sum of squared residuals you met last week. Some
+books abbreviate "sum of squares for regression" to SSR as well, so this
+module writes $SS_{group}$ and $SS_{residual}$ to avoid any confusion.
+
+### Degrees of freedom, mean squares and F {#sec-f}
+
+A sum of squares grows with the number of observations, so each is
+divided by its **degrees of freedom** to give a **mean square** (MS), an
+estimate of variance. For $k$ groups and $N$ observations:
+
+| Source   | Degrees of freedom | Mean square              |
+|----------|--------------------|--------------------------|
+| Group    | $k - 1$            | $SS_{group} / (k - 1)$   |
+| Residual | $N - k$            | $SS_{residual} / (N - k)$ |
+
+The **F** statistic is the ratio of the two mean squares:
+
+$$ F = \frac{MS_{group}}{MS_{residual}} $$
+
+The numerator is the variation between the group means (the signal).
+The denominator is the variation within the groups (the noise). If the
+group means differ only by chance, F is usually close to 1. A large F is
+evidence against the null hypothesis that all the group means are equal.
+
+The p-value is the area to the right of F in an F-distribution with
+$k - 1$ and $N - k$ degrees of freedom. Only the right-hand tail is
+used, because F is built from squared differences, so every kind of
+difference between the means makes F larger.
+
+### R² and F and t {#sec-r2}
+
+The proportion of the variation explained by the groups is
+
+$$ R^2 = \frac{SS_{group}}{SS_{total}} $$
+
+which has the same meaning as R² in last week's regression. With two
+groups, F is exactly the square of the t statistic from a t-test that
+pools the variance, and the two tests give the same p-value.
+
+A significant F says that at least one group mean differs. It does not
+say which one.
+
+### Checking the model {#sec-checking}
+
+Last week you used a residual plot to check whether a straight line
+described the data. The same residuals are used to check an ANOVA
+model, which assumes that:
+
+- the residuals are roughly normally distributed (check with a QQ plot);
+- the spread of the residuals is similar in every group (check with a
+  plot of residuals against fitted values, which shows one vertical
+  stripe per group);
+- the observations are independent (this depends on how the study was
+  designed, and cannot be seen on a plot).
+
+A check for a straight line is not needed when the only predictor is a
+group label, because every group has its own mean.
+
+## Commitment task {#sec-commitment}
+
+::: {.callout-warning}
+## Bring this to class
+
+Imagine three groups of plants whose means stay exactly the same, but
+the spread of the individual plants within every group is made twice as
+large. Does F go up, go down or stay the same? Write one or two
+sentences giving your reason. Do not look this up. There is no mark for
+this and no correct answer is expected; the point is to have something
+concrete to revise in the workshop.
+
+
+:::
+
+## Self-test {#sec-selftest}
+
+::: {.webex-check .webex-box}
+
+**1.** In an ANOVA, $SS_{residual}$ measures:
+
+```{r}
+#| echo: false
+opts_ssres <- sample(c(
+  answer = "the variation left over within the groups, around the group means.",
+  "the variation between the group means.",
+  "the variation of all observations around the grand mean.",
+  "the difference between the largest and smallest group means."
+))
+```
+
+`r longmcq(opts_ssres)`
+
+**2.** An experiment has 3 groups of 5 observations each. The group
+degrees of freedom are `r fitb(2)` and the residual degrees of freedom
+are `r fitb(12)`.
+
+**3.** $SS_{group}$ is 40 on 2 degrees of freedom. $MS_{group}$ is
+`r fitb(20)`.
+
+**4.** $MS_{group}$ is 20 and $MS_{residual}$ is 4. F is `r fitb(5)`.
+
+**5.** An F value close to 1 suggests that:
+
+```{r}
+#| echo: false
+opts_f1 <- sample(c(
+  answer = "the group means differ by about as much as chance alone would produce.",
+  "the group means are exactly equal.",
+  "the model fits the data perfectly.",
+  "the residuals are normally distributed."
+))
+```
+
+`r longmcq(opts_f1)`
+
+`r hide("Explanation")`
+F compares the variation between group means with the variation within
+groups. When the null hypothesis is true, the two are similar and F is
+usually close to 1. It is not exactly 1 because both are estimates, and
+it does not mean the means are exactly equal.
+`r unhide()`
+
+**6.** $SS_{group}$ is 180 and $SS_{total}$ is 240. $R^2$ is
+`r fitb(0.75, tol = 0.005)`.
+
+**7.** Which assumption of a one-way ANOVA cannot be checked from a
+residual plot or a QQ plot?
+
+`r mcq(c("Normal residuals", "Equal spread in every group", answer = "Independent observations"))`
+
+:::

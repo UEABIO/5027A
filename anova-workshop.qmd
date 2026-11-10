@@ -1,0 +1,227 @@
+# Calculating F and checking the model {.unnumbered}
+
+```{r}
+#| include: false
+source("R/booktem_setup.R")
+source("R/my_setup.R")
+library(tidyverse)
+library(webexercises)
+library(here)
+```
+
+This page summarises what we covered in the first hour of the ANOVA
+session, which was done on paper (students with an agreed adjustment
+used a computer). Use it for revision; the full activities were worked
+through in class. The computer work in Posit Cloud is in the second
+hour. Each student worked on a card of their own data, so the worked
+example below uses a different data set.
+
+**Progression:** split the variation → compare signal with noise →
+F = MS group ÷ MS residual → check that the residuals behave.
+
+## From a line to group means {#sec-anova-groups}
+
+Last week the fitted values lay on a line, and the sum of squared
+residuals (SSR) measured how far the points were from it. This week the
+predictor is a group label, so the fitted value for every observation is
+its group mean. The residual is still observed minus fitted.
+
+@fig-anova-illus shows 12 observations in three groups. The dashed line
+is the grand mean, the mean of all 12 values.
+
+```{r}
+#| label: fig-anova-illus
+#| echo: false
+#| fig-cap: "Twelve observations in three groups. Solid lines are the group means (10, 14 and 18). The dashed line is the grand mean (14)."
+
+illus <- tibble(
+  group_id = rep(1:3, each = 4),
+  y = c(8, 10, 11, 11, 12, 14, 15, 15, 16, 18, 18, 20)
+) |>
+  group_by(group_id) |>
+  mutate(group_mean = mean(y)) |>
+  ungroup()
+
+grand_mean <- mean(illus$y)
+
+ggplot(illus, aes(x = group_id, y = y)) +
+  geom_hline(yintercept = grand_mean, linetype = "dashed") +
+  geom_segment(aes(x = group_id - 0.3, xend = group_id + 0.3,
+                   y = group_mean, yend = group_mean),
+               colour = "steelblue", linewidth = 1) +
+  geom_point(position = position_jitter(width = 0.1, height = 0, seed = 1),
+             size = 2) +
+  scale_x_continuous(breaks = 1:3,
+                     labels = c("Group 1", "Group 2", "Group 3")) +
+  labs(x = NULL, y = "Response")
+```
+
+For the highest point in Group 3 (y = 20), the distance from the grand
+mean splits into two parts: 4 from the grand mean to the group mean
+(18 − 14), and 2 from the group mean to the point (20 − 18). Together
+they make the total distance of 6.
+
+::: {.callout-note}
+## The rule
+Every observation's distance from the grand mean splits into the part
+explained by its group (group mean − grand mean) and the residual
+(observation − group mean). Squaring these distances and adding them
+over all observations gives SS total = SS group + SS residual. SS
+residual is last week's SSR, the sum of squared residuals. This session
+writes SS residual so that it is not confused with "sum of squares for
+regression", which some books also abbreviate to SSR.
+:::
+
+## The sums of squares by hand {#sec-anova-ss}
+
+Each student copied the 12 values of their card into a table with four
+columns: y − grand mean and its square, and y − group mean and its
+square. The two squared columns add up to SS total and SS residual. SS
+group is the difference. A check on the arithmetic is that the residuals
+(y − group mean) add up to zero within each group.
+
+For the data in @fig-anova-illus:
+
+| Quantity    | Calculation                                          | Value |
+|-------------|------------------------------------------------------|-------|
+| SS total    | sum of (y − 14)² over all 12 observations            | 148   |
+| SS residual | sum of (y − group mean)² within the three groups: 6 + 6 + 8 | 20 |
+| SS group    | SS total − SS residual                               | 128   |
+
+## From sums of squares to F {#sec-anova-f}
+
+Each sum of squares is divided by its degrees of freedom to give a mean
+square. For $k = 3$ groups and $N = 12$ observations, the group has
+$k - 1 = 2$ degrees of freedom and the residual has $N - k = 9$.
+
+| Source   | df | SS  | MS   | F    |
+|----------|----|-----|------|------|
+| Group    | 2  | 128 | 64   | 28.8 |
+| Residual | 9  | 20  | 2.22 |      |
+| Total    | 11 | 148 |      |      |
+
+F = 64 ÷ 2.22 = 28.8, and R² = 128 ÷ 148 = 0.87. @fig-anova-fdist shows
+how F behaves when the null hypothesis is true. The critical value for
+these degrees of freedom is 4.26, so F = 28.8 lies far in the right-hand
+tail and the p-value is about 0.0001.
+
+```{r}
+#| label: fig-anova-fdist
+#| echo: false
+#| fig-cap: "The F-distribution with 2 and 9 degrees of freedom. The shaded area to the right of the dashed line is 5% of the distribution."
+
+crit <- qf(0.95, df1 = 2, df2 = 9)
+
+tibble(f = seq(0, 10, length.out = 400)) |>
+  mutate(density = df(f, df1 = 2, df2 = 9)) |>
+  ggplot(aes(x = f, y = density)) +
+  geom_area(data = ~ filter(.x, f >= crit), fill = "darkorange", alpha = 0.4) +
+  geom_line() +
+  geom_vline(xintercept = crit, linetype = "dashed") +
+  labs(x = "F", y = "Density")
+```
+
+::: {.callout-note}
+## The rule
+F = MS group ÷ MS residual: the variation between the group means
+(signal) divided by the variation within the groups (noise). If the
+group means differ only by chance, F is usually close to 1. The p-value
+is the area to the right of F in an F-distribution with k − 1 and N − k
+degrees of freedom. R² = SS group ÷ SS total, and means the same as it
+did in last week's regression. A significant F says that at least one
+group mean differs. It does not say which one. With two groups, F is
+exactly the square of the t statistic from a t-test that pools the
+variance.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** $MS_{group}$ is 50 and $MS_{residual}$ is
+5. F is `r fitb(10)`. A study has 4 groups of 6 observations each. The
+group degrees of freedom are `r fitb(3)` and the residual degrees of
+freedom are `r fitb(20)`.
+:::
+
+## Checking the model {#sec-anova-checks}
+
+Last week you used a residual plot to check whether a straight line was
+adequate. The same residuals are used here. Because every fitted value
+is a group mean, the residual plot for an ANOVA shows one vertical
+stripe of points for each group. Students sketched their own residuals,
+then matched four diagnostic plots, similar to those in
+@fig-anova-resid and @fig-anova-qq, to the assumption each checks.
+
+```{r}
+#| label: fig-anova-resid
+#| echo: false
+#| fig-cap: "Residuals against fitted values for two simulated data sets. P: similar spread in every group. Q: spread increasing with the fitted value."
+
+set.seed(21)
+
+stripes <- tibble(
+  fitted = rep(rep(c(15, 21, 27), each = 9), 2),
+  plot = rep(c("Plot P", "Plot Q"), each = 27),
+  residual = c(rnorm(27, 0, 1.4),
+               rnorm(27, 0, rep(c(0.6, 1.8, 3.4), each = 9)))
+)
+
+ggplot(stripes, aes(x = fitted, y = residual)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "firebrick") +
+  geom_point() +
+  facet_wrap(~ plot) +
+  scale_x_continuous(breaks = c(15, 21, 27)) +
+  labs(x = "Fitted value (group mean)", y = "Residual")
+```
+
+```{r}
+#| label: fig-anova-qq
+#| echo: false
+#| fig-cap: "Normal QQ plots for two simulated data sets. R: points follow the line, so the residuals are roughly normal. S: points curve away from the line at the upper end, so the residuals are skewed."
+
+qq_data <- tibble(
+  plot = rep(c("Plot R", "Plot S"), each = 30),
+  residual = c(rnorm(30), rexp(30) - 1)
+)
+
+ggplot(qq_data, aes(sample = residual)) +
+  stat_qq() +
+  stat_qq_line(colour = "firebrick", linetype = "dashed") +
+  facet_wrap(~ plot, scales = "free_y") +
+  labs(x = "Theoretical quantile", y = "Sample quantile")
+```
+
+::: {.callout-note}
+## The rule
+A one-way ANOVA assumes that the residuals are roughly normally
+distributed (check with a QQ plot), that the spread of the residuals is
+similar in every group (check with residuals against fitted values), and
+that the observations are independent (this comes from the design, not
+from a plot). A check for a straight line is not needed when the only
+predictor is a group label, because each group has its own mean. With
+few observations, plots are hard to read.
+:::
+
+::: {.webex-check .webex-box}
+**Check your understanding.** Which plot in the figures above suggests
+that the spread of the residuals is not the same in every group?
+`r mcq(c("Plot P", answer = "Plot Q", "Plot R", "Plot S"))`
+
+Which assumption cannot be checked from either kind of plot?
+`r mcq(c("Normal residuals", "Equal spread in every group", answer = "Independent observations"))`
+:::
+
+## Predictions for hour 2 {#sec-anova-predictions}
+
+At the end of the hour you wrote two predictions on Part E of the
+worksheet about the frogspawn experiment: whether F will be close to 1
+or much larger than 1, and which diagnostic plots the residuals will
+resemble. Bring them, and your Part B, C and D working, to hour 2. Each
+one is tested there.
+
+## Exit ticket {#sec-anova-exit}
+
+The question posed at the end of the hour:
+
+> Two experiments have identical group means. In experiment 2 the
+> standard deviation within every group is twice as large as in
+> experiment 1. By what factor does F change? Explain in one or two
+> sentences.
