@@ -57,12 +57,12 @@ book:
         - session-04-pre.qmd
         - session-04-workshop.qmd
         - session-04-computation.qmd
-    - part: "Week Six"
+    - part: "Week Seven"
       chapters:
         - session-05-pre.qmd
         - session-05-workshop.qmd
         - session-05-computation.qmd
-    - part: "Week Seven"
+    - part: "Week Eight"
       chapters:
         - anova-pre.qmd
         - anova-workshop.qmd
