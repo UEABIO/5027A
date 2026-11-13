@@ -63,7 +63,7 @@ Set up your project in Posit Cloud:
 3. Download `frogs_messy_data.csv` with the button in the previous section, then upload it to the `data` folder (Files pane, Upload).
 4. Create a new R script (File, New File, R Script) and save it in the project. Type and run your code from the script.
 
-The file is untidy on purpose. You cleaned data like this in an earlier session, so the cleaning code is provided. Read it, then run it.
+The data is untidy on purpose - before you click on the code fold, can you identify some issues with it?
 
 
 
@@ -93,8 +93,11 @@ frogs_all |>
 
 ```{r}
 #| eval: false
+#| code-fold: true
+#| code-summary: "Show solution"
+
 library(tidyverse)
-library(performance) # the see and qqplotr packages must also be installed
+library(performance) 
 library(here)
 
 frogs_all <- read_csv(here("data","frogs_messy_data.csv")) |>
